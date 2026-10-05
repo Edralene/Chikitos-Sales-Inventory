@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#332526">
-<title>Chikitos Cloud Sales & Inventory</title>
+<title>Chikitos Cloud Sales & Inventory V3</title>
 <style>
 :root{
-  --red:#b9272f;--red2:#921e25;--dark:#2b2424;--cream:#fffaf1;--paper:#fffdf8;
+  --red:#b9272f;--red2:#8f1e25;--dark:#2b2424;--cream:#fffaf1;--paper:#fffdf8;
   --line:#e7dfd2;--green:#1f8a5b;--orange:#c98016;--muted:#786f66;--blue:#3157a4;
-  --sidebar:226px;--shadow:0 8px 28px rgba(79,53,25,.07);
+  --purple:#7650a8;--sidebar:238px;--shadow:0 8px 28px rgba(79,53,25,.07);
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden}
@@ -17,22 +17,13 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f0e8;color:#241f1f}
 button,input,select,textarea{font:inherit}
 button{touch-action:manipulation}
 .hidden{display:none!important}
-
-.app{
-  display:grid;
-  grid-template-columns:var(--sidebar) minmax(0,1fr);
-  height:100dvh;
-  min-height:0;
-}
+.app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);height:100dvh;min-height:0}
 .sidebar{
-  background:linear-gradient(180deg,#3b2627,#1f1919);
-  color:#fff;padding:20px 14px;
-  height:100dvh;overflow:hidden;
-  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#3b2627,#1f1919);color:#fff;padding:20px 14px;height:100dvh;
+  overflow:hidden;display:flex;flex-direction:column
 }
-.brand{font-size:24px;font-weight:900;letter-spacing:.3px}
-.brand span{color:#ffcd6b}
-.sub{font-size:11px;color:#d8caca;margin:4px 0 20px;line-height:1.4}
+.brand{font-size:24px;font-weight:900;letter-spacing:.3px}.brand span{color:#ffcd6b}
+.sub{font-size:11px;color:#d8caca;margin:4px 0 17px;line-height:1.4}
 .nav{display:grid;gap:5px;overflow:auto;min-height:0;padding-right:2px}
 .nav button{
   display:flex;width:100%;gap:9px;align-items:center;border:0;background:transparent;color:#fff;
@@ -46,192 +37,117 @@ button{touch-action:manipulation}
 .user-email{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cloud-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f0b84b;margin-right:5px}
 .cloud-dot.ok{background:#42c78a}.cloud-dot.bad{background:#ef6a6a}
-.signout{
-  width:100%;margin-top:9px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;
-  border-radius:9px;padding:8px;font-weight:800;cursor:pointer
-}
+.signout{width:100%;margin-top:9px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:9px;padding:8px;font-weight:800;cursor:pointer}
+.role-badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:900;background:rgba(255,255,255,.12);color:#fff;margin-top:5px}
+.role-badge.admin{background:#ffcd6b;color:#332526}
 
-.main{
-  min-width:0;min-height:0;
-  display:flex;flex-direction:column;
-  height:100dvh;overflow:hidden;
-}
-.topbar{
-  flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;
-  padding:16px 20px;background:rgba(244,240,232,.96);border-bottom:1px solid var(--line);z-index:5
-}
-.topbar h1{font-size:22px;margin:0}
-.muted{color:var(--muted);font-size:11px;line-height:1.45}
+.main{min-width:0;min-height:0;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+.topbar{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 20px;background:rgba(244,240,232,.96);border-bottom:1px solid var(--line);z-index:5}
+.topbar h1{font-size:22px;margin:0}.muted{color:var(--muted);font-size:11px;line-height:1.45}
 .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.btn{
-  border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:10px;font-weight:800;
-  cursor:pointer;color:#241f1f
-}
+.btn{border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:10px;font-weight:800;cursor:pointer;color:#241f1f}
 .btn.primary{background:var(--red);color:#fff;border-color:var(--red)}
 .btn.green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.blue{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.purple{background:var(--purple);color:#fff;border-color:var(--purple)}
 .btn.danger{color:#a32020;background:#fff1f1;border-color:#efcaca}
 .btn.small{padding:6px 8px;font-size:10px}
-.cloud-status{
-  padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:10px;
-  color:var(--muted);white-space:nowrap
-}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.cloud-status{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:10px;color:var(--muted);white-space:nowrap}
+.content-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:18px 20px 28px;overscroll-behavior:contain;scroll-behavior:smooth}
+.page{display:none;min-height:100%}.page.active{display:block}
 
-.content-scroll{
-  flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:18px 20px 28px;
-  overscroll-behavior:contain;scroll-behavior:smooth
-}
-.page{display:none;min-height:100%}
-.page.active{display:block}
-
-.card{
-  background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;
-  box-shadow:var(--shadow);margin-bottom:14px
-}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:14px}
+.grid.six{grid-template-columns:repeat(6,minmax(0,1fr))}
 .metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}
 .metric small{display:block;text-transform:uppercase;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em}
 .metric strong{font-size:22px;display:block;margin-top:6px;overflow-wrap:anywhere}
-.metric.good strong{color:var(--green)}.metric.bad strong{color:var(--red)}
-h2{margin:0 0 4px;font-size:19px} h3{margin:0 0 9px;font-size:15px}
-
+.metric.good strong{color:var(--green)}.metric.bad strong{color:var(--red)}.metric.warn strong{color:var(--orange)}
+h2{margin:0 0 4px;font-size:19px}h3{margin:0 0 9px;font-size:15px}
 .formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
 .field label{display:block;font-size:9px;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:5px}
-.field input,.field select,.field textarea{
-  width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;min-width:0
-}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;min-width:0}
 .field textarea{min-height:78px;resize:vertical}
-.sticky-card-head{
-  position:sticky;top:-18px;z-index:3;background:var(--paper);padding:14px 0 10px;margin-top:-14px;
-  border-bottom:1px solid rgba(231,223,210,.7)
-}
+.sticky-card-head{position:sticky;top:-18px;z-index:3;background:var(--paper);padding:14px 0 10px;margin-top:-14px;border-bottom:1px solid rgba(231,223,210,.7)}
 .section-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
-
-.table-frame{
-  overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff;
-  max-height:calc(100dvh - 315px);min-height:240px;overscroll-behavior:contain
-}
+.table-frame{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff;max-height:calc(100dvh - 315px);min-height:240px;overscroll-behavior:contain}
 table{width:100%;border-collapse:collapse;min-width:980px}
 th,td{padding:8px;border-bottom:1px solid var(--line);font-size:11px;text-align:left;vertical-align:middle}
-th{
-  background:#3a3330;color:#fff;text-transform:uppercase;font-size:9px;letter-spacing:.04em;
-  position:sticky;top:0;z-index:2
-}
-td input,td select{
-  width:100%;border:1px solid #ddd3c4;border-radius:7px;padding:7px;background:#fff;min-width:72px
-}
-td.num{text-align:right;font-variant-numeric:tabular-nums}
-.category{background:#f4eee3;font-weight:900;color:#544a42;white-space:nowrap}
+th{background:#3a3330;color:#fff;text-transform:uppercase;font-size:9px;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+td input,td select{width:100%;border:1px solid #ddd3c4;border-radius:7px;padding:7px;background:#fff;min-width:72px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}.category{background:#f4eee3;font-weight:900;color:#544a42;white-space:nowrap}
 .pill{display:inline-block;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900}
-.pill.ok{background:#e3f5ec;color:#14754a}.pill.warn{background:#fff2c9;color:#8b6700}.pill.bad{background:#ffe4e4;color:#9f2222}
+.pill.ok{background:#e3f5ec;color:#14754a}.pill.warn{background:#fff2c9;color:#8b6700}.pill.bad{background:#ffe4e4;color:#9f2222}.pill.info{background:#e8efff;color:#3157a4}
 .recon{display:grid;grid-template-columns:1.15fr .85fr;gap:13px}
 .calcbox{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}
 .calcrow{display:flex;justify-content:space-between;gap:18px;padding:8px 0;border-bottom:1px dashed #e8dfd3;font-size:12px}
 .calcrow:last-child{border-bottom:0}.calcrow.total{font-size:16px;font-weight:900}
 .formula{background:#fff8e8;border:1px solid #ecdcb5;border-radius:12px;padding:12px;font-size:11px;line-height:1.6}
-.report{max-width:900px;margin:auto;background:#fff;padding:26px;border:1px solid var(--line)}
+.report{max-width:1080px;margin:auto;background:#fff;padding:26px;border:1px solid var(--line)}
 .report h2{text-align:center}.report table{min-width:0}
 .history-toolbar{display:grid;grid-template-columns:1fr 170px;gap:9px;margin-bottom:10px}
 .history-list{display:grid;gap:8px;max-height:calc(100dvh - 265px);overflow:auto;padding-right:2px}
-.history-item{
-  border:1px solid var(--line);border-radius:13px;padding:11px;background:#fff;
-  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center
-}
+.history-item{border:1px solid var(--line);border-radius:13px;padding:11px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
 .history-title{font-weight:900;font-size:12px}.history-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.45}
-.history-actions{display:flex;gap:5px;flex-wrap:wrap}
-.empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:13px;color:var(--muted);background:#fff}
+.history-actions{display:flex;gap:5px;flex-wrap:wrap}.empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:13px;color:var(--muted);background:#fff}
 .mobile-scroll-hint{display:none;font-size:9px;color:var(--muted);margin-top:7px}
-
-.auth-overlay{
-  position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,#2b2021,#4b292d);
-  display:grid;place-items:center;padding:18px
-}
-.auth-card{
-  width:min(430px,100%);background:#fffaf4;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.35)
-}
+.inventory-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 200px auto;gap:8px;align-items:center;margin-top:10px}
+.inventory-toolbar input,.inventory-toolbar select{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fff}
+.price-readonly{background:#f3f1ed!important;color:#5f5751!important;font-weight:800;cursor:not-allowed}
+.begin-auto{background:#eef7f2!important;color:#1d6f4d!important;font-weight:800}
+.carry-note{margin-top:8px;padding:8px 10px;border-radius:10px;background:#eef7f2;border:1px solid #cfe7db;color:#286b50;font-size:10px;line-height:1.45}
+.lock-note{margin-top:8px;padding:9px 11px;border-radius:10px;background:#fff2c9;border:1px solid #edd28c;color:#775800;font-size:10px;font-weight:800}
+.lock-note.locked{background:#ffe4e4;border-color:#efcaca;color:#9f2222}
+.mini-table{width:100%;min-width:760px}
+.row-form{display:grid;grid-template-columns:150px minmax(170px,1fr) 120px 120px 90px auto;gap:7px;align-items:end;margin-bottom:10px}
+.row-form.credit{grid-template-columns:160px minmax(170px,1fr) 120px 120px auto}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:10px;color:var(--muted)}
+.bar-chart{display:flex;gap:8px;align-items:end;height:190px;padding:12px 8px 2px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow-x:auto}
+.bar-col{min-width:62px;flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+.bar-value{font-size:9px;font-weight:800;color:#4f4640}
+.bar{width:70%;min-height:2px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#d94c55,#9e222b)}
+.bar-label{font-size:9px;color:var(--muted);text-align:center}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lowstock-list{display:grid;gap:7px}
+.lowstock-item{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.report-toolbar{display:grid;grid-template-columns:1fr 1fr auto auto auto;gap:8px;align-items:end}
+.notice{background:#eef3ff;border:1px solid #cfd9f5;color:#29467c;padding:10px 12px;border-radius:12px;font-size:10px;line-height:1.5}
+.auth-overlay{position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,#2b2021,#4b292d);display:grid;place-items:center;padding:18px}
+.auth-card{width:min(430px,100%);background:#fffaf4;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 .auth-logo{font-size:28px;font-weight:900;margin-bottom:5px}.auth-logo span{color:var(--red)}
-.auth-tabs{display:flex;gap:6px;margin:16px 0}
-.auth-tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;cursor:pointer}
+.auth-tabs{display:flex;gap:6px;margin:16px 0}.auth-tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;cursor:pointer}
 .auth-tabs button.active{background:var(--red);color:#fff;border-color:var(--red)}
-.auth-msg{min-height:18px;font-size:11px;margin-top:9px;color:#9f2222}
-.auth-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:12px}
-.firebase-warning{
-  background:#fff4d5;border:1px solid #edd28c;color:#775800;border-radius:10px;padding:9px;font-size:10px;margin-bottom:10px
-}
-
-@media(max-width:1100px){
-  .grid,.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .recon{grid-template-columns:1fr}
-}
+.auth-msg{min-height:18px;font-size:11px;margin-top:9px;color:#9f2222}.auth-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:12px}
+.firebase-warning{background:#fff4d5;border:1px solid #edd28c;color:#775800;border-radius:10px;padding:9px;font-size:10px;margin-bottom:10px}
+.readonly-mask input,.readonly-mask select,.readonly-mask textarea,.readonly-mask button[data-editable]{pointer-events:none;opacity:.65}
+@media(max-width:1200px){.grid.six{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.grid,.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.recon,.two-col{grid-template-columns:1fr}.report-toolbar{grid-template-columns:1fr 1fr}.row-form,.row-form.credit{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){
-  :root{--mobile-nav:116px}
-  .app{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
-  .sidebar{
-    height:auto;max-height:var(--mobile-nav);padding:9px 10px;position:relative;display:block;overflow:hidden
-  }
+  :root{--mobile-nav:124px}.app{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .sidebar{height:auto;max-height:var(--mobile-nav);padding:9px 10px;position:relative;display:block;overflow:hidden}
   .brand{font-size:18px;display:inline-block}.sub{display:inline-block;margin:0 0 7px 6px;font-size:9px}
-  .nav{display:flex;overflow-x:auto;gap:5px;padding-bottom:3px}
-  .nav button{min-width:max-content;width:auto;padding:8px 10px;margin:0;font-size:11px}
-  .userbox{display:none}
-  .main{height:calc(100dvh - var(--mobile-nav))}
-  .topbar{padding:10px 12px;align-items:flex-start}
-  .topbar h1{font-size:17px}
-  .topbar .muted{display:none}
-  .topbar .actions{justify-content:flex-end}
-  .topbar .btn{padding:8px 9px;font-size:10px}
-  .cloud-status{display:none}
-  .content-scroll{padding:12px 10px 24px}
-  .grid,.formgrid{grid-template-columns:1fr}
-  .metric strong{font-size:20px}
-  .table-frame{max-height:calc(100dvh - 270px);min-height:300px}
-  .sticky-card-head{top:-12px}
-  .history-toolbar{grid-template-columns:1fr}
-  .history-list{max-height:calc(100dvh - 250px)}
-  .report{padding:14px}
-  .mobile-scroll-hint{display:block}
+  .nav{display:flex;overflow-x:auto;gap:5px;padding-bottom:3px}.nav button{min-width:max-content;width:auto;padding:8px 10px;margin:0;font-size:11px}
+  .userbox{display:none}.main{height:calc(100dvh - var(--mobile-nav))}.topbar{padding:10px 12px;align-items:flex-start}
+  .topbar h1{font-size:17px}.topbar .muted{display:none}.topbar .actions{justify-content:flex-end}.topbar .btn{padding:8px 9px;font-size:10px}.cloud-status{display:none}
+  .content-scroll{padding:12px 10px 24px}.grid,.grid.six,.formgrid{grid-template-columns:1fr}.metric strong{font-size:20px}
+  .table-frame{max-height:calc(100dvh - 270px);min-height:300px}.sticky-card-head{top:-12px}.history-toolbar{grid-template-columns:1fr}.history-list{max-height:calc(100dvh - 250px)}
+  .report{padding:14px}.mobile-scroll-hint{display:block}.inventory-toolbar,.report-toolbar,.row-form,.row-form.credit{grid-template-columns:1fr}
 }
 @media print{
   html,body{overflow:visible;height:auto}.sidebar,.topbar,.no-print,.auth-overlay{display:none!important}
   .app{display:block;height:auto}.main{height:auto;display:block}.content-scroll{overflow:visible;padding:0}
-  .page{display:none!important}#reportPage{display:block!important}.report{border:0;max-width:none}
-  .card{box-shadow:none;border:0}.table-frame{max-height:none;overflow:visible}
+  .page{display:none!important}#reportPage{display:block!important}.report{border:0;max-width:none}.card{box-shadow:none;border:0}.table-frame{max-height:none;overflow:visible}
 }
-
-.inventory-toolbar{
-  display:grid;grid-template-columns:minmax(220px,1fr) 200px auto;gap:8px;align-items:center;margin-top:10px
-}
-.inventory-toolbar input,.inventory-toolbar select{
-  width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fff
-}
-.role-badge{
-  display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:900;
-  background:rgba(255,255,255,.12);color:#fff;margin-top:5px
-}
-.role-badge.admin{background:#ffcd6b;color:#332526}
-.price-readonly{
-  background:#f3f1ed!important;color:#5f5751!important;font-weight:800;cursor:not-allowed
-}
-.begin-auto{
-  background:#eef7f2!important;color:#1d6f4d!important;font-weight:800
-}
-.carry-note{
-  margin-top:8px;padding:8px 10px;border-radius:10px;background:#eef7f2;border:1px solid #cfe7db;
-  color:#286b50;font-size:10px;line-height:1.45
-}
-@media(max-width:760px){
-  .inventory-toolbar{grid-template-columns:1fr}
-}
-
 </style>
 </head>
 <body>
-
 <div id="authOverlay" class="auth-overlay">
   <div class="auth-card">
-    <div class="auth-logo">CHIKI<span>TOS</span></div>
+    <div class="auth-logo">CHIKI<span>TOS</span> <small style="font-size:12px;color:#786f66">V3</small></div>
     <h2 style="margin-top:4px">Cloud Sales & Inventory</h2>
-    <div class="muted">Each account has its own products, daily records, inventory, and closing data.</div>
+    <div class="muted">Inventory, payments, expenses, credits, closing, reports and low-stock monitoring.</div>
     <div id="fileWarning" class="firebase-warning hidden">For reliable Firebase login/sync, open this app from Firebase Hosting or another HTTPS website instead of directly as a local file.</div>
-
     <div class="auth-tabs">
       <button id="loginTab" class="active" type="button">Sign In</button>
       <button id="registerTab" type="button">Create Account</button>
@@ -241,19 +157,22 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
     <button id="authSubmit" class="btn primary" style="width:100%;margin-top:12px">Sign In</button>
     <button id="resetPasswordBtn" class="btn" style="width:100%;margin-top:7px">Forgot Password</button>
     <div id="authMsg" class="auth-msg"></div>
-    <div class="auth-note">Firebase project: <b>chikitos</b>. New accounts start as <b>STAFF</b>. Set your owner account field <b>role = "admin"</b> once in Firestore to unlock Product/Price editing.</div>
+    <div class="auth-note">Existing V2 accounts and saved daily records remain compatible. New accounts start as <b>STAFF</b>. Set the owner account field <b>role = "admin"</b> in Firestore to unlock protected controls.</div>
   </div>
 </div>
 
 <div class="app">
   <aside class="sidebar">
     <div class="brand">CHIKI<span>TOS</span></div>
-    <div class="sub">Cloud Daily Sales & Inventory</div>
+    <div class="sub">Cloud Store Management V3</div>
     <div class="nav">
-      <button class="active" data-page="inventoryPage">📦 Inventory</button>
+      <button class="active" data-page="dashboardPage">📊 Dashboard</button>
+      <button data-page="inventoryPage">📦 Inventory</button>
       <button data-page="cashPage">💵 Sales & Deposit</button>
+      <button data-page="expensesPage">🧾 Expenses</button>
+      <button data-page="creditsPage">📒 Utang / Credits</button>
       <button data-page="historyPage">🗂️ Saved Days</button>
-      <button data-page="reportPage">🧾 Daily Report</button>
+      <button data-page="reportPage">📈 Reports</button>
       <button data-page="settingsPage">⚙️ Products</button>
     </div>
     <div class="userbox">
@@ -267,20 +186,20 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
   <main class="main">
     <div class="topbar no-print">
       <div>
-        <h1>Chikitos Daily Closing</h1>
-        <div class="muted">Per-account Firebase cloud data • Mobile responsive • Fixed scroll frames</div>
+        <h1 id="pageTitle">Chikitos Dashboard</h1>
+        <div class="muted">Firebase cloud data • Payment breakdown • Expenses • Credits • Inventory variance • Reports</div>
       </div>
       <div class="actions">
         <span id="cloudStatus" class="cloud-status">Not signed in</span>
-        <button class="btn" id="loadSample">Load Juan Sample</button>
+        <button class="btn blue" id="exportBackup">Backup JSON</button>
         <button class="btn green" id="saveDay">☁ Save Day</button>
-        <button class="btn primary" onclick="window.print()">Print</button>
+        <button class="btn primary" id="closeDayBtn">🔒 Close Day</button>
       </div>
     </div>
 
     <div id="contentScroll" class="content-scroll">
 
-      <section id="inventoryPage" class="page active">
+      <section id="dashboardPage" class="page active">
         <div class="card">
           <div class="formgrid">
             <div class="field"><label>Date</label><input id="workDate" type="date"></div>
@@ -288,23 +207,58 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
             <div class="field"><label>Prepared By</label><input id="preparedBy" placeholder="Name"></div>
             <div class="field"><label>Shift</label><select id="shift"><option>Whole Day</option><option>AM</option><option>PM</option></select></div>
           </div>
+          <div id="dayLockNote" class="lock-note">Current day is OPEN. Save anytime, then close the day when final.</div>
         </div>
 
+        <div class="grid six">
+          <div class="metric"><small>Gross Sales</small><strong id="dGross">₱0.00</strong></div>
+          <div class="metric good"><small>Expected Cash Deposit</small><strong id="dExpected">₱0.00</strong></div>
+          <div class="metric"><small>Actual Cash Turnover</small><strong id="dActual">₱0.00</strong></div>
+          <div class="metric"><small>Total Expenses</small><strong id="dExpenses">₱0.00</strong></div>
+          <div class="metric warn"><small>Unpaid Credits</small><strong id="dCredits">₱0.00</strong></div>
+          <div class="metric bad"><small>Low Stock Items</small><strong id="dLowStock">0</strong></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="section-head"><div><h3>Last 7 Saved Days</h3><div class="muted">Gross sales trend</div></div><button class="btn small" id="refreshDashboard">Refresh</button></div>
+            <div id="salesChart" class="bar-chart"></div>
+          </div>
+          <div class="card">
+            <h3>Low Stock / Reorder</h3>
+            <div id="lowStockList" class="lowstock-list"></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Payment Breakdown Today</h3>
+            <div id="dashboardPayments"></div>
+          </div>
+          <div class="card">
+            <h3>Closing Health Check</h3>
+            <div id="dashboardHealth"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="inventoryPage" class="page">
         <div class="grid">
           <div class="metric"><small>Total Inventory Sales</small><strong id="mInventorySales">₱0.00</strong></div>
           <div class="metric"><small>Total Qty Sold</small><strong id="mQtySold">0</strong></div>
-          <div class="metric"><small>Cash + Credit Declared</small><strong id="mDeclaredSales">₱0.00</strong></div>
-          <div class="metric"><small>Inventory vs Declared</small><strong id="mSalesVariance">₱0.00</strong></div>
+          <div class="metric"><small>Unaccounted Qty</small><strong id="mInvVariance">0</strong></div>
+          <div class="metric bad"><small>Low Stock Items</small><strong id="mLowStock">0</strong></div>
         </div>
 
-        <div class="card">
+        <div class="card" id="inventoryCard">
           <div class="sticky-card-head">
             <div class="section-head">
-              <div><h2>Inventory Sheet</h2><div class="muted">Used = Beginning + Restock − Ending. Sales Amount = Qty Sold × Price.</div></div>
+              <div><h2>Inventory Sheet</h2><div class="muted">Used = Beginning + Restock − Ending. Accounted = Sold + Waste + Complimentary + Staff Meal.</div></div>
               <div class="actions no-print">
-                <button class="btn" id="refreshBeginning">↻ Beginning</button>
-                <button class="btn" id="addProductRow">+ Add Product</button>
-                <button class="btn" id="resetInventory">Reset Qty</button>
+                <button class="btn" id="refreshBeginning" data-editable>↻ Beginning</button>
+                <button class="btn" id="addProductRow" data-editable>+ Add Product</button>
+                <button class="btn" id="resetInventory" data-editable>Reset Qty</button>
+                <button class="btn blue" id="exportInventory">Export CSV</button>
               </div>
             </div>
             <div class="inventory-toolbar no-print">
@@ -315,8 +269,11 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
             <div id="beginningCarryNote" class="carry-note hidden"></div>
           </div>
           <div class="table-frame">
-            <table>
-              <thead><tr><th>Category</th><th>Item</th><th>Price</th><th>Beginning</th><th>Restock</th><th>Ending</th><th>Computed Used</th><th>Qty Sold</th><th>Sales Amount</th><th>Notes</th></tr></thead>
+            <table style="min-width:1390px">
+              <thead><tr>
+                <th>Category</th><th>Item</th><th>Price</th><th>Beginning</th><th>Restock</th><th>Ending</th>
+                <th>Used</th><th>Sold</th><th>Waste</th><th>Complimentary</th><th>Staff Meal</th><th>Variance Qty</th><th>Sales Amount</th><th>Notes</th>
+              </tr></thead>
               <tbody id="inventoryBody"></tbody>
             </table>
           </div>
@@ -326,80 +283,148 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 
       <section id="cashPage" class="page">
         <div class="grid">
-          <div class="metric good"><small>Expected Deposit</small><strong id="mExpectedDeposit">₱0.00</strong></div>
-          <div class="metric"><small>Actual Deposit</small><strong id="mActualDeposit">₱0.00</strong></div>
-          <div class="metric" id="varianceMetric"><small>Deposit Variance</small><strong id="mDepositVariance">₱0.00</strong></div>
-          <div class="metric"><small>Variance Status</small><strong id="mVarianceStatus">—</strong></div>
+          <div class="metric"><small>Gross Sales</small><strong id="mGrossSales">₱0.00</strong></div>
+          <div class="metric good"><small>Expected Cash Deposit</small><strong id="mExpectedDeposit">₱0.00</strong></div>
+          <div class="metric"><small>Actual Cash Turnover</small><strong id="mActualDeposit">₱0.00</strong></div>
+          <div class="metric" id="varianceMetric"><small>Cash Variance</small><strong id="mDepositVariance">₱0.00</strong></div>
         </div>
 
-        <div class="card">
-          <div class="sticky-card-head"><h2>Sales & Deposit Reconciliation</h2><div class="muted">Same Chikitos closing computation, saved under the signed-in account.</div></div>
+        <div class="card" id="salesCard">
+          <div class="sticky-card-head"><h2>Sales & Payment Reconciliation</h2><div class="muted">Gross Sales = all collected payment channels + new credit sales. Expected cash deposit uses CASH collections only, less expenses paid from cash.</div></div>
           <div class="recon">
             <div>
               <div class="formgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-                <div class="field"><label>Cash Sales – Walk-in Customers (₱)</label><input id="cashSales" type="number" min="0" step=".01" value="0"></div>
-                <div class="field"><label>Employee Credit / Unpaid Sales (₱)</label><input id="employeeCredit" type="number" min="0" step=".01" value="0"></div>
-                <div class="field"><label>Expenses (₱)</label><input id="expenses" type="number" min="0" step=".01" value="0"></div>
-                <div class="field"><label>Actual Deposit / Cash Turnover (₱)</label><input id="actualDeposit" type="number" min="0" step=".01" value="0"></div>
-                <div class="field"><label>Grab Sales (optional)</label><input id="grabSales" type="number" min="0" step=".01" value="0"></div>
-                <div class="field"><label>Panda Sales (optional)</label><input id="pandaSales" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Cash Sales – Walk-in (₱)</label><input id="cashSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>GCash (₱)</label><input id="gcashSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Maya (₱)</label><input id="mayaSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Bank Transfer (₱)</label><input id="bankSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Card / POS (₱)</label><input id="cardSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Grab Sales (₱)</label><input id="grabSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Foodpanda Sales (₱)</label><input id="pandaSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Other Digital Sales (₱)</label><input id="otherSales" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Actual Cash Turnover / Deposit (₱)</label><input id="actualDeposit" type="number" min="0" step=".01" value="0" data-editable></div>
+                <div class="field"><label>Cash Float Left in Store (₱)</label><input id="cashFloat" type="number" min="0" step=".01" value="0" data-editable></div>
               </div>
-              <div class="field" style="margin-top:10px"><label>Expenses / Closing Notes</label><textarea id="closingNotes" placeholder="e.g. Liempo, transport, plastic, etc."></textarea></div>
+              <div class="field" style="margin-top:10px"><label>Closing Notes</label><textarea id="closingNotes" placeholder="e.g. shortage reason, transfer reference, unusual transaction..." data-editable></textarea></div>
             </div>
             <div class="calcbox">
               <h3>Automatic Computation</h3>
-              <div class="calcrow"><span>Cash Sales – Walk-in</span><b id="cCash">₱0.00</b></div>
-              <div class="calcrow"><span>Employee Credit</span><b id="cCredit">₱0.00</b></div>
-              <div class="calcrow total"><span>Total Sales</span><b id="cTotalSales">₱0.00</b></div>
-              <div class="calcrow"><span>Less: Expenses</span><b id="cExpenses">₱0.00</b></div>
-              <div class="calcrow total"><span>Expected Deposit</span><b id="cExpected">₱0.00</b></div>
-              <div class="calcrow"><span>Actual Deposit</span><b id="cActual">₱0.00</b></div>
-              <div class="calcrow total"><span>Deposit Variance</span><b id="cVariance">₱0.00</b></div>
+              <div class="calcrow"><span>Total Collected Payments</span><b id="cCollected">₱0.00</b></div>
+              <div class="calcrow"><span>New Credit Sales</span><b id="cCredit">₱0.00</b></div>
+              <div class="calcrow total"><span>Gross Sales</span><b id="cGross">₱0.00</b></div>
+              <div class="calcrow"><span>Cash-paid Expenses</span><b id="cCashExpenses">-₱0.00</b></div>
+              <div class="calcrow"><span>Cash Float Left</span><b id="cFloat">-₱0.00</b></div>
+              <div class="calcrow total"><span>Expected Cash Deposit</span><b id="cExpected">₱0.00</b></div>
+              <div class="calcrow"><span>Actual Cash Turnover</span><b id="cActual">₱0.00</b></div>
+              <div class="calcrow total"><span>Cash Variance</span><b id="cVariance">₱0.00</b></div>
               <div id="variancePill" class="pill ok" style="margin-top:10px">Balanced</div>
             </div>
           </div>
-          <div class="formula" style="margin-top:13px"><b>Formula:</b><br>Total Sales = Cash Sales + Employee Credit<br>Expected Deposit = Cash Sales − Expenses<br>Deposit Variance = Expected Deposit − Actual Deposit<br>Positive = <b>SHORT / Kulang</b>. Negative = <b>OVER / Sobra</b>.</div>
+          <div class="formula" style="margin-top:13px">
+            <b>Formula:</b><br>
+            Gross Sales = Cash + GCash + Maya + Bank + Card + Grab + Foodpanda + Other Digital + New Credit Sales<br>
+            Expected Cash Deposit = Cash Sales − Cash-paid Expenses − Cash Float Left<br>
+            Cash Variance = Expected Cash Deposit − Actual Cash Turnover<br>
+            Positive = <b>SHORT / Kulang</b>. Negative = <b>OVER / Sobra</b>.
+          </div>
+        </div>
+      </section>
+
+      <section id="expensesPage" class="page">
+        <div class="grid">
+          <div class="metric"><small>Total Expenses</small><strong id="eTotal">₱0.00</strong></div>
+          <div class="metric"><small>Paid from Cash</small><strong id="eCash">₱0.00</strong></div>
+          <div class="metric"><small>Digital / Other</small><strong id="eOther">₱0.00</strong></div>
+          <div class="metric"><small>No Receipt</small><strong id="eNoReceipt">0</strong></div>
+        </div>
+        <div class="card" id="expensesCard">
+          <div class="sticky-card-head">
+            <div class="section-head"><div><h2>Expenses List</h2><div class="muted">Encode individual expenses instead of one lump sum.</div></div><button class="btn blue" id="exportExpenses">Export CSV</button></div>
+          </div>
+          <div class="row-form no-print">
+            <div class="field"><label>Category</label><select id="expenseCategory" data-editable><option>Supplies</option><option>Food / Ingredients</option><option>Transport</option><option>Utilities</option><option>Packaging</option><option>Repair / Maintenance</option><option>Others</option></select></div>
+            <div class="field"><label>Description</label><input id="expenseDescription" placeholder="e.g. plastic, LPG, delivery" data-editable></div>
+            <div class="field"><label>Amount</label><input id="expenseAmount" type="number" min="0" step=".01" value="0" data-editable></div>
+            <div class="field"><label>Paid By</label><select id="expensePaidBy" data-editable><option>Cash</option><option>GCash</option><option>Maya</option><option>Bank</option><option>Other</option></select></div>
+            <div class="field"><label>Receipt?</label><select id="expenseReceipt" data-editable><option>Yes</option><option>No</option></select></div>
+            <button class="btn primary" id="addExpense" data-editable>+ Add</button>
+          </div>
+          <div class="table-frame" style="max-height:520px">
+            <table class="mini-table"><thead><tr><th>Category</th><th>Description</th><th>Amount</th><th>Paid By</th><th>Receipt</th><th>Action</th></tr></thead><tbody id="expensesBody"></tbody></table>
+          </div>
+        </div>
+      </section>
+
+      <section id="creditsPage" class="page">
+        <div class="grid">
+          <div class="metric"><small>New Credit Today</small><strong id="crToday">₱0.00</strong></div>
+          <div class="metric warn"><small>Total Outstanding</small><strong id="crOutstanding">₱0.00</strong></div>
+          <div class="metric good"><small>Total Paid</small><strong id="crPaid">₱0.00</strong></div>
+          <div class="metric"><small>Active Accounts</small><strong id="crAccounts">0</strong></div>
+        </div>
+        <div class="card">
+          <div class="sticky-card-head">
+            <div class="section-head"><div><h2>Utang / Credit Ledger</h2><div class="muted">Separate cloud ledger. Add partial payments anytime.</div></div><button class="btn blue" id="exportCredits">Export CSV</button></div>
+          </div>
+          <div class="row-form credit no-print">
+            <div class="field"><label>Name</label><input id="creditName" placeholder="Customer / employee" data-editable></div>
+            <div class="field"><label>Description</label><input id="creditDescription" placeholder="Items / reason" data-editable></div>
+            <div class="field"><label>Amount</label><input id="creditAmount" type="number" min="0" step=".01" value="0" data-editable></div>
+            <div class="field"><label>Paid Now</label><input id="creditPaid" type="number" min="0" step=".01" value="0" data-editable></div>
+            <button class="btn primary" id="addCredit" data-editable>+ Add Credit</button>
+          </div>
+          <div class="table-frame" style="max-height:520px">
+            <table style="min-width:950px"><thead><tr><th>Date</th><th>Name</th><th>Description</th><th>Original</th><th>Paid</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead><tbody id="creditsBody"></tbody></table>
+          </div>
         </div>
       </section>
 
       <section id="historyPage" class="page">
         <div class="card">
-          <div class="sticky-card-head">
-            <div class="section-head">
-              <div><h2>Saved Daily Records</h2><div class="muted">Only records from the currently signed-in Firebase account are shown.</div></div>
-              <button class="btn" id="refreshHistory">Refresh</button>
-            </div>
-          </div>
+          <div class="sticky-card-head"><div class="section-head"><div><h2>Saved Daily Records</h2><div class="muted">Open past days. Closed days are read-only unless an ADMIN reopens them.</div></div><button class="btn" id="refreshHistory">Refresh</button></div></div>
           <div class="history-toolbar">
             <input id="historySearch" placeholder="Search date, branch, prepared by..." style="border:1px solid var(--line);border-radius:10px;padding:10px">
-            <select id="historyLimit" style="border:1px solid var(--line);border-radius:10px;padding:10px"><option value="30">Latest 30</option><option value="60">Latest 60</option><option value="120">Latest 120</option></select>
+            <select id="historyLimit" style="border:1px solid var(--line);border-radius:10px;padding:10px"><option value="30">Latest 30</option><option value="60">Latest 60</option><option value="120">Latest 120</option><option value="365">Latest 365</option></select>
           </div>
           <div id="historyList" class="history-list"></div>
         </div>
       </section>
 
       <section id="reportPage" class="page">
+        <div class="card no-print">
+          <div class="report-toolbar">
+            <div class="field"><label>From</label><input id="reportFrom" type="date"></div>
+            <div class="field"><label>To</label><input id="reportTo" type="date"></div>
+            <button class="btn primary" id="runReport">Run Report</button>
+            <button class="btn blue" id="exportReport">Export CSV</button>
+            <button class="btn" onclick="window.print()">Print</button>
+          </div>
+        </div>
         <div class="report">
-          <h2>CHIKITOS DAILY SALES & INVENTORY REPORT</h2>
+          <h2>CHIKITOS SALES & INVENTORY REPORT</h2>
           <div id="reportHeader" class="muted" style="text-align:center;margin-bottom:17px"></div>
           <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px">
-            <div class="metric"><small>Total Sales</small><strong id="rTotalSales">₱0.00</strong></div>
-            <div class="metric"><small>Expected Deposit</small><strong id="rExpected">₱0.00</strong></div>
-            <div class="metric"><small>Actual Deposit</small><strong id="rActual">₱0.00</strong></div>
-            <div class="metric"><small>Variance</small><strong id="rVariance">₱0.00</strong></div>
+            <div class="metric"><small>Gross Sales</small><strong id="rGross">₱0.00</strong></div>
+            <div class="metric"><small>Total Expenses</small><strong id="rExpenses">₱0.00</strong></div>
+            <div class="metric"><small>Cash Deposited</small><strong id="rDeposited">₱0.00</strong></div>
+            <div class="metric"><small>Net after Expenses</small><strong id="rNet">₱0.00</strong></div>
           </div>
-          <h3>Inventory Sales</h3>
-          <div class="table-frame" style="max-height:380px;min-height:160px">
-            <table style="min-width:600px">
-              <thead><tr><th>Item</th><th>Price</th><th>Qty Sold</th><th>Amount</th></tr></thead>
-              <tbody id="reportInventory"></tbody>
-            </table>
+          <div class="two-col">
+            <div>
+              <h3>Payment Breakdown</h3>
+              <div id="rPaymentBreakdown" class="calcbox"></div>
+            </div>
+            <div>
+              <h3>Top Selling Items</h3>
+              <div class="table-frame" style="max-height:360px;min-height:160px">
+                <table style="min-width:520px"><thead><tr><th>Item</th><th>Qty</th><th>Sales</th></tr></thead><tbody id="rTopItems"></tbody></table>
+              </div>
+            </div>
           </div>
-          <div class="recon" style="margin-top:17px">
-            <div class="calcbox"><h3>Sales Breakdown</h3><div class="calcrow"><span>Cash Sales</span><b id="rCash"></b></div><div class="calcrow"><span>Employee Credit</span><b id="rCredit"></b></div><div class="calcrow total"><span>Total Sales</span><b id="rTotal"></b></div><div class="calcrow"><span>Expenses</span><b id="rExpenses"></b></div></div>
-            <div class="calcbox"><h3>Deposit Check</h3><div class="calcrow"><span>Expected Deposit</span><b id="rExpected2"></b></div><div class="calcrow"><span>Actual Deposit</span><b id="rActual2"></b></div><div class="calcrow total"><span>Variance</span><b id="rVariance2"></b></div><div id="rStatus" class="pill"></div></div>
+          <h3 style="margin-top:18px">Daily Summary</h3>
+          <div class="table-frame" style="max-height:420px;min-height:160px">
+            <table style="min-width:760px"><thead><tr><th>Date</th><th>Shift</th><th>Gross</th><th>Expenses</th><th>Expected Cash</th><th>Actual Cash</th><th>Variance</th><th>Status</th></tr></thead><tbody id="rDaily"></tbody></table>
           </div>
-          <div style="margin-top:15px"><b>Notes:</b><div id="rNotes" class="muted" style="white-space:pre-wrap;margin-top:5px"></div></div>
         </div>
       </section>
 
@@ -407,15 +432,13 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
         <div class="card">
           <div class="sticky-card-head">
             <div class="section-head">
-              <div><h2>Product Master List</h2><div class="muted">Product names and prices are cloud-saved per account. Only ADMIN accounts can add, edit, or delete products/prices.</div></div>
+              <div><h2>Product Master List</h2><div class="muted">ADMIN only: product name, price and reorder level.</div></div>
               <button class="btn primary" id="addProductMaster">+ Add Product</button>
             </div>
           </div>
+          <div class="notice" style="margin-bottom:12px"><b>Security reminder:</b> UI permissions are not a substitute for Firestore Security Rules. Keep your Firestore rules restricted so STAFF accounts cannot modify protected data outside this page.</div>
           <div class="table-frame">
-            <table style="min-width:720px">
-              <thead><tr><th>Category</th><th>Item</th><th>Price</th><th></th></tr></thead>
-              <tbody id="productBody"></tbody>
-            </table>
+            <table style="min-width:820px"><thead><tr><th>Category</th><th>Item</th><th>Price</th><th>Reorder Level</th><th></th></tr></thead><tbody id="productBody"></tbody></table>
           </div>
         </div>
       </section>
@@ -435,7 +458,6 @@ import {
   query, orderBy, limit, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-// Your Firebase project
 const firebaseConfig = {
   apiKey: "AIzaSyAdiK4wAyETMrORxk_TGOF-A091ghZIYuI",
   authDomain: "chikitos.firebaseapp.com",
@@ -446,146 +468,163 @@ const firebaseConfig = {
   measurementId: "G-ME8604Z8QS"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-setPersistence(auth, browserLocalPersistence).catch(()=>{});
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+setPersistence(auth,browserLocalPersistence).catch(()=>{});
 
-const $ = id => document.getElementById(id);
-const peso = n => '₱' + Number(n || 0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
-const clone = obj => JSON.parse(JSON.stringify(obj));
-const safeNum = v => Number(v || 0);
+const $=id=>document.getElementById(id);
+const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const safeNum=v=>Number(v||0);
+const clone=o=>JSON.parse(JSON.stringify(o));
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const attr=v=>esc(v).replace(/`/g,'&#96;');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 
-let currentUser = null;
-let currentRole = 'staff';
-let products = [];
-let inv = {};
-let authMode = 'login';
-let cloudBusy = false;
-let inventorySearchText = '';
-let inventoryCategoryValue = '';
+let currentUser=null,currentRole='staff',products=[],inv={},expenses=[],credits=[],authMode='login',cloudBusy=false;
+let inventorySearchText='',inventoryCategoryValue='',dayLocked=false,currentLoadedDay=null,reportRows=[];
 
-const defaultProducts = [
-  ['Meals','The Chikitos Special Lechon Manok',330],['Meals','Lechon Manok - Half',165],['Meals','Quarter Chicken',110],
-  ['Meals','Silog',0],['Meals','Hotdog / Rice / Egg',75],['Meals','Hotdog / Rice',55],['Meals','Tocino / Rice / Egg',100],
-  ['Meals','Tocino / Rice',85],['Meals','Hungarian (Plain) / Rice / Egg',110],['Meals','Hungarian (Plain) / Rice',95],
-  ['Meals','Spam / Rice / Egg',90],['Meals','Spam / Rice',75],['Meals','Longganisa / Rice / Egg',110],
-  ['Meals','Longganisa / Rice',95],['Meals','Chicken / Rice / Egg',110],['Meals','Chicken / Rice',95],
-  ['Meals','Liempo / Rice / Egg',110],['Meals','Liempo / Rice',95],['Meals','Pork Chop / Egg / Rice',110],
-  ['Meals','Pork Chop / Rice',95],['Add-ons','Extra Egg',15],['Drinks','Coke',25],['Drinks','Sprite',25],
-  ['Drinks','Mountain Dew',25],['Drinks','Sting',30],['Drinks','Mineral Water 350ml',15],['Add-ons','Rice',25],
-  ['Noodles','Pancit Canton',27],['Noodles','Cup Noodles',27],['Hot Drinks','Nescafe Coffee - Hot',15],
-  ['Hot Drinks','Kopiko Coffee - Hot',15],['Hot Drinks','Great Taste Coffee - Hot',15],['Hot Drinks','Bear Brand',20],
-  ['Hot Drinks','Milo',15]
-].map((x,i)=>({id:'p'+(i+1),category:x[0],name:x[1],price:x[2]}));
+const defaultProducts=[
+  ['Meals','The Chikitos Special Lechon Manok',330,5],['Meals','Lechon Manok - Half',165,5],['Meals','Quarter Chicken',110,5],
+  ['Meals','Silog',0,5],['Meals','Hotdog / Rice / Egg',75,5],['Meals','Hotdog / Rice',55,5],['Meals','Tocino / Rice / Egg',100,5],
+  ['Meals','Tocino / Rice',85,5],['Meals','Hungarian (Plain) / Rice / Egg',110,5],['Meals','Hungarian (Plain) / Rice',95,5],
+  ['Meals','Spam / Rice / Egg',90,5],['Meals','Spam / Rice',75,5],['Meals','Longganisa / Rice / Egg',110,5],
+  ['Meals','Longganisa / Rice',95,5],['Meals','Chicken / Rice / Egg',110,5],['Meals','Chicken / Rice',95,5],
+  ['Meals','Liempo / Rice / Egg',110,5],['Meals','Liempo / Rice',95,5],['Meals','Pork Chop / Egg / Rice',110,5],
+  ['Meals','Pork Chop / Rice',95,5],['Add-ons','Extra Egg',15,12],['Drinks','Coke',25,12],['Drinks','Sprite',25,12],
+  ['Drinks','Mountain Dew',25,12],['Drinks','Sting',30,12],['Drinks','Mineral Water 350ml',15,12],['Add-ons','Rice',25,10],
+  ['Noodles','Pancit Canton',27,8],['Noodles','Cup Noodles',27,8],['Hot Drinks','Nescafe Coffee - Hot',15,10],
+  ['Hot Drinks','Kopiko Coffee - Hot',15,10],['Hot Drinks','Great Taste Coffee - Hot',15,10],['Hot Drinks','Bear Brand',20,8],
+  ['Hot Drinks','Milo',15,8]
+].map((x,i)=>({id:'p'+(i+1),category:x[0],name:x[1],price:x[2],reorderLevel:x[3]}));
 
-if(location.protocol === 'file:') $('fileWarning').classList.remove('hidden');
+if(location.protocol==='file:')$('fileWarning').classList.remove('hidden');
 
+function isAdmin(){return currentRole==='admin'}
 function setCloudStatus(text,type=''){
-  $('cloudStatus').textContent=text;
-  $('sidebarCloud').textContent=text;
+  $('cloudStatus').textContent=text;$('sidebarCloud').textContent=text;
   $('cloudDot').className='cloud-dot'+(type?' '+type:'');
 }
-function setBusy(busy,text='Syncing...'){
-  cloudBusy=busy;
-  $('saveDay').disabled=busy;
-  if(busy)setCloudStatus(text);
-}
-
-function userCacheKey(name){
-  return currentUser ? `chikitos_${currentUser.uid}_${name}` : `chikitos_guest_${name}`;
-}
-function cacheProducts(){ if(currentUser)localStorage.setItem(userCacheKey('products'),JSON.stringify(products)); }
-function readCachedProducts(){
-  try{return JSON.parse(localStorage.getItem(userCacheKey('products'))||'null')}catch{return null}
-}
-function cacheDay(day){ if(currentUser)localStorage.setItem(userCacheKey('day_'+day.id),JSON.stringify(day)); }
-function readCachedDay(id){
-  try{return JSON.parse(localStorage.getItem(userCacheKey('day_'+id))||'null')}catch{return null}
-}
-
+function setBusy(busy,text='Syncing...'){cloudBusy=busy;$('saveDay').disabled=busy;if(busy)setCloudStatus(text)}
+function userCacheKey(name){return currentUser?`chikitos_${currentUser.uid}_${name}`:`chikitos_guest_${name}`}
+function cacheProducts(){if(currentUser)localStorage.setItem(userCacheKey('products'),JSON.stringify(products))}
+function readCachedProducts(){try{return JSON.parse(localStorage.getItem(userCacheKey('products'))||'null')}catch{return null}}
+function cacheDay(day){if(currentUser)localStorage.setItem(userCacheKey('day_'+day.id),JSON.stringify(day))}
+function readCachedDay(id){try{return JSON.parse(localStorage.getItem(userCacheKey('day_'+id))||'null')}catch{return null}}
 function currentDayId(){
-  const date=$('workDate').value || new Date().toISOString().slice(0,10);
+  const date=$('workDate').value||todayISO();
   const s=($('shift').value||'Whole Day').toLowerCase().replace(/\s+/g,'-');
   return `${date}_${s}`;
 }
 
-function collectDay(){
-  calc();
-  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),expenses=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
-  let inventorySales=0,qtySoldTotal=0;
-  products.forEach(p=>{const q=qtySold(p);qtySoldTotal+=q.sold;inventorySales+=q.sold*safeNum(p.price)});
-  const expected=cash-expenses,variance=expected-actual;
+function normalizeProduct(p){
+  return {...p,reorderLevel:safeNum(p.reorderLevel??0)};
+}
+function normalizeDay(d={}){
   return {
-    id:currentDayId(),date:$('workDate').value,branch:$('branch').value.trim()||'Chikitos',
-    preparedBy:$('preparedBy').value.trim(),shift:$('shift').value,inv:clone(inv),
-    cash,credit,expenses,actual,grab:safeNum($('grabSales').value),panda:safeNum($('pandaSales').value),
-    notes:$('closingNotes').value,inventorySales,qtySoldTotal,totalSales:cash+credit,expectedDeposit:expected,
-    depositVariance:variance,updatedAtClient:new Date().toISOString()
+    id:d.id||currentDayId(),date:d.date||$('workDate').value||todayISO(),branch:d.branch||'Chikitos',
+    preparedBy:d.preparedBy||'',shift:d.shift||'Whole Day',inv:d.inv||{},
+    payments:{
+      cash:safeNum(d.payments?.cash??d.cash??0),gcash:safeNum(d.payments?.gcash??0),maya:safeNum(d.payments?.maya??0),
+      bank:safeNum(d.payments?.bank??0),card:safeNum(d.payments?.card??0),grab:safeNum(d.payments?.grab??d.grab??0),
+      panda:safeNum(d.payments?.panda??d.panda??0),other:safeNum(d.payments?.other??0)
+    },
+    actualDeposit:safeNum(d.actualDeposit??d.actual??0),cashFloat:safeNum(d.cashFloat??0),
+    expenses:Array.isArray(d.expensesList)?d.expensesList:[],notes:d.notes||'',
+    locked:Boolean(d.locked),updatedAtClient:d.updatedAtClient||new Date().toISOString()
   };
 }
 
-
-function isAdmin(){ return currentRole === 'admin'; }
+function dayInventoryTotals(day=collectDay(false)){
+  let sales=0,qty=0,varianceQty=0;
+  products.forEach(p=>{
+    const x=day.inv?.[p.id]||{};
+    const used=Math.max(0,safeNum(x.begin)+safeNum(x.restock)-safeNum(x.end));
+    const sold=(x.sold===''||x.sold===undefined)?used:safeNum(x.sold);
+    const accounted=sold+safeNum(x.waste)+safeNum(x.comp)+safeNum(x.staff);
+    sales+=sold*safeNum(p.price);qty+=sold;varianceQty+=used-accounted;
+  });
+  return {sales,qty,varianceQty};
+}
+function expenseTotals(list=expenses){
+  let total=0,cash=0,noReceipt=0;
+  list.forEach(e=>{const a=safeNum(e.amount);total+=a;if(String(e.paidBy).toLowerCase()==='cash')cash+=a;if(e.receipt==='No')noReceipt++});
+  return {total,cash,other:total-cash,noReceipt};
+}
+function todayCreditTotal(){
+  return credits.filter(c=>c.date===$('workDate').value && c.dayId===currentDayId()).reduce((s,c)=>s+safeNum(c.amount),0);
+}
+function outstandingCreditTotal(){return credits.reduce((s,c)=>s+Math.max(0,safeNum(c.amount)-safeNum(c.paid)),0)}
+function collectedPayments(){
+  return ['cashSales','gcashSales','mayaSales','bankSales','cardSales','grabSales','pandaSales','otherSales'].reduce((s,id)=>s+safeNum($(id).value),0);
+}
+function lowStockProducts(){
+  return products.filter(p=>{
+    const d=inv[p.id]||{};
+    const end=safeNum(d.end);
+    const threshold=safeNum(p.reorderLevel);
+    return threshold>0 && end<=threshold;
+  });
+}
+function collectDay(runCalc=true){
+  if(runCalc)calc();
+  return normalizeDay({
+    id:currentDayId(),date:$('workDate').value,branch:$('branch').value.trim()||'Chikitos',preparedBy:$('preparedBy').value.trim(),
+    shift:$('shift').value,inv:clone(inv),
+    payments:{
+      cash:safeNum($('cashSales').value),gcash:safeNum($('gcashSales').value),maya:safeNum($('mayaSales').value),
+      bank:safeNum($('bankSales').value),card:safeNum($('cardSales').value),grab:safeNum($('grabSales').value),
+      panda:safeNum($('pandaSales').value),other:safeNum($('otherSales').value)
+    },
+    actualDeposit:safeNum($('actualDeposit').value),cashFloat:safeNum($('cashFloat').value),
+    expensesList:clone(expenses),notes:$('closingNotes').value,locked:dayLocked,updatedAtClient:new Date().toISOString()
+  });
+}
 
 function applyRoleUI(){
   const badge=$('userRoleBadge');
-  if(badge){
-    badge.textContent=(currentRole||'staff').toUpperCase();
-    badge.className='role-badge'+(isAdmin()?' admin':'');
-  }
-  if($('addProductMaster')) $('addProductMaster').classList.toggle('hidden',!isAdmin());
-  if($('addProductRow')) $('addProductRow').classList.toggle('hidden',!isAdmin());
-  renderProductMaster();
-  renderInventory();
+  badge.textContent=(currentRole||'staff').toUpperCase();
+  badge.className='role-badge'+(isAdmin()?' admin':'');
+  $('addProductMaster').classList.toggle('hidden',!isAdmin());
+  $('addProductRow').classList.toggle('hidden',!isAdmin());
+  renderProductMaster();renderInventory();updateLockUI();
+}
+function updateLockUI(){
+  const locked=dayLocked;
+  $('dayLockNote').textContent=locked?'This day is CLOSED / LOCKED. Only an ADMIN can reopen it.':'Current day is OPEN. Save anytime, then close the day when final.';
+  $('dayLockNote').className='lock-note'+(locked?' locked':'');
+  $('closeDayBtn').textContent=locked?(isAdmin()?'🔓 Reopen Day':'🔒 Day Closed'):'🔒 Close Day';
+  $('closeDayBtn').disabled=locked&&!isAdmin();
+  ['inventoryCard','salesCard','expensesCard'].forEach(id=>$(id)?.classList.toggle('readonly-mask',locked));
+  document.querySelectorAll('[data-editable]').forEach(el=>el.disabled=locked);
 }
 
 async function ensureUserProfile(){
   if(!currentUser)return;
-  const ref=doc(db,'users',currentUser.uid);
-  const snap=await getDoc(ref);
+  const ref=doc(db,'users',currentUser.uid),snap=await getDoc(ref);
   if(!snap.exists()){
-    await setDoc(ref,{
-      email:currentUser.email||'',
-      role:'staff',
-      createdAt:serverTimestamp(),
-      updatedAt:serverTimestamp()
-    });
+    await setDoc(ref,{email:currentUser.email||'',role:'staff',createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
     currentRole='staff';
-  }else{
-    currentRole=snap.data().role==='admin'?'admin':'staff';
-  }
+  }else currentRole=snap.data().role==='admin'?'admin':'staff';
   applyRoleUI();
 }
-
 async function saveProductsCloud(){
   if(!currentUser)return;
-  if(!isAdmin()) throw new Error('Only ADMIN can edit product names and prices.');
-  cacheProducts();
-  await setDoc(doc(db,'users',currentUser.uid,'settings','products'),{
-    items:products,updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString()
-  },{merge:true});
+  if(!isAdmin())throw new Error('Only ADMIN can edit products, prices and reorder levels.');
+  products=products.map(normalizeProduct);cacheProducts();
+  await setDoc(doc(db,'users',currentUser.uid,'settings','products'),{items:products,updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString()},{merge:true});
 }
-
 async function loadProductsCloud(){
   const cached=readCachedProducts();
-  if(cached?.length)products=cached;
-  else products=clone(defaultProducts);
-
+  products=(cached?.length?cached:clone(defaultProducts)).map(normalizeProduct);
   if(!currentUser){renderProductMaster();renderInventory();return}
   try{
     const snap=await getDoc(doc(db,'users',currentUser.uid,'settings','products'));
-    if(snap.exists() && Array.isArray(snap.data().items) && snap.data().items.length){
-      products=snap.data().items;
-    }else{
-      products=clone(defaultProducts);
-      await saveProductsCloud();
-    }
-    cacheProducts();
-    renderProductMaster();renderInventory();
-  }catch(err){
-    console.warn(err);renderProductMaster();renderInventory();setCloudStatus('Offline / cached data','bad');
-  }
+    if(snap.exists()&&Array.isArray(snap.data().items)&&snap.data().items.length)products=snap.data().items.map(normalizeProduct);
+    else if(isAdmin())await saveProductsCloud();
+    cacheProducts();renderProductMaster();renderInventory();
+  }catch(err){console.warn(err);setCloudStatus('Offline / cached data','bad')}
 }
 
 async function saveDayCloud(showAlert=true){
@@ -594,400 +633,369 @@ async function saveDayCloud(showAlert=true){
   cacheDay(day);
   try{
     setBusy(true,'Saving to Firebase...');
-    await setDoc(doc(db,'users',currentUser.uid,'days',day.id),{
-      ...day,updatedAt:serverTimestamp()
-    },{merge:true});
-    setCloudStatus('Saved to Firebase','ok');
-    if(showAlert)alert('Saved to your Firebase account.');
-    renderHistory();
+    await setDoc(doc(db,'users',currentUser.uid,'days',day.id),{...day,updatedAt:serverTimestamp()},{merge:true});
+    currentLoadedDay=day;setCloudStatus('Saved to Firebase','ok');
+    if(showAlert)alert('Saved to Firebase.');
+    renderHistory();refreshDashboard();
   }catch(err){
     console.error(err);setCloudStatus('Cloud save failed','bad');
     if(showAlert)alert('Cloud save failed. A local cached copy was kept in this browser.\n\n'+err.message);
   }finally{setBusy(false)}
 }
-
-function applyDay(d){
-  inv=d?.inv||{};
-  $('workDate').value=d?.date||$('workDate').value;
-  $('branch').value=d?.branch||'Chikitos';
-  $('preparedBy').value=d?.preparedBy||'';
-  $('shift').value=d?.shift||'Whole Day';
-  $('cashSales').value=d?.cash||0;$('employeeCredit').value=d?.credit||0;$('expenses').value=d?.expenses||0;
-  $('actualDeposit').value=d?.actual||0;$('grabSales').value=d?.grab||0;$('pandaSales').value=d?.panda||0;
-  $('closingNotes').value=d?.notes||'';
-  renderInventory();calc();
+function applyDay(raw){
+  const d=normalizeDay(raw);currentLoadedDay=d;inv=d.inv||{};expenses=clone(d.expenses||[]);
+  $('workDate').value=d.date||$('workDate').value;$('branch').value=d.branch||'Chikitos';$('preparedBy').value=d.preparedBy||'';$('shift').value=d.shift||'Whole Day';
+  $('cashSales').value=d.payments.cash;$('gcashSales').value=d.payments.gcash;$('mayaSales').value=d.payments.maya;$('bankSales').value=d.payments.bank;
+  $('cardSales').value=d.payments.card;$('grabSales').value=d.payments.grab;$('pandaSales').value=d.payments.panda;$('otherSales').value=d.payments.other;
+  $('actualDeposit').value=d.actualDeposit;$('cashFloat').value=d.cashFloat;$('closingNotes').value=d.notes||'';
+  dayLocked=d.locked;renderInventory();renderExpenses();calc();updateLockUI();
 }
-
 function clearDayForm(){
-  inv={};$('preparedBy').value='';$('cashSales').value=0;$('employeeCredit').value=0;$('expenses').value=0;
-  $('actualDeposit').value=0;$('grabSales').value=0;$('pandaSales').value=0;$('closingNotes').value='';
-  renderInventory();calc();
+  inv={};expenses=[];currentLoadedDay=null;dayLocked=false;
+  $('preparedBy').value='';['cashSales','gcashSales','mayaSales','bankSales','cardSales','grabSales','pandaSales','otherSales','actualDeposit','cashFloat'].forEach(id=>$(id).value=0);
+  $('closingNotes').value='';renderInventory();renderExpenses();calc();updateLockUI();
 }
-
-
-function shiftRank(shift){
-  if(shift==='AM')return 1;
-  if(shift==='PM')return 2;
-  return 3;
-}
-
+function shiftRank(shift){if(shift==='AM')return 1;if(shift==='PM')return 2;return 3}
 async function findPreviousSavedDay(){
   if(!currentUser)return null;
-  const targetDate=$('workDate').value;
-  const targetRank=shiftRank($('shift').value);
+  const targetDate=$('workDate').value,targetRank=shiftRank($('shift').value);
   try{
-    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(120));
-    const snaps=await getDocs(q);
-    const rows=[];
-    snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
-    rows.sort((a,b)=>{
-      if(String(a.date)!==String(b.date)) return String(b.date).localeCompare(String(a.date));
-      return shiftRank(b.shift)-shiftRank(a.shift);
-    });
-    return rows.find(d=>{
-      if(!d.date)return false;
-      if(d.date < targetDate)return true;
-      if(d.date === targetDate && shiftRank(d.shift) < targetRank)return true;
-      return false;
-    }) || null;
-  }catch(err){
-    console.warn('Previous inventory lookup failed',err);
-    return null;
-  }
+    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(180));
+    const snaps=await getDocs(q),rows=[];snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
+    rows.sort((a,b)=>String(a.date)!==String(b.date)?String(b.date).localeCompare(String(a.date)):shiftRank(b.shift)-shiftRank(a.shift));
+    return rows.find(d=>d.date&&(d.date<targetDate||(d.date===targetDate&&shiftRank(d.shift)<targetRank)))||null;
+  }catch(err){console.warn('Previous inventory lookup failed',err);return null}
 }
-
 async function autofillBeginningFromPrevious(force=false){
   if(!currentUser)return;
   const previous=await findPreviousSavedDay();
-  if(!previous){
-    $('beginningCarryNote').classList.add('hidden');
-    if(force) alert('No previous saved inventory found for this account.');
-    return;
-  }
-
+  if(!previous){$('beginningCarryNote').classList.add('hidden');if(force)alert('No previous saved inventory found.');return}
   products.forEach(p=>{
-    const prevItem=previous.inv?.[p.id]||{};
-    inv[p.id]=inv[p.id]||{};
-    // Do not overwrite already encoded beginning unless user explicitly clicks refresh.
-    if(force || inv[p.id].begin===undefined || inv[p.id].begin===null || inv[p.id].begin===''){
-      inv[p.id].begin=safeNum(prevItem.end);
-    }
-    if(inv[p.id].restock===undefined)inv[p.id].restock=0;
-    if(inv[p.id].end===undefined)inv[p.id].end=0;
+    const prev=previous.inv?.[p.id]||{};inv[p.id]=inv[p.id]||{};
+    if(force||inv[p.id].begin===undefined||inv[p.id].begin===null||inv[p.id].begin==='')inv[p.id].begin=safeNum(prev.end);
+    ['restock','end','waste','comp','staff'].forEach(k=>{if(inv[p.id][k]===undefined)inv[p.id][k]=0});
     if(inv[p.id].sold===undefined)inv[p.id].sold='';
     if(inv[p.id].notes===undefined)inv[p.id].notes='';
   });
-
-  $('beginningCarryNote').textContent=
-    `Beginning Inventory auto-filled from previous saved record: ${previous.date||''} • ${previous.shift||'Whole Day'}.`;
-  $('beginningCarryNote').classList.remove('hidden');
-  renderInventory();
-  cacheDraft();
+  $('beginningCarryNote').textContent=`Beginning Inventory auto-filled from previous saved record: ${previous.date||''} • ${previous.shift||'Whole Day'}.`;
+  $('beginningCarryNote').classList.remove('hidden');renderInventory();cacheDraft();
 }
-
 async function loadDayCloud(){
   if(!currentUser)return;
-  const id=currentDayId();
-  const cached=readCachedDay(id);
-  if(cached)applyDay(cached); else clearDayForm();
+  const id=currentDayId(),cached=readCachedDay(id);
+  if(cached)applyDay(cached);else clearDayForm();
   try{
     setCloudStatus('Loading day...');
     const snap=await getDoc(doc(db,'users',currentUser.uid,'days',id));
-    if(snap.exists()){
-      const d=snap.data();cacheDay(d);applyDay(d);$('beginningCarryNote').classList.add('hidden');setCloudStatus('Firebase synced','ok')
-    }else{
-      if(!cached){
-        clearDayForm();
-        await autofillBeginningFromPrevious(false);
-      }
-      setCloudStatus('New unsaved day','ok')
+    if(snap.exists()){const d={id:snap.id,...snap.data()};cacheDay(d);applyDay(d);$('beginningCarryNote').classList.add('hidden');setCloudStatus('Firebase synced','ok')}
+    else{
+      if(!cached){clearDayForm();await autofillBeginningFromPrevious(false)}
+      setCloudStatus('New unsaved day','ok');
     }
   }catch(err){console.warn(err);setCloudStatus('Offline / cached data','bad')}
+  await loadCredits();refreshDashboard();
 }
 
-function qtySold(p){
+function getInvMetrics(p){
   const d=inv[p.id]||{};
   const used=Math.max(0,safeNum(d.begin)+safeNum(d.restock)-safeNum(d.end));
-  const sold=d.sold===''||d.sold===undefined?used:safeNum(d.sold);
-  return {used,sold}
+  const sold=(d.sold===''||d.sold===undefined)?used:safeNum(d.sold);
+  const waste=safeNum(d.waste),comp=safeNum(d.comp),staff=safeNum(d.staff),accounted=sold+waste+comp+staff;
+  return {used,sold,waste,comp,staff,variance:used-accounted,amount:sold*safeNum(p.price)}
 }
-
 function renderInventory(){
   const tb=$('inventoryBody');tb.innerHTML='';
-
   const categories=[...new Set(products.map(p=>p.category).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
-  const currentCat=inventoryCategoryValue;
-  $('inventoryCategory').innerHTML='<option value="">All Categories</option>'+categories.map(c=>`<option value="${escapeAttr(c)}">${escapeHtml(c)}</option>`).join('');
-  if(categories.includes(currentCat)) $('inventoryCategory').value=currentCat;
-
+  $('inventoryCategory').innerHTML='<option value="">All Categories</option>'+categories.map(c=>`<option value="${attr(c)}">${esc(c)}</option>`).join('');
+  if(categories.includes(inventoryCategoryValue))$('inventoryCategory').value=inventoryCategoryValue;
   const q=inventorySearchText.trim().toLowerCase();
-  const filtered=products.filter(p=>{
-    const matchesSearch=!q || [p.name,p.category].join(' ').toLowerCase().includes(q);
-    const matchesCat=!inventoryCategoryValue || p.category===inventoryCategoryValue;
-    return matchesSearch && matchesCat;
-  });
+  const filtered=products.filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!inventoryCategoryValue||p.category===inventoryCategoryValue));
   $('inventoryResultCount').textContent=`${filtered.length} item${filtered.length===1?'':'s'}`;
-
   filtered.forEach(p=>{
-    const d=inv[p.id]||{begin:0,restock:0,end:0,sold:'',notes:''};
-    const priceControl=isAdmin()
-      ? `<input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-price="${p.id}">`
-      : `<input class="price-readonly" type="number" value="${safeNum(p.price)}" readonly tabindex="-1" title="Only ADMIN can edit price">`;
-
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="category">${escapeHtml(p.category)}</td><td><b>${escapeHtml(p.name)}</b></td>
-    <td>${priceControl}</td>
-    <td><input class="begin-auto" type="number" min="0" step="1" value="${safeNum(d.begin)}" readonly tabindex="-1" title="Auto-carried from previous Ending Inventory"></td>
-    <td><input type="number" min="0" step="1" value="${safeNum(d.restock)}" data-f="restock" data-id="${p.id}"></td>
-    <td><input type="number" min="0" step="1" value="${safeNum(d.end)}" data-f="end" data-id="${p.id}"></td>
-    <td class="num" id="used-${p.id}">0</td>
-    <td><input type="number" min="0" step="1" value="${d.sold!==''&&d.sold!==undefined?safeNum(d.sold):''}" placeholder="auto" data-f="sold" data-id="${p.id}"></td>
-    <td class="num" id="amt-${p.id}">₱0.00</td>
-    <td><input value="${escapeAttr(d.notes||'')}" data-f="notes" data-id="${p.id}"></td>`;
+    const d=inv[p.id]||{begin:0,restock:0,end:0,sold:'',waste:0,comp:0,staff:0,notes:''};
+    const priceControl=isAdmin()?`<input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-price="${p.id}" data-editable>`:`<input class="price-readonly" type="number" value="${safeNum(p.price)}" readonly tabindex="-1">`;
+    const m=getInvMetrics(p),tr=document.createElement('tr');
+    tr.innerHTML=`<td class="category">${esc(p.category)}</td><td><b>${esc(p.name)}</b></td><td>${priceControl}</td>
+      <td><input class="begin-auto" type="number" value="${safeNum(d.begin)}" readonly tabindex="-1"></td>
+      <td><input type="number" min="0" step="1" value="${safeNum(d.restock)}" data-f="restock" data-id="${p.id}" data-editable></td>
+      <td><input type="number" min="0" step="1" value="${safeNum(d.end)}" data-f="end" data-id="${p.id}" data-editable></td>
+      <td class="num" id="used-${p.id}">${m.used}</td>
+      <td><input type="number" min="0" step="1" value="${d.sold!==''&&d.sold!==undefined?safeNum(d.sold):''}" placeholder="auto" data-f="sold" data-id="${p.id}" data-editable></td>
+      <td><input type="number" min="0" step="1" value="${safeNum(d.waste)}" data-f="waste" data-id="${p.id}" data-editable></td>
+      <td><input type="number" min="0" step="1" value="${safeNum(d.comp)}" data-f="comp" data-id="${p.id}" data-editable></td>
+      <td><input type="number" min="0" step="1" value="${safeNum(d.staff)}" data-f="staff" data-id="${p.id}" data-editable></td>
+      <td class="num" id="var-${p.id}">${m.variance}</td><td class="num" id="amt-${p.id}">${peso(m.amount)}</td>
+      <td><input value="${attr(d.notes||'')}" data-f="notes" data-id="${p.id}" data-editable></td>`;
     tb.appendChild(tr);
   });
-
   tb.querySelectorAll('input[data-f]').forEach(i=>i.oninput=()=>{
     const id=i.dataset.id;inv[id]=inv[id]||{};
     inv[id][i.dataset.f]=i.dataset.f==='notes'?i.value:(i.dataset.f==='sold'&&i.value===''?'':safeNum(i.value));
     calc();cacheDraft();
   });
-
-  if(isAdmin()){
-    tb.querySelectorAll('input[data-price]').forEach(i=>i.onchange=async()=>{
-      const p=products.find(x=>String(x.id)===String(i.dataset.price));if(p)p.price=safeNum(i.value);
-      renderProductMaster();calc();cacheProducts();
-      try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message);setCloudStatus('Product save failed','bad')}
-    });
-  }
-  calc();
-}
-function calc(){
-  let inventorySales=0,qty=0;
-  products.forEach(p=>{
-    const q=qtySold(p),amt=q.sold*safeNum(p.price);qty+=q.sold;inventorySales+=amt;
-    const u=$('used-'+p.id),a=$('amt-'+p.id);if(u)u.textContent=q.used;if(a)a.textContent=peso(amt)
+  if(isAdmin())tb.querySelectorAll('input[data-price]').forEach(i=>i.onchange=async()=>{
+    const p=products.find(x=>String(x.id)===String(i.dataset.price));if(p)p.price=safeNum(i.value);
+    renderProductMaster();calc();cacheProducts();
+    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message)}
   });
-  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),exp=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
-  const total=cash+credit,expected=cash-exp,variance=expected-actual;
-  $('mInventorySales').textContent=peso(inventorySales);$('mQtySold').textContent=qty;$('mDeclaredSales').textContent=peso(total);$('mSalesVariance').textContent=peso(inventorySales-total);
-  $('mExpectedDeposit').textContent=peso(expected);$('mActualDeposit').textContent=peso(actual);$('mDepositVariance').textContent=peso(variance);
-  $('cCash').textContent=peso(cash);$('cCredit').textContent=peso(credit);$('cTotalSales').textContent=peso(total);$('cExpenses').textContent='-'+peso(exp);
-  $('cExpected').textContent=peso(expected);$('cActual').textContent=peso(actual);$('cVariance').textContent=peso(variance);
-  let status='Balanced',cls='ok';
-  if(variance>.009){status='SHORT / Kulang '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / Sobra '+peso(Math.abs(variance));cls='warn'}
-  $('mVarianceStatus').textContent=status;$('varianceMetric').className='metric '+(cls==='bad'?'bad':cls==='ok'?'good':'');
-  $('variancePill').className='pill '+cls;$('variancePill').textContent=status;
-  renderReport();
+  updateLockUI();calc();
+}
+function renderExpenses(){
+  const tb=$('expensesBody');tb.innerHTML='';
+  if(!expenses.length){tb.innerHTML='<tr><td colspan="6">No expenses entered.</td></tr>'}
+  expenses.forEach((e,idx)=>{
+    const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(e.category)}</td><td>${esc(e.description)}</td><td>${peso(e.amount)}</td><td>${esc(e.paidBy)}</td><td>${esc(e.receipt)}</td>
+      <td><button class="btn danger small" data-exp-del="${idx}" data-editable>Delete</button></td>`;tb.appendChild(tr)
+  });
+  tb.querySelectorAll('[data-exp-del]').forEach(b=>b.onclick=()=>{if(dayLocked)return;expenses.splice(Number(b.dataset.expDel),1);renderExpenses();calc();cacheDraft()});
+  const t=expenseTotals();$('eTotal').textContent=peso(t.total);$('eCash').textContent=peso(t.cash);$('eOther').textContent=peso(t.other);$('eNoReceipt').textContent=t.noReceipt;
+  updateLockUI();
 }
 
-function renderReport(){
-  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),exp=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
-  const total=cash+credit,expected=cash-exp,variance=expected-actual;
-  $('reportHeader').textContent=`${$('branch').value||'Chikitos'} • ${$('workDate').value||''} • ${$('shift').value||''}${$('preparedBy').value?' • Prepared by '+$('preparedBy').value:''}`;
-  $('rTotalSales').textContent=peso(total);$('rExpected').textContent=peso(expected);$('rActual').textContent=peso(actual);$('rVariance').textContent=peso(variance);
-  $('rCash').textContent=peso(cash);$('rCredit').textContent=peso(credit);$('rTotal').textContent=peso(total);$('rExpenses').textContent='-'+peso(exp);
-  $('rExpected2').textContent=peso(expected);$('rActual2').textContent=peso(actual);$('rVariance2').textContent=peso(variance);
-  let status='BALANCED',cls='ok';if(variance>.009){status='SHORT / KULANG '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / SOBRA '+peso(Math.abs(variance));cls='warn'}
-  $('rStatus').className='pill '+cls;$('rStatus').textContent=status;$('rNotes').textContent=$('closingNotes').value||'—';
-  $('reportInventory').innerHTML='';
-  products.forEach(p=>{const q=qtySold(p);if(q.sold<=0)return;$('reportInventory').innerHTML+=`<tr><td>${escapeHtml(p.name)}</td><td>${peso(p.price)}</td><td>${q.sold}</td><td>${peso(q.sold*p.price)}</td></tr>`});
-  if(!$('reportInventory').innerHTML)$('reportInventory').innerHTML='<tr><td colspan="4">No sold items entered.</td></tr>';
+async function loadCredits(){
+  credits=[];
+  if(!currentUser){renderCredits();return}
+  try{
+    const q=query(collection(db,'users',currentUser.uid,'credits'),orderBy('date','desc'),limit(500));
+    const snaps=await getDocs(q);snaps.forEach(s=>credits.push({id:s.id,...s.data()}));renderCredits();calc();
+  }catch(err){console.warn(err);renderCredits()}
+}
+async function saveCredit(c){
+  if(!currentUser)return;
+  await setDoc(doc(db,'users',currentUser.uid,'credits',c.id),{...c,updatedAt:serverTimestamp()},{merge:true});
+}
+function renderCredits(){
+  const tb=$('creditsBody');tb.innerHTML='';
+  if(!credits.length)tb.innerHTML='<tr><td colspan="8">No credit records yet.</td></tr>';
+  credits.forEach(c=>{
+    const bal=Math.max(0,safeNum(c.amount)-safeNum(c.paid)),status=bal<=.009?'PAID':'UNPAID';
+    const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(c.date||'')}</td><td><b>${esc(c.name||'')}</b></td><td>${esc(c.description||'')}</td>
+      <td>${peso(c.amount)}</td><td>${peso(c.paid)}</td><td>${peso(bal)}</td><td><span class="pill ${status==='PAID'?'ok':'warn'}">${status}</span></td>
+      <td><div class="actions"><button class="btn small green" data-pay-credit="${attr(c.id)}">Add Payment</button><button class="btn danger small" data-del-credit="${attr(c.id)}">Delete</button></div></td>`;
+    tb.appendChild(tr)
+  });
+  tb.querySelectorAll('[data-pay-credit]').forEach(b=>b.onclick=async()=>{
+    const c=credits.find(x=>x.id===b.dataset.payCredit);if(!c)return;
+    const bal=Math.max(0,safeNum(c.amount)-safeNum(c.paid));if(bal<=0)return alert('Already fully paid.');
+    const v=prompt(`Add payment. Remaining balance: ${peso(bal)}`,'0');if(v===null)return;
+    const add=Math.max(0,Math.min(bal,safeNum(v)));c.paid=safeNum(c.paid)+add;
+    try{await saveCredit(c);await loadCredits();setCloudStatus('Credit updated','ok')}catch(err){alert(err.message)}
+  });
+  tb.querySelectorAll('[data-del-credit]').forEach(b=>b.onclick=async()=>{
+    if(!isAdmin())return alert('Only ADMIN can delete credit records.');
+    if(!confirm('Delete this credit record?'))return;
+    try{await deleteDoc(doc(db,'users',currentUser.uid,'credits',b.dataset.delCredit));await loadCredits();setCloudStatus('Credit deleted','ok')}catch(err){alert(err.message)}
+  });
+  const outstanding=outstandingCreditTotal(),paid=credits.reduce((s,c)=>s+safeNum(c.paid),0),active=new Set(credits.filter(c=>safeNum(c.amount)-safeNum(c.paid)>.009).map(c=>c.name)).size;
+  $('crToday').textContent=peso(todayCreditTotal());$('crOutstanding').textContent=peso(outstanding);$('crPaid').textContent=peso(paid);$('crAccounts').textContent=active;
+}
+
+function calc(){
+  let inventorySales=0,qty=0,invVariance=0;
+  products.forEach(p=>{
+    const m=getInvMetrics(p);inventorySales+=m.amount;qty+=m.sold;invVariance+=m.variance;
+    const u=$('used-'+p.id),v=$('var-'+p.id),a=$('amt-'+p.id);if(u)u.textContent=m.used;if(v)v.textContent=m.variance;if(a)a.textContent=peso(m.amount);
+  });
+  const exp=expenseTotals(),credit=todayCreditTotal(),collected=collectedPayments(),gross=collected+credit;
+  const cash=safeNum($('cashSales').value),float=safeNum($('cashFloat').value),actual=safeNum($('actualDeposit').value);
+  const expected=Math.max(0,cash-exp.cash-float),variance=expected-actual;
+  $('mInventorySales').textContent=peso(inventorySales);$('mQtySold').textContent=qty;$('mInvVariance').textContent=invVariance;$('mLowStock').textContent=lowStockProducts().length;
+  $('mGrossSales').textContent=peso(gross);$('mExpectedDeposit').textContent=peso(expected);$('mActualDeposit').textContent=peso(actual);$('mDepositVariance').textContent=peso(variance);
+  $('cCollected').textContent=peso(collected);$('cCredit').textContent=peso(credit);$('cGross').textContent=peso(gross);$('cCashExpenses').textContent='-'+peso(exp.cash);$('cFloat').textContent='-'+peso(float);$('cExpected').textContent=peso(expected);$('cActual').textContent=peso(actual);$('cVariance').textContent=peso(variance);
+  let status='Balanced',cls='ok';if(variance>.009){status='SHORT / Kulang '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / Sobra '+peso(Math.abs(variance));cls='warn'}
+  $('varianceMetric').className='metric '+(cls==='bad'?'bad':cls==='ok'?'good':'warn');$('variancePill').className='pill '+cls;$('variancePill').textContent=status;
+  $('dGross').textContent=peso(gross);$('dExpected').textContent=peso(expected);$('dActual').textContent=peso(actual);$('dExpenses').textContent=peso(exp.total);$('dCredits').textContent=peso(outstandingCreditTotal());$('dLowStock').textContent=lowStockProducts().length;
+  renderDashboardPanels({gross,expected,actual,variance,inventorySales,invVariance,exp});
+}
+function renderDashboardPanels(x){
+  const payments=[['Cash',$('cashSales').value],['GCash',$('gcashSales').value],['Maya',$('mayaSales').value],['Bank',$('bankSales').value],['Card',$('cardSales').value],['Grab',$('grabSales').value],['Foodpanda',$('pandaSales').value],['Other',$('otherSales').value]];
+  $('dashboardPayments').innerHTML=payments.map(([k,v])=>`<div class="calcrow"><span>${k}</span><b>${peso(v)}</b></div>`).join('');
+  const checks=[
+    ['Inventory vs encoded payments',x.inventorySales-(collectedPayments()+todayCreditTotal())],
+    ['Inventory unaccounted qty',x.invVariance],
+    ['Cash variance',x.variance],
+    ['No-receipt expenses',x.exp.noReceipt]
+  ];
+  $('dashboardHealth').innerHTML=checks.map(([k,v],i)=>{
+    const ok=Math.abs(safeNum(v))<.009;
+    return `<div class="calcrow"><span>${k}</span><b><span class="pill ${ok?'ok':'warn'}">${i===1||i===3?safeNum(v):peso(v)}</span></b></div>`;
+  }).join('');
+  const lows=lowStockProducts();$('lowStockList').innerHTML=lows.length?lows.slice(0,12).map(p=>`<div class="lowstock-item"><span><b>${esc(p.name)}</b><br><span class="muted">${esc(p.category)}</span></span><span class="pill bad">End ${safeNum(inv[p.id]?.end)} / Reorder ${safeNum(p.reorderLevel)}</span></div>`).join(''):'<div class="empty">No low-stock items.</div>';
+}
+
+function cacheDraft(){if(!currentUser)return;const d=collectDay(false);localStorage.setItem(userCacheKey('draft_'+d.id),JSON.stringify(d))}
+function loadDraft(){if(!currentUser)return null;try{return JSON.parse(localStorage.getItem(userCacheKey('draft_'+currentDayId()))||'null')}catch{return null}}
+
+async function refreshDashboard(){
+  if(!currentUser)return;
+  try{
+    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(30));
+    const snaps=await getDocs(q),rows=[];snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
+    const byDate={};
+    rows.forEach(r=>{const d=normalizeDay(r),credit=0,exp=expenseTotals(d.expenses);const gross=Object.values(d.payments).reduce((a,b)=>a+safeNum(b),0)+safeNum(r.totalCreditSales||credit);byDate[d.date]=(byDate[d.date]||0)+gross});
+    const dates=Object.keys(byDate).sort().slice(-7),max=Math.max(1,...dates.map(d=>byDate[d]));
+    $('salesChart').innerHTML=dates.length?dates.map(d=>`<div class="bar-col"><div class="bar-value">${peso(byDate[d])}</div><div class="bar" style="height:${Math.max(3,(byDate[d]/max)*130)}px"></div><div class="bar-label">${d.slice(5)}</div></div>`).join(''):'<div class="empty" style="width:100%">No saved days yet.</div>';
+  }catch(err){console.warn(err)}
+}
+async function renderHistory(){
+  if(!currentUser)return;
+  const root=$('historyList');root.innerHTML='<div class="empty">Loading saved records...</div>';
+  try{
+    const maxRows=Number($('historyLimit').value||30),q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(maxRows));
+    const snaps=await getDocs(q),search=($('historySearch').value||'').trim().toLowerCase(),rows=[];snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
+    const filtered=rows.filter(d=>!search||[d.date,d.branch,d.preparedBy,d.shift].join(' ').toLowerCase().includes(search));
+    if(!filtered.length){root.innerHTML='<div class="empty">No saved records found.</div>';return}
+    root.innerHTML=filtered.map(raw=>{
+      const d=normalizeDay(raw),exp=expenseTotals(d.expenses),collected=Object.values(d.payments).reduce((a,b)=>a+safeNum(b),0),expected=Math.max(0,d.payments.cash-exp.cash-d.cashFloat),variance=expected-d.actualDeposit;
+      return `<div class="history-item"><div><div class="history-title">${esc(d.date)} • ${esc(d.shift)} ${d.locked?'<span class="pill bad">CLOSED</span>':'<span class="pill info">OPEN</span>'}</div>
+        <div class="history-meta">${esc(d.branch)}${d.preparedBy?' • '+esc(d.preparedBy):''}<br>Collected ${peso(collected)} • Expenses ${peso(exp.total)} • Expected Cash ${peso(expected)} • Variance ${peso(variance)}</div></div>
+        <div class="history-actions"><button class="btn small" data-load-day="${attr(d.id)}">Open</button>${isAdmin()?`<button class="btn danger small" data-delete-day="${attr(d.id)}">Delete</button>`:''}</div></div>`;
+    }).join('');
+    root.querySelectorAll('[data-load-day]').forEach(b=>b.onclick=()=>openHistoryDay(b.dataset.loadDay));
+    root.querySelectorAll('[data-delete-day]').forEach(b=>b.onclick=()=>deleteHistoryDay(b.dataset.deleteDay));
+  }catch(err){console.error(err);root.innerHTML='<div class="empty">Could not load Firebase history.<br>'+esc(err.message)+'</div>'}
+}
+async function openHistoryDay(id){
+  try{const snap=await getDoc(doc(db,'users',currentUser.uid,'days',id));if(!snap.exists())return;applyDay({id:snap.id,...snap.data()});document.querySelector('[data-page="inventoryPage"]').click();setCloudStatus('Saved day loaded','ok')}catch(err){alert(err.message)}
+}
+async function deleteHistoryDay(id){
+  if(!isAdmin())return alert('Only ADMIN can delete saved days.');
+  if(!confirm('Delete this saved day from Firebase?'))return;
+  try{await deleteDoc(doc(db,'users',currentUser.uid,'days',id));renderHistory();refreshDashboard();setCloudStatus('Record deleted','ok')}catch(err){alert(err.message)}
 }
 
 function renderProductMaster(){
   $('productBody').innerHTML='';
   products.forEach(p=>{
     const tr=document.createElement('tr');
-    if(isAdmin()){
-      tr.innerHTML=`<td><input value="${escapeAttr(p.category)}" data-pf="category" data-id="${p.id}"></td>
-      <td><input value="${escapeAttr(p.name)}" data-pf="name" data-id="${p.id}"></td>
-      <td><input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-pf="price" data-id="${p.id}"></td>
-      <td><button class="btn danger small" data-delete-product="${p.id}">Delete</button></td>`;
-    }else{
-      tr.innerHTML=`<td>${escapeHtml(p.category)}</td><td><b>${escapeHtml(p.name)}</b></td><td>${peso(p.price)}</td><td><span class="pill warn">Admin only</span></td>`;
-    }
+    if(isAdmin())tr.innerHTML=`<td><input value="${attr(p.category)}" data-pf="category" data-id="${p.id}"></td><td><input value="${attr(p.name)}" data-pf="name" data-id="${p.id}"></td><td><input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-pf="price" data-id="${p.id}"></td><td><input type="number" min="0" step="1" value="${safeNum(p.reorderLevel)}" data-pf="reorderLevel" data-id="${p.id}"></td><td><button class="btn danger small" data-delete-product="${p.id}">Delete</button></td>`;
+    else tr.innerHTML=`<td>${esc(p.category)}</td><td><b>${esc(p.name)}</b></td><td>${peso(p.price)}</td><td>${safeNum(p.reorderLevel)}</td><td><span class="pill warn">Admin only</span></td>`;
     $('productBody').appendChild(tr)
   });
-
-  if(!isAdmin()) return;
-
+  if(!isAdmin())return;
   $('productBody').querySelectorAll('input').forEach(i=>i.onchange=async()=>{
-    const p=products.find(x=>String(x.id)===String(i.dataset.id));if(!p)return;
-    p[i.dataset.pf]=i.dataset.pf==='price'?safeNum(i.value):i.value;
-    cacheProducts();renderInventory();
-    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message);setCloudStatus('Product save failed','bad')}
+    const p=products.find(x=>String(x.id)===String(i.dataset.id));if(!p)return;p[i.dataset.pf]=['price','reorderLevel'].includes(i.dataset.pf)?safeNum(i.value):i.value;
+    cacheProducts();renderInventory();try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message)}
   });
   $('productBody').querySelectorAll('[data-delete-product]').forEach(b=>b.onclick=async()=>{
-    if(!confirm('Delete this product?'))return;
-    products=products.filter(p=>String(p.id)!==String(b.dataset.deleteProduct));
-    cacheProducts();renderProductMaster();renderInventory();
-    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message)}
+    if(!confirm('Delete this product?'))return;products=products.filter(p=>String(p.id)!==String(b.dataset.deleteProduct));
+    cacheProducts();renderProductMaster();renderInventory();try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch(err){alert(err.message)}
   });
 }
-function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function escapeAttr(v){return escapeHtml(v).replace(/`/g,'&#96;')}
 
-function cacheDraft(){
+async function runReport(){
   if(!currentUser)return;
-  const d=collectDay();
-  localStorage.setItem(userCacheKey('draft_'+d.id),JSON.stringify(d));
-}
-function loadDraft(){
-  if(!currentUser)return null;
-  try{return JSON.parse(localStorage.getItem(userCacheKey('draft_'+currentDayId()))||'null')}catch{return null}
-}
-
-async function renderHistory(){
-  if(!currentUser)return;
-  const root=$('historyList');root.innerHTML='<div class="empty">Loading saved records...</div>';
+  const from=$('reportFrom').value,to=$('reportTo').value;if(!from||!to)return alert('Select From and To dates.');
+  $('reportHeader').textContent=`${from} to ${to}`;
   try{
-    const maxRows=Number($('historyLimit').value||30);
-    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(maxRows));
-    const snaps=await getDocs(q);
-    const search=($('historySearch').value||'').trim().toLowerCase();
-    const rows=[];snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
-    const filtered=rows.filter(d=>!search||[d.date,d.branch,d.preparedBy,d.shift].join(' ').toLowerCase().includes(search));
-    if(!filtered.length){root.innerHTML='<div class="empty">No saved records found for this account.</div>';return}
-    root.innerHTML=filtered.map(d=>`
-      <div class="history-item">
-        <div>
-          <div class="history-title">${escapeHtml(d.date||'No date')} • ${escapeHtml(d.shift||'Whole Day')}</div>
-          <div class="history-meta">${escapeHtml(d.branch||'Chikitos')}${d.preparedBy?' • '+escapeHtml(d.preparedBy):''}<br>
-          Total Sales ${peso(d.totalSales||0)} • Expected Deposit ${peso(d.expectedDeposit||0)} • Variance ${peso(d.depositVariance||0)}</div>
-        </div>
-        <div class="history-actions">
-          <button class="btn small" data-load-day="${escapeAttr(d.id)}">Open</button>
-          <button class="btn danger small" data-delete-day="${escapeAttr(d.id)}">Delete</button>
-        </div>
-      </div>`).join('');
-    root.querySelectorAll('[data-load-day]').forEach(b=>b.onclick=()=>openHistoryDay(b.dataset.loadDay));
-    root.querySelectorAll('[data-delete-day]').forEach(b=>b.onclick=()=>deleteHistoryDay(b.dataset.deleteDay));
-  }catch(err){
-    console.error(err);root.innerHTML='<div class="empty">Could not load Firebase history.<br>'+escapeHtml(err.message)+'</div>';
-  }
-}
-
-async function openHistoryDay(id){
-  if(!currentUser)return;
-  try{
-    const snap=await getDoc(doc(db,'users',currentUser.uid,'days',id));
-    if(!snap.exists())return;
-    applyDay(snap.data());
-    document.querySelector('[data-page="inventoryPage"]').click();
-    setCloudStatus('Saved day loaded','ok');
+    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(500));
+    const snaps=await getDocs(q);reportRows=[];snaps.forEach(s=>{const r={id:s.id,...s.data()};if(r.date>=from&&r.date<=to)reportRows.push(r)});
+    let gross=0,totalExp=0,deposited=0,payments={cash:0,gcash:0,maya:0,bank:0,card:0,grab:0,panda:0,other:0},items={};
+    $('rDaily').innerHTML='';
+    reportRows.sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(raw=>{
+      const d=normalizeDay(raw),exp=expenseTotals(d.expenses),collected=Object.values(d.payments).reduce((a,b)=>a+safeNum(b),0),expected=Math.max(0,d.payments.cash-exp.cash-d.cashFloat),variance=expected-d.actualDeposit;
+      gross+=collected;totalExp+=exp.total;deposited+=d.actualDeposit;Object.keys(payments).forEach(k=>payments[k]+=safeNum(d.payments[k]));
+      products.forEach(p=>{const x=d.inv?.[p.id]||{},used=Math.max(0,safeNum(x.begin)+safeNum(x.restock)-safeNum(x.end)),sold=(x.sold===''||x.sold===undefined)?used:safeNum(x.sold);if(sold>0){items[p.name]=items[p.name]||{qty:0,sales:0};items[p.name].qty+=sold;items[p.name].sales+=sold*safeNum(p.price)}});
+      $('rDaily').innerHTML+=`<tr><td>${esc(d.date)}</td><td>${esc(d.shift)}</td><td>${peso(collected)}</td><td>${peso(exp.total)}</td><td>${peso(expected)}</td><td>${peso(d.actualDeposit)}</td><td>${peso(variance)}</td><td>${d.locked?'CLOSED':'OPEN'}</td></tr>`;
+    });
+    $('rGross').textContent=peso(gross);$('rExpenses').textContent=peso(totalExp);$('rDeposited').textContent=peso(deposited);$('rNet').textContent=peso(gross-totalExp);
+    $('rPaymentBreakdown').innerHTML=Object.entries(payments).map(([k,v])=>`<div class="calcrow"><span>${k.toUpperCase()}</span><b>${peso(v)}</b></div>`).join('');
+    const top=Object.entries(items).sort((a,b)=>b[1].sales-a[1].sales).slice(0,20);
+    $('rTopItems').innerHTML=top.length?top.map(([name,v])=>`<tr><td>${esc(name)}</td><td>${v.qty}</td><td>${peso(v.sales)}</td></tr>`).join(''):'<tr><td colspan="3">No item sales found.</td></tr>';
   }catch(err){alert(err.message)}
 }
-async function deleteHistoryDay(id){
-  if(!currentUser||!confirm('Delete this saved day from this account?'))return;
-  try{await deleteDoc(doc(db,'users',currentUser.uid,'days',id));renderHistory();setCloudStatus('Record deleted','ok')}
-  catch(err){alert(err.message)}
+function downloadText(filename,text,mime='text/plain'){
+  const blob=new Blob([text],{type:mime}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)
 }
-
-function switchAuthMode(mode){
-  authMode=mode;
-  $('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');
-  $('authSubmit').textContent=mode==='login'?'Sign In':'Create Account';
-  $('authPassword').autocomplete=mode==='login'?'current-password':'new-password';
-  $('authMsg').textContent='';
+function csvEscape(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s}
+function exportCurrentInventory(){
+  const rows=[['Category','Item','Price','Beginning','Restock','Ending','Used','Sold','Waste','Complimentary','Staff Meal','Variance Qty','Sales Amount','Notes']];
+  products.forEach(p=>{const d=inv[p.id]||{},m=getInvMetrics(p);rows.push([p.category,p.name,p.price,d.begin||0,d.restock||0,d.end||0,m.used,m.sold,m.waste,m.comp,m.staff,m.variance,m.amount,d.notes||''])});
+  downloadText(`Chikitos_Inventory_${currentDayId()}.csv`,rows.map(r=>r.map(csvEscape).join(',')).join('\n'),'text/csv');
 }
-$('loginTab').onclick=()=>switchAuthMode('login');
-$('registerTab').onclick=()=>switchAuthMode('register');
-
-$('authSubmit').onclick=async()=>{
-  const email=$('authEmail').value.trim(),password=$('authPassword').value;
-  if(!email||password.length<6){$('authMsg').textContent='Enter a valid email and password with at least 6 characters.';return}
-  $('authSubmit').disabled=true;$('authMsg').textContent='Please wait...';
+function exportExpensesCSV(){
+  const rows=[['Category','Description','Amount','Paid By','Receipt'],...expenses.map(e=>[e.category,e.description,e.amount,e.paidBy,e.receipt])];
+  downloadText(`Chikitos_Expenses_${currentDayId()}.csv`,rows.map(r=>r.map(csvEscape).join(',')).join('\n'),'text/csv')
+}
+function exportCreditsCSV(){
+  const rows=[['Date','Name','Description','Original','Paid','Balance'],...credits.map(c=>[c.date,c.name,c.description,c.amount,c.paid,Math.max(0,safeNum(c.amount)-safeNum(c.paid))])];
+  downloadText('Chikitos_Credit_Ledger.csv',rows.map(r=>r.map(csvEscape).join(',')).join('\n'),'text/csv')
+}
+function exportReportCSV(){
+  const rows=[['Date','Shift','Branch','Collected Payments','Expenses','Actual Cash Deposit','Locked']];
+  reportRows.forEach(raw=>{const d=normalizeDay(raw),exp=expenseTotals(d.expenses),collected=Object.values(d.payments).reduce((a,b)=>a+safeNum(b),0);rows.push([d.date,d.shift,d.branch,collected,exp.total,d.actualDeposit,d.locked?'Yes':'No'])});
+  downloadText(`Chikitos_Report_${$('reportFrom').value}_to_${$('reportTo').value}.csv`,rows.map(r=>r.map(csvEscape).join(',')).join('\n'),'text/csv')
+}
+async function exportBackup(){
+  if(!currentUser)return alert('Sign in first.');
   try{
-    if(authMode==='login')await signInWithEmailAndPassword(auth,email,password);
-    else await createUserWithEmailAndPassword(auth,email,password);
-  }catch(err){$('authMsg').textContent=humanAuthError(err)}
-  finally{$('authSubmit').disabled=false}
-};
-$('resetPasswordBtn').onclick=async()=>{
-  const email=$('authEmail').value.trim();if(!email){$('authMsg').textContent='Enter your email first.';return}
-  try{await sendPasswordResetEmail(auth,email);$('authMsg').style.color='#14754a';$('authMsg').textContent='Password reset email sent.'}
-  catch(err){$('authMsg').style.color='#9f2222';$('authMsg').textContent=humanAuthError(err)}
-};
-$('signOutBtn').onclick=()=>signOut(auth);
-function humanAuthError(err){
-  const code=err?.code||'';
-  if(code.includes('invalid-credential'))return 'Incorrect email or password.';
-  if(code.includes('email-already-in-use'))return 'This email already has an account.';
-  if(code.includes('weak-password'))return 'Password must have at least 6 characters.';
-  if(code.includes('network-request-failed'))return 'Network error. Check internet connection and hosting.';
-  return err?.message||'Authentication failed.';
+    setCloudStatus('Preparing backup...');
+    const dq=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(1000)),ds=await getDocs(dq),days=[];ds.forEach(s=>days.push({id:s.id,...s.data()}));
+    const cq=query(collection(db,'users',currentUser.uid,'credits'),orderBy('date','desc'),limit(1000)),cs=await getDocs(cq),creditRows=[];cs.forEach(s=>creditRows.push({id:s.id,...s.data()}));
+    const backup={exportedAt:new Date().toISOString(),user:currentUser.email,products,days,credits:creditRows};
+    downloadText(`Chikitos_Backup_${todayISO()}.json`,JSON.stringify(backup,null,2),'application/json');setCloudStatus('Backup ready','ok');
+  }catch(err){alert(err.message)}
 }
+
+function switchAuthMode(mode){authMode=mode;$('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');$('authSubmit').textContent=mode==='login'?'Sign In':'Create Account';$('authPassword').autocomplete=mode==='login'?'current-password':'new-password';$('authMsg').textContent=''}
+$('loginTab').onclick=()=>switchAuthMode('login');$('registerTab').onclick=()=>switchAuthMode('register');
+$('authSubmit').onclick=async()=>{
+  const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<6){$('authMsg').textContent='Enter a valid email and password with at least 6 characters.';return}
+  $('authSubmit').disabled=true;$('authMsg').textContent='Please wait...';
+  try{if(authMode==='login')await signInWithEmailAndPassword(auth,email,password);else await createUserWithEmailAndPassword(auth,email,password)}
+  catch(err){$('authMsg').textContent=humanAuthError(err)}finally{$('authSubmit').disabled=false}
+};
+$('resetPasswordBtn').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){$('authMsg').textContent='Enter your email first.';return}try{await sendPasswordResetEmail(auth,email);$('authMsg').style.color='#14754a';$('authMsg').textContent='Password reset email sent.'}catch(err){$('authMsg').style.color='#9f2222';$('authMsg').textContent=humanAuthError(err)}};
+$('signOutBtn').onclick=()=>signOut(auth);
+function humanAuthError(err){const code=err?.code||'';if(code.includes('invalid-credential'))return'Incorrect email or password.';if(code.includes('email-already-in-use'))return'This email already has an account.';if(code.includes('weak-password'))return'Password must have at least 6 characters.';if(code.includes('network-request-failed'))return'Network error. Check internet connection and hosting.';return err?.message||'Authentication failed.'}
 
 onAuthStateChanged(auth,async user=>{
   currentUser=user||null;
-  if(!user){
-    $('authOverlay').classList.remove('hidden');$('userEmail').textContent='—';setCloudStatus('Not signed in','bad');
-    currentRole='staff';products=clone(defaultProducts);inv={};applyRoleUI();return;
-  }
+  if(!user){$('authOverlay').classList.remove('hidden');$('userEmail').textContent='—';setCloudStatus('Not signed in','bad');currentRole='staff';products=clone(defaultProducts);inv={};expenses=[];credits=[];applyRoleUI();return}
   $('authOverlay').classList.add('hidden');$('userEmail').textContent=user.email||user.uid;setCloudStatus('Connecting to Firebase...');
   try{await ensureUserProfile()}catch(err){console.warn(err);currentRole='staff';applyRoleUI()}
-  await loadProductsCloud();
+  await loadProductsCloud();await loadCredits();
   const draft=loadDraft();if(draft)applyDay(draft);
-  await loadDayCloud();
-  renderHistory();
+  await loadDayCloud();renderHistory();refreshDashboard();
 });
 
+const pageTitles={dashboardPage:'Chikitos Dashboard',inventoryPage:'Inventory',cashPage:'Sales & Deposit',expensesPage:'Expenses',creditsPage:'Utang / Credits',historyPage:'Saved Days',reportPage:'Reports',settingsPage:'Products'};
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(b.dataset.page).classList.add('active');
-  $('contentScroll').scrollTo({top:0,behavior:'smooth'});
-  if(b.dataset.page==='historyPage')renderHistory();
-  calc();renderProductMaster();
+  $('pageTitle').textContent=pageTitles[b.dataset.page]||'Chikitos';$('contentScroll').scrollTo({top:0,behavior:'smooth'});
+  if(b.dataset.page==='historyPage')renderHistory();if(b.dataset.page==='dashboardPage')refreshDashboard();if(b.dataset.page==='creditsPage')loadCredits();calc();renderProductMaster();
 });
 
-$('workDate').value=new Date().toISOString().slice(0,10);
-let dayLoadTimer=null;
-function queueDayLoad(){
-  clearTimeout(dayLoadTimer);
-  dayLoadTimer=setTimeout(()=>loadDayCloud(),250);
-}
-$('workDate').addEventListener('change',queueDayLoad);
-$('shift').addEventListener('change',queueDayLoad);
-
-['cashSales','employeeCredit','expenses','actualDeposit','grabSales','pandaSales','closingNotes','branch','preparedBy'].forEach(id=>{
-  $(id).addEventListener('input',()=>{calc();cacheDraft()});
-});
+$('workDate').value=todayISO();
+const d7=new Date();d7.setDate(d7.getDate()-6);$('reportFrom').value=d7.toISOString().slice(0,10);$('reportTo').value=todayISO();
+let dayLoadTimer=null;function queueDayLoad(){clearTimeout(dayLoadTimer);dayLoadTimer=setTimeout(()=>loadDayCloud(),250)}
+$('workDate').addEventListener('change',queueDayLoad);$('shift').addEventListener('change',queueDayLoad);
+['cashSales','gcashSales','mayaSales','bankSales','cardSales','grabSales','pandaSales','otherSales','actualDeposit','cashFloat','closingNotes','branch','preparedBy'].forEach(id=>$(id).addEventListener('input',()=>{calc();cacheDraft()}));
 
 $('saveDay').onclick=()=>saveDayCloud(true);
-$('refreshHistory').onclick=renderHistory;
-$('historySearch').oninput=renderHistory;
-$('historyLimit').onchange=renderHistory;
-$('addProductRow').onclick=()=>{if(!isAdmin()){alert('Only ADMIN can add/edit products and prices.');return}document.querySelector('[data-page="settingsPage"]').click()};
-$('addProductMaster').onclick=async()=>{
-  if(!isAdmin()){alert('Only ADMIN can add products.');return}
-  products.push({id:'p'+Date.now(),category:'New Category',name:'New Product',price:0});
-  cacheProducts();renderProductMaster();renderInventory();
-  try{await saveProductsCloud();setCloudStatus('Product added','ok')}catch(err){alert(err.message)}
+$('closeDayBtn').onclick=async()=>{
+  if(dayLocked){
+    if(!isAdmin())return;
+    if(!confirm('Reopen this closed day for editing?'))return;dayLocked=false;updateLockUI();await saveDayCloud(false);alert('Day reopened.');
+  }else{
+    if(!confirm('Close and lock this day? Staff will no longer be able to edit it.'))return;dayLocked=true;updateLockUI();await saveDayCloud(false);alert('Day closed and locked.');
+  }
 };
-$('resetInventory').onclick=async()=>{if(confirm('Reset Restock, Ending, Qty Sold and Notes for this current day? Beginning Inventory will be carried again from the previous saved inventory.')){inv={};await autofillBeginningFromPrevious(false);renderInventory();cacheDraft()}};
+$('refreshHistory').onclick=renderHistory;$('historySearch').oninput=renderHistory;$('historyLimit').onchange=renderHistory;$('refreshDashboard').onclick=refreshDashboard;
+$('addProductRow').onclick=()=>{if(!isAdmin())return alert('Only ADMIN can add/edit products.');document.querySelector('[data-page="settingsPage"]').click()};
+$('addProductMaster').onclick=async()=>{if(!isAdmin())return alert('Only ADMIN can add products.');products.push({id:'p'+Date.now(),category:'New Category',name:'New Product',price:0,reorderLevel:0});cacheProducts();renderProductMaster();renderInventory();try{await saveProductsCloud()}catch(err){alert(err.message)}};
+$('resetInventory').onclick=async()=>{if(dayLocked)return;if(confirm('Reset Restock, Ending, Sold, Waste, Complimentary, Staff Meal and Notes? Beginning Inventory will be carried again from previous saved inventory.')){inv={};await autofillBeginningFromPrevious(false);renderInventory();cacheDraft()}};
+$('inventorySearch').addEventListener('input',()=>{inventorySearchText=$('inventorySearch').value;renderInventory()});
+$('inventoryCategory').addEventListener('change',()=>{inventoryCategoryValue=$('inventoryCategory').value;renderInventory()});
+$('refreshBeginning').onclick=async()=>{if(!currentUser||dayLocked)return;await autofillBeginningFromPrevious(true)};
 
-$('inventorySearch').addEventListener('input',()=>{
-  inventorySearchText=$('inventorySearch').value;
-  renderInventory();
-});
-$('inventoryCategory').addEventListener('change',()=>{
-  inventoryCategoryValue=$('inventoryCategory').value;
-  renderInventory();
-});
-$('refreshBeginning').onclick=async()=>{
-  if(!currentUser)return;
-  await autofillBeginningFromPrevious(true);
-};
+$('addExpense').onclick=()=>{if(dayLocked)return;const amount=safeNum($('expenseAmount').value),desc=$('expenseDescription').value.trim();if(amount<=0||!desc)return alert('Enter expense description and amount.');expenses.push({id:uid(),category:$('expenseCategory').value,description:desc,amount,paidBy:$('expensePaidBy').value,receipt:$('expenseReceipt').value});$('expenseDescription').value='';$('expenseAmount').value=0;renderExpenses();calc();cacheDraft()};
+$('addCredit').onclick=async()=>{const amount=safeNum($('creditAmount').value),paid=Math.min(amount,safeNum($('creditPaid').value)),name=$('creditName').value.trim();if(!name||amount<=0)return alert('Enter name and credit amount.');const c={id:'c'+uid(),date:$('workDate').value,dayId:currentDayId(),name,description:$('creditDescription').value.trim(),amount,paid,createdAtClient:new Date().toISOString()};try{await saveCredit(c);$('creditName').value='';$('creditDescription').value='';$('creditAmount').value=0;$('creditPaid').value=0;await loadCredits();calc();cacheDraft()}catch(err){alert(err.message)}};
 
+$('exportInventory').onclick=exportCurrentInventory;$('exportExpenses').onclick=exportExpensesCSV;$('exportCredits').onclick=exportCreditsCSV;$('runReport').onclick=runReport;$('exportReport').onclick=exportReportCSV;$('exportBackup').onclick=exportBackup;
 
-$('loadSample').onclick=()=>{
-  $('cashSales').value=5825;$('employeeCredit').value=1925;$('expenses').value=983;$('actualDeposit').value=4567;
-  $('closingNotes').value='Juan sample: Expected deposit ₱4,842.00. Actual deposit ₱4,567.00. Variance/shortage ₱275.00.';
-  calc();cacheDraft();document.querySelector('[data-page="cashPage"]').click()
-};
-
-renderProductMaster();renderInventory();calc();
+renderProductMaster();renderInventory();renderExpenses();renderCredits();calc();
 </script>
 </body>
 </html>

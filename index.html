@@ -2,59 +2,810 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chikitos Daily Sales & Inventory</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#332526">
+<title>Chikitos Cloud Sales & Inventory</title>
 <style>
-:root{--red:#b9272f;--dark:#2b2424;--cream:#fffaf1;--paper:#fffdf8;--line:#e7dfd2;--green:#1f8a5b;--orange:#c98016;--muted:#786f66}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f0e8;color:#241f1f}button,input,select,textarea{font:inherit}
-.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}.sidebar{background:linear-gradient(180deg,#3b2627,#1f1919);color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{font-size:24px;font-weight:900}.brand span{color:#ffcd6b}.sub{font-size:11px;color:#d8caca;margin:4px 0 24px}.nav button{display:flex;width:100%;gap:9px;border:0;background:transparent;color:#fff;padding:12px;border-radius:12px;margin:6px 0;text-align:left;cursor:pointer}.nav button.active,.nav button:hover{background:rgba(255,255,255,.12)}
-.main{padding:24px;min-width:0}.topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}h1{font-size:26px;margin:0}h2{margin:0 0 4px;font-size:20px}h3{margin:0 0 10px;font-size:16px}.muted{color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#fff;padding:10px 13px;border-radius:10px;font-weight:800;cursor:pointer}.btn.primary{background:var(--red);color:#fff;border-color:var(--red)}.btn.danger{color:#a32020;background:#fff1f1;border-color:#efcaca}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 28px rgba(79,53,25,.06);margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.metric small{display:block;text-transform:uppercase;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em}.metric strong{font-size:23px;display:block;margin-top:7px}.metric.good strong{color:var(--green)}.metric.bad strong{color:var(--red)}
-.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field label{display:block;font-size:10px;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}.field textarea{min-height:82px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:11px;text-align:left;vertical-align:middle}th{background:#3a3330;color:#fff;text-transform:uppercase;font-size:9px;letter-spacing:.04em;position:sticky;top:0}td input{width:100%;border:1px solid #ddd3c4;border-radius:7px;padding:7px;background:#fff}td.num{text-align:right;font-variant-numeric:tabular-nums}.category{background:#f4eee3;font-weight:900;color:#544a42}
-.pill{display:inline-block;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900}.pill.ok{background:#e3f5ec;color:#14754a}.pill.warn{background:#fff2c9;color:#8b6700}.pill.bad{background:#ffe4e4;color:#9f2222}.recon{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.calcbox{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.calcrow{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px dashed #e8dfd3;font-size:13px}.calcrow:last-child{border-bottom:0}.calcrow.total{font-size:17px;font-weight:900}.formula{background:#fff8e8;border:1px solid #ecdcb5;border-radius:12px;padding:12px;font-size:12px;line-height:1.6}.page{display:none}.page.active{display:block}.report{max-width:900px;margin:auto;background:#fff;padding:28px;border:1px solid var(--line)}.report h2{text-align:center}.report table{min-width:0}
-@media(max-width:1100px){.grid,.formgrid{grid-template-columns:repeat(2,1fr)}.recon{grid-template-columns:1fr}}@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative}.nav{display:flex;overflow:auto}.nav button{min-width:130px}.main{padding:14px}.grid,.formgrid{grid-template-columns:1fr}}
-@media print{.sidebar,.topbar,.no-print{display:none!important}.app{display:block}.main{padding:0}.page{display:none!important}#reportPage{display:block!important}.report{border:0;max-width:none}.card{box-shadow:none;border:0}}
+:root{
+  --red:#b9272f;--red2:#921e25;--dark:#2b2424;--cream:#fffaf1;--paper:#fffdf8;
+  --line:#e7dfd2;--green:#1f8a5b;--orange:#c98016;--muted:#786f66;--blue:#3157a4;
+  --sidebar:226px;--shadow:0 8px 28px rgba(79,53,25,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f0e8;color:#241f1f}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation}
+.hidden{display:none!important}
+
+.app{
+  display:grid;
+  grid-template-columns:var(--sidebar) minmax(0,1fr);
+  height:100dvh;
+  min-height:0;
+}
+.sidebar{
+  background:linear-gradient(180deg,#3b2627,#1f1919);
+  color:#fff;padding:20px 14px;
+  height:100dvh;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.brand{font-size:24px;font-weight:900;letter-spacing:.3px}
+.brand span{color:#ffcd6b}
+.sub{font-size:11px;color:#d8caca;margin:4px 0 20px;line-height:1.4}
+.nav{display:grid;gap:5px;overflow:auto;min-height:0;padding-right:2px}
+.nav button{
+  display:flex;width:100%;gap:9px;align-items:center;border:0;background:transparent;color:#fff;
+  padding:11px 12px;border-radius:12px;text-align:left;cursor:pointer;white-space:nowrap
+}
+.nav button.active,.nav button:hover{background:rgba(255,255,255,.12)}
+.userbox{
+  margin-top:auto;padding:12px;border:1px solid rgba(255,255,255,.15);border-radius:14px;
+  background:rgba(255,255,255,.08);font-size:11px;line-height:1.45;overflow:hidden
+}
+.user-email{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cloud-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f0b84b;margin-right:5px}
+.cloud-dot.ok{background:#42c78a}.cloud-dot.bad{background:#ef6a6a}
+.signout{
+  width:100%;margin-top:9px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;
+  border-radius:9px;padding:8px;font-weight:800;cursor:pointer
+}
+
+.main{
+  min-width:0;min-height:0;
+  display:flex;flex-direction:column;
+  height:100dvh;overflow:hidden;
+}
+.topbar{
+  flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:16px 20px;background:rgba(244,240,232,.96);border-bottom:1px solid var(--line);z-index:5
+}
+.topbar h1{font-size:22px;margin:0}
+.muted{color:var(--muted);font-size:11px;line-height:1.45}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{
+  border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:10px;font-weight:800;
+  cursor:pointer;color:#241f1f
+}
+.btn.primary{background:var(--red);color:#fff;border-color:var(--red)}
+.btn.green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.danger{color:#a32020;background:#fff1f1;border-color:#efcaca}
+.btn.small{padding:6px 8px;font-size:10px}
+.cloud-status{
+  padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:10px;
+  color:var(--muted);white-space:nowrap
+}
+
+.content-scroll{
+  flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:18px 20px 28px;
+  overscroll-behavior:contain;scroll-behavior:smooth
+}
+.page{display:none;min-height:100%}
+.page.active{display:block}
+
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;
+  box-shadow:var(--shadow);margin-bottom:14px
+}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:14px}
+.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}
+.metric small{display:block;text-transform:uppercase;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em}
+.metric strong{font-size:22px;display:block;margin-top:6px;overflow-wrap:anywhere}
+.metric.good strong{color:var(--green)}.metric.bad strong{color:var(--red)}
+h2{margin:0 0 4px;font-size:19px} h3{margin:0 0 9px;font-size:15px}
+
+.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.field label{display:block;font-size:9px;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;min-width:0
+}
+.field textarea{min-height:78px;resize:vertical}
+.sticky-card-head{
+  position:sticky;top:-18px;z-index:3;background:var(--paper);padding:14px 0 10px;margin-top:-14px;
+  border-bottom:1px solid rgba(231,223,210,.7)
+}
+.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+
+.table-frame{
+  overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff;
+  max-height:calc(100dvh - 315px);min-height:240px;overscroll-behavior:contain
+}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th,td{padding:8px;border-bottom:1px solid var(--line);font-size:11px;text-align:left;vertical-align:middle}
+th{
+  background:#3a3330;color:#fff;text-transform:uppercase;font-size:9px;letter-spacing:.04em;
+  position:sticky;top:0;z-index:2
+}
+td input,td select{
+  width:100%;border:1px solid #ddd3c4;border-radius:7px;padding:7px;background:#fff;min-width:72px
+}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.category{background:#f4eee3;font-weight:900;color:#544a42;white-space:nowrap}
+.pill{display:inline-block;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900}
+.pill.ok{background:#e3f5ec;color:#14754a}.pill.warn{background:#fff2c9;color:#8b6700}.pill.bad{background:#ffe4e4;color:#9f2222}
+.recon{display:grid;grid-template-columns:1.15fr .85fr;gap:13px}
+.calcbox{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}
+.calcrow{display:flex;justify-content:space-between;gap:18px;padding:8px 0;border-bottom:1px dashed #e8dfd3;font-size:12px}
+.calcrow:last-child{border-bottom:0}.calcrow.total{font-size:16px;font-weight:900}
+.formula{background:#fff8e8;border:1px solid #ecdcb5;border-radius:12px;padding:12px;font-size:11px;line-height:1.6}
+.report{max-width:900px;margin:auto;background:#fff;padding:26px;border:1px solid var(--line)}
+.report h2{text-align:center}.report table{min-width:0}
+.history-toolbar{display:grid;grid-template-columns:1fr 170px;gap:9px;margin-bottom:10px}
+.history-list{display:grid;gap:8px;max-height:calc(100dvh - 265px);overflow:auto;padding-right:2px}
+.history-item{
+  border:1px solid var(--line);border-radius:13px;padding:11px;background:#fff;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center
+}
+.history-title{font-weight:900;font-size:12px}.history-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.45}
+.history-actions{display:flex;gap:5px;flex-wrap:wrap}
+.empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:13px;color:var(--muted);background:#fff}
+.mobile-scroll-hint{display:none;font-size:9px;color:var(--muted);margin-top:7px}
+
+.auth-overlay{
+  position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,#2b2021,#4b292d);
+  display:grid;place-items:center;padding:18px
+}
+.auth-card{
+  width:min(430px,100%);background:#fffaf4;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.35)
+}
+.auth-logo{font-size:28px;font-weight:900;margin-bottom:5px}.auth-logo span{color:var(--red)}
+.auth-tabs{display:flex;gap:6px;margin:16px 0}
+.auth-tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;cursor:pointer}
+.auth-tabs button.active{background:var(--red);color:#fff;border-color:var(--red)}
+.auth-msg{min-height:18px;font-size:11px;margin-top:9px;color:#9f2222}
+.auth-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:12px}
+.firebase-warning{
+  background:#fff4d5;border:1px solid #edd28c;color:#775800;border-radius:10px;padding:9px;font-size:10px;margin-bottom:10px
+}
+
+@media(max-width:1100px){
+  .grid,.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .recon{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  :root{--mobile-nav:116px}
+  .app{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .sidebar{
+    height:auto;max-height:var(--mobile-nav);padding:9px 10px;position:relative;display:block;overflow:hidden
+  }
+  .brand{font-size:18px;display:inline-block}.sub{display:inline-block;margin:0 0 7px 6px;font-size:9px}
+  .nav{display:flex;overflow-x:auto;gap:5px;padding-bottom:3px}
+  .nav button{min-width:max-content;width:auto;padding:8px 10px;margin:0;font-size:11px}
+  .userbox{display:none}
+  .main{height:calc(100dvh - var(--mobile-nav))}
+  .topbar{padding:10px 12px;align-items:flex-start}
+  .topbar h1{font-size:17px}
+  .topbar .muted{display:none}
+  .topbar .actions{justify-content:flex-end}
+  .topbar .btn{padding:8px 9px;font-size:10px}
+  .cloud-status{display:none}
+  .content-scroll{padding:12px 10px 24px}
+  .grid,.formgrid{grid-template-columns:1fr}
+  .metric strong{font-size:20px}
+  .table-frame{max-height:calc(100dvh - 270px);min-height:300px}
+  .sticky-card-head{top:-12px}
+  .history-toolbar{grid-template-columns:1fr}
+  .history-list{max-height:calc(100dvh - 250px)}
+  .report{padding:14px}
+  .mobile-scroll-hint{display:block}
+}
+@media print{
+  html,body{overflow:visible;height:auto}.sidebar,.topbar,.no-print,.auth-overlay{display:none!important}
+  .app{display:block;height:auto}.main{height:auto;display:block}.content-scroll{overflow:visible;padding:0}
+  .page{display:none!important}#reportPage{display:block!important}.report{border:0;max-width:none}
+  .card{box-shadow:none;border:0}.table-frame{max-height:none;overflow:visible}
+}
 </style>
 </head>
 <body>
+
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-logo">CHIKI<span>TOS</span></div>
+    <h2 style="margin-top:4px">Cloud Sales & Inventory</h2>
+    <div class="muted">Each account has its own products, daily records, inventory, and closing data.</div>
+    <div id="fileWarning" class="firebase-warning hidden">For reliable Firebase login/sync, open this app from Firebase Hosting or another HTTPS website instead of directly as a local file.</div>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" type="button">Sign In</button>
+      <button id="registerTab" type="button">Create Account</button>
+    </div>
+    <div class="field"><label>Email</label><input id="authEmail" type="email" placeholder="you@email.com" autocomplete="email"></div>
+    <div class="field" style="margin-top:9px"><label>Password</label><input id="authPassword" type="password" placeholder="Minimum 6 characters" autocomplete="current-password"></div>
+    <button id="authSubmit" class="btn primary" style="width:100%;margin-top:12px">Sign In</button>
+    <button id="resetPasswordBtn" class="btn" style="width:100%;margin-top:7px">Forgot Password</button>
+    <div id="authMsg" class="auth-msg"></div>
+    <div class="auth-note">Firebase project: <b>chikitos</b>. Email/Password Authentication and Firestore must be enabled in Firebase Console.</div>
+  </div>
+</div>
+
 <div class="app">
-<aside class="sidebar"><div class="brand">CHIKI<span>TOS</span></div><div class="sub">Daily Sales & Inventory System</div><div class="nav"><button class="active" data-page="inventoryPage">📦 Inventory</button><button data-page="cashPage">💵 Sales & Deposit</button><button data-page="reportPage">🧾 Daily Report</button><button data-page="settingsPage">⚙️ Products</button></div></aside>
-<main class="main">
-<div class="topbar no-print"><div><h1>Chikitos Daily Closing</h1><div class="muted">by Edss Create</div></div><div class="actions"><button class="btn" id="loadSample"> Sample Computation</button><button class="btn" id="saveDay">Save Day</button><button class="btn primary" onclick="window.print()">Print Report</button></div></div>
+  <aside class="sidebar">
+    <div class="brand">CHIKI<span>TOS</span></div>
+    <div class="sub">Cloud Daily Sales & Inventory</div>
+    <div class="nav">
+      <button class="active" data-page="inventoryPage">📦 Inventory</button>
+      <button data-page="cashPage">💵 Sales & Deposit</button>
+      <button data-page="historyPage">🗂️ Saved Days</button>
+      <button data-page="reportPage">🧾 Daily Report</button>
+      <button data-page="settingsPage">⚙️ Products</button>
+    </div>
+    <div class="userbox">
+      <div><span id="cloudDot" class="cloud-dot"></span><span id="sidebarCloud">Waiting for login</span></div>
+      <div id="userEmail" class="user-email" style="margin-top:5px">—</div>
+      <button id="signOutBtn" class="signout">Sign Out</button>
+    </div>
+  </aside>
 
-<section id="inventoryPage" class="page active">
-<div class="card"><div class="formgrid"><div class="field"><label>Date</label><input id="workDate" type="date"></div><div class="field"><label>Store / Branch</label><input id="branch" value="Chikitos"></div><div class="field"><label>Prepared By</label><input id="preparedBy" placeholder="Name"></div><div class="field"><label>Shift</label><select id="shift"><option>Whole Day</option><option>AM</option><option>PM</option></select></div></div></div>
-<div class="grid"><div class="metric"><small>Total Inventory Sales</small><strong id="mInventorySales">₱0.00</strong></div><div class="metric"><small>Total Qty Sold</small><strong id="mQtySold">0</strong></div><div class="metric"><small>Cash + Credit Declared</small><strong id="mDeclaredSales">₱0.00</strong></div><div class="metric"><small>Inventory vs Declared</small><strong id="mSalesVariance">₱0.00</strong></div></div>
-<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px"><div><h2>Inventory Sheet</h2><div class="muted">Used = Beginning + Restock − Ending. Sales Amount = Qty Sold × Price.</div></div><div class="actions no-print"><button class="btn" id="addProductRow">+ Add Product</button><button class="btn" id="resetInventory">Reset Qty</button></div></div><div class="tablewrap"><table><thead><tr><th>Category</th><th>Item</th><th>Price</th><th>Beginning</th><th>Restock</th><th>Ending</th><th>Computed Used</th><th>Qty Sold</th><th>Sales Amount</th><th>Notes</th></tr></thead><tbody id="inventoryBody"></tbody></table></div></div>
-</section>
+  <main class="main">
+    <div class="topbar no-print">
+      <div>
+        <h1>Chikitos Daily Closing</h1>
+        <div class="muted">Per-account Firebase cloud data • Mobile responsive • Fixed scroll frames</div>
+      </div>
+      <div class="actions">
+        <span id="cloudStatus" class="cloud-status">Not signed in</span>
+        <button class="btn" id="loadSample">Load Juan Sample</button>
+        <button class="btn green" id="saveDay">☁ Save Day</button>
+        <button class="btn primary" onclick="window.print()">Print</button>
+      </div>
+    </div>
 
-<section id="cashPage" class="page">
-<div class="grid"><div class="metric good"><small>Expected Deposit</small><strong id="mExpectedDeposit">₱0.00</strong></div><div class="metric"><small>Actual Deposit</small><strong id="mActualDeposit">₱0.00</strong></div><div class="metric" id="varianceMetric"><small>Deposit Variance</small><strong id="mDepositVariance">₱0.00</strong></div><div class="metric"><small>Variance Status</small><strong id="mVarianceStatus">—</strong></div></div>
-<div class="card"><h2>Sales & Deposit Reconciliation</h2><div class="muted" style="margin-bottom:12px">Same logic as your Chikitos closing computation.</div><div class="recon"><div><div class="formgrid" style="grid-template-columns:repeat(2,1fr)"><div class="field"><label>Cash Sales – Walk-in Customers (₱)</label><input id="cashSales" type="number" min="0" step=".01" value="0"></div><div class="field"><label>Employee Credit / Unpaid Sales (₱)</label><input id="employeeCredit" type="number" min="0" step=".01" value="0"></div><div class="field"><label>Expenses (₱)</label><input id="expenses" type="number" min="0" step=".01" value="0"></div><div class="field"><label>Actual Deposit / Cash Turnover (₱)</label><input id="actualDeposit" type="number" min="0" step=".01" value="0"></div><div class="field"><label>Grab Sales (optional)</label><input id="grabSales" type="number" min="0" step=".01" value="0"></div><div class="field"><label>Panda Sales (optional)</label><input id="pandaSales" type="number" min="0" step=".01" value="0"></div></div><div class="field" style="margin-top:10px"><label>Expenses / Closing Notes</label><textarea id="closingNotes" placeholder="e.g. Liempo, transport, plastic, etc."></textarea></div></div>
-<div class="calcbox"><h3>Automatic Computation</h3><div class="calcrow"><span>Cash Sales – Walk-in</span><b id="cCash">₱0.00</b></div><div class="calcrow"><span>Employee Credit</span><b id="cCredit">₱0.00</b></div><div class="calcrow total"><span>Total Sales</span><b id="cTotalSales">₱0.00</b></div><div class="calcrow"><span>Less: Expenses</span><b id="cExpenses">₱0.00</b></div><div class="calcrow total"><span>Expected Deposit</span><b id="cExpected">₱0.00</b></div><div class="calcrow"><span>Actual Deposit</span><b id="cActual">₱0.00</b></div><div class="calcrow total"><span>Deposit Variance</span><b id="cVariance">₱0.00</b></div><div id="variancePill" class="pill ok" style="margin-top:10px">Balanced</div></div></div>
-<div class="formula" style="margin-top:14px"><b>Formula:</b><br>Total Sales = Cash Sales + Employee Credit<br>Expected Deposit = Cash Sales − Expenses<br>Deposit Variance = Expected Deposit − Actual Deposit<br>Positive = <b>SHORT / Kulang ang deposit</b>. Negative = <b>OVER / Sobra ang deposit</b>.</div></div>
-</section>
+    <div id="contentScroll" class="content-scroll">
 
-<section id="reportPage" class="page"><div class="report"><h2>CHIKITOS DAILY SALES & INVENTORY REPORT</h2><div id="reportHeader" class="muted" style="text-align:center;margin-bottom:18px"></div><div class="grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px"><div class="metric"><small>Total Sales</small><strong id="rTotalSales">₱0.00</strong></div><div class="metric"><small>Expected Deposit</small><strong id="rExpected">₱0.00</strong></div><div class="metric"><small>Actual Deposit</small><strong id="rActual">₱0.00</strong></div><div class="metric"><small>Variance</small><strong id="rVariance">₱0.00</strong></div></div><h3>Inventory Sales</h3><table><thead><tr><th>Item</th><th>Price</th><th>Qty Sold</th><th>Amount</th></tr></thead><tbody id="reportInventory"></tbody></table><div class="recon" style="margin-top:18px"><div class="calcbox"><h3>Sales Breakdown</h3><div class="calcrow"><span>Cash Sales</span><b id="rCash"></b></div><div class="calcrow"><span>Employee Credit</span><b id="rCredit"></b></div><div class="calcrow total"><span>Total Sales</span><b id="rTotal"></b></div><div class="calcrow"><span>Expenses</span><b id="rExpenses"></b></div></div><div class="calcbox"><h3>Deposit Check</h3><div class="calcrow"><span>Expected Deposit</span><b id="rExpected2"></b></div><div class="calcrow"><span>Actual Deposit</span><b id="rActual2"></b></div><div class="calcrow total"><span>Variance</span><b id="rVariance2"></b></div><div id="rStatus" class="pill"></div></div></div><div style="margin-top:16px"><b>Notes:</b><div id="rNotes" class="muted" style="white-space:pre-wrap;margin-top:6px"></div></div></div></section>
+      <section id="inventoryPage" class="page active">
+        <div class="card">
+          <div class="formgrid">
+            <div class="field"><label>Date</label><input id="workDate" type="date"></div>
+            <div class="field"><label>Store / Branch</label><input id="branch" value="Chikitos"></div>
+            <div class="field"><label>Prepared By</label><input id="preparedBy" placeholder="Name"></div>
+            <div class="field"><label>Shift</label><select id="shift"><option>Whole Day</option><option>AM</option><option>PM</option></select></div>
+          </div>
+        </div>
 
-<section id="settingsPage" class="page"><div class="card"><h2>Product Master List</h2><div class="muted" style="margin-bottom:10px">Edit products and prices. Saved in this browser.</div><div class="tablewrap"><table style="min-width:700px"><thead><tr><th>Category</th><th>Item</th><th>Price</th><th></th></tr></thead><tbody id="productBody"></tbody></table></div><div class="actions" style="margin-top:12px"><button class="btn primary" id="addProductMaster">+ Add Product</button></div></div></section>
-</main></div>
-<script>
-const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
-const STORE_PRODUCTS='chikitos_products_v1',STORE_DAY='chikitos_day_v1';
-const defaultProducts=[['Meals','The Chikitos Special Lechon Manok',330],['Meals','Lechon Manok - Half',165],['Meals','Quarter Chicken',110],['Meals','Silog',0],['Meals','Hotdog / Rice / Egg',75],['Meals','Hotdog / Rice',55],['Meals','Tocino / Rice / Egg',100],['Meals','Tocino / Rice',85],['Meals','Hungarian (Plain) / Rice / Egg',110],['Meals','Hungarian (Plain) / Rice',95],['Meals','Spam / Rice / Egg',90],['Meals','Spam / Rice',75],['Meals','Longganisa / Rice / Egg',110],['Meals','Longganisa / Rice',95],['Meals','Chicken / Rice / Egg',110],['Meals','Chicken / Rice',95],['Meals','Liempo / Rice / Egg',110],['Meals','Liempo / Rice',95],['Meals','Pork Chop / Egg / Rice',110],['Meals','Pork Chop / Rice',95],['Add-ons','Extra Egg',15],['Drinks','Coke',25],['Drinks','Sprite',25],['Drinks','Mountain Dew',25],['Drinks','Sting',30],['Drinks','Mineral Water 350ml',15],['Add-ons','Rice',25],['Noodles','Pancit Canton',27],['Noodles','Cup Noodles',27],['Hot Drinks','Nescafe Coffee - Hot',15],['Hot Drinks','Kopiko Coffee - Hot',15],['Hot Drinks','Great Taste Coffee - Hot',15],['Hot Drinks','Bear Brand',20],['Hot Drinks','Milo',15]].map((x,i)=>({id:Date.now()+i,category:x[0],name:x[1],price:x[2]}));
-let products=JSON.parse(localStorage.getItem(STORE_PRODUCTS)||'null')||defaultProducts,inv={};
-const $=id=>document.getElementById(id);
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(b.dataset.page).classList.add('active');renderAll()});
+        <div class="grid">
+          <div class="metric"><small>Total Inventory Sales</small><strong id="mInventorySales">₱0.00</strong></div>
+          <div class="metric"><small>Total Qty Sold</small><strong id="mQtySold">0</strong></div>
+          <div class="metric"><small>Cash + Credit Declared</small><strong id="mDeclaredSales">₱0.00</strong></div>
+          <div class="metric"><small>Inventory vs Declared</small><strong id="mSalesVariance">₱0.00</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky-card-head">
+            <div class="section-head">
+              <div><h2>Inventory Sheet</h2><div class="muted">Used = Beginning + Restock − Ending. Sales Amount = Qty Sold × Price.</div></div>
+              <div class="actions no-print">
+                <button class="btn" id="addProductRow">+ Add Product</button>
+                <button class="btn" id="resetInventory">Reset Qty</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-frame">
+            <table>
+              <thead><tr><th>Category</th><th>Item</th><th>Price</th><th>Beginning</th><th>Restock</th><th>Ending</th><th>Computed Used</th><th>Qty Sold</th><th>Sales Amount</th><th>Notes</th></tr></thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+          <div class="mobile-scroll-hint">Swipe left/right inside the table. The table header stays fixed while scrolling.</div>
+        </div>
+      </section>
+
+      <section id="cashPage" class="page">
+        <div class="grid">
+          <div class="metric good"><small>Expected Deposit</small><strong id="mExpectedDeposit">₱0.00</strong></div>
+          <div class="metric"><small>Actual Deposit</small><strong id="mActualDeposit">₱0.00</strong></div>
+          <div class="metric" id="varianceMetric"><small>Deposit Variance</small><strong id="mDepositVariance">₱0.00</strong></div>
+          <div class="metric"><small>Variance Status</small><strong id="mVarianceStatus">—</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky-card-head"><h2>Sales & Deposit Reconciliation</h2><div class="muted">Same Chikitos closing computation, saved under the signed-in account.</div></div>
+          <div class="recon">
+            <div>
+              <div class="formgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+                <div class="field"><label>Cash Sales – Walk-in Customers (₱)</label><input id="cashSales" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Employee Credit / Unpaid Sales (₱)</label><input id="employeeCredit" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Expenses (₱)</label><input id="expenses" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Actual Deposit / Cash Turnover (₱)</label><input id="actualDeposit" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Grab Sales (optional)</label><input id="grabSales" type="number" min="0" step=".01" value="0"></div>
+                <div class="field"><label>Panda Sales (optional)</label><input id="pandaSales" type="number" min="0" step=".01" value="0"></div>
+              </div>
+              <div class="field" style="margin-top:10px"><label>Expenses / Closing Notes</label><textarea id="closingNotes" placeholder="e.g. Liempo, transport, plastic, etc."></textarea></div>
+            </div>
+            <div class="calcbox">
+              <h3>Automatic Computation</h3>
+              <div class="calcrow"><span>Cash Sales – Walk-in</span><b id="cCash">₱0.00</b></div>
+              <div class="calcrow"><span>Employee Credit</span><b id="cCredit">₱0.00</b></div>
+              <div class="calcrow total"><span>Total Sales</span><b id="cTotalSales">₱0.00</b></div>
+              <div class="calcrow"><span>Less: Expenses</span><b id="cExpenses">₱0.00</b></div>
+              <div class="calcrow total"><span>Expected Deposit</span><b id="cExpected">₱0.00</b></div>
+              <div class="calcrow"><span>Actual Deposit</span><b id="cActual">₱0.00</b></div>
+              <div class="calcrow total"><span>Deposit Variance</span><b id="cVariance">₱0.00</b></div>
+              <div id="variancePill" class="pill ok" style="margin-top:10px">Balanced</div>
+            </div>
+          </div>
+          <div class="formula" style="margin-top:13px"><b>Formula:</b><br>Total Sales = Cash Sales + Employee Credit<br>Expected Deposit = Cash Sales − Expenses<br>Deposit Variance = Expected Deposit − Actual Deposit<br>Positive = <b>SHORT / Kulang</b>. Negative = <b>OVER / Sobra</b>.</div>
+        </div>
+      </section>
+
+      <section id="historyPage" class="page">
+        <div class="card">
+          <div class="sticky-card-head">
+            <div class="section-head">
+              <div><h2>Saved Daily Records</h2><div class="muted">Only records from the currently signed-in Firebase account are shown.</div></div>
+              <button class="btn" id="refreshHistory">Refresh</button>
+            </div>
+          </div>
+          <div class="history-toolbar">
+            <input id="historySearch" placeholder="Search date, branch, prepared by..." style="border:1px solid var(--line);border-radius:10px;padding:10px">
+            <select id="historyLimit" style="border:1px solid var(--line);border-radius:10px;padding:10px"><option value="30">Latest 30</option><option value="60">Latest 60</option><option value="120">Latest 120</option></select>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+
+      <section id="reportPage" class="page">
+        <div class="report">
+          <h2>CHIKITOS DAILY SALES & INVENTORY REPORT</h2>
+          <div id="reportHeader" class="muted" style="text-align:center;margin-bottom:17px"></div>
+          <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px">
+            <div class="metric"><small>Total Sales</small><strong id="rTotalSales">₱0.00</strong></div>
+            <div class="metric"><small>Expected Deposit</small><strong id="rExpected">₱0.00</strong></div>
+            <div class="metric"><small>Actual Deposit</small><strong id="rActual">₱0.00</strong></div>
+            <div class="metric"><small>Variance</small><strong id="rVariance">₱0.00</strong></div>
+          </div>
+          <h3>Inventory Sales</h3>
+          <div class="table-frame" style="max-height:380px;min-height:160px">
+            <table style="min-width:600px">
+              <thead><tr><th>Item</th><th>Price</th><th>Qty Sold</th><th>Amount</th></tr></thead>
+              <tbody id="reportInventory"></tbody>
+            </table>
+          </div>
+          <div class="recon" style="margin-top:17px">
+            <div class="calcbox"><h3>Sales Breakdown</h3><div class="calcrow"><span>Cash Sales</span><b id="rCash"></b></div><div class="calcrow"><span>Employee Credit</span><b id="rCredit"></b></div><div class="calcrow total"><span>Total Sales</span><b id="rTotal"></b></div><div class="calcrow"><span>Expenses</span><b id="rExpenses"></b></div></div>
+            <div class="calcbox"><h3>Deposit Check</h3><div class="calcrow"><span>Expected Deposit</span><b id="rExpected2"></b></div><div class="calcrow"><span>Actual Deposit</span><b id="rActual2"></b></div><div class="calcrow total"><span>Variance</span><b id="rVariance2"></b></div><div id="rStatus" class="pill"></div></div>
+          </div>
+          <div style="margin-top:15px"><b>Notes:</b><div id="rNotes" class="muted" style="white-space:pre-wrap;margin-top:5px"></div></div>
+        </div>
+      </section>
+
+      <section id="settingsPage" class="page">
+        <div class="card">
+          <div class="sticky-card-head">
+            <div class="section-head">
+              <div><h2>Product Master List</h2><div class="muted">Each account can keep its own product names and prices in Firestore.</div></div>
+              <button class="btn primary" id="addProductMaster">+ Add Product</button>
+            </div>
+          </div>
+          <div class="table-frame">
+            <table style="min-width:720px">
+              <thead><tr><th>Category</th><th>Item</th><th>Price</th><th></th></tr></thead>
+              <tbody id="productBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs,
+  query, orderBy, limit, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+// Your Firebase project
+const firebaseConfig = {
+  apiKey: "AIzaSyAdiK4wAyETMrORxk_TGOF-A091ghZIYuI",
+  authDomain: "chikitos.firebaseapp.com",
+  projectId: "chikitos",
+  storageBucket: "chikitos.firebasestorage.app",
+  messagingSenderId: "659908029523",
+  appId: "1:659908029523:web:ba32c8887810c84863eaa6",
+  measurementId: "G-ME8604Z8QS"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+setPersistence(auth, browserLocalPersistence).catch(()=>{});
+
+const $ = id => document.getElementById(id);
+const peso = n => '₱' + Number(n || 0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const clone = obj => JSON.parse(JSON.stringify(obj));
+const safeNum = v => Number(v || 0);
+
+let currentUser = null;
+let products = [];
+let inv = {};
+let authMode = 'login';
+let cloudBusy = false;
+
+const defaultProducts = [
+  ['Meals','The Chikitos Special Lechon Manok',330],['Meals','Lechon Manok - Half',165],['Meals','Quarter Chicken',110],
+  ['Meals','Silog',0],['Meals','Hotdog / Rice / Egg',75],['Meals','Hotdog / Rice',55],['Meals','Tocino / Rice / Egg',100],
+  ['Meals','Tocino / Rice',85],['Meals','Hungarian (Plain) / Rice / Egg',110],['Meals','Hungarian (Plain) / Rice',95],
+  ['Meals','Spam / Rice / Egg',90],['Meals','Spam / Rice',75],['Meals','Longganisa / Rice / Egg',110],
+  ['Meals','Longganisa / Rice',95],['Meals','Chicken / Rice / Egg',110],['Meals','Chicken / Rice',95],
+  ['Meals','Liempo / Rice / Egg',110],['Meals','Liempo / Rice',95],['Meals','Pork Chop / Egg / Rice',110],
+  ['Meals','Pork Chop / Rice',95],['Add-ons','Extra Egg',15],['Drinks','Coke',25],['Drinks','Sprite',25],
+  ['Drinks','Mountain Dew',25],['Drinks','Sting',30],['Drinks','Mineral Water 350ml',15],['Add-ons','Rice',25],
+  ['Noodles','Pancit Canton',27],['Noodles','Cup Noodles',27],['Hot Drinks','Nescafe Coffee - Hot',15],
+  ['Hot Drinks','Kopiko Coffee - Hot',15],['Hot Drinks','Great Taste Coffee - Hot',15],['Hot Drinks','Bear Brand',20],
+  ['Hot Drinks','Milo',15]
+].map((x,i)=>({id:'p'+(i+1),category:x[0],name:x[1],price:x[2]}));
+
+if(location.protocol === 'file:') $('fileWarning').classList.remove('hidden');
+
+function setCloudStatus(text,type=''){
+  $('cloudStatus').textContent=text;
+  $('sidebarCloud').textContent=text;
+  $('cloudDot').className='cloud-dot'+(type?' '+type:'');
+}
+function setBusy(busy,text='Syncing...'){
+  cloudBusy=busy;
+  $('saveDay').disabled=busy;
+  if(busy)setCloudStatus(text);
+}
+
+function userCacheKey(name){
+  return currentUser ? `chikitos_${currentUser.uid}_${name}` : `chikitos_guest_${name}`;
+}
+function cacheProducts(){ if(currentUser)localStorage.setItem(userCacheKey('products'),JSON.stringify(products)); }
+function readCachedProducts(){
+  try{return JSON.parse(localStorage.getItem(userCacheKey('products'))||'null')}catch{return null}
+}
+function cacheDay(day){ if(currentUser)localStorage.setItem(userCacheKey('day_'+day.id),JSON.stringify(day)); }
+function readCachedDay(id){
+  try{return JSON.parse(localStorage.getItem(userCacheKey('day_'+id))||'null')}catch{return null}
+}
+
+function currentDayId(){
+  const date=$('workDate').value || new Date().toISOString().slice(0,10);
+  const s=($('shift').value||'Whole Day').toLowerCase().replace(/\s+/g,'-');
+  return `${date}_${s}`;
+}
+
+function collectDay(){
+  calc();
+  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),expenses=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
+  let inventorySales=0,qtySoldTotal=0;
+  products.forEach(p=>{const q=qtySold(p);qtySoldTotal+=q.sold;inventorySales+=q.sold*safeNum(p.price)});
+  const expected=cash-expenses,variance=expected-actual;
+  return {
+    id:currentDayId(),date:$('workDate').value,branch:$('branch').value.trim()||'Chikitos',
+    preparedBy:$('preparedBy').value.trim(),shift:$('shift').value,inv:clone(inv),
+    cash,credit,expenses,actual,grab:safeNum($('grabSales').value),panda:safeNum($('pandaSales').value),
+    notes:$('closingNotes').value,inventorySales,qtySoldTotal,totalSales:cash+credit,expectedDeposit:expected,
+    depositVariance:variance,updatedAtClient:new Date().toISOString()
+  };
+}
+
+async function saveProductsCloud(){
+  if(!currentUser)return;
+  cacheProducts();
+  await setDoc(doc(db,'users',currentUser.uid,'settings','products'),{
+    items:products,updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString()
+  },{merge:true});
+}
+
+async function loadProductsCloud(){
+  const cached=readCachedProducts();
+  if(cached?.length)products=cached;
+  else products=clone(defaultProducts);
+
+  if(!currentUser){renderProductMaster();renderInventory();return}
+  try{
+    const snap=await getDoc(doc(db,'users',currentUser.uid,'settings','products'));
+    if(snap.exists() && Array.isArray(snap.data().items) && snap.data().items.length){
+      products=snap.data().items;
+    }else{
+      products=clone(defaultProducts);
+      await saveProductsCloud();
+    }
+    cacheProducts();
+    renderProductMaster();renderInventory();
+  }catch(err){
+    console.warn(err);renderProductMaster();renderInventory();setCloudStatus('Offline / cached data','bad');
+  }
+}
+
+async function saveDayCloud(showAlert=true){
+  if(!currentUser){alert('Please sign in first.');return}
+  const day=collectDay();
+  cacheDay(day);
+  try{
+    setBusy(true,'Saving to Firebase...');
+    await setDoc(doc(db,'users',currentUser.uid,'days',day.id),{
+      ...day,updatedAt:serverTimestamp()
+    },{merge:true});
+    setCloudStatus('Saved to Firebase','ok');
+    if(showAlert)alert('Saved to your Firebase account.');
+    renderHistory();
+  }catch(err){
+    console.error(err);setCloudStatus('Cloud save failed','bad');
+    if(showAlert)alert('Cloud save failed. A local cached copy was kept in this browser.\n\n'+err.message);
+  }finally{setBusy(false)}
+}
+
+function applyDay(d){
+  inv=d?.inv||{};
+  $('workDate').value=d?.date||$('workDate').value;
+  $('branch').value=d?.branch||'Chikitos';
+  $('preparedBy').value=d?.preparedBy||'';
+  $('shift').value=d?.shift||'Whole Day';
+  $('cashSales').value=d?.cash||0;$('employeeCredit').value=d?.credit||0;$('expenses').value=d?.expenses||0;
+  $('actualDeposit').value=d?.actual||0;$('grabSales').value=d?.grab||0;$('pandaSales').value=d?.panda||0;
+  $('closingNotes').value=d?.notes||'';
+  renderInventory();calc();
+}
+
+function clearDayForm(){
+  inv={};$('preparedBy').value='';$('cashSales').value=0;$('employeeCredit').value=0;$('expenses').value=0;
+  $('actualDeposit').value=0;$('grabSales').value=0;$('pandaSales').value=0;$('closingNotes').value='';
+  renderInventory();calc();
+}
+
+async function loadDayCloud(){
+  if(!currentUser)return;
+  const id=currentDayId();
+  const cached=readCachedDay(id);
+  if(cached)applyDay(cached); else clearDayForm();
+  try{
+    setCloudStatus('Loading day...');
+    const snap=await getDoc(doc(db,'users',currentUser.uid,'days',id));
+    if(snap.exists()){const d=snap.data();cacheDay(d);applyDay(d);setCloudStatus('Firebase synced','ok')}
+    else{if(!cached)clearDayForm();setCloudStatus('New unsaved day','ok')}
+  }catch(err){console.warn(err);setCloudStatus('Offline / cached data','bad')}
+}
+
+function qtySold(p){
+  const d=inv[p.id]||{};
+  const used=Math.max(0,safeNum(d.begin)+safeNum(d.restock)-safeNum(d.end));
+  const sold=d.sold===''||d.sold===undefined?used:safeNum(d.sold);
+  return {used,sold}
+}
+
+function renderInventory(){
+  const tb=$('inventoryBody');tb.innerHTML='';
+  products.forEach(p=>{
+    const d=inv[p.id]||{begin:0,restock:0,end:0,sold:'',notes:''};
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="category">${escapeHtml(p.category)}</td><td><b>${escapeHtml(p.name)}</b></td>
+    <td><input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-price="${p.id}"></td>
+    <td><input type="number" min="0" step="1" value="${safeNum(d.begin)}" data-f="begin" data-id="${p.id}"></td>
+    <td><input type="number" min="0" step="1" value="${safeNum(d.restock)}" data-f="restock" data-id="${p.id}"></td>
+    <td><input type="number" min="0" step="1" value="${safeNum(d.end)}" data-f="end" data-id="${p.id}"></td>
+    <td class="num" id="used-${p.id}">0</td>
+    <td><input type="number" min="0" step="1" value="${d.sold!==''&&d.sold!==undefined?safeNum(d.sold):''}" placeholder="auto" data-f="sold" data-id="${p.id}"></td>
+    <td class="num" id="amt-${p.id}">₱0.00</td>
+    <td><input value="${escapeAttr(d.notes||'')}" data-f="notes" data-id="${p.id}"></td>`;
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('input[data-f]').forEach(i=>i.oninput=()=>{
+    const id=i.dataset.id;inv[id]=inv[id]||{};
+    inv[id][i.dataset.f]=i.dataset.f==='notes'?i.value:(i.dataset.f==='sold'&&i.value===''?'':safeNum(i.value));
+    calc();cacheDraft();
+  });
+  tb.querySelectorAll('input[data-price]').forEach(i=>i.onchange=async()=>{
+    const p=products.find(x=>String(x.id)===String(i.dataset.price));if(p)p.price=safeNum(i.value);
+    renderProductMaster();calc();cacheProducts();
+    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch{setCloudStatus('Product save failed','bad')}
+  });
+  calc();
+}
+
+function calc(){
+  let inventorySales=0,qty=0;
+  products.forEach(p=>{
+    const q=qtySold(p),amt=q.sold*safeNum(p.price);qty+=q.sold;inventorySales+=amt;
+    const u=$('used-'+p.id),a=$('amt-'+p.id);if(u)u.textContent=q.used;if(a)a.textContent=peso(amt)
+  });
+  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),exp=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
+  const total=cash+credit,expected=cash-exp,variance=expected-actual;
+  $('mInventorySales').textContent=peso(inventorySales);$('mQtySold').textContent=qty;$('mDeclaredSales').textContent=peso(total);$('mSalesVariance').textContent=peso(inventorySales-total);
+  $('mExpectedDeposit').textContent=peso(expected);$('mActualDeposit').textContent=peso(actual);$('mDepositVariance').textContent=peso(variance);
+  $('cCash').textContent=peso(cash);$('cCredit').textContent=peso(credit);$('cTotalSales').textContent=peso(total);$('cExpenses').textContent='-'+peso(exp);
+  $('cExpected').textContent=peso(expected);$('cActual').textContent=peso(actual);$('cVariance').textContent=peso(variance);
+  let status='Balanced',cls='ok';
+  if(variance>.009){status='SHORT / Kulang '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / Sobra '+peso(Math.abs(variance));cls='warn'}
+  $('mVarianceStatus').textContent=status;$('varianceMetric').className='metric '+(cls==='bad'?'bad':cls==='ok'?'good':'');
+  $('variancePill').className='pill '+cls;$('variancePill').textContent=status;
+  renderReport();
+}
+
+function renderReport(){
+  const cash=safeNum($('cashSales').value),credit=safeNum($('employeeCredit').value),exp=safeNum($('expenses').value),actual=safeNum($('actualDeposit').value);
+  const total=cash+credit,expected=cash-exp,variance=expected-actual;
+  $('reportHeader').textContent=`${$('branch').value||'Chikitos'} • ${$('workDate').value||''} • ${$('shift').value||''}${$('preparedBy').value?' • Prepared by '+$('preparedBy').value:''}`;
+  $('rTotalSales').textContent=peso(total);$('rExpected').textContent=peso(expected);$('rActual').textContent=peso(actual);$('rVariance').textContent=peso(variance);
+  $('rCash').textContent=peso(cash);$('rCredit').textContent=peso(credit);$('rTotal').textContent=peso(total);$('rExpenses').textContent='-'+peso(exp);
+  $('rExpected2').textContent=peso(expected);$('rActual2').textContent=peso(actual);$('rVariance2').textContent=peso(variance);
+  let status='BALANCED',cls='ok';if(variance>.009){status='SHORT / KULANG '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / SOBRA '+peso(Math.abs(variance));cls='warn'}
+  $('rStatus').className='pill '+cls;$('rStatus').textContent=status;$('rNotes').textContent=$('closingNotes').value||'—';
+  $('reportInventory').innerHTML='';
+  products.forEach(p=>{const q=qtySold(p);if(q.sold<=0)return;$('reportInventory').innerHTML+=`<tr><td>${escapeHtml(p.name)}</td><td>${peso(p.price)}</td><td>${q.sold}</td><td>${peso(q.sold*p.price)}</td></tr>`});
+  if(!$('reportInventory').innerHTML)$('reportInventory').innerHTML='<tr><td colspan="4">No sold items entered.</td></tr>';
+}
+
+function renderProductMaster(){
+  $('productBody').innerHTML='';
+  products.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input value="${escapeAttr(p.category)}" data-pf="category" data-id="${p.id}"></td>
+    <td><input value="${escapeAttr(p.name)}" data-pf="name" data-id="${p.id}"></td>
+    <td><input type="number" min="0" step=".01" value="${safeNum(p.price)}" data-pf="price" data-id="${p.id}"></td>
+    <td><button class="btn danger small" data-delete-product="${p.id}">Delete</button></td>`;
+    $('productBody').appendChild(tr)
+  });
+  $('productBody').querySelectorAll('input').forEach(i=>i.onchange=async()=>{
+    const p=products.find(x=>String(x.id)===String(i.dataset.id));if(!p)return;
+    p[i.dataset.pf]=i.dataset.pf==='price'?safeNum(i.value):i.value;
+    cacheProducts();renderInventory();
+    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch{setCloudStatus('Product save failed','bad')}
+  });
+  $('productBody').querySelectorAll('[data-delete-product]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('Delete this product?'))return;
+    products=products.filter(p=>String(p.id)!==String(b.dataset.deleteProduct));
+    cacheProducts();renderProductMaster();renderInventory();
+    try{await saveProductsCloud();setCloudStatus('Products saved','ok')}catch{}
+  });
+}
+
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function escapeAttr(v){return escapeHtml(v).replace(/`/g,'&#96;')}
+
+function cacheDraft(){
+  if(!currentUser)return;
+  const d=collectDay();
+  localStorage.setItem(userCacheKey('draft_'+d.id),JSON.stringify(d));
+}
+function loadDraft(){
+  if(!currentUser)return null;
+  try{return JSON.parse(localStorage.getItem(userCacheKey('draft_'+currentDayId()))||'null')}catch{return null}
+}
+
+async function renderHistory(){
+  if(!currentUser)return;
+  const root=$('historyList');root.innerHTML='<div class="empty">Loading saved records...</div>';
+  try{
+    const maxRows=Number($('historyLimit').value||30);
+    const q=query(collection(db,'users',currentUser.uid,'days'),orderBy('date','desc'),limit(maxRows));
+    const snaps=await getDocs(q);
+    const search=($('historySearch').value||'').trim().toLowerCase();
+    const rows=[];snaps.forEach(s=>rows.push({id:s.id,...s.data()}));
+    const filtered=rows.filter(d=>!search||[d.date,d.branch,d.preparedBy,d.shift].join(' ').toLowerCase().includes(search));
+    if(!filtered.length){root.innerHTML='<div class="empty">No saved records found for this account.</div>';return}
+    root.innerHTML=filtered.map(d=>`
+      <div class="history-item">
+        <div>
+          <div class="history-title">${escapeHtml(d.date||'No date')} • ${escapeHtml(d.shift||'Whole Day')}</div>
+          <div class="history-meta">${escapeHtml(d.branch||'Chikitos')}${d.preparedBy?' • '+escapeHtml(d.preparedBy):''}<br>
+          Total Sales ${peso(d.totalSales||0)} • Expected Deposit ${peso(d.expectedDeposit||0)} • Variance ${peso(d.depositVariance||0)}</div>
+        </div>
+        <div class="history-actions">
+          <button class="btn small" data-load-day="${escapeAttr(d.id)}">Open</button>
+          <button class="btn danger small" data-delete-day="${escapeAttr(d.id)}">Delete</button>
+        </div>
+      </div>`).join('');
+    root.querySelectorAll('[data-load-day]').forEach(b=>b.onclick=()=>openHistoryDay(b.dataset.loadDay));
+    root.querySelectorAll('[data-delete-day]').forEach(b=>b.onclick=()=>deleteHistoryDay(b.dataset.deleteDay));
+  }catch(err){
+    console.error(err);root.innerHTML='<div class="empty">Could not load Firebase history.<br>'+escapeHtml(err.message)+'</div>';
+  }
+}
+
+async function openHistoryDay(id){
+  if(!currentUser)return;
+  try{
+    const snap=await getDoc(doc(db,'users',currentUser.uid,'days',id));
+    if(!snap.exists())return;
+    applyDay(snap.data());
+    document.querySelector('[data-page="inventoryPage"]').click();
+    setCloudStatus('Saved day loaded','ok');
+  }catch(err){alert(err.message)}
+}
+async function deleteHistoryDay(id){
+  if(!currentUser||!confirm('Delete this saved day from this account?'))return;
+  try{await deleteDoc(doc(db,'users',currentUser.uid,'days',id));renderHistory();setCloudStatus('Record deleted','ok')}
+  catch(err){alert(err.message)}
+}
+
+function switchAuthMode(mode){
+  authMode=mode;
+  $('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');
+  $('authSubmit').textContent=mode==='login'?'Sign In':'Create Account';
+  $('authPassword').autocomplete=mode==='login'?'current-password':'new-password';
+  $('authMsg').textContent='';
+}
+$('loginTab').onclick=()=>switchAuthMode('login');
+$('registerTab').onclick=()=>switchAuthMode('register');
+
+$('authSubmit').onclick=async()=>{
+  const email=$('authEmail').value.trim(),password=$('authPassword').value;
+  if(!email||password.length<6){$('authMsg').textContent='Enter a valid email and password with at least 6 characters.';return}
+  $('authSubmit').disabled=true;$('authMsg').textContent='Please wait...';
+  try{
+    if(authMode==='login')await signInWithEmailAndPassword(auth,email,password);
+    else await createUserWithEmailAndPassword(auth,email,password);
+  }catch(err){$('authMsg').textContent=humanAuthError(err)}
+  finally{$('authSubmit').disabled=false}
+};
+$('resetPasswordBtn').onclick=async()=>{
+  const email=$('authEmail').value.trim();if(!email){$('authMsg').textContent='Enter your email first.';return}
+  try{await sendPasswordResetEmail(auth,email);$('authMsg').style.color='#14754a';$('authMsg').textContent='Password reset email sent.'}
+  catch(err){$('authMsg').style.color='#9f2222';$('authMsg').textContent=humanAuthError(err)}
+};
+$('signOutBtn').onclick=()=>signOut(auth);
+function humanAuthError(err){
+  const code=err?.code||'';
+  if(code.includes('invalid-credential'))return 'Incorrect email or password.';
+  if(code.includes('email-already-in-use'))return 'This email already has an account.';
+  if(code.includes('weak-password'))return 'Password must have at least 6 characters.';
+  if(code.includes('network-request-failed'))return 'Network error. Check internet connection and hosting.';
+  return err?.message||'Authentication failed.';
+}
+
+onAuthStateChanged(auth,async user=>{
+  currentUser=user||null;
+  if(!user){
+    $('authOverlay').classList.remove('hidden');$('userEmail').textContent='—';setCloudStatus('Not signed in','bad');
+    products=clone(defaultProducts);inv={};renderProductMaster();renderInventory();return;
+  }
+  $('authOverlay').classList.add('hidden');$('userEmail').textContent=user.email||user.uid;setCloudStatus('Connecting to Firebase...');
+  await loadProductsCloud();
+  const draft=loadDraft();if(draft)applyDay(draft);
+  await loadDayCloud();
+  renderHistory();
+});
+
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(b.dataset.page).classList.add('active');
+  $('contentScroll').scrollTo({top:0,behavior:'smooth'});
+  if(b.dataset.page==='historyPage')renderHistory();
+  calc();renderProductMaster();
+});
+
 $('workDate').value=new Date().toISOString().slice(0,10);
-function qtySold(p){const d=inv[p.id]||{};const used=Math.max(0,(+d.begin||0)+(+d.restock||0)-(+d.end||0));const sold=d.sold===''||d.sold===undefined?used:+d.sold;return{used,sold}}
-function renderInventory(){const tb=$('inventoryBody');tb.innerHTML='';products.forEach(p=>{const d=inv[p.id]||{begin:0,restock:0,end:0,sold:'',notes:''};const tr=document.createElement('tr');tr.innerHTML=`<td class="category">${p.category}</td><td><b>${p.name}</b></td><td><input type="number" min="0" step=".01" value="${p.price}" data-price="${p.id}"></td><td><input type="number" min="0" step="1" value="${d.begin||0}" data-f="begin" data-id="${p.id}"></td><td><input type="number" min="0" step="1" value="${d.restock||0}" data-f="restock" data-id="${p.id}"></td><td><input type="number" min="0" step="1" value="${d.end||0}" data-f="end" data-id="${p.id}"></td><td class="num" id="used-${p.id}">0</td><td><input type="number" min="0" step="1" value="${d.sold!==''?d.sold:''}" placeholder="auto" data-f="sold" data-id="${p.id}"></td><td class="num" id="amt-${p.id}">₱0.00</td><td><input value="${d.notes||''}" data-f="notes" data-id="${p.id}"></td>`;tb.appendChild(tr)});tb.querySelectorAll('input[data-f]').forEach(i=>i.oninput=()=>{const id=+i.dataset.id;inv[id]=inv[id]||{};inv[id][i.dataset.f]=i.dataset.f==='notes'?i.value:(i.dataset.f==='sold'&&i.value===''?'':+i.value);calc()});tb.querySelectorAll('input[data-price]').forEach(i=>i.onchange=()=>{const p=products.find(x=>x.id===+i.dataset.price);if(p)p.price=+i.value;saveProducts();calc()});calc()}
-function calc(){let inventorySales=0,qty=0;products.forEach(p=>{const q=qtySold(p),amt=q.sold*(+p.price||0);qty+=q.sold;inventorySales+=amt;const u=$('used-'+p.id),a=$('amt-'+p.id);if(u)u.textContent=q.used;if(a)a.textContent=peso(amt)});const cash=+$('cashSales').value||0,credit=+$('employeeCredit').value||0,exp=+$('expenses').value||0,actual=+$('actualDeposit').value||0,total=cash+credit,expected=cash-exp,variance=expected-actual;$('mInventorySales').textContent=peso(inventorySales);$('mQtySold').textContent=qty;$('mDeclaredSales').textContent=peso(total);$('mSalesVariance').textContent=peso(inventorySales-total);$('mExpectedDeposit').textContent=peso(expected);$('mActualDeposit').textContent=peso(actual);$('mDepositVariance').textContent=peso(variance);$('cCash').textContent=peso(cash);$('cCredit').textContent=peso(credit);$('cTotalSales').textContent=peso(total);$('cExpenses').textContent='-'+peso(exp);$('cExpected').textContent=peso(expected);$('cActual').textContent=peso(actual);$('cVariance').textContent=peso(variance);let status='Balanced',cls='ok';if(variance>.009){status='SHORT / Kulang '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / Sobra '+peso(Math.abs(variance));cls='warn'}$('mVarianceStatus').textContent=status;$('varianceMetric').className='metric '+(cls==='bad'?'bad':cls==='ok'?'good':'');$('variancePill').className='pill '+cls;$('variancePill').textContent=status;renderReport()}
-['cashSales','employeeCredit','expenses','actualDeposit','grabSales','pandaSales','closingNotes','workDate','branch','preparedBy','shift'].forEach(id=>$(id).addEventListener('input',calc));
-function renderReport(){const cash=+$('cashSales').value||0,credit=+$('employeeCredit').value||0,exp=+$('expenses').value||0,actual=+$('actualDeposit').value||0,total=cash+credit,expected=cash-exp,variance=expected-actual;$('reportHeader').textContent=`${$('branch').value||'Chikitos'} • ${$('workDate').value||''} • ${$('shift').value||''}${$('preparedBy').value?' • Prepared by '+$('preparedBy').value:''}`;$('rTotalSales').textContent=peso(total);$('rExpected').textContent=peso(expected);$('rActual').textContent=peso(actual);$('rVariance').textContent=peso(variance);$('rCash').textContent=peso(cash);$('rCredit').textContent=peso(credit);$('rTotal').textContent=peso(total);$('rExpenses').textContent='-'+peso(exp);$('rExpected2').textContent=peso(expected);$('rActual2').textContent=peso(actual);$('rVariance2').textContent=peso(variance);let status='BALANCED',cls='ok';if(variance>.009){status='SHORT / KULANG '+peso(variance);cls='bad'}else if(variance<-.009){status='OVER / SOBRA '+peso(Math.abs(variance));cls='warn'}$('rStatus').className='pill '+cls;$('rStatus').textContent=status;$('rNotes').textContent=$('closingNotes').value||'—';$('reportInventory').innerHTML='';products.forEach(p=>{const q=qtySold(p);if(q.sold<=0)return;$('reportInventory').innerHTML+=`<tr><td>${p.name}</td><td>${peso(p.price)}</td><td>${q.sold}</td><td>${peso(q.sold*p.price)}</td></tr>`});if(!$('reportInventory').innerHTML)$('reportInventory').innerHTML='<tr><td colspan="4">No sold items entered.</td></tr>'}
-function saveProducts(){localStorage.setItem(STORE_PRODUCTS,JSON.stringify(products));renderProductMaster()}function renderProductMaster(){$('productBody').innerHTML='';products.forEach(p=>{const tr=document.createElement('tr');tr.innerHTML=`<td><input value="${p.category}" data-pf="category" data-id="${p.id}"></td><td><input value="${p.name}" data-pf="name" data-id="${p.id}"></td><td><input type="number" value="${p.price}" data-pf="price" data-id="${p.id}"></td><td><button class="btn danger" onclick="delProduct(${p.id})">Delete</button></td>`;$('productBody').appendChild(tr)});$('productBody').querySelectorAll('input').forEach(i=>i.onchange=()=>{const p=products.find(x=>x.id===+i.dataset.id);if(!p)return;p[i.dataset.pf]=i.dataset.pf==='price'?+i.value:i.value;saveProducts();renderInventory()})}window.delProduct=id=>{if(confirm('Delete this product?')){products=products.filter(p=>p.id!==id);saveProducts();renderInventory()}};$('addProductMaster').onclick=()=>{products.push({id:Date.now(),category:'New Category',name:'New Product',price:0});saveProducts();renderInventory()};$('addProductRow').onclick=()=>document.querySelector('[data-page="settingsPage"]').click();$('resetInventory').onclick=()=>{if(confirm('Reset inventory quantities?')){inv={};renderInventory()}};
-$('saveDay').onclick=()=>{const day={date:$('workDate').value,branch:$('branch').value,preparedBy:$('preparedBy').value,shift:$('shift').value,inv,cash:+$('cashSales').value||0,credit:+$('employeeCredit').value||0,expenses:+$('expenses').value||0,actual:+$('actualDeposit').value||0,grab:+$('grabSales').value||0,panda:+$('pandaSales').value||0,notes:$('closingNotes').value};localStorage.setItem(STORE_DAY,JSON.stringify(day));alert('Saved in this browser.')};function loadDay(){const d=JSON.parse(localStorage.getItem(STORE_DAY)||'null');if(!d)return;$('workDate').value=d.date||$('workDate').value;$('branch').value=d.branch||'Chikitos';$('preparedBy').value=d.preparedBy||'';$('shift').value=d.shift||'Whole Day';inv=d.inv||{};$('cashSales').value=d.cash||0;$('employeeCredit').value=d.credit||0;$('expenses').value=d.expenses||0;$('actualDeposit').value=d.actual||0;$('grabSales').value=d.grab||0;$('pandaSales').value=d.panda||0;$('closingNotes').value=d.notes||'';renderInventory();calc()}
-$('loadSample').onclick=()=>{$('cashSales').value=5825;$('employeeCredit').value=1925;$('expenses').value=983;$('actualDeposit').value=4567;$('closingNotes').value='Juan sample: Expected deposit ₱4,842.00. Actual deposit ₱4,567.00. Variance/shortage ₱275.00.';calc();document.querySelector('[data-page="cashPage"]').click()};
-function renderAll(){calc();renderProductMaster()}renderProductMaster();loadDay();renderInventory();calc();
+let dayLoadTimer=null;
+function queueDayLoad(){
+  clearTimeout(dayLoadTimer);
+  dayLoadTimer=setTimeout(()=>loadDayCloud(),250);
+}
+$('workDate').addEventListener('change',queueDayLoad);
+$('shift').addEventListener('change',queueDayLoad);
+
+['cashSales','employeeCredit','expenses','actualDeposit','grabSales','pandaSales','closingNotes','branch','preparedBy'].forEach(id=>{
+  $(id).addEventListener('input',()=>{calc();cacheDraft()});
+});
+
+$('saveDay').onclick=()=>saveDayCloud(true);
+$('refreshHistory').onclick=renderHistory;
+$('historySearch').oninput=renderHistory;
+$('historyLimit').onchange=renderHistory;
+$('addProductRow').onclick=()=>document.querySelector('[data-page="settingsPage"]').click();
+$('addProductMaster').onclick=async()=>{
+  products.push({id:'p'+Date.now(),category:'New Category',name:'New Product',price:0});
+  cacheProducts();renderProductMaster();renderInventory();
+  try{await saveProductsCloud();setCloudStatus('Product added','ok')}catch{}
+};
+$('resetInventory').onclick=()=>{if(confirm('Reset current inventory quantities?')){inv={};renderInventory();cacheDraft()}};
+
+$('loadSample').onclick=()=>{
+  $('cashSales').value=5825;$('employeeCredit').value=1925;$('expenses').value=983;$('actualDeposit').value=4567;
+  $('closingNotes').value='Juan sample: Expected deposit ₱4,842.00. Actual deposit ₱4,567.00. Variance/shortage ₱275.00.';
+  calc();cacheDraft();document.querySelector('[data-page="cashPage"]').click()
+};
+
+renderProductMaster();renderInventory();calc();
 </script>
-</body></html>
+</body>
+</html>

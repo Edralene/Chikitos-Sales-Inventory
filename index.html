@@ -188,26 +188,180 @@ td input{width:100%;min-width:65px;padding:7px;border:1px solid #ddd3c4;border-r
   .report-scroll{max-height:360px}
 }
 @media(max-width:430px){.product-grid{grid-template-columns:1fr 1fr}}
-@page{size:A4 portrait;margin:9mm}
+@page{
+  size:A4 landscape;
+  margin:8mm;
+}
 .print-sheet{display:none}
-.print-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;border-bottom:2px solid #222;padding-bottom:8px;margin-bottom:10px}
-.print-brand{font-size:22px;font-weight:900}.print-brand span{color:#b9272f}
-.print-title{text-align:right}.print-title h2{font-size:18px;margin:0}.print-title div{font-size:9px;color:#555;margin-top:3px}
-.print-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:9px 0}
-.print-stat{border:1px solid #bbb;border-radius:6px;padding:7px}
-.print-stat small{display:block;font-size:7px;text-transform:uppercase;color:#666;font-weight:800}.print-stat b{display:block;font-size:13px;margin-top:3px}
-.print-section{margin-top:10px}.print-section h3{font-size:10px;margin:0 0 5px;text-transform:uppercase}
-.print-table{width:100%;border-collapse:collapse;table-layout:fixed}
-.print-table th,.print-table td{border:1px solid #bbb;padding:4px 5px;font-size:7.5px;vertical-align:top;word-wrap:break-word}
-.print-table th{background:#eee;color:#111;position:static;text-transform:uppercase}
-.print-footer{margin-top:10px;padding-top:6px;border-top:1px solid #aaa;display:flex;justify-content:space-between;gap:15px;font-size:7px;color:#555}
-.print-note{font-size:7px;color:#555;margin-top:5px}
+.print-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px;
+  align-items:start;
+  border-bottom:1.5px solid #222;
+  padding-bottom:6px;
+  margin-bottom:7px
+}
+.print-brand{
+  font-size:18px;
+  font-weight:900;
+  line-height:1.1
+}
+.print-brand span{color:#2f6fed}
+.print-title{
+  text-align:right;
+  max-width:110mm
+}
+.print-title h2{
+  font-size:14px;
+  line-height:1.15;
+  margin:0
+}
+.print-title div{
+  font-size:7px;
+  line-height:1.35;
+  color:#555;
+  margin-top:2px
+}
+.print-summary{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:4px;
+  margin:5px 0
+}
+.print-summary-3{
+  grid-template-columns:repeat(3,minmax(0,1fr))
+}
+.print-stat{
+  min-width:0;
+  border:1px solid #c8c8c8;
+  border-radius:4px;
+  padding:5px 6px;
+  break-inside:avoid
+}
+.print-stat small{
+  display:block;
+  font-size:6px;
+  line-height:1.15;
+  text-transform:uppercase;
+  color:#666;
+  font-weight:800;
+  white-space:normal
+}
+.print-stat b{
+  display:block;
+  font-size:10px;
+  line-height:1.15;
+  margin-top:2px;
+  overflow-wrap:anywhere
+}
+.print-section{
+  margin-top:7px;
+  width:100%
+}
+.print-section h3{
+  font-size:8px;
+  line-height:1.2;
+  margin:0 0 3px;
+  text-transform:uppercase;
+  letter-spacing:.03em
+}
+.print-table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  page-break-inside:auto
+}
+.print-table thead{
+  display:table-header-group
+}
+.print-table tfoot{
+  display:table-footer-group
+}
+.print-table tr{
+  break-inside:avoid;
+  page-break-inside:avoid
+}
+.print-table th,
+.print-table td{
+  border:1px solid #c7c7c7;
+  padding:2.6px 3px;
+  font-size:5.9px;
+  line-height:1.28;
+  vertical-align:top;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  white-space:normal
+}
+.print-table th{
+  background:#f0f0f0;
+  color:#111;
+  position:static!important;
+  text-transform:uppercase;
+  font-weight:800
+}
+.print-table td{
+  background:#fff!important
+}
+.print-table tfoot td{
+  position:static!important;
+  background:#f7f7f7!important;
+  font-weight:800
+}
+.print-footer{
+  margin-top:7px;
+  padding-top:4px;
+  border-top:1px solid #aaa;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:5.8px;
+  line-height:1.25;
+  color:#555
+}
+.print-note{
+  font-size:5.8px;
+  line-height:1.3;
+  color:#555;
+  margin-top:4px
+}
 @media print{
-  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
-  .auth,.app{display:none!important}
-  .print-sheet{display:block!important;width:100%;max-width:none;margin:0;padding:0;background:#fff;color:#111}
-  .print-table tr{page-break-inside:avoid}
-  .print-section{page-break-inside:auto}
+  html,body{
+    width:100%!important;
+    height:auto!important;
+    overflow:visible!important;
+    background:#fff!important;
+    margin:0!important;
+    padding:0!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact
+  }
+  .auth,.app,.intro-screen{
+    display:none!important
+  }
+  .print-sheet{
+    display:none!important
+  }
+  .print-sheet.print-active{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    color:#111!important;
+    background:#fff!important
+  }
+  .print-head,
+  .print-summary,
+  .print-stat,
+  .print-footer{
+    break-inside:avoid;
+    page-break-inside:avoid
+  }
+  .print-section{
+    break-inside:auto;
+    page-break-inside:auto
+  }
 }
 
 .report-select-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
@@ -1680,6 +1834,194 @@ tfoot td{background:#f8faff!important}
   .intro-card{padding:18px 14px}
 }
 
+
+/* v17: report tabs, processors, inventory, stock adjustments, live clock */
+.live-clock{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:0 10px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:#fff;
+  color:#5b687a;
+  font-size:8px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.report-tabs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:3px 0 10px;
+  margin-top:6px;
+  scrollbar-width:none;
+}
+.report-tabs::-webkit-scrollbar{display:none}
+.report-tab{
+  flex:0 0 auto;
+  min-height:38px;
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+  color:#647184;
+  font:700 9px "Manrope","Segoe UI",sans-serif;
+  cursor:pointer;
+}
+.report-tab.active{
+  background:var(--brand-soft);
+  color:var(--brand);
+  border-color:#cfe0ff;
+  box-shadow:inset 0 0 0 1px rgba(47,111,237,.05);
+}
+.report-subpanel{display:none}
+.report-subpanel.active{display:block}
+.report-inner-card{
+  box-shadow:none!important;
+  margin:0!important;
+  border-radius:14px!important;
+}
+.processor-select-box{
+  margin:10px 0;
+  padding:11px;
+  display:grid;
+  grid-template-columns:minmax(210px,340px) 1fr;
+  gap:10px;
+  align-items:end;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#f8faff;
+}
+.processor-select-box label,
+.processor-admin-form label{
+  display:block;
+  margin-bottom:5px;
+  font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
+  color:#778396;
+}
+.processor-admin-form{
+  display:grid;
+  grid-template-columns:minmax(200px,1fr) auto;
+  gap:8px;
+  margin-bottom:12px;
+}
+.processor-list{
+  display:grid;
+  gap:7px;
+  max-width:720px;
+}
+.processor-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#fbfcff;
+}
+.processor-name{
+  font-size:11px;
+  font-weight:800;
+}
+.stock-action-buttons{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.stock-reason{
+  min-width:190px;
+}
+.adjust-add{color:#17774c;font-weight:800}
+.adjust-minus{color:#be3d3d;font-weight:800}
+.inventory-status{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800;
+}
+.inventory-status.ok{background:#eaf7ef;color:#17744a}
+.inventory-status.low{background:#fff4da;color:#8b650c}
+.inventory-status.out{background:#ffe7e7;color:#a62f2f}
+@media(max-width:720px){
+  .live-clock{
+    display:none;
+  }
+  .processor-select-box{
+    grid-template-columns:1fr;
+    align-items:stretch;
+  }
+  .processor-admin-form{
+    grid-template-columns:1fr;
+  }
+  .report-tab{
+    min-height:40px;
+    font-size:8.5px;
+  }
+  .stock-action-buttons{
+    min-width:170px;
+  }
+}
+
+
+/* Final print controls */
+.report-main-metrics{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+.print-action-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+  align-items:center;
+}
+.print-action-pair{
+  display:inline-flex;
+  gap:5px;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+.print-action-pair .btn{
+  white-space:nowrap;
+}
+@media(max-width:720px){
+  .report-main-metrics{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  .report-main-metrics .metric{
+    min-width:0!important;
+  }
+  .report-main-metrics .metric strong{
+    font-size:14px!important;
+    overflow-wrap:anywhere
+  }
+  .print-action-group{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+  .print-action-pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+  }
+  .print-action-pair .btn{
+    min-width:0;
+    white-space:normal;
+    line-height:1.2;
+  }
+}
+@media(max-width:420px){
+  .report-main-metrics{
+    grid-template-columns:1fr!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1753,6 +2095,8 @@ tfoot td{background:#f8faff!important}
       <button id="expensesNav" data-page="expensesPage">🧾 Expenses</button>
       <button id="reportsNav" data-page="reportsPage">📊 Sales Reports</button>
       <button class="adminOnly" data-page="txPage">📚 Transactions</button>
+      <button class="adminOnly" data-page="inventoryPage">📋 Inventory</button>
+      <button class="adminOnly" data-page="processorsPage">👥 Processors</button>
       <button class="adminOnly" data-page="productsPage">⚙️ Products</button>
     </div>
     <div class="user">
@@ -1770,6 +2114,7 @@ tfoot td{background:#f8faff!important}
         <div class="muted">Live shared stock • sales • credit • expenses • reports</div>
       </div>
       <div class="top-actions">
+        <span id="liveDateTime" class="live-clock">—</span>
         <span id="topRole" class="top-role">STAFF</span>
         <span id="cloud" class="cloud">Not signed in</span>
         <button id="refresh" class="btn top-refresh">Refresh</button>
@@ -1890,14 +2235,56 @@ tfoot td{background:#f8faff!important}
       <section id="stockPage" class="page">
         <div class="metrics">
           <div class="metric"><small>Total Stock Units</small><strong id="aStock">0</strong></div>
-          <div class="metric"><small>Restock Entries Today</small><strong id="aRestockEntries">0</strong></div>
-          <div class="metric"><small>Units Restocked Today</small><strong id="aRestockUnits">0</strong></div>
-          <div class="metric"><small>Units Sold Today</small><strong id="aSold">0</strong></div>
+          <div class="metric good"><small>Units Added Today</small><strong id="aAddedUnits">0</strong></div>
+          <div class="metric bad"><small>Units Removed Today</small><strong id="aRemovedUnits">0</strong></div>
+          <div class="metric"><small>Manual Adjustments Today</small><strong id="aAdjustments">0</strong></div>
         </div>
+
         <div class="card">
-          <div class="sticky"><div class="head"><div><h2>Admin Stock Control</h2><div class="muted">Restock only. Staff sales automatically deduct from this balance.</div></div></div></div>
-          <div class="toolbar"><input id="stockSearch" placeholder="Search item..."><select id="stockCat"><option value="">All Categories</option></select><span id="stockCount" class="muted"></span></div>
-          <div class="frame"><table><thead><tr><th>Category</th><th>Item</th><th>Price</th><th>Current Balance</th><th>Restock Qty</th><th>Action</th></tr></thead><tbody id="stockBody"></tbody></table></div>
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Admin Stock Control</h2>
+                <div class="muted">Add or minus stock manually. Every change records date, time, reason, and who changed it.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input id="stockSearch" placeholder="Search item...">
+            <select id="stockCat"><option value="">All Categories</option></select>
+            <span id="stockCount" class="muted"></span>
+          </div>
+
+          <div class="frame">
+            <table style="min-width:980px">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Current Balance</th>
+                  <th>Qty</th>
+                  <th>Reason / Note</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="stockBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Stock Adjustment History</h2>
+                <div class="muted">Latest manual stock changes with exact date, time, before/after balance, and Admin account.</div>
+              </div>
+              <span id="stockHistoryCount" class="pill">0 records</span>
+            </div>
+          </div>
+          <div id="stockAdjustmentList" class="history"></div>
         </div>
       </section>
 
@@ -1914,6 +2301,16 @@ tfoot td{background:#f8faff!important}
             <div class="sale-date">
               <div><label>Sales Date</label><input id="saleDate" type="date"></div>
               <div><label>Transaction Time</label><input id="saleTime" type="text" readonly></div>
+            </div>
+
+            <div class="processor-select-box">
+              <div>
+                <label>Processed By *</label>
+                <select id="processorName">
+                  <option value="">Select processor / cashier</option>
+                </select>
+              </div>
+              <div class="muted">Required before saving. Admin manages the available names under Processors.</div>
             </div>
 
             <div class="pos-toolbar">
@@ -2127,11 +2524,17 @@ tfoot td{background:#f8faff!important}
             <div class="head">
               <div>
                 <h2 id="reportsTitle">Sales Reports</h2>
-                <div id="reportsSubtitle" class="muted">Choose which sales period you want to view and print.</div>
+                <div id="reportsSubtitle" class="muted">Choose a period, then open only the report panel you need.</div>
               </div>
-              <div class="no-print" style="display:flex;gap:6px;flex-wrap:wrap">
-                <button id="printCurrentReport" class="btn blue">Print / Save PDF</button>
-                <button id="printSelectedSales" class="btn">Print Selected</button>
+              <div class="no-print print-action-group">
+                <div class="print-action-pair">
+                  <button id="printCurrentReport" class="btn blue">🖨 Print Report</button>
+                  <button id="saveCurrentReportPdf" class="btn">⬇ Download PDF</button>
+                </div>
+                <div class="print-action-pair">
+                  <button id="printSelectedSales" class="btn blue">🖨 Print Selected</button>
+                  <button id="saveSelectedSalesPdf" class="btn">⬇ Download Selected PDF</button>
+                </div>
               </div>
             </div>
           </div>
@@ -2167,11 +2570,10 @@ tfoot td{background:#f8faff!important}
             Only <b>Admin-approved</b> expenses are deducted from the totals.
           </div>
 
-          <div class="metrics">
+          <div class="metrics report-main-metrics">
             <div class="metric"><small>Transactions</small><strong id="rTransactions">0</strong></div>
             <div class="metric"><small>Qty Sold</small><strong id="rQty">0</strong></div>
             <div class="metric good"><small>Total Sales / Kita</small><strong id="rSales">₱0.00</strong></div>
-            <div class="metric"><small>Average / Transaction</small><strong id="rAverage">₱0.00</strong></div>
           </div>
 
           <div class="report-money-grid">
@@ -2217,64 +2619,110 @@ tfoot td{background:#f8faff!important}
             </div>
           </div>
 
-          <div class="payment-breakdown">
-            <table>
-              <thead>
-                <tr><th>Payment Class</th><th>Transactions</th><th>Qty</th><th>Amount</th></tr>
-              </thead>
-              <tbody id="reportPaymentBreakdown"></tbody>
-            </table>
+          <div class="report-tabs no-print">
+            <button class="report-tab active" data-report-panel="payment">Payment Class</button>
+            <button class="report-tab" data-report-panel="expenses">Expense Review Summary</button>
+            <button class="report-tab" data-report-panel="products">Product Breakdown</button>
+            <button class="report-tab" data-report-panel="transactions">Sales Transactions</button>
           </div>
 
-          <div class="card" style="box-shadow:none;margin-bottom:10px">
-            <div class="head">
-              <div>
-                <h3 style="margin:0">Expense Review Summary</h3>
-                <div class="muted">Pending expenses stay visible as NOT APPROVED. Only APPROVED rows are deducted.</div>
-              </div>
-              <div style="text-align:right">
-                <div class="muted">Total Submitted</div>
-                <b id="reportExpenseTotalLabel">₱0.00</b>
-              </div>
-            </div>
-            <div class="report-scroll" style="max-height:320px">
+          <div id="reportPanel_payment" class="report-subpanel active">
+            <div class="payment-breakdown">
               <table>
-                <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Staff</th><th>Status</th><th>Amount</th><th>Reviewed By</th></tr></thead>
-                <tbody id="reportExpenses"></tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="5"><b>TOTAL EXPENSE REQUESTS</b></td>
-                    <td class="num"><b id="reportExpenseTableTotal">₱0.00</b></td>
-                    <td></td>
-                  </tr>
-                </tfoot>
+                <thead>
+                  <tr><th>Payment Class</th><th>Transactions</th><th>Qty</th><th>Amount</th></tr>
+                </thead>
+                <tbody id="reportPaymentBreakdown"></tbody>
               </table>
             </div>
+
+            <div class="card report-inner-card">
+              <div class="head">
+                <div>
+                  <h3 id="reportPeriodBreakdownTitle" style="margin:0">Period Breakdown</h3>
+                  <div class="muted">Paid, credit, and total sales by selected period.</div>
+                </div>
+              </div>
+              <div class="report-scroll">
+                <table>
+                  <thead>
+                    <tr><th id="periodColHead">Date</th><th>Transactions</th><th>Qty</th><th>On-hand / Paid</th><th>Credit / Utang</th><th>Total Sales</th></tr>
+                  </thead>
+                  <tbody id="reportPeriods"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
-          <div class="breakdown-grid">
-            <div class="card" style="box-shadow:none;margin:0">
-              <h3>Product Breakdown</h3>
-              <div class="report-scroll"><table><thead><tr><th>Product</th><th>Qty Sold</th><th>Sales</th></tr></thead><tbody id="reportProducts"></tbody></table></div>
-            </div>
-            <div class="card" style="box-shadow:none;margin:0">
-              <h3 id="reportPeriodBreakdownTitle">Period Breakdown</h3>
-              <div class="report-scroll"><table><thead><tr><th id="periodColHead">Date</th><th>Transactions</th><th>Qty</th><th>On-hand / Paid</th><th>Credit / Utang</th><th>Total Sales</th></tr></thead><tbody id="reportPeriods"></tbody></table></div>
+          <div id="reportPanel_expenses" class="report-subpanel">
+            <div class="card report-inner-card">
+              <div class="head">
+                <div>
+                  <h3 style="margin:0">Expense Review Summary</h3>
+                  <div class="muted">Pending expenses stay visible as NOT APPROVED. Only APPROVED rows are deducted.</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="muted">Total Submitted</div>
+                  <b id="reportExpenseTotalLabel">₱0.00</b>
+                </div>
+              </div>
+              <div class="report-scroll" style="max-height:420px">
+                <table>
+                  <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Staff</th><th>Status</th><th>Amount</th><th>Reviewed By</th></tr></thead>
+                  <tbody id="reportExpenses"></tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="5"><b>TOTAL EXPENSE REQUESTS</b></td>
+                      <td class="num"><b id="reportExpenseTableTotal">₱0.00</b></td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
 
-          <div class="card" style="box-shadow:none;margin-top:10px;margin-bottom:0">
-            <div class="head"><h3 style="margin:0">Sales Transactions</h3><span id="selectedSalesCount" class="muted">0 selected</span></div>
-            <div class="report-select-actions no-print">
-              <button id="selectAllSales" class="btn small">Select All</button>
-              <button id="clearSelectedSales" class="btn small">Clear Selection</button>
-              <span class="muted">Tick transactions if you want to print only selected sales.</span>
+          <div id="reportPanel_products" class="report-subpanel">
+            <div class="card report-inner-card">
+              <div class="head">
+                <div>
+                  <h3 style="margin:0">Product Breakdown</h3>
+                  <div class="muted">Quantity sold and sales amount per product.</div>
+                </div>
+              </div>
+              <div class="report-scroll" style="max-height:460px">
+                <table>
+                  <thead><tr><th>Product</th><th>Qty Sold</th><th>Sales</th></tr></thead>
+                  <tbody id="reportProducts"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="report-scroll" style="max-height:350px">
-              <table>
-                <thead><tr><th class="no-print" style="width:38px">Pick</th><th>Date</th><th>Time</th><th>Type</th><th>Status</th><th>Staff / Borrower</th><th>Items</th><th>Qty</th><th>Amount</th></tr></thead>
-                <tbody id="reportTransactions"></tbody>
-              </table>
+          </div>
+
+          <div id="reportPanel_transactions" class="report-subpanel">
+            <div class="card report-inner-card">
+              <div class="head">
+                <h3 style="margin:0">Sales Transactions</h3>
+                <span id="selectedSalesCount" class="muted">0 selected</span>
+              </div>
+              <div class="report-select-actions no-print">
+                <button id="selectAllSales" class="btn small">Select All</button>
+                <button id="clearSelectedSales" class="btn small">Clear Selection</button>
+                <span class="muted">Tick transactions if you want to print only selected sales.</span>
+              </div>
+              <div class="report-scroll" style="max-height:470px">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="no-print" style="width:38px">Pick</th>
+                      <th>Date</th><th>Time</th><th>Type</th><th>Status</th>
+                      <th>Account / Processor / Borrower</th>
+                      <th>Items</th><th>Qty</th><th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reportTransactions"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -2283,8 +2731,84 @@ tfoot td{background:#f8faff!important}
       <section id="txPage" class="page">
         <div class="card">
           <div class="sticky"><div class="head"><div><h2>Admin Transaction History</h2><div class="muted">All sales and restocks, including exact date and time.</div></div><button id="txRefresh" class="btn">Refresh</button></div></div>
-          <div class="toolbar"><input id="txSearch" placeholder="Search date, item, staff..."><select id="txType"><option value="">All Transactions</option><option value="sale">Sales</option><option value="restock">Restocks</option></select><span id="txCount" class="muted"></span></div>
+          <div class="toolbar"><input id="txSearch" placeholder="Search date, item, staff..."><select id="txType"><option value="">All Transactions</option><option value="sale">Sales</option><option value="adjustment">Stock Adjustments</option><option value="restock">Legacy Restocks</option></select><span id="txCount" class="muted"></span></div>
           <div id="txList" class="history"></div>
+        </div>
+      </section>
+
+      <section id="inventoryPage" class="page">
+        <div class="metrics">
+          <div class="metric"><small>Products</small><strong id="invProductCount">0</strong></div>
+          <div class="metric"><small>Total Units</small><strong id="invTotalUnits">0</strong></div>
+          <div class="metric bad"><small>Low Stock Below 10</small><strong id="invLowCount">0</strong></div>
+          <div class="metric good"><small>Total Stock Value</small><strong id="invStockValue">₱0.00</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Inventory Summary</h2>
+                <div class="muted">Current shared inventory with balance, stock value, last update, and who changed it.</div>
+              </div>
+              <div class="no-print print-action-pair">
+                <button id="printInventory" class="btn blue">🖨 Print Inventory</button>
+                <button id="saveInventoryPdf" class="btn">⬇ Download PDF</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input id="inventorySearch" placeholder="Search item or category...">
+            <select id="inventoryCat"><option value="">All Categories</option></select>
+            <span id="inventoryCount" class="muted">0 items</span>
+          </div>
+
+          <div class="frame">
+            <table style="min-width:980px">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Balance</th>
+                  <th>Stock Value</th>
+                  <th>Status</th>
+                  <th>Last Updated</th>
+                  <th>Changed By</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3"><b>INVENTORY TOTAL</b></td>
+                  <td class="num"><b id="inventoryUnitsFooter">0</b></td>
+                  <td class="num"><b id="inventoryValueFooter">₱0.00</b></td>
+                  <td colspan="3"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="processorsPage" class="page">
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Processor / Cashier Names</h2>
+                <div class="muted">Admin adds the names here. Staff must select who processed the sale before saving.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="processor-admin-form">
+            <input id="newProcessorName" placeholder="Enter processor / cashier name">
+            <button id="addProcessorName" class="btn blue">+ Add Name</button>
+          </div>
+
+          <div id="processorAdminList" class="processor-list"></div>
         </div>
       </section>
 
@@ -2305,11 +2829,10 @@ tfoot td{background:#f8faff!important}
     <div><div class="print-brand">CHIKI<span>TOS</span></div><div style="font-size:8px;margin-top:2px">Sales Report</div></div>
     <div class="print-title"><h2 id="pTitle">Sales Report</h2><div id="pPeriod"></div><div id="pScope"></div></div>
   </div>
-  <div class="print-summary">
+  <div class="print-summary print-summary-3">
     <div class="print-stat"><small>Transactions</small><b id="pTransactions">0</b></div>
     <div class="print-stat"><small>Qty Sold</small><b id="pQty">0</b></div>
     <div class="print-stat"><small>Total Sales / Kita</small><b id="pSales">₱0.00</b></div>
-    <div class="print-stat"><small>Average / Transaction</small><b id="pAverage">₱0.00</b></div>
   </div>
 
   <div class="print-summary" style="grid-template-columns:repeat(3,1fr)">
@@ -2362,6 +2885,55 @@ tfoot td{background:#f8faff!important}
   <div class="print-note">All expense requests are shown with status. PENDING / NOT APPROVED expenses remain visible but are not deducted. Only APPROVED expenses reduce Net Sales and Cash On-hand. In the browser Print dialog, choose “Save as PDF” to create the PDF file.</div>
 </div>
 
+
+<div id="inventoryPrintSheet" class="print-sheet">
+  <div class="print-head">
+    <div>
+      <div class="print-brand">POS CHIKITOS</div>
+      <div style="font-size:8px;margin-top:2px">Inventory Summary</div>
+    </div>
+    <div class="print-title">
+      <h2>Inventory Report</h2>
+      <div id="ipGeneratedDate"></div>
+      <div id="ipGeneratedBy"></div>
+    </div>
+  </div>
+
+  <div class="print-summary">
+    <div class="print-stat"><small>Products</small><b id="ipProducts">0</b></div>
+    <div class="print-stat"><small>Total Units</small><b id="ipUnits">0</b></div>
+    <div class="print-stat"><small>Low Stock Below 10</small><b id="ipLow">0</b></div>
+    <div class="print-stat"><small>Total Stock Value</small><b id="ipValue">₱0.00</b></div>
+  </div>
+
+  <div class="print-section">
+    <h3>Current Inventory</h3>
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th>Category</th><th>Item</th><th>Price</th><th>Balance</th><th>Stock Value</th><th>Status</th><th>Last Update</th><th>Changed By</th>
+        </tr>
+      </thead>
+      <tbody id="ipInventoryBody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><b>TOTAL</b></td>
+          <td style="text-align:right"><b id="ipUnitsFooter">0</b></td>
+          <td style="text-align:right"><b id="ipValueFooter">₱0.00</b></td>
+          <td colspan="3"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="print-footer">
+    <span>POS CHIKITOS • System created by Edralene Balase</span>
+    <span>Inventory Print</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
@@ -2396,7 +2968,7 @@ const monthKey=d=>String(d||'').slice(0,7);
 const yearKey=d=>String(d||'').slice(0,4);
 const formatDate=d=>{if(!d)return '—';const [y,m,day]=d.split('-');return new Date(+y,+m-1,+day).toLocaleDateString('en-PH',{year:'numeric',month:'short',day:'numeric'})};
 
-let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],expenses=[],authMode='login';
+let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],expenses=[],stockAdjustments=[],processors=[],authMode='login';
 let unsubs=[],cart={};
 const selectedSaleIds=new Set();
 
@@ -2419,6 +2991,8 @@ const salesCol=()=>collection(db,'stores',STORE,'sales');
 const restockCol=()=>collection(db,'stores',STORE,'restocks');
 const creditsCol=()=>collection(db,'stores',STORE,'credits');
 const expensesCol=()=>collection(db,'stores',STORE,'expenses');
+const stockAdjustmentsCol=()=>collection(db,'stores',STORE,'stockAdjustments');
+const processorsRef=()=>doc(db,'stores',STORE,'settings','processors');
 
 function cloud(msg){$('cloud').textContent=msg;$('cloudSide').textContent=msg}
 function isAdmin(){return role==='admin'} function isStaff(){return role==='staff'}
@@ -2430,6 +3004,18 @@ function fillCat(id){
   if(cats().includes(cur))el.value=cur
 }
 function nowTime(){return new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'})}
+function tickLiveClock(){
+  const d=new Date();
+  if($('liveDateTime')){
+    $('liveDateTime').textContent=d.toLocaleString('en-PH',{
+      weekday:'short',year:'numeric',month:'short',day:'numeric',
+      hour:'2-digit',minute:'2-digit',second:'2-digit'
+    });
+  }
+  if($('saleTime'))$('saleTime').value=d.toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+tickLiveClock();
+setInterval(tickLiveClock,1000);
 
 async function profile(){
   const r=doc(db,'users',user.uid),s=await getDoc(r);
@@ -2445,8 +3031,8 @@ function applyRole(){
   $('reportsNav').textContent=isAdmin()?'📊 Sales Reports':'🧾 My Sales Reports';
   $('reportsTitle').textContent=isAdmin()?'Admin Sales Reports':'My Sales Reports';
   $('reportsSubtitle').textContent=isAdmin()
-    ?'Today, daily, monthly, yearly, custom, or selected PAID / WALK-IN sales. Credits are excluded.'
-    :'Only your own PAID / WALK-IN sales are shown. Credits are managed separately.';
+    ?'Store-wide sales report with paid, credit, expenses, products, and transaction sub-panels.'
+    :'Your own sales report with paid, credit, expenses, products, and transaction sub-panels.';
   $('reportStaffWrap').classList.toggle('hidden',!isAdmin());
   $('creditsPageTitle').textContent=isAdmin()?'Admin Credit Management':'My Active Credits';
   $('creditsPageSubtitle').textContent=isAdmin()
@@ -2471,6 +3057,11 @@ function listen(){
   stop();
   unsubs.push(onSnapshot(prodRef(),s=>{products=s.exists()?s.data().items||[]:[];renderAll()}));
   unsubs.push(onSnapshot(collection(db,'stores',STORE,'inventory'),s=>{inventory={};s.forEach(d=>inventory[d.id]=d.data());renderAll();cloud('Live synced')}));
+  unsubs.push(onSnapshot(processorsRef(),s=>{
+    processors=s.exists()?s.data().names||[]:[];
+    processors=[...new Set(processors.map(x=>String(x).trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    renderAll();
+  }));
   if(isAdmin()){
     unsubs.push(onSnapshot(query(salesCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
       sales=[];s.forEach(d=>sales.push({id:d.id,...d.data()}));renderAll()
@@ -2483,6 +3074,9 @@ function listen(){
     }));
     unsubs.push(onSnapshot(query(expensesCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
       expenses=[];s.forEach(d=>expenses.push({id:d.id,...d.data()}));renderAll()
+    }));
+    unsubs.push(onSnapshot(query(stockAdjustmentsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
+      stockAdjustments=[];s.forEach(d=>stockAdjustments.push({id:d.id,...d.data()}));renderAll()
     }));
   }else{
     unsubs.push(onSnapshot(query(salesCol(),where('userId','==',user.uid),limit(2000)),s=>{
@@ -2639,31 +3233,136 @@ function renderDash(){
 }
 function renderStock(){
   if(!isAdmin())return;
-  const rr=restocks.filter(r=>r.date===today()),ss=salesForDate(today());
+
+  const todayAdjustments=stockAdjustments.filter(r=>r.date===today());
+  const added=todayAdjustments.filter(r=>r.type==='add').reduce((a,r)=>a+num(r.qty),0);
+  const removed=todayAdjustments.filter(r=>r.type==='minus').reduce((a,r)=>a+num(r.qty),0);
+
   $('aStock').textContent=Object.values(inventory).reduce((a,x)=>a+num(x.balance),0);
-  $('aRestockEntries').textContent=rr.length;$('aRestockUnits').textContent=rr.reduce((a,r)=>a+num(r.qty),0);
-  $('aSold').textContent=ss.reduce((a,s)=>a+num(s.totalQty),0);
+  $('aAddedUnits').textContent=added;
+  $('aRemovedUnits').textContent=removed;
+  $('aAdjustments').textContent=todayAdjustments.length;
+
   fillCat('stockCat');
   const q=$('stockSearch').value.toLowerCase(),cat=$('stockCat').value;
-  const rows=products.filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat));
+  const rows=products.filter(p=>
+    (!q||[p.name,p.category].join(' ').toLowerCase().includes(q)) &&
+    (!cat||p.category===cat)
+  );
+
   $('stockCount').textContent=rows.length+' items';
-  $('stockBody').innerHTML=rows.map(p=>`<tr><td class="cat">${esc(p.category)}</td><td><b>${esc(p.name)}</b></td><td>${peso(p.price)}</td><td class="num bal">${bal(p.id)}</td><td><input class="restock" id="rest_${attr(p.id)}" type="number" min="0" step="1" value="0"></td><td><button class="btn green small" data-rest="${attr(p.id)}">+ Add Stock</button></td></tr>`).join('');
-  $('stockBody').querySelectorAll('[data-rest]').forEach(b=>b.onclick=()=>addRestock(b.dataset.rest))
+
+  $('stockBody').innerHTML=rows.map(p=>`
+    <tr>
+      <td class="cat">${esc(p.category)}</td>
+      <td><b>${esc(p.name)}</b></td>
+      <td>${peso(p.price)}</td>
+      <td class="num bal">${bal(p.id)}</td>
+      <td><input id="stockqty_${attr(p.id)}" type="number" min="0" step="1" value="0" style="min-width:90px"></td>
+      <td><input class="stock-reason" id="stockreason_${attr(p.id)}" placeholder="Reason / note"></td>
+      <td>
+        <div class="stock-action-buttons">
+          <button class="btn green small" data-stock-add="${attr(p.id)}">+ Add Stock</button>
+          <button class="btn danger small" data-stock-minus="${attr(p.id)}">− Minus Stock</button>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  $('stockBody').querySelectorAll('[data-stock-add]').forEach(
+    b=>b.onclick=()=>manualStockAdjust(b.dataset.stockAdd,'add')
+  );
+  $('stockBody').querySelectorAll('[data-stock-minus]').forEach(
+    b=>b.onclick=()=>manualStockAdjust(b.dataset.stockMinus,'minus')
+  );
+
+  $('stockHistoryCount').textContent=`${stockAdjustments.length} records`;
+  $('stockAdjustmentList').innerHTML=stockAdjustments.length?stockAdjustments.slice(0,300).map(r=>`
+    <div class="hist">
+      <div>
+        <b class="${r.type==='add'?'adjust-add':'adjust-minus'}">
+          ${r.type==='add'?'ADD STOCK':'MINUS STOCK'} • ${esc(r.productName||'')} • ${r.type==='add'?'+':'−'}${num(r.qty)}
+        </b><br>
+        ${esc(formatDate(r.date))} • ${esc(r.time||'')} • ${esc(r.userEmail||'')}<br>
+        Balance ${num(r.balanceBefore)} → ${num(r.balanceAfter)}
+        ${r.reason?`<br>Reason: ${esc(r.reason)}`:''}
+      </div>
+    </div>
+  `).join(''):'<div class="empty">No manual stock adjustments yet.</div>';
 }
-async function addRestock(id){
+
+async function manualStockAdjust(id,type){
   if(!isAdmin())return;
-  const p=products.find(x=>String(x.id)===String(id)),input=$('rest_'+id),q=Math.floor(num(input.value));
-  if(!p||q<=0){alert('Enter restock quantity.');return}
-  const rr=doc(restockCol());
+
+  const p=products.find(x=>String(x.id)===String(id));
+  const qtyInput=$('stockqty_'+id);
+  const reasonInput=$('stockreason_'+id);
+  const qty=Math.floor(num(qtyInput.value));
+  const reason=reasonInput.value.trim();
+
+  if(!p||qty<=0){alert('Enter a valid stock quantity.');return}
+  if(type==='minus'&&!reason){alert('Reason is required when removing stock.');return}
+
+  const adjRef=doc(stockAdjustmentsCol());
+  const iso=new Date().toISOString();
+  const date=today(),time=nowTime();
+
   try{
     await runTransaction(db,async tx=>{
-      const ref=invRef(id),s=await tx.get(ref),before=s.exists()?num(s.data().balance):0,after=before+q;
-      tx.set(ref,{productId:String(id),productName:p.name,balance:after,updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString(),updatedBy:user.uid,updatedByEmail:user.email||''},{merge:true});
-      tx.set(rr,{productId:String(id),productName:p.name,category:p.category,qty:q,balanceBefore:before,balanceAfter:after,date:today(),time:nowTime(),userId:user.uid,userEmail:user.email||'',createdAt:serverTimestamp(),createdAtClient:new Date().toISOString()})
+      const ref=invRef(id);
+      const s=await tx.get(ref);
+      const before=s.exists()?num(s.data().balance):0;
+      const after=type==='add'?before+qty:before-qty;
+
+      if(after<0)throw new Error(`Cannot minus ${qty}. Current balance is only ${before}.`);
+
+      tx.set(ref,{
+        productId:String(id),
+        productName:p.name,
+        balance:after,
+        updatedAt:serverTimestamp(),
+        updatedAtClient:iso,
+        updatedBy:user.uid,
+        updatedByEmail:user.email||'',
+        updatedByName:user.email||'Admin',
+        lastChangeType:type==='add'?'manual_add':'manual_minus'
+      },{merge:true});
+
+      tx.set(adjRef,{
+        type,
+        productId:String(id),
+        productName:p.name,
+        category:p.category,
+        qty,
+        reason:reason||(type==='add'?'Manual stock add':''),
+        balanceBefore:before,
+        balanceAfter:after,
+        date,time,
+        userId:user.uid,
+        userEmail:user.email||'',
+        createdAt:serverTimestamp(),
+        createdAtClient:iso
+      });
+
+      // Keep the legacy restock history for ADD so old dashboard/history compatibility remains.
+      if(type==='add'){
+        const rr=doc(restockCol());
+        tx.set(rr,{
+          productId:String(id),productName:p.name,category:p.category,qty,
+          balanceBefore:before,balanceAfter:after,date,time,
+          userId:user.uid,userEmail:user.email||'',
+          createdAt:serverTimestamp(),createdAtClient:iso
+        });
+      }
     });
-    input.value=0;cloud('Stock added')
-  }catch(e){alert(e.message)}
+
+    qtyInput.value=0;
+    reasonInput.value='';
+    cloud(type==='add'?'Stock added':'Stock removed');
+  }catch(e){
+    alert(e.message);
+  }
 }
+
 
 /* POS */
 function updateTransactionUI(){
@@ -2681,9 +3380,19 @@ function resetTransactionFields(){
   updateTransactionUI();
 }
 
+function fillProcessorSelect(){
+  const el=$('processorName');
+  if(!el)return;
+  const current=el.value;
+  el.innerHTML='<option value="">Select processor / cashier</option>'+
+    processors.map(n=>`<option value="${attr(n)}">${esc(n)}</option>`).join('');
+  if(processors.includes(current))el.value=current;
+}
+
 function renderPOS(){
   if(!isStaff())return;
   fillCat('posCat');
+  fillProcessorSelect();
   $('saleDate').value=$('saleDate').value||today();$('saleTime').value=nowTime();
   const q=$('posSearch').value.toLowerCase(),cat=$('posCat').value;
   const rows=products.filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat));
@@ -2728,6 +3437,14 @@ async function saveSale(){
 
   const date=$('saleDate').value||today();
   const transactionType=$('transactionType').value;
+  const processorName=$('processorName').value.trim();
+
+  if(!processorName){
+    alert('Select who processed this transaction before saving.');
+    $('processorName').focus();
+    return;
+  }
+
   const items=products.filter(p=>num(cart[p.id])>0).map(p=>({
     productId:String(p.id),
     productName:p.name,
@@ -2783,7 +3500,8 @@ async function saveSale(){
           updatedAt:serverTimestamp(),
           updatedAtClient:iso,
           updatedBy:user.uid,
-          updatedByEmail:user.email||''
+          updatedByEmail:user.email||'',
+          updatedByName:processorName
         });
       });
 
@@ -2798,6 +3516,7 @@ async function saveSale(){
           yearKey:yearKey(date),
           borrowerName:creditInfo.borrowerName,
           borrowerContact:creditInfo.borrowerContact,
+          processorName,
           dueDate:creditInfo.dueDate,
           notes:creditInfo.notes,
           items,totalQty,totalAmount,
@@ -2809,6 +3528,7 @@ async function saveSale(){
           transactionType:'walkin',
           userId:user.uid,
           userEmail:user.email||'',
+          processorName,
           date,time,
           monthKey:monthKey(date),
           yearKey:yearKey(date),
@@ -2823,12 +3543,12 @@ async function saveSale(){
       $('lastSaleInfo').innerHTML=
         `Credit saved <b>${formatDate(date)} • ${esc(time)}</b><br>`+
         `${esc(creditInfo.borrowerName)} • ${totalQty} item(s) • ${peso(totalAmount)}<br>`+
-        `Due: <b>${formatDate(creditInfo.dueDate)}</b>`;
+        `Due: <b>${formatDate(creditInfo.dueDate)}</b><br>Processed by: <b>${esc(processorName)}</b>`;
       cloud('Credit saved — stock deducted');
     }else{
       $('lastSaleInfo').innerHTML=
         `Walk-in sale saved <b>${formatDate(date)} • ${esc(time)}</b><br>`+
-        `${totalQty} item(s) sold • ${peso(totalAmount)}`;
+        `${totalQty} item(s) sold • ${peso(totalAmount)}<br>Processed by: <b>${esc(processorName)}</b>`;
       cloud('Walk-in sale saved — stock deducted');
     }
 
@@ -3423,6 +4143,7 @@ function reportCombinedRows(){
       time:s.time||'',
       userId:s.userId,
       userEmail:s.userEmail||'',
+      processorName:s.processorName||'',
       borrowerName:'',
       items:s.items||[],
       totalQty:num(s.totalQty),
@@ -3440,6 +4161,7 @@ function reportCombinedRows(){
       time:c.time||'',
       userId:c.userId,
       userEmail:c.userEmail||'',
+      processorName:c.processorName||'',
       borrowerName:c.borrowerName||'',
       borrowerContact:c.borrowerContact||'',
       dueDate:c.dueDate||'',
@@ -3500,8 +4222,16 @@ function reportTotals(rows){
     creditQty:creditTx.reduce((a,r)=>a+num(r.totalQty),0)
   };
 }
+let activeReportPanel='payment';
+function setReportPanel(panel){
+  activeReportPanel=panel;
+  document.querySelectorAll('.report-tab').forEach(b=>b.classList.toggle('active',b.dataset.reportPanel===panel));
+  document.querySelectorAll('.report-subpanel').forEach(p=>p.classList.toggle('active',p.id===`reportPanel_${panel}`));
+}
+
 function renderReports(){
   if(!user)return;
+  setReportPanel(activeReportPanel);
 
   if(isAdmin()){
     const staffMap={};
@@ -3532,7 +4262,6 @@ function renderReports(){
   $('rTransactions').textContent=totals.transactions;
   $('rQty').textContent=totals.qty;
   $('rSales').textContent=peso(totals.totalSales);
-  $('rAverage').textContent=peso(totals.average);
   $('rTotalKita').textContent=peso(totals.totalSales);
   $('rOnHand').textContent=peso(totals.onHand);
   $('rCredit').textContent=peso(totals.credit);
@@ -3640,8 +4369,8 @@ function renderReports(){
     else if(r.creditStatus==='payment_pending')statusClass='status-pending';
 
     const party=r.sourceType==='credit'
-      ?`${esc(r.userEmail||'')}<br><span class="muted">Borrower: ${esc(r.borrowerName||'')}</span>`
-      :esc(r.userEmail||'');
+      ?`${esc(r.userEmail||'')}<br><span class="muted">Processor: ${esc(r.processorName||'—')} • Borrower: ${esc(r.borrowerName||'')}</span>`
+      :`${esc(r.userEmail||'')}<br><span class="muted">Processor: ${esc(r.processorName||'—')}</span>`;
 
     return `<tr>
       <td class="no-print"><input class="tx-check" data-picksale="${attr(r.id)}" type="checkbox" ${selectedSaleIds.has(r.id)?'checked':''}></td>
@@ -3687,7 +4416,6 @@ function printRows(rows,title=''){
   $('pTransactions').textContent=totals.transactions;
   $('pQty').textContent=totals.qty;
   $('pSales').textContent=peso(totals.totalSales);
-  $('pAverage').textContent=peso(totals.average);
   $('pTotalKita').textContent=peso(totals.totalSales);
   $('pOnHand').textContent=peso(totals.onHand);
   $('pCredit').textContent=peso(totals.credit);
@@ -3720,8 +4448,8 @@ function printRows(rows,title=''){
 
   $('pTransactionsBody').innerHTML=rows.map(r=>{
     const party=r.sourceType==='credit'
-      ?`${esc(r.userEmail||'')}<br>Borrower: ${esc(r.borrowerName||'')}`
-      :esc(r.userEmail||'');
+      ?`${esc(r.userEmail||'')}<br>Processor: ${esc(r.processorName||'—')}<br>Borrower: ${esc(r.borrowerName||'')}`
+      :`${esc(r.userEmail||'')}<br>Processor: ${esc(r.processorName||'—')}`;
 
     return `<tr>
       <td>${esc(formatDate(r.date))}</td>
@@ -3738,10 +4466,14 @@ function printRows(rows,title=''){
   $('pGeneratedBy').textContent=`Generated by: ${user?.email||'Chikitos user'} • ${role.toUpperCase()}`;
   $('pGeneratedAt').textContent=`Printed: ${new Date().toLocaleString('en-PH')}`;
 
+  activatePrintSheet('printSheet');
   window.print();
 }
 function printCurrentReport(){
   printRows(reportCombinedRows(),reportHeadingText());
+}
+function saveCurrentReportPdf(){
+  generateSalesPdf(reportCombinedRows(),reportHeadingText());
 }
 function printSelectedReport(){
   const rows=reportCombinedRows().filter(r=>selectedSaleIds.has(r.id));
@@ -3749,19 +4481,52 @@ function printSelectedReport(){
   printRows(rows,`Selected Sales — ${rows.length} transaction${rows.length===1?'':'s'}`);
 }
 
+function saveSelectedReportPdf(){
+  const rows=reportCombinedRows().filter(r=>selectedSaleIds.has(r.id));
+  if(!rows.length){alert('Select at least one sales transaction first.');return}
+  generateSalesPdf(rows,`Selected Sales - ${rows.length} transaction${rows.length===1?'':'s'}`);
+}
+
 /* Admin Transactions */
 function renderTx(){
   if(!isAdmin())return;
   const q=$('txSearch').value.toLowerCase(),t=$('txType').value;
   let rows=[];
+
   if(!t||t==='sale')rows.push(...sales.map(x=>({kind:'sale',sort:x.createdAtClient,...x})));
   if(!t||t==='restock')rows.push(...restocks.map(x=>({kind:'restock',sort:x.createdAtClient,...x})));
-  rows=rows.filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q)).sort((a,b)=>String(b.sort||'').localeCompare(String(a.sort||'')));
+  if(!t||t==='adjustment')rows.push(...stockAdjustments.map(x=>({kind:'adjustment',sort:x.createdAtClient,...x})));
+
+  rows=rows
+    .filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q))
+    .sort((a,b)=>String(b.sort||'').localeCompare(String(a.sort||'')));
+
   $('txCount').textContent=rows.length+' records';
-  $('txList').innerHTML=rows.map(x=>x.kind==='restock'
-    ?`<div class="hist"><div><b>RESTOCK • ${esc(x.productName)} +${num(x.qty)}</b><br>${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}<br>Balance ${num(x.balanceBefore)} → ${num(x.balanceAfter)}</div><button class="btn danger small" data-dr="${attr(x.id)}">Delete</button></div>`
-    :`<div class="hist"><div><b>WALK-IN SALE • ${num(x.totalQty)} units • ${peso(x.totalAmount)}</b><br>${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}<br>${(x.items||[]).map(i=>esc(i.productName)+' × '+num(i.qty)).join(' • ')}</div><button class="btn danger small" data-vs="${attr(x.id)}">Void & Return Stock</button></div>`
-  ).join('')||'<div class="empty">No transactions.</div>';
+
+  $('txList').innerHTML=rows.map(x=>{
+    if(x.kind==='adjustment'){
+      return `<div class="hist"><div>
+        <b>${x.type==='add'?'STOCK ADD':'STOCK MINUS'} • ${esc(x.productName)} • ${x.type==='add'?'+':'−'}${num(x.qty)}</b><br>
+        ${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}<br>
+        Balance ${num(x.balanceBefore)} → ${num(x.balanceAfter)}
+        ${x.reason?`<br>Reason: ${esc(x.reason)}`:''}
+      </div></div>`;
+    }
+    if(x.kind==='restock'){
+      return `<div class="hist"><div>
+        <b>LEGACY RESTOCK • ${esc(x.productName)} +${num(x.qty)}</b><br>
+        ${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}<br>
+        Balance ${num(x.balanceBefore)} → ${num(x.balanceAfter)}
+      </div><button class="btn danger small" data-dr="${attr(x.id)}">Delete</button></div>`;
+    }
+    return `<div class="hist"><div>
+      <b>WALK-IN SALE • ${num(x.totalQty)} units • ${peso(x.totalAmount)}</b><br>
+      ${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}
+      ${x.processorName?` • Processor: ${esc(x.processorName)}`:''}<br>
+      ${(x.items||[]).map(i=>esc(i.productName)+' × '+num(i.qty)).join(' • ')}
+    </div><button class="btn danger small" data-vs="${attr(x.id)}">Void & Return Stock</button></div>`;
+  }).join('')||'<div class="empty">No transactions.</div>';
+
   $('txList').querySelectorAll('[data-vs]').forEach(b=>b.onclick=()=>voidSale(b.dataset.vs));
   $('txList').querySelectorAll('[data-dr]').forEach(b=>b.onclick=()=>deleteRestock(b.dataset.dr))
 }
@@ -3770,7 +4535,7 @@ async function voidSale(id){
   try{
     await runTransaction(db,async tx=>{
       const snaps=[];for(const i of s.items||[])snaps.push(await tx.get(invRef(i.productId)));
-      (s.items||[]).forEach((i,n)=>{const cur=snaps[n].exists()?num(snaps[n].data().balance):0;tx.set(invRef(i.productId),{productId:i.productId,productName:i.productName,balance:cur+num(i.qty),updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString(),updatedBy:user.uid,updatedByEmail:user.email||''},{merge:true})});
+      (s.items||[]).forEach((i,n)=>{const cur=snaps[n].exists()?num(snaps[n].data().balance):0;tx.set(invRef(i.productId),{productId:i.productId,productName:i.productName,balance:cur+num(i.qty),updatedAt:serverTimestamp(),updatedAtClient:new Date().toISOString(),updatedBy:user.uid,updatedByEmail:user.email||'',updatedByName:user.email||'Admin',lastChangeType:'sale_void'},{merge:true})});
       tx.delete(doc(salesCol(),id))
     });cloud('Sale voided')
   }catch(e){alert(e.message)}
@@ -3785,6 +4550,488 @@ async function deleteRestock(id){
       tx.delete(doc(restockCol(),id))
     });cloud('Restock deleted')
   }catch(e){alert(e.message)}
+}
+
+/* Inventory */
+function inventoryRowsFiltered(){
+  fillCat('inventoryCat');
+  const q=$('inventorySearch').value.toLowerCase();
+  const cat=$('inventoryCat').value;
+  return products.filter(p=>
+    (!q||[p.name,p.category].join(' ').toLowerCase().includes(q)) &&
+    (!cat||p.category===cat)
+  );
+}
+function inventoryStatus(balance){
+  return balance<=0?'OUT OF STOCK':balance<10?'LOW STOCK':'OK';
+}
+function renderInventory(){
+  if(!isAdmin())return;
+
+  const rows=inventoryRowsFiltered();
+  const totalUnits=products.reduce((a,p)=>a+bal(p.id),0);
+  const low=products.filter(p=>bal(p.id)<10).length;
+  const stockValue=products.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
+
+  $('invProductCount').textContent=products.length;
+  $('invTotalUnits').textContent=totalUnits;
+  $('invLowCount').textContent=low;
+  $('invStockValue').textContent=peso(stockValue);
+  $('inventoryCount').textContent=`${rows.length} items`;
+
+  const shownUnits=rows.reduce((a,p)=>a+bal(p.id),0);
+  const shownValue=rows.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
+  $('inventoryUnitsFooter').textContent=shownUnits;
+  $('inventoryValueFooter').textContent=peso(shownValue);
+
+  $('inventoryBody').innerHTML=rows.length?rows.map(p=>{
+    const inv=inventory[String(p.id)]||{};
+    const balance=bal(p.id);
+    const status=inventoryStatus(balance);
+    const statusClass=balance<=0?'out':balance<10?'low':'ok';
+    const updatedAt=inv.updatedAtClient
+      ?new Date(inv.updatedAtClient).toLocaleString('en-PH')
+      :'—';
+    const changedBy=inv.updatedByName||inv.updatedByEmail||'—';
+
+    return `<tr>
+      <td class="cat">${esc(p.category)}</td>
+      <td><b>${esc(p.name)}</b></td>
+      <td class="num">${peso(p.price)}</td>
+      <td class="num bal">${balance}</td>
+      <td class="num">${peso(balance*num(p.price))}</td>
+      <td><span class="inventory-status ${statusClass}">${status}</span></td>
+      <td>${esc(updatedAt)}</td>
+      <td>${esc(changedBy)}</td>
+    </tr>`;
+  }).join(''):'<tr><td colspan="8" class="empty">No inventory items.</td></tr>';
+}
+function buildInventoryPrint(){
+  const rows=inventoryRowsFiltered();
+  const totalUnits=rows.reduce((a,p)=>a+bal(p.id),0);
+  const low=rows.filter(p=>bal(p.id)<10).length;
+  const stockValue=rows.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
+
+  $('ipProducts').textContent=rows.length;
+  $('ipUnits').textContent=totalUnits;
+  $('ipLow').textContent=low;
+  $('ipValue').textContent=peso(stockValue);
+  $('ipUnitsFooter').textContent=totalUnits;
+  $('ipValueFooter').textContent=peso(stockValue);
+  $('ipGeneratedDate').textContent=new Date().toLocaleString('en-PH');
+  $('ipGeneratedBy').textContent=`Generated by: ${user?.email||''}`;
+
+  $('ipInventoryBody').innerHTML=rows.map(p=>{
+    const inv=inventory[String(p.id)]||{};
+    const balance=bal(p.id);
+    const updatedAt=inv.updatedAtClient?new Date(inv.updatedAtClient).toLocaleString('en-PH'):'—';
+    const changedBy=inv.updatedByName||inv.updatedByEmail||'—';
+    return `<tr>
+      <td>${esc(p.category)}</td>
+      <td>${esc(p.name)}</td>
+      <td style="text-align:right">${peso(p.price)}</td>
+      <td style="text-align:right">${balance}</td>
+      <td style="text-align:right">${peso(balance*num(p.price))}</td>
+      <td>${esc(inventoryStatus(balance))}</td>
+      <td>${esc(updatedAt)}</td>
+      <td>${esc(changedBy)}</td>
+    </tr>`;
+  }).join('');
+}
+function activatePrintSheet(id){
+  document.querySelectorAll('.print-sheet').forEach(s=>s.classList.remove('print-active'));
+  $(id).classList.add('print-active');
+}
+function clearPrintSheets(){
+  document.querySelectorAll('.print-sheet').forEach(s=>s.classList.remove('print-active'));
+}
+function pdfMoney(value){
+  return `PHP ${num(value).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+}
+function pdfSafe(value){
+  return String(value??'')
+    .replace(/[₱]/g,'PHP ')
+    .replace(/[×]/g,'x')
+    .replace(/[–—]/g,'-')
+    .replace(/[•]/g,'-')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function pdfFileName(name){
+  return String(name||'POS_CHIKITOS')
+    .replace(/[^\w\-]+/g,'_')
+    .replace(/_+/g,'_')
+    .replace(/^_|_$/g,'');
+}
+function getPdfEngine(){
+  const jsPDF=window.jspdf?.jsPDF;
+  if(!jsPDF){
+    alert('PDF library did not load. Please check your internet connection, then reload the system.');
+    return null;
+  }
+  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4',compress:true});
+  if(typeof doc.autoTable!=='function'){
+    alert('PDF table library did not load. Please reload the system.');
+    return null;
+  }
+  return doc;
+}
+function pdfPageHeader(doc,title,subtitle=''){
+  const pageW=doc.internal.pageSize.getWidth();
+  doc.setTextColor(24,33,47);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.text('POS CHIKITOS',10,10);
+
+  doc.setFontSize(11);
+  doc.text(pdfSafe(title),pageW-10,10,{align:'right'});
+
+  doc.setFont('helvetica','normal');
+  doc.setTextColor(95,107,122);
+  doc.setFontSize(7);
+  if(subtitle)doc.text(pdfSafe(subtitle),pageW-10,15,{align:'right',maxWidth:170});
+
+  doc.setDrawColor(215,222,234);
+  doc.line(10,18,pageW-10,18);
+}
+function pdfPageFooter(doc){
+  const pages=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pages;i++){
+    doc.setPage(i);
+    const pageW=doc.internal.pageSize.getWidth();
+    const pageH=doc.internal.pageSize.getHeight();
+    doc.setDrawColor(225,229,237);
+    doc.line(10,pageH-8,pageW-10,pageH-8);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(6.5);
+    doc.setTextColor(105,115,128);
+    doc.text(
+      `POS CHIKITOS | System created by Edralene Balase | ${new Date().toLocaleString('en-PH')}`,
+      10,pageH-4
+    );
+    doc.text(`Page ${i} of ${pages}`,pageW-10,pageH-4,{align:'right'});
+  }
+}
+function pdfEnsureSpace(doc,y,needed,title,subtitle=''){
+  const pageH=doc.internal.pageSize.getHeight();
+  if(y+needed>pageH-14){
+    doc.addPage();
+    pdfPageHeader(doc,title,subtitle);
+    return 23;
+  }
+  return y;
+}
+function pdfDrawMetricRow(doc,items,y){
+  const pageW=doc.internal.pageSize.getWidth();
+  const gap=3;
+  const margin=10;
+  const width=(pageW-(margin*2)-gap*(items.length-1))/items.length;
+  items.forEach((item,i)=>{
+    const x=margin+i*(width+gap);
+    doc.setFillColor(248,250,255);
+    doc.setDrawColor(220,226,237);
+    doc.roundedRect(x,y,width,14,2,2,'FD');
+    doc.setFont('helvetica','bold');
+    doc.setTextColor(115,126,142);
+    doc.setFontSize(5.8);
+    doc.text(pdfSafe(item.label).toUpperCase(),x+3,y+4.5,{maxWidth:width-6});
+    doc.setTextColor(24,33,47);
+    doc.setFontSize(9);
+    doc.text(pdfSafe(item.value),x+3,y+10.5,{maxWidth:width-6});
+  });
+  return y+17;
+}
+function generateSalesPdf(rows,title='Sales Report'){
+  if(!rows.length){alert('No sales to save.');return}
+
+  const doc=getPdfEngine();
+  if(!doc)return;
+
+  const subtitle=isAdmin()
+    ?`Scope: ${$('reportStaff').value?($('reportStaff').selectedOptions[0]?.textContent||'Selected Staff'):'All Staff'} | ${reportHeadingText()}`
+    :`Staff: ${user?.email||''} | ${reportHeadingText()}`;
+
+  const totals=reportTotals(rows);
+  const productsOut=buildProductBreakdown(rows);
+  const reportExpensesAll=expensesForReport();
+  const approvedExpenses=reportExpensesAll.filter(e=>e.status==='approved');
+  const pendingExpenses=reportExpensesAll.filter(e=>e.status==='pending');
+  const rejectedExpenses=reportExpensesAll.filter(e=>e.status==='rejected');
+
+  const expenseRequestedTotal=reportExpensesAll.reduce((a,e)=>a+num(e.amount),0);
+  const approvedExpenseTotal=approvedExpenses.reduce((a,e)=>a+num(e.amount),0);
+  const pendingExpenseTotal=pendingExpenses.reduce((a,e)=>a+num(e.amount),0);
+  const rejectedExpenseTotal=rejectedExpenses.reduce((a,e)=>a+num(e.amount),0);
+  const netSales=totals.totalSales-approvedExpenseTotal;
+  const cashAfterExpenses=totals.onHand-approvedExpenseTotal;
+
+  pdfPageHeader(doc,title,subtitle);
+  let y=23;
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Transactions',value:String(totals.transactions)},
+    {label:'Qty Sold',value:String(totals.qty)},
+    {label:'Total Sales / Kita',value:pdfMoney(totals.totalSales)}
+  ],y);
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'On-hand / Paid',value:pdfMoney(totals.onHand)},
+    {label:'Credit / Utang',value:pdfMoney(totals.credit)},
+    {label:'Approved Expenses',value:pdfMoney(approvedExpenseTotal)}
+  ],y);
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Expense Requests',value:pdfMoney(expenseRequestedTotal)},
+    {label:'Net Sales',value:pdfMoney(netSales)},
+    {label:'Cash On-hand After Expenses',value:pdfMoney(cashAfterExpenses)}
+  ],y);
+
+  y=pdfEnsureSpace(doc,y,28,title,subtitle);
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
+  doc.text('PAYMENT CLASS',10,y); y+=2;
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Payment Class','Transactions','Qty','Amount']],
+    body:[
+      ['PAID / ON-HAND',totals.paidTransactions,totals.paidQty,pdfMoney(totals.onHand)],
+      ['CREDIT / UTANG',totals.creditTransactions,totals.creditQty,pdfMoney(totals.credit)],
+      ['TOTAL SALES / KITA',totals.transactions,totals.qty,pdfMoney(totals.totalSales)]
+    ],
+    styles:{font:'helvetica',fontSize:6.5,cellPadding:2,overflow:'linebreak',valign:'top'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'}},
+    pageBreak:'auto',
+    rowPageBreak:'avoid'
+  });
+  y=doc.lastAutoTable.finalY+6;
+
+  y=pdfEnsureSpace(doc,y,35,title,subtitle);
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
+  doc.text('EXPENSE REVIEW SUMMARY',10,y); y+=2;
+  const expenseBody=reportExpensesAll.length
+    ?reportExpensesAll.map(e=>[
+        pdfSafe(formatDate(e.date)),
+        pdfSafe(e.category||''),
+        pdfSafe(e.description||''),
+        pdfSafe(e.userEmail||''),
+        e.status==='approved'?'APPROVED / DEDUCTED':e.status==='rejected'?'REJECTED':'PENDING / NOT APPROVED',
+        pdfMoney(e.amount)
+      ])
+    :[['-','-','No expense requests for this period.','-','-','PHP 0.00']];
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Date','Category','Description','Staff','Status','Amount']],
+    body:expenseBody,
+    foot:[['','','','', 'TOTAL EXPENSE REQUESTS',pdfMoney(expenseRequestedTotal)]],
+    styles:{font:'helvetica',fontSize:5.9,cellPadding:1.7,overflow:'linebreak',valign:'top'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+    columnStyles:{
+      0:{cellWidth:22},1:{cellWidth:28},2:{cellWidth:82},3:{cellWidth:50},
+      4:{cellWidth:40},5:{cellWidth:28,halign:'right'}
+    },
+    pageBreak:'auto',
+    rowPageBreak:'avoid'
+  });
+  y=doc.lastAutoTable.finalY+6;
+
+  y=pdfEnsureSpace(doc,y,35,title,subtitle);
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
+  doc.text('PRODUCT BREAKDOWN',10,y); y+=2;
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Product','Qty Sold','Sales']],
+    body:productsOut.length
+      ?productsOut.map(p=>[pdfSafe(p.name),String(p.qty),pdfMoney(p.amount)])
+      :[['No products','0','PHP 0.00']],
+    styles:{font:'helvetica',fontSize:6.2,cellPadding:1.8,overflow:'linebreak'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    columnStyles:{1:{halign:'right',cellWidth:28},2:{halign:'right',cellWidth:40}},
+    pageBreak:'auto',
+    rowPageBreak:'avoid'
+  });
+  y=doc.lastAutoTable.finalY+6;
+
+  y=pdfEnsureSpace(doc,y,45,title,subtitle);
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
+  doc.text('SALES TRANSACTIONS',10,y); y+=2;
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Date','Time','Type','Status','Account / Processor / Borrower','Items','Qty','Amount']],
+    body:rows.map(r=>{
+      const party=r.sourceType==='credit'
+        ?`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}\nBorrower: ${r.borrowerName||''}`
+        :`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}`;
+      const items=(r.items||[]).map(i=>`${i.productName} x ${num(i.qty)}`).join('\n');
+      return [
+        pdfSafe(formatDate(r.date)),
+        pdfSafe(r.time||''),
+        pdfSafe(r.transactionType),
+        pdfSafe(r.paymentStatus),
+        pdfSafe(party),
+        pdfSafe(items),
+        String(num(r.totalQty)),
+        pdfMoney(r.totalAmount)
+      ];
+    }),
+    styles:{font:'helvetica',fontSize:5.2,cellPadding:1.5,overflow:'linebreak',valign:'top'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    columnStyles:{
+      0:{cellWidth:20},1:{cellWidth:17},2:{cellWidth:18},3:{cellWidth:31},
+      4:{cellWidth:55},5:{cellWidth:80},6:{cellWidth:12,halign:'right'},7:{cellWidth:25,halign:'right'}
+    },
+    pageBreak:'auto',
+    rowPageBreak:'avoid',
+    didDrawPage:()=>{
+      // AutoTable pages receive a compact header if a new page was created.
+      if(doc.internal.getCurrentPageInfo().pageNumber>1){
+        pdfPageHeader(doc,title,subtitle);
+      }
+    }
+  });
+
+  pdfPageFooter(doc);
+
+  const period=reportHeadingText()
+    .replace(/[^\w\s-]/g,' ')
+    .replace(/\s+/g,'_')
+    .slice(0,60);
+
+  doc.save(`${pdfFileName('POS_CHIKITOS_'+title+'_'+period)}.pdf`);
+  cloud('PDF downloaded');
+}
+function generateInventoryPdf(){
+  if(!isAdmin())return;
+
+  const rows=inventoryRowsFiltered();
+  const doc=getPdfEngine();
+  if(!doc)return;
+
+  const totalUnits=rows.reduce((a,p)=>a+bal(p.id),0);
+  const low=rows.filter(p=>bal(p.id)<10).length;
+  const stockValue=rows.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
+
+  const title='Inventory Report';
+  const subtitle=`Generated by ${user?.email||''} | ${new Date().toLocaleString('en-PH')}`;
+  pdfPageHeader(doc,title,subtitle);
+  let y=23;
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Products',value:String(rows.length)},
+    {label:'Total Units',value:String(totalUnits)},
+    {label:'Low Stock Below 10',value:String(low)},
+    {label:'Total Stock Value',value:pdfMoney(stockValue)}
+  ],y);
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
+  doc.text('CURRENT INVENTORY',10,y); y+=2;
+
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Category','Item','Price','Balance','Stock Value','Status','Last Updated','Changed By']],
+    body:rows.map(p=>{
+      const inv=inventory[String(p.id)]||{};
+      const balance=bal(p.id);
+      const updatedAt=inv.updatedAtClient?new Date(inv.updatedAtClient).toLocaleString('en-PH'):'-';
+      const changedBy=inv.updatedByName||inv.updatedByEmail||'-';
+      return [
+        pdfSafe(p.category),
+        pdfSafe(p.name),
+        pdfMoney(p.price),
+        String(balance),
+        pdfMoney(balance*num(p.price)),
+        pdfSafe(inventoryStatus(balance)),
+        pdfSafe(updatedAt),
+        pdfSafe(changedBy)
+      ];
+    }),
+    foot:[['','INVENTORY TOTAL','',String(totalUnits),pdfMoney(stockValue),'','','']],
+    styles:{font:'helvetica',fontSize:5.6,cellPadding:1.6,overflow:'linebreak',valign:'top'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+    columnStyles:{
+      0:{cellWidth:31},1:{cellWidth:58},2:{cellWidth:25,halign:'right'},
+      3:{cellWidth:20,halign:'right'},4:{cellWidth:30,halign:'right'},
+      5:{cellWidth:27},6:{cellWidth:45},7:{cellWidth:40}
+    },
+    pageBreak:'auto',
+    rowPageBreak:'avoid',
+    didDrawPage:()=>{
+      if(doc.internal.getCurrentPageInfo().pageNumber>1){
+        pdfPageHeader(doc,title,subtitle);
+      }
+    }
+  });
+
+  pdfPageFooter(doc);
+  doc.save(`POS_CHIKITOS_Inventory_${today()}.pdf`);
+  cloud('Inventory PDF downloaded');
+}
+
+function printInventoryReport(){
+  if(!isAdmin())return;
+  buildInventoryPrint();
+  activatePrintSheet('inventoryPrintSheet');
+  window.print();
+}
+function saveInventoryPdf(){
+  generateInventoryPdf();
+}
+window.addEventListener('afterprint',clearPrintSheets);
+
+/* Processors */
+function renderProcessors(){
+  if(!isAdmin())return;
+  $('processorAdminList').innerHTML=processors.length?processors.map(name=>`
+    <div class="processor-row">
+      <div class="processor-name">${esc(name)}</div>
+      <button class="btn danger small" data-processor-delete="${attr(name)}">Remove</button>
+    </div>
+  `).join(''):'<div class="empty">No processor names yet. Add at least one before Staff can save a sale.</div>';
+
+  $('processorAdminList').querySelectorAll('[data-processor-delete]').forEach(
+    b=>b.onclick=()=>removeProcessorName(b.dataset.processorDelete)
+  );
+}
+async function addProcessorName(){
+  if(!isAdmin())return;
+  const name=$('newProcessorName').value.trim();
+  if(!name){alert('Enter a processor / cashier name.');return}
+  if(processors.some(n=>n.toLowerCase()===name.toLowerCase())){
+    alert('That name already exists.');
+    return;
+  }
+  const next=[...processors,name].sort((a,b)=>a.localeCompare(b));
+  await setDoc(processorsRef(),{
+    names:next,
+    updatedAt:serverTimestamp(),
+    updatedAtClient:new Date().toISOString(),
+    updatedBy:user.uid,
+    updatedByEmail:user.email||''
+  },{merge:true});
+  $('newProcessorName').value='';
+}
+async function removeProcessorName(name){
+  if(!isAdmin())return;
+  if(!confirm(`Remove ${name} from the processor list? Existing transaction records will keep the saved name.`))return;
+  const next=processors.filter(n=>n!==name);
+  await setDoc(processorsRef(),{
+    names:next,
+    updatedAt:serverTimestamp(),
+    updatedAtClient:new Date().toISOString(),
+    updatedBy:user.uid,
+    updatedByEmail:user.email||''
+  },{merge:true});
 }
 
 /* Products */
@@ -3804,7 +5051,7 @@ async function delProduct(id){
   await setDoc(prodRef(),{items:products.filter(p=>String(p.id)!==String(id)),updatedAt:serverTimestamp(),updatedBy:user.uid},{merge:true})
 }
 
-function renderAll(){renderDash();renderStock();renderPOS();renderCredits();renderExpenses();renderReports();renderTx();renderProducts()}
+function renderAll(){renderDash();renderStock();renderPOS();renderCredits();renderExpenses();renderReports();renderTx();renderInventory();renderProcessors();renderProducts()}
 function nav(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
@@ -3812,11 +5059,13 @@ function nav(id){
   if(id==='reportsPage')renderReports();
   if(id==='creditsPage')renderCredits();
   if(id==='expensesPage')renderExpenses();
+  if(id==='inventoryPage')renderInventory();
+  if(id==='processorsPage')renderProcessors();
 }
 
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>nav(b.dataset.page));
-['dashSearch','stockSearch','posSearch','txSearch','creditSearch','expenseSearch'].forEach(id=>$(id).oninput=renderAll);
-['dashCat','stockCat','posCat','txType','creditStatusFilter','expenseStatusFilter'].forEach(id=>$(id).onchange=renderAll);
+['dashSearch','stockSearch','posSearch','txSearch','creditSearch','expenseSearch','inventorySearch'].forEach(id=>$(id).oninput=renderAll);
+['dashCat','stockCat','posCat','txType','creditStatusFilter','expenseStatusFilter','inventoryCat'].forEach(id=>$(id).onchange=renderAll);
 $('saleDate').value=today();$('saleTime').value=nowTime();
 $('expenseDate').value=today();
 $('saleDate').onchange=renderPOS;
@@ -3837,9 +5086,18 @@ $('reportStart').value=today();$('reportEnd').value=today();
 ['reportDay','reportMonth','reportYear','reportStart','reportEnd','reportStaff'].forEach(id=>$(id).onchange=renderReports);
 $('reportRefresh').onclick=renderReports;
 $('printCurrentReport').onclick=printCurrentReport;
+$('saveCurrentReportPdf').onclick=saveCurrentReportPdf;
 $('printSelectedSales').onclick=printSelectedReport;
+$('saveSelectedSalesPdf').onclick=saveSelectedReportPdf;
 $('selectAllSales').onclick=()=>{reportCombinedRows().forEach(r=>selectedSaleIds.add(r.id));renderReports()};
 $('clearSelectedSales').onclick=()=>{selectedSaleIds.clear();renderReports()};
+
+document.querySelectorAll('.report-tab').forEach(b=>b.onclick=()=>setReportPanel(b.dataset.reportPanel));
+$('printInventory').onclick=printInventoryReport;
+$('saveInventoryPdf').onclick=saveInventoryPdf;
+$('addProcessorName').onclick=addProcessorName;
+$('newProcessorName').onkeydown=e=>{if(e.key==='Enter')addProcessorName()};
+
 $('addProduct').onclick=async()=>setDoc(prodRef(),{items:[...products,{id:'p'+Date.now(),category:'New Category',name:'New Product',price:0}],updatedAt:serverTimestamp(),updatedBy:user.uid},{merge:true});
 
 /* Auth */

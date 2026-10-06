@@ -2022,6 +2022,337 @@ tfoot td{background:#f8faff!important}
   }
 }
 
+
+/* v20 direct-download controls */
+.download-action-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  justify-content:flex-end;
+  align-items:center;
+}
+.download-action-group .btn{
+  white-space:nowrap;
+}
+@media(max-width:720px){
+  .download-action-group{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .download-action-group .btn{
+    width:100%;
+    min-width:0;
+    white-space:normal;
+  }
+}
+
+
+/* v21 void-request workflow */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:1500;
+  display:grid;
+  place-items:center;
+  padding:16px;
+  background:rgba(20,28,40,.46);
+  backdrop-filter:blur(4px);
+}
+.modal-backdrop.hidden{display:none!important}
+.modal-card{
+  width:min(520px,100%);
+  max-height:calc(100dvh - 32px);
+  overflow:auto;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 28px 70px rgba(22,37,66,.22);
+  padding:16px;
+}
+.modal-body{display:grid;gap:10px;margin-top:10px}
+.field-label{
+  display:block;
+  font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
+  color:#748094
+}
+.modal-body textarea{min-height:90px;resize:vertical}
+.void-status{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800
+}
+.void-status.pending{background:#fff0c7;color:#7b5900}
+.void-status.approved{background:#e2f5eb;color:#14754a}
+.void-status.rejected{background:#ffe1e1;color:#992020}
+.void-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:720px){
+  .modal-backdrop{align-items:end;padding:8px}
+  .modal-card{border-radius:22px;max-height:88dvh}
+}
+
+
+/* v22 transaction number + receipt */
+.txn-number{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border-radius:8px;
+  background:#edf4ff;
+  color:#245fce;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.03em;
+  overflow-wrap:anywhere;
+}
+.receipt-btn{
+  margin-top:5px;
+}
+.receipt-note{
+  color:#6f7a8a;
+  font-size:8px;
+  line-height:1.35;
+}
+@media(max-width:720px){
+  .txn-number{font-size:7.5px}
+}
+
+
+/* v23 staff Transaction # lookup for void */
+.void-search-box{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:8px;align-items:end}
+.void-search-box label{display:block;margin-bottom:5px;font-size:8px;font-weight:800;text-transform:uppercase;color:#748094}
+.void-search-result{margin-top:10px}
+.void-found-card{border:1px solid var(--border);border-radius:14px;background:#f8faff;padding:12px}
+.void-found-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.void-found-grid .dash-mini{background:#fff!important}
+.void-found-items{margin-top:8px;padding:9px;border:1px solid var(--border);border-radius:11px;background:#fff;font-size:9px;line-height:1.55}
+.void-found-actions{display:grid;gap:8px;margin-top:10px}
+@media(max-width:720px){.void-search-box{grid-template-columns:1fr}.void-found-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.void-found-grid{grid-template-columns:1fr}}
+
+
+/* v24 operations */
+.action-center-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px
+}
+.action-tile{
+  min-height:78px;
+  padding:11px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#f8faff;
+  cursor:pointer;
+  color:#526076;
+  font-family:inherit
+}
+.action-tile:hover{border-color:#bfd2fa;background:#f2f7ff}
+.action-tile span{display:block;font-size:8px;font-weight:800;line-height:1.35}
+.action-tile strong{display:block;margin-top:7px;font-size:19px;color:var(--ink)}
+.closing-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:10px
+}
+.closing-controls label{
+  display:block;
+  margin-bottom:5px;
+  font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
+  color:#748094
+}
+.closing-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px
+}
+.lookup-search{
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) auto;
+  gap:8px;
+  align-items:center
+}
+.lookup-results{display:grid;gap:8px;margin-top:12px}
+.lookup-card{
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#fbfcff;
+  padding:12px
+}
+.lookup-meta{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;
+  margin:9px 0
+}
+.return-status{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800
+}
+.return-status.pending{background:#fff0c7;color:#7b5900}
+.return-status.approved{background:#e2f5eb;color:#14754a}
+.return-status.rejected{background:#ffe1e1;color:#992020}
+.closing-status{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800
+}
+.closing-status.pending{background:#fff0c7;color:#7b5900}
+.closing-status.approved{background:#e2f5eb;color:#14754a}
+.closing-status.rejected{background:#ffe1e1;color:#992020}
+.audit-in{color:#14754a;font-weight:900}
+.audit-out{color:#b53b3b;font-weight:900}
+@media(max-width:1100px){
+  .action-center-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .action-center-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .closing-controls,.lookup-search{grid-template-columns:1fr}
+  .closing-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lookup-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:390px){
+  .closing-summary-grid,.lookup-meta{grid-template-columns:1fr}
+}
+
+
+/* v25 delete approval + data reset + closing blockers */
+.reset-controls{
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) auto;
+  gap:8px;
+  align-items:end;
+  margin-bottom:12px
+}
+.reset-controls label,.reset-confirm label{
+  display:block;
+  margin-bottom:5px;
+  font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
+  color:#748094
+}
+.reset-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:12px
+}
+.reset-option{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#fbfcff;
+  cursor:pointer
+}
+.reset-option input{width:auto;min-height:auto;margin-top:2px}
+.reset-option span{min-width:0}
+.reset-option b{display:block;font-size:10px;color:#303c4e}
+.reset-option small{display:block;margin-top:3px;font-size:8px;line-height:1.45;color:#7a8594}
+.reset-preview{
+  margin:10px 0;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#f8faff
+}
+.reset-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:7px
+}
+.reset-confirm{
+  display:grid;
+  grid-template-columns:minmax(180px,1fr) auto;
+  gap:8px;
+  align-items:end;
+  margin-top:10px
+}
+.closing-blockers{
+  margin:9px 0;
+  padding:10px;
+  border:1px solid #efd0a4;
+  border-radius:12px;
+  background:#fff8e8;
+  color:#6f531c;
+  font-size:9px;
+  line-height:1.55
+}
+.closing-blockers.hidden{display:none!important}
+.delete-warning{
+  margin-top:8px;
+  padding:8px;
+  border-radius:10px;
+  background:#fff4f4;
+  border:1px solid #f0d3d3;
+  color:#8f3030;
+  font-size:8px;
+  line-height:1.45
+}
+@media(max-width:900px){
+  .reset-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .reset-controls,.reset-confirm{grid-template-columns:1fr}
+  .reset-grid{grid-template-columns:1fr}
+  .reset-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+
+/* v26 POS operating schedule */
+.pos-access-notice{
+  margin:0 0 10px;
+  padding:10px 11px;
+  border:1px solid #cfe3d7;
+  border-radius:12px;
+  background:#f3fbf6;
+  color:#2e6a49;
+  font-size:9px;
+  line-height:1.5;
+  font-weight:700
+}
+.pos-access-notice.closed{
+  border-color:#efcaca;
+  background:#fff5f5;
+  color:#9c3535
+}
+.pos-access-notice.warning{
+  border-color:#ecd8a4;
+  background:#fff9e9;
+  color:#73591a
+}
+#salesPage.pos-locked .product-card,
+#salesPage.pos-locked .pos-cart{
+  opacity:.84
+}
+#salesPage.pos-locked .product-card button,
+#salesPage.pos-locked .cart-list button,
+#salesPage.pos-locked .cart-list input{
+  cursor:not-allowed
+}
+@media(max-width:720px){
+  .pos-access-notice{
+    font-size:8.5px;
+    padding:9px
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2095,6 +2426,12 @@ tfoot td{background:#f8faff!important}
       <button id="expensesNav" data-page="expensesPage">🧾 Expenses</button>
       <button id="reportsNav" data-page="reportsPage">📊 Sales Reports</button>
       <button class="adminOnly" data-page="txPage">📚 Transactions</button>
+      <button id="voidRequestsNav" data-page="voidRequestsPage">↩️ Void Requests</button>
+      <button id="deleteRequestsNav" data-page="deleteRequestsPage">🗑️ Delete Requests</button>
+      <button id="returnsNav" data-page="returnsPage">↪️ Returns / Refunds</button>
+      <button id="closingNav" data-page="closingPage">🧮 Daily Closing</button>
+      <button class="adminOnly" data-page="lookupPage">🔎 Transaction Lookup</button>
+      <button class="adminOnly" data-page="dataResetPage">♻️ Data Reset</button>
       <button class="adminOnly" data-page="inventoryPage">📋 Inventory</button>
       <button class="adminOnly" data-page="processorsPage">👥 Processors</button>
       <button class="adminOnly" data-page="productsPage">⚙️ Products</button>
@@ -2162,6 +2499,48 @@ tfoot td{background:#f8faff!important}
             <div id="expenseAdminNoticeText" class="muted">Review staff expenses before they affect the Sales Report.</div>
           </div>
           <button id="openExpenseApprovals" class="btn blue">Review Expenses</button>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Action Center</h2>
+                <div id="actionCenterSubtitle" class="muted">Items that may need attention today.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-center-grid">
+            <button id="actionCredit" class="action-tile" type="button">
+              <span id="actionCreditLabel">Credit</span>
+              <strong id="actionCreditCount">0</strong>
+            </button>
+            <button id="actionExpense" class="action-tile" type="button">
+              <span id="actionExpenseLabel">Expenses</span>
+              <strong id="actionExpenseCount">0</strong>
+            </button>
+            <button id="actionVoid" class="action-tile" type="button">
+              <span id="actionVoidLabel">Void Requests</span>
+              <strong id="actionVoidCount">0</strong>
+            </button>
+            <button id="actionDelete" class="action-tile" type="button">
+              <span id="actionDeleteLabel">Delete Requests</span>
+              <strong id="actionDeleteCount">0</strong>
+            </button>
+            <button id="actionReturn" class="action-tile" type="button">
+              <span id="actionReturnLabel">Return Requests</span>
+              <strong id="actionReturnCount">0</strong>
+            </button>
+            <button id="actionOverdue" class="action-tile" type="button">
+              <span>Overdue Credits</span>
+              <strong id="actionOverdueCount">0</strong>
+            </button>
+            <button id="actionClosing" class="action-tile" type="button">
+              <span id="actionClosingLabel">Daily Closing</span>
+              <strong id="actionClosingCount">—</strong>
+            </button>
+          </div>
         </div>
 
         <div class="low-stock-wrap">
@@ -2293,9 +2672,16 @@ tfoot td{background:#f8faff!important}
           <div class="pos-products">
             <div class="sticky">
               <div class="head">
-                <div><h2>Daily Sales POS</h2><div class="muted">Tap Add to Cart, adjust quantity, then save the sale.</div></div>
-                <span class="pill ok">STAFF</span>
+                <div>
+                  <h2>Daily Sales POS</h2>
+                  <div class="muted">Operating hours: 6:00 AM to 12:00 AM. End of Day submission locks the POS until the next operating day.</div>
+                </div>
+                <span id="posAccessBadge" class="pill ok">POS OPEN</span>
               </div>
+            </div>
+
+            <div id="posAccessNotice" class="pos-access-notice">
+              POS is available.
             </div>
 
             <div class="sale-date">
@@ -2357,7 +2743,8 @@ tfoot td{background:#f8faff!important}
               <div class="sumrow total"><span>Total</span><b id="cartTotal">₱0.00</b></div>
               <button id="saveSale" class="btn green pos-save">Save Sale & Deduct Stock</button>
               <div id="lastSaleInfo" class="today-saved">No sale saved yet in this session.</div>
-              <button id="openTodayReport" class="btn pos-save" style="margin-top:6px">View / Print My Today Sales</button>
+              <button id="downloadLastReceipt" class="btn blue hidden" style="margin-top:6px;width:100%">⬇ Download Last Receipt</button>
+              <button id="openTodayReport" class="btn pos-save" style="margin-top:6px">View My Today Sales</button>
             </div>
           </div>
         </div>
@@ -2408,7 +2795,10 @@ tfoot td{background:#f8faff!important}
                 <h2 id="creditsPageTitle">Credit Accounts</h2>
                 <div id="creditsPageSubtitle" class="muted">Credits remain here until payment is approved by Admin.</div>
               </div>
-              <button id="creditRefresh" class="btn">Refresh</button>
+              <div class="download-action-group">
+                <button id="downloadCreditPdf" class="btn blue">⬇ Download Credit PDF</button>
+                <button id="creditRefresh" class="btn">Refresh</button>
+              </div>
             </div>
           </div>
 
@@ -2499,7 +2889,10 @@ tfoot td{background:#f8faff!important}
                 <h2 id="expenseListTitle">Expense History</h2>
                 <div class="muted">Pending expenses do not reduce sales yet. Only Admin-approved expenses affect the Sales Report.</div>
               </div>
-              <button id="expenseRefresh" class="btn">Refresh</button>
+              <div class="download-action-group">
+                <button id="downloadExpensePdf" class="btn blue">⬇ Download Expense PDF</button>
+                <button id="expenseRefresh" class="btn">Refresh</button>
+              </div>
             </div>
           </div>
 
@@ -2526,15 +2919,9 @@ tfoot td{background:#f8faff!important}
                 <h2 id="reportsTitle">Sales Reports</h2>
                 <div id="reportsSubtitle" class="muted">Choose a period, then open only the report panel you need.</div>
               </div>
-              <div class="no-print print-action-group">
-                <div class="print-action-pair">
-                  <button id="printCurrentReport" class="btn blue">🖨 Print Report</button>
-                  <button id="saveCurrentReportPdf" class="btn">⬇ Download PDF</button>
-                </div>
-                <div class="print-action-pair">
-                  <button id="printSelectedSales" class="btn blue">🖨 Print Selected</button>
-                  <button id="saveSelectedSalesPdf" class="btn">⬇ Download Selected PDF</button>
-                </div>
+              <div class="no-print download-action-group">
+                <button id="saveCurrentReportPdf" class="btn blue">⬇ Download Full Report PDF</button>
+                <button id="saveSelectedSalesPdf" class="btn">⬇ Download Selected PDF</button>
               </div>
             </div>
           </div>
@@ -2715,7 +3102,7 @@ tfoot td{background:#f8faff!important}
                   <thead>
                     <tr>
                       <th class="no-print" style="width:38px">Pick</th>
-                      <th>Date</th><th>Time</th><th>Type</th><th>Status</th>
+                      <th>Transaction #</th><th>Date</th><th>Time</th><th>Type</th><th>Status</th>
                       <th>Account / Processor / Borrower</th>
                       <th>Items</th><th>Qty</th><th>Amount</th>
                     </tr>
@@ -2736,6 +3123,301 @@ tfoot td{background:#f8faff!important}
         </div>
       </section>
 
+      <section id="voidRequestsPage" class="page">
+        <div class="staffOnly card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Request a Transaction Void</h2>
+                <div class="muted">Search the exact Transaction # shown on the receipt. After you submit the reason, Admin will approve or deny the request.</div>
+              </div>
+            </div>
+          </div>
+          <div class="void-search-box">
+            <div>
+              <label>Transaction #</label>
+              <input id="staffVoidTxnSearch" placeholder="Example: CHK-20261004-R1QLDP">
+            </div>
+            <button id="findVoidTransaction" class="btn blue">Find Transaction</button>
+          </div>
+          <div id="staffVoidSearchResult" class="void-search-result">
+            <div class="empty">Enter the Transaction # from the receipt to find the exact sale.</div>
+          </div>
+        </div>
+
+        <div class="adminOnly metrics">
+          <div class="metric bad"><small>Pending Void Requests</small><strong id="voidPendingCount">0</strong></div>
+          <div class="metric"><small>Approved Today</small><strong id="voidApprovedToday">0</strong></div>
+          <div class="metric"><small>Rejected Today</small><strong id="voidRejectedToday">0</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2 id="voidPageTitle">Void Transaction Requests</h2>
+                <div id="voidPageSubtitle" class="muted">Admin reviews submitted requests here.</div>
+              </div>
+              <span id="voidRequestBadge" class="pill warn">0 pending</span>
+            </div>
+          </div>
+          <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) auto">
+            <input id="voidRequestSearch" placeholder="Search Transaction #, staff, processor, reason...">
+            <span id="voidSearchHint" class="muted">Search submitted void requests by Transaction #.</span>
+          </div>
+          <div id="voidRequestList" class="history"></div>
+        </div>
+      </section>
+
+      <section id="deleteRequestsPage" class="page">
+        <div class="staffOnly card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Request Transaction Delete</h2>
+                <div class="muted">For an incorrectly encoded Walk-in sale that should be removed completely. Search the exact Transaction # or use Request Delete in Sales Transactions.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="void-search-box">
+            <div>
+              <label>Transaction #</label>
+              <input id="staffDeleteTxnSearch" placeholder="Example: CHK-20261006-ABC123">
+            </div>
+            <button id="findDeleteTransaction" class="btn blue">Find Transaction</button>
+          </div>
+
+          <div id="staffDeleteSearchResult" class="void-search-result">
+            <div class="empty">Enter the Transaction # from the receipt.</div>
+          </div>
+        </div>
+
+        <div class="adminOnly metrics">
+          <div class="metric bad"><small>Pending Delete Requests</small><strong id="deletePendingCount">0</strong></div>
+          <div class="metric good"><small>Approved Today</small><strong id="deleteApprovedToday">0</strong></div>
+          <div class="metric"><small>Denied Today</small><strong id="deleteRejectedToday">0</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2 id="deleteRequestsTitle">Sales Transaction Delete Requests</h2>
+                <div id="deleteRequestsSubtitle" class="muted">Admin approval is required before a sale is permanently removed.</div>
+              </div>
+              <span id="deleteRequestBadge" class="pill warn">0 pending</span>
+            </div>
+          </div>
+
+          <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) auto">
+            <input id="deleteRequestSearch" placeholder="Search Transaction #, staff, processor, reason...">
+            <span class="muted">Approved deletes keep an audit request/archive but remove the active sale.</span>
+          </div>
+
+          <div id="deleteRequestList" class="history"></div>
+        </div>
+      </section>
+
+      <section id="dataResetPage" class="page">
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Operational Data Reset by Date</h2>
+                <div class="muted">Admin-only cleanup for testing or refreshing POS records. Choose a date and exactly which operational records to clear.</div>
+              </div>
+              <span class="pill warn">Destructive</span>
+            </div>
+          </div>
+
+          <div class="reset-controls">
+            <div>
+              <label>Data Date</label>
+              <input id="resetDate" type="date">
+            </div>
+            <button id="previewReset" class="btn blue">Preview Data</button>
+          </div>
+
+          <div class="reset-grid">
+            <label class="reset-option"><input id="resetSales" type="checkbox" checked> <span><b>Sales Transactions</b><small>Deletes sales on this date. Active-sale stock is returned first.</small></span></label>
+            <label class="reset-option"><input id="resetCredits" type="checkbox" checked> <span><b>Credit Transactions</b><small>Deletes credits on this date and returns their stock.</small></span></label>
+            <label class="reset-option"><input id="resetExpenses" type="checkbox" checked> <span><b>Expenses</b><small>Deletes pending, approved, and rejected expenses on this date.</small></span></label>
+            <label class="reset-option"><input id="resetRequests" type="checkbox" checked> <span><b>Approval Requests</b><small>Deletes Void, Return, and Delete requests tied to this date.</small></span></label>
+            <label class="reset-option"><input id="resetClosings" type="checkbox" checked> <span><b>Daily Closings</b><small>Deletes closing records for this date and unlocks the date.</small></span></label>
+          </div>
+
+          <div id="resetPreview" class="reset-preview">
+            <div class="empty">Choose a date, then click Preview Data.</div>
+          </div>
+
+          <div class="reset-confirm">
+            <div>
+              <label>Type RESET to confirm</label>
+              <input id="resetConfirmText" placeholder="RESET">
+            </div>
+            <button id="runDataReset" class="btn danger">Delete Selected Data for Date</button>
+          </div>
+
+          <div class="report-expense-note">
+            <b>Protected:</b> Product master, processor names, and manual stock adjustments are not deleted by this reset.
+            System-generated Void/Refund/Delete stock-return audit rows tied to reset transactions are cleaned automatically.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Reset History</h2>
+                <div class="muted">Audit trail of Admin date resets.</div>
+              </div>
+            </div>
+          </div>
+          <div id="dataResetHistory" class="history"></div>
+        </div>
+      </section>
+
+      <section id="returnsPage" class="page">
+        <div class="staffOnly card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Request Return / Refund</h2>
+                <div class="muted">For a valid Walk-in sale that the customer returned. Search the exact Transaction #, enter the reason, then wait for Admin approval.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="void-search-box">
+            <div>
+              <label>Transaction #</label>
+              <input id="staffReturnTxnSearch" placeholder="Example: CHK-20261006-ABC123">
+            </div>
+            <button id="findReturnTransaction" class="btn blue">Find Transaction</button>
+          </div>
+
+          <div id="staffReturnSearchResult" class="void-search-result">
+            <div class="empty">Enter a Walk-in Transaction # from the receipt.</div>
+          </div>
+        </div>
+
+        <div class="adminOnly metrics">
+          <div class="metric bad"><small>Pending Returns</small><strong id="returnPendingCount">0</strong></div>
+          <div class="metric good"><small>Approved Today</small><strong id="returnApprovedToday">0</strong></div>
+          <div class="metric"><small>Rejected Today</small><strong id="returnRejectedToday">0</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2 id="returnsPageTitle">Return / Refund Requests</h2>
+                <div id="returnsPageSubtitle" class="muted">Admin reviews submitted requests here.</div>
+              </div>
+              <span id="returnRequestBadge" class="pill warn">0 pending</span>
+            </div>
+          </div>
+
+          <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) auto">
+            <input id="returnRequestSearch" placeholder="Search Transaction #, staff, processor, reason...">
+            <span class="muted">Full-transaction return only. Stock is restored only after Admin approval.</span>
+          </div>
+
+          <div id="returnRequestList" class="history"></div>
+        </div>
+      </section>
+
+      <section id="closingPage" class="page">
+        <div class="staffOnly card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Daily Closing / End of Day</h2>
+                <div class="muted">Review the figures, enter your actual cash count, then submit to Admin. Once submitted, your POS for that date is locked immediately while waiting for approval.</div>
+              </div>
+              <span id="closingTodayBadge" class="pill">OPEN</span>
+            </div>
+          </div>
+
+          <div class="closing-controls">
+            <div>
+              <label>Closing Date</label>
+              <input id="closingDate" type="date">
+            </div>
+            <div>
+              <label>Actual Cash Count</label>
+              <input id="closingActualCash" type="number" min="0" step=".01" value="0">
+            </div>
+          </div>
+
+          <div class="closing-summary-grid">
+            <div class="dash-mini"><b>Total Sales / Kita</b><span id="clSales">₱0.00</span></div>
+            <div class="dash-mini"><b>Cash Collected / On-hand</b><span id="clOnHand">₱0.00</span></div>
+            <div class="dash-mini"><b>Credit Sales</b><span id="clCredit">₱0.00</span></div>
+            <div class="dash-mini"><b>Approved Expenses</b><span id="clExpenses">₱0.00</span></div>
+            <div class="dash-mini"><b>Expected Cash</b><span id="clExpected">₱0.00</span></div>
+            <div class="dash-mini"><b>Short / Over</b><span id="clVariance">₱0.00</span></div>
+          </div>
+
+          <div id="closingPendingBlockers" class="closing-blockers hidden"></div>
+          <div id="closingStatusNote" class="today-saved">No closing submitted for this date.</div>
+          <button id="submitClosing" class="btn green" style="width:100%;margin-top:8px">Submit Daily Closing for Admin Approval</button>
+        </div>
+
+        <div class="adminOnly metrics">
+          <div class="metric bad"><small>Pending Closing Approvals</small><strong id="closingPendingCount">0</strong></div>
+          <div class="metric good"><small>Approved Today</small><strong id="closingApprovedToday">0</strong></div>
+          <div class="metric"><small>Rejected Today</small><strong id="closingRejectedToday">0</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2 id="closingHistoryTitle">Closing History</h2>
+                <div id="closingHistorySubtitle" class="muted">Daily closing records and Admin review status.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) 180px auto">
+            <input id="closingSearch" placeholder="Search date, staff, status...">
+            <select id="closingStatusFilter">
+              <option value="">All Status</option>
+              <option value="pending">Pending Approval</option>
+              <option value="approved">Approved / Closed</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <span id="closingCount" class="muted">0 records</span>
+          </div>
+
+          <div id="closingList" class="history"></div>
+        </div>
+      </section>
+
+      <section id="lookupPage" class="page">
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Transaction Lookup</h2>
+                <div class="muted">Search by Transaction #, processor, staff, borrower, date, or amount. Exact Transaction # matches appear first.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lookup-search">
+            <input id="lookupSearch" placeholder="Transaction # / processor / borrower / amount / date...">
+            <button id="lookupButton" class="btn blue">Search Transaction</button>
+          </div>
+
+          <div id="lookupResult" class="lookup-results">
+            <div class="empty">Enter a Transaction # or search term.</div>
+          </div>
+        </div>
+      </section>
+
       <section id="inventoryPage" class="page">
         <div class="metrics">
           <div class="metric"><small>Products</small><strong id="invProductCount">0</strong></div>
@@ -2751,9 +3433,8 @@ tfoot td{background:#f8faff!important}
                 <h2>Inventory Summary</h2>
                 <div class="muted">Current shared inventory with balance, stock value, last update, and who changed it.</div>
               </div>
-              <div class="no-print print-action-pair">
-                <button id="printInventory" class="btn blue">🖨 Print Inventory</button>
-                <button id="saveInventoryPdf" class="btn">⬇ Download PDF</button>
+              <div class="no-print download-action-group">
+                <button id="saveInventoryPdf" class="btn blue">⬇ Download Inventory PDF</button>
               </div>
             </div>
           </div>
@@ -2789,6 +3470,25 @@ tfoot td{background:#f8faff!important}
               </tfoot>
             </table>
           </div>
+        </div>
+        <div class="card">
+          <div class="sticky">
+            <div class="head">
+              <div>
+                <h2>Inventory Audit / Stock Movement</h2>
+                <div class="muted">Trace sales, credit releases, manual adjustments, void returns, and refund returns per product.</div>
+              </div>
+              <span id="auditCount" class="pill">0 movements</span>
+            </div>
+          </div>
+
+          <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) minmax(180px,260px) auto">
+            <input id="auditSearch" placeholder="Search type, Transaction #, staff, processor, reason...">
+            <select id="auditProduct"><option value="">All Products</option></select>
+            <span class="muted">Newest movement first</span>
+          </div>
+
+          <div id="auditList" class="history"></div>
         </div>
       </section>
 
@@ -2934,6 +3634,25 @@ tfoot td{background:#f8faff!important}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
+<div id="voidDialog" class="modal-backdrop hidden">
+  <div class="modal-card">
+    <div class="head">
+      <div>
+        <h2 style="margin:0">Request Transaction Void</h2>
+        <div class="muted">This request will be sent to Admin for approval.</div>
+      </div>
+      <button id="closeVoidDialog" class="btn small">Close</button>
+    </div>
+    <div class="modal-body">
+      <div id="voidDialogInfo" class="dash-mini"></div>
+      <label class="field-label">Reason for void *</label>
+      <textarea id="voidReason" placeholder="Example: wrong item, duplicate sale, wrong quantity..."></textarea>
+      <button id="submitVoidRequest" class="btn danger" style="width:100%">Send Void Request to Admin</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
@@ -2968,7 +3687,7 @@ const monthKey=d=>String(d||'').slice(0,7);
 const yearKey=d=>String(d||'').slice(0,4);
 const formatDate=d=>{if(!d)return '—';const [y,m,day]=d.split('-');return new Date(+y,+m-1,+day).toLocaleDateString('en-PH',{year:'numeric',month:'short',day:'numeric'})};
 
-let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],expenses=[],stockAdjustments=[],processors=[],authMode='login';
+let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],expenses=[],stockAdjustments=[],voidRequests=[],returnRequests=[],deleteRequests=[],closings=[],dataResetLogs=[],processors=[],lastSavedTransaction=null,lastPosAccessKey='',authMode='login';
 let unsubs=[],cart={};
 const selectedSaleIds=new Set();
 
@@ -2992,6 +3711,12 @@ const restockCol=()=>collection(db,'stores',STORE,'restocks');
 const creditsCol=()=>collection(db,'stores',STORE,'credits');
 const expensesCol=()=>collection(db,'stores',STORE,'expenses');
 const stockAdjustmentsCol=()=>collection(db,'stores',STORE,'stockAdjustments');
+const voidRequestsCol=()=>collection(db,'stores',STORE,'voidRequests');
+const returnRequestsCol=()=>collection(db,'stores',STORE,'returnRequests');
+const deleteRequestsCol=()=>collection(db,'stores',STORE,'deleteRequests');
+const deletedSalesArchiveCol=()=>collection(db,'stores',STORE,'deletedSalesArchive');
+const dataResetLogsCol=()=>collection(db,'stores',STORE,'dataResetLogs');
+const closingsCol=()=>collection(db,'stores',STORE,'closings');
 const processorsRef=()=>doc(db,'stores',STORE,'settings','processors');
 
 function cloud(msg){$('cloud').textContent=msg;$('cloudSide').textContent=msg}
@@ -3004,6 +3729,16 @@ function fillCat(id){
   if(cats().includes(cur))el.value=cur
 }
 function nowTime(){return new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'})}
+function makeTransactionNo(date,docId){
+  const d=String(date||today()).replaceAll('-','');
+  const key=String(docId||'XXXXXX').replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase().padEnd(6,'X');
+  return `CHK-${d}-${key}`;
+}
+function txnNo(record,prefix='CHK'){
+  if(record?.transactionNo)return record.transactionNo;
+  const id=record?.id||record?.sourceId||'LEGACY';
+  return `LEGACY-${String(id).replace(/[^A-Za-z0-9]/g,'').slice(0,8).toUpperCase()}`;
+}
 function tickLiveClock(){
   const d=new Date();
   if($('liveDateTime')){
@@ -3044,6 +3779,29 @@ function applyRole(){
     ?'Staff expenses stay pending until you approve or reject them.'
     :'Submit expenses here. They do not affect reports until Admin approves them.';
   $('expenseListTitle').textContent=isAdmin()?'All Expense Requests':'My Expense Requests';
+  $('voidRequestsNav').textContent=isAdmin()?'↩️ Void Requests':'↩️ My Void Requests';
+  $('voidPageTitle').textContent=isAdmin()?'Void Transaction Requests':'My Void Requests';
+  $('voidPageSubtitle').textContent=isAdmin()
+    ?'Review Staff requests here. Search the exact Transaction #, then approve or deny.'
+    :'Your submitted void requests appear here with Admin review status.';
+  $('voidSearchHint').textContent=isAdmin()
+    ?'Search submitted void requests by Transaction #.'
+    :'Search your submitted requests by Transaction #.';
+  $('deleteRequestsNav').textContent=isAdmin()?'🗑️ Delete Approvals':'🗑️ My Delete Requests';
+  $('deleteRequestsTitle').textContent=isAdmin()?'Sales Transaction Delete Requests':'My Delete Requests';
+  $('deleteRequestsSubtitle').textContent=isAdmin()
+    ?'Review permanent Sales deletion requests. Approval is required before the sale is removed.'
+    :'Your deletion requests remain visible with Admin approval status.';
+  $('returnsNav').textContent=isAdmin()?'↪️ Return Approvals':'↪️ My Returns';
+  $('returnsPageTitle').textContent=isAdmin()?'Return / Refund Requests':'My Return / Refund Requests';
+  $('returnsPageSubtitle').textContent=isAdmin()
+    ?'Review valid-sale return requests. Approving restores stock and marks the sale REFUNDED.'
+    :'Your submitted return requests appear here with Admin review status.';
+  $('closingNav').textContent=isAdmin()?'🧮 Closing Approvals':'🧮 Daily Closing';
+  $('closingHistoryTitle').textContent=isAdmin()?'Daily Closing Approvals & History':'My Closing History';
+  $('closingHistorySubtitle').textContent=isAdmin()
+    ?'Approve or reject Staff daily closing submissions.'
+    :'Approved closing locks that sales date in this app.';
   $('topRole').textContent=role.toUpperCase();
   nav('dashPage');
   $('introScreen').classList.remove('hidden');
@@ -3078,6 +3836,21 @@ function listen(){
     unsubs.push(onSnapshot(query(stockAdjustmentsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
       stockAdjustments=[];s.forEach(d=>stockAdjustments.push({id:d.id,...d.data()}));renderAll()
     }));
+    unsubs.push(onSnapshot(query(voidRequestsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
+      voidRequests=[];s.forEach(d=>voidRequests.push({id:d.id,...d.data()}));renderAll()
+    }));
+    unsubs.push(onSnapshot(query(returnRequestsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
+      returnRequests=[];s.forEach(d=>returnRequests.push({id:d.id,...d.data()}));renderAll()
+    }));
+    unsubs.push(onSnapshot(query(deleteRequestsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
+      deleteRequests=[];s.forEach(d=>deleteRequests.push({id:d.id,...d.data()}));renderAll()
+    }));
+    unsubs.push(onSnapshot(query(dataResetLogsCol(),orderBy('createdAtClient','desc'),limit(300)),s=>{
+      dataResetLogs=[];s.forEach(d=>dataResetLogs.push({id:d.id,...d.data()}));renderAll()
+    }));
+    unsubs.push(onSnapshot(query(closingsCol(),orderBy('createdAtClient','desc'),limit(2000)),s=>{
+      closings=[];s.forEach(d=>closings.push({id:d.id,...d.data()}));renderAll()
+    }));
   }else{
     unsubs.push(onSnapshot(query(salesCol(),where('userId','==',user.uid),limit(2000)),s=>{
       sales=[];s.forEach(d=>sales.push({id:d.id,...d.data()}));
@@ -3094,10 +3867,30 @@ function listen(){
       expenses.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
       renderAll()
     }));
+    unsubs.push(onSnapshot(query(voidRequestsCol(),where('userId','==',user.uid),limit(500)),s=>{
+      voidRequests=[];s.forEach(d=>voidRequests.push({id:d.id,...d.data()}));
+      voidRequests.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
+      renderAll()
+    }));
+    unsubs.push(onSnapshot(query(returnRequestsCol(),where('userId','==',user.uid),limit(500)),s=>{
+      returnRequests=[];s.forEach(d=>returnRequests.push({id:d.id,...d.data()}));
+      returnRequests.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
+      renderAll()
+    }));
+    unsubs.push(onSnapshot(query(deleteRequestsCol(),where('userId','==',user.uid),limit(500)),s=>{
+      deleteRequests=[];s.forEach(d=>deleteRequests.push({id:d.id,...d.data()}));
+      deleteRequests.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
+      renderAll()
+    }));
+    unsubs.push(onSnapshot(query(closingsCol(),where('userId','==',user.uid),limit(500)),s=>{
+      closings=[];s.forEach(d=>closings.push({id:d.id,...d.data()}));
+      closings.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
+      renderAll()
+    }));
   }
 }
 
-function salesForDate(d){return sales.filter(s=>s.date===d)}
+function salesForDate(d){return sales.filter(s=>s.date===d&&s.status!=='voided'&&s.status!=='refunded')}
 function soldProduct(pid,d=today()){
   return salesForDate(d).reduce((a,s)=>a+(s.items||[]).filter(i=>String(i.productId)===String(pid)).reduce((x,i)=>x+num(i.qty),0),0)
 }
@@ -3105,7 +3898,7 @@ function soldAmountProduct(pid,d=today()){
   return salesForDate(d).reduce((a,s)=>a+(s.items||[]).filter(i=>String(i.productId)===String(pid)).reduce((x,i)=>x+num(i.amount),0),0)
 }
 function dashboardSalesRows(){
-  return isAdmin()?sales:sales.filter(s=>s.userId===user?.uid);
+  return (isAdmin()?sales:sales.filter(s=>s.userId===user?.uid)).filter(s=>s.status!=='voided'&&s.status!=='refunded');
 }
 function dashboardCreditRows(){
   return isAdmin()?credits:credits.filter(c=>c.userId===user?.uid);
@@ -3124,9 +3917,10 @@ function renderDash(){
   const creditSalesTotal=todayCredits.reduce((a,c)=>a+num(c.totalAmount),0);
   const totalSales=walkinTotal+creditSalesTotal;
 
-  // Approved credit payments are considered Paid / On-hand.
-  const approvedCreditTotal=todayCredits
-    .filter(c=>c.status==='approved')
+  // Cash collected today = today's walk-in + credit payments approved today,
+  // even if the credit sale happened on an older date.
+  const approvedCreditTotal=dashboardCreditRows()
+    .filter(c=>c.status==='approved'&&c.approvedDate===today())
     .reduce((a,c)=>a+num(c.totalAmount),0);
 
   // Open + payment_pending remain Credit / Utang.
@@ -3175,6 +3969,45 @@ function renderDash(){
   $('dashboardScopeText').textContent=isAdmin()
     ?'Store-wide summary across all staff for today.'
     :'Your own sales, credits, and expenses for today. Stock balance is shared.';
+
+  const scopedCredits=dashboardCreditRows();
+  const scopedExpenses=dashboardExpenseRows();
+  const scopedVoids=isAdmin()?voidRequests:voidRequests.filter(v=>v.userId===user?.uid);
+  const scopedDeletes=isAdmin()?deleteRequests:deleteRequests.filter(v=>v.userId===user?.uid);
+  const scopedReturns=isAdmin()?returnRequests:returnRequests.filter(v=>v.userId===user?.uid);
+  const scopedClosings=isAdmin()?closings:closings.filter(c=>c.userId===user?.uid);
+
+  const creditAttention=isAdmin()
+    ?scopedCredits.filter(c=>c.status==='payment_pending').length
+    :scopedCredits.filter(c=>c.status!=='approved').length;
+  const expenseAttention=scopedExpenses.filter(e=>e.status==='pending').length;
+  const voidAttention=scopedVoids.filter(v=>v.status==='pending').length;
+  const deleteAttention=scopedDeletes.filter(v=>v.status==='pending').length;
+  const returnAttention=scopedReturns.filter(r=>r.status==='pending').length;
+  const overdueCount=scopedCredits.filter(c=>c.status!=='approved'&&c.dueDate&&c.dueDate<today()).length;
+  const closingAttention=isAdmin()
+    ?scopedClosings.filter(c=>c.status==='pending').length
+    :(scopedClosings.find(c=>c.date===today()&&c.status==='approved')?'CLOSED':
+      scopedClosings.find(c=>c.date===today()&&c.status==='pending')?'PENDING':
+      posOperatingHoursOpen()?'OPEN':'AUTO CLOSED');
+
+  $('actionCreditLabel').textContent=isAdmin()?'Credit Payments to Approve':'My Active Credits';
+  $('actionExpenseLabel').textContent=isAdmin()?'Expenses to Approve':'My Pending Expenses';
+  $('actionVoidLabel').textContent=isAdmin()?'Void Requests':'My Void Requests';
+  $('actionDeleteLabel').textContent=isAdmin()?'Delete Requests':'My Delete Requests';
+  $('actionReturnLabel').textContent=isAdmin()?'Return Requests':'My Return Requests';
+  $('actionClosingLabel').textContent=isAdmin()?'Closing Approvals':'Closing Today';
+  $('actionCreditCount').textContent=creditAttention;
+  $('actionExpenseCount').textContent=expenseAttention;
+  $('actionVoidCount').textContent=voidAttention;
+  $('actionDeleteCount').textContent=deleteAttention;
+  $('actionReturnCount').textContent=returnAttention;
+  $('actionOverdueCount').textContent=overdueCount;
+  $('actionClosingCount').textContent=closingAttention;
+  $('actionCenterSubtitle').textContent=isAdmin()
+    ?'Pending approvals and exceptions that need Admin attention.'
+    :'Your pending requests, credits, and closing status.';
+
 
   $('lowStockList').innerHTML=top10.length?top10.map((p,index)=>`
     <div class="low-stock-item">
@@ -3364,6 +4197,427 @@ async function manualStockAdjust(id,type){
 }
 
 
+/* POS Operating Hours */
+const POS_OPEN_HOUR=6; // 6:00 AM
+function posClockMinutes(){
+  const d=new Date();
+  return d.getHours()*60+d.getMinutes();
+}
+function posOperatingHoursOpen(){
+  // Midnight (00:00) through 05:59 is closed.
+  return posClockMinutes()>=POS_OPEN_HOUR*60;
+}
+function closingRecordForDate(date,uid=user?.uid){
+  return closings
+    .filter(c=>c.userId===uid&&c.date===date&&(c.status==='pending'||c.status==='approved'))
+    .sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')))[0]||null;
+}
+function posAccessState(date=today(),uid=user?.uid){
+  const currentDate=today();
+
+  if(date!==currentDate){
+    return {
+      allowed:false,
+      code:'not_today',
+      message:`POS transactions can only be encoded for today (${formatDate(currentDate)}).`
+    };
+  }
+
+  const closing=closingRecordForDate(date,uid);
+  if(closing?.status==='approved'){
+    return {
+      allowed:false,
+      code:'eod_approved',
+      message:`End of Day for ${formatDate(date)} is already APPROVED / CLOSED. POS will reopen at 6:00 AM on the next calendar day.`
+    };
+  }
+
+  if(closing?.status==='pending'){
+    return {
+      allowed:false,
+      code:'eod_pending',
+      message:`End of Day for ${formatDate(date)} was already submitted and is waiting for Admin approval. POS is locked for the rest of this operating day.`
+    };
+  }
+
+  if(!posOperatingHoursOpen()){
+    return {
+      allowed:false,
+      code:'outside_hours',
+      message:'POS is automatically CLOSED from 12:00 AM to 5:59 AM. It will automatically open again at 6:00 AM.'
+    };
+  }
+
+  return {
+    allowed:true,
+    code:'open',
+    message:'POS OPEN • Operating hours: 6:00 AM to 12:00 AM. Submit End of Day when your shift/day is finished.'
+  };
+}
+function applyPosAccessState(state){
+  if(!isStaff()||!$('salesPage'))return;
+
+  $('salesPage').classList.toggle('pos-locked',!state.allowed);
+  $('posAccessBadge').textContent=state.allowed?'POS OPEN':'POS CLOSED';
+  $('posAccessBadge').className=state.allowed?'pill good':'pill warn';
+  $('posAccessNotice').textContent=state.message;
+  $('posAccessNotice').className='pos-access-notice '+(state.allowed?'':state.code==='eod_pending'?'warning':'closed');
+
+  const lock=!state.allowed;
+
+  ['processorName','transactionType','creditName','creditContact','creditDueDate','creditNotes']
+    .forEach(id=>{if($(id))$(id).disabled=lock});
+
+  $('clearCart').disabled=lock;
+  $('saveSale').disabled=lock;
+
+  document.querySelectorAll(
+    '#salesPage [data-add],#salesPage [data-minus],#salesPage [data-plus],'+
+    '#salesPage [data-remove],#salesPage [data-cartqty]'
+  ).forEach(el=>el.disabled=lock||el.disabled);
+}
+function refreshPosAccessLive(){
+  if(!user||!isStaff()||!$('salesPage'))return;
+
+  const date=$('saleDate')?.value||today();
+  const state=posAccessState(date,user.uid);
+  const key=`${today()}|${state.code}|${state.allowed}`;
+
+  if(key!==lastPosAccessKey){
+    lastPosAccessKey=key;
+    renderPOS();
+  }else{
+    applyPosAccessState(state);
+  }
+}
+setInterval(refreshPosAccessLive,30000);
+
+/* Daily Closing */
+function isDateClosed(date,uid=user?.uid){
+  return !!closings.find(c=>c.userId===uid&&c.date===date&&c.status==='approved');
+}
+function isEndOfDaySubmitted(date,uid=user?.uid){
+  return !!closings.find(c=>c.userId===uid&&c.date===date&&(c.status==='pending'||c.status==='approved'));
+}
+function pendingClosingBlockers(date,uid){
+  const rows=[];
+
+  expenses
+    .filter(e=>e.userId===uid&&e.date===date&&e.status==='pending')
+    .forEach(e=>rows.push({type:'Expense',ref:e.category||'Expense',detail:peso(e.amount)}));
+
+  voidRequests
+    .filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending')
+    .forEach(r=>rows.push({type:'Void Request',ref:r.transactionNo||r.saleId,detail:r.reason||''}));
+
+  returnRequests
+    .filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending')
+    .forEach(r=>rows.push({type:'Return Request',ref:r.transactionNo||r.saleId,detail:r.reason||''}));
+
+  deleteRequests
+    .filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending')
+    .forEach(r=>rows.push({type:'Delete Request',ref:r.transactionNo||r.saleId,detail:r.reason||''}));
+
+  credits
+    .filter(c=>c.userId===uid&&c.status==='payment_pending'&&(c.paymentDate===date||c.date===date))
+    .forEach(c=>rows.push({type:'Credit Payment',ref:txnNo(c),detail:'Waiting Admin approval'}));
+
+  return rows;
+}
+function closingBlockerMessage(blockers){
+  return blockers.map(b=>`${b.type}: ${b.ref}${b.detail?` — ${b.detail}`:''}`).join('\n');
+}
+
+function closingSnapshot(date,uid=user?.uid){
+  const ownSales=sales.filter(s=>
+    s.userId===uid&&s.date===date&&s.status!=='voided'&&s.status!=='refunded'
+  );
+  const ownCreditSales=credits.filter(c=>c.userId===uid&&c.date===date);
+  const creditCollections=credits.filter(c=>
+    c.userId===uid&&c.status==='approved'&&c.approvedDate===date
+  );
+  const ownExpenses=expenses.filter(e=>
+    e.userId===uid&&e.date===date&&e.status==='approved'
+  );
+
+  const walkinSales=ownSales.reduce((a,s)=>a+num(s.totalAmount),0);
+  const creditSales=ownCreditSales.reduce((a,c)=>a+num(c.totalAmount),0);
+  const totalSales=walkinSales+creditSales;
+  const creditCollectionsAmount=creditCollections.reduce((a,c)=>a+num(c.totalAmount),0);
+  const onHand=walkinSales+creditCollectionsAmount;
+  const approvedExpenses=ownExpenses.reduce((a,e)=>a+num(e.amount),0);
+  const expectedCash=onHand-approvedExpenses;
+
+  return {
+    walkinSales,creditSales,totalSales,creditCollectionsAmount,
+    onHand,approvedExpenses,expectedCash,
+    transactionCount:ownSales.length+ownCreditSales.length
+  };
+}
+function renderClosingDraft(){
+  if(!isStaff())return;
+  const date=$('closingDate').value||today();
+  const snap=closingSnapshot(date,user.uid);
+  const actual=num($('closingActualCash').value);
+  const variance=snap.expectedCash-actual;
+  const varianceType=variance>0?'SHORT':variance<0?'OVER':'BALANCED';
+
+  $('clSales').textContent=peso(snap.totalSales);
+  $('clOnHand').textContent=peso(snap.onHand);
+  $('clCredit').textContent=peso(snap.creditSales);
+  $('clExpenses').textContent=peso(snap.approvedExpenses);
+  $('clExpected').textContent=peso(snap.expectedCash);
+  $('clVariance').textContent=`${peso(Math.abs(variance))} ${varianceType}`;
+
+  const approved=closings.find(c=>c.userId===user.uid&&c.date===date&&c.status==='approved');
+  const pending=closings.find(c=>c.userId===user.uid&&c.date===date&&c.status==='pending');
+  const blockers=pendingClosingBlockers(date,user.uid);
+
+  $('closingPendingBlockers').classList.toggle('hidden',blockers.length===0);
+  $('closingPendingBlockers').innerHTML=blockers.length
+    ?`<b>Cannot close yet — ${blockers.length} pending item(s):</b><br>`+
+      blockers.map(b=>`• ${esc(b.type)}: <b>${esc(b.ref)}</b>${b.detail?` — ${esc(b.detail)}`:''}`).join('<br>')
+    :'';
+
+  if(approved){
+    $('closingTodayBadge').textContent='CLOSED';
+    $('closingTodayBadge').className='pill good';
+    $('closingStatusNote').innerHTML=
+      `Approved / Closed by <b>${esc(approved.reviewedByEmail||'Admin')}</b> • ${esc(approved.reviewedDate?formatDate(approved.reviewedDate):'')} ${esc(approved.reviewedTime||'')}`;
+    $('submitClosing').disabled=true;
+    $('submitClosing').textContent='This Date is Closed';
+  }else if(pending){
+    $('closingTodayBadge').textContent='PENDING';
+    $('closingTodayBadge').className='pill warn';
+    $('closingStatusNote').innerHTML=
+      `Closing submitted and waiting for Admin approval. Actual cash: <b>${peso(pending.actualCash)}</b><br><b>POS is locked for this date.</b>`;
+    $('submitClosing').disabled=true;
+    $('submitClosing').textContent='Waiting for Admin Approval • POS Locked';
+  }else{
+    $('closingTodayBadge').textContent=blockers.length?'WAITING':'OPEN';
+    $('closingTodayBadge').className=blockers.length?'pill warn':'pill';
+    $('closingStatusNote').textContent=blockers.length
+      ?'Resolve all pending approvals first. Closing cannot be submitted yet.'
+      :'No closing submitted for this date.';
+    $('submitClosing').disabled=blockers.length>0;
+    $('submitClosing').textContent=blockers.length
+      ?`Resolve ${blockers.length} Pending Item(s) First`
+      :'Submit Daily Closing for Admin Approval';
+  }
+}
+async function submitClosing(){
+  if(!isStaff())return;
+  const date=$('closingDate').value||today();
+
+  if(isDateClosed(date)){
+    alert('This date is already closed and approved by Admin.');
+    return;
+  }
+  if(closings.some(c=>c.userId===user.uid&&c.date===date&&c.status==='pending')){
+    alert('A closing for this date is already waiting for Admin approval.');
+    return;
+  }
+
+  const blockers=pendingClosingBlockers(date,user.uid);
+  if(blockers.length){
+    alert(`Cannot submit closing yet. Resolve these pending items first:\n\n${closingBlockerMessage(blockers)}`);
+    return;
+  }
+
+  const snap=closingSnapshot(date,user.uid);
+  const actualCash=num($('closingActualCash').value);
+  if(actualCash<0){alert('Enter a valid actual cash count.');return}
+
+  const variance=snap.expectedCash-actualCash;
+  const varianceType=variance>0?'SHORT':variance<0?'OVER':'BALANCED';
+
+  if(!confirm(
+    `Submit closing for ${formatDate(date)}?\n\n`+
+    `Expected Cash: ${peso(snap.expectedCash)}\n`+
+    `Actual Cash: ${peso(actualCash)}\n`+
+    `${varianceType}: ${peso(Math.abs(variance))}`
+  ))return;
+
+  try{
+    await setDoc(doc(closingsCol()),{
+      userId:user.uid,
+      userEmail:user.email||'',
+      date,
+      status:'pending',
+      totalSales:snap.totalSales,
+      walkinSales:snap.walkinSales,
+      creditSales:snap.creditSales,
+      creditCollections:snap.creditCollectionsAmount,
+      onHand:snap.onHand,
+      approvedExpenses:snap.approvedExpenses,
+      expectedCash:snap.expectedCash,
+      actualCash,
+      variance,
+      varianceType,
+      transactionCount:snap.transactionCount,
+      createdAt:serverTimestamp(),
+      createdAtClient:new Date().toISOString()
+    });
+    cloud('Daily closing submitted — POS locked');
+    alert(`End of Day submitted for ${formatDate(date)}. Your POS for this date is now locked while waiting for Admin approval. It will be available again on the next operating day at 6:00 AM.`);
+    renderPOS();
+  }catch(e){alert(e.message)}
+}
+function renderClosings(){
+  if(!user)return;
+  renderClosingDraft();
+
+  const source=isAdmin()?closings:closings.filter(c=>c.userId===user.uid);
+  const q=$('closingSearch').value.trim().toLowerCase();
+  const status=$('closingStatusFilter').value;
+  let rows=source.slice();
+
+  if(status)rows=rows.filter(c=>c.status===status);
+  if(q)rows=rows.filter(c=>[
+    c.date,c.userEmail,c.status,c.varianceType,c.reviewedByEmail
+  ].join(' ').toLowerCase().includes(q));
+
+  if(isAdmin()){
+    $('closingPendingCount').textContent=source.filter(c=>c.status==='pending').length;
+    $('closingApprovedToday').textContent=source.filter(c=>c.status==='approved'&&c.reviewedDate===today()).length;
+    $('closingRejectedToday').textContent=source.filter(c=>c.status==='rejected'&&c.reviewedDate===today()).length;
+  }
+
+  $('closingCount').textContent=`${rows.length} records`;
+  $('closingList').innerHTML=rows.length?rows.map(c=>{
+    const statusText=c.status==='approved'?'APPROVED / CLOSED':c.status==='rejected'?'REJECTED':'PENDING APPROVAL';
+    const actions=isAdmin()&&c.status==='pending'
+      ?`<div class="void-actions">
+          <button class="btn green small" data-closing-approve="${attr(c.id)}">✓ Approve Closing</button>
+          <button class="btn danger small" data-closing-reject="${attr(c.id)}">Reject Closing</button>
+        </div>`
+      :'';
+
+    return `<div class="hist">
+      <div style="width:100%">
+        <div class="head">
+          <div>
+            <b>${esc(formatDate(c.date))} • ${esc(c.userEmail||'')}</b><br>
+            <span class="closing-status ${esc(c.status)}">${statusText}</span>
+          </div>
+          <button class="btn small" data-closing-pdf="${attr(c.id)}">⬇ Closing PDF</button>
+        </div>
+        <div class="lookup-meta">
+          <div class="dash-mini"><b>Total Sales</b><span>${peso(c.totalSales)}</span></div>
+          <div class="dash-mini"><b>On-hand</b><span>${peso(c.onHand)}</span></div>
+          <div class="dash-mini"><b>Expenses</b><span>${peso(c.approvedExpenses)}</span></div>
+          <div class="dash-mini"><b>Expected Cash</b><span>${peso(c.expectedCash)}</span></div>
+          <div class="dash-mini"><b>Actual Cash</b><span>${peso(c.actualCash)}</span></div>
+          <div class="dash-mini"><b>${esc(c.varianceType||'Variance')}</b><span>${peso(Math.abs(num(c.variance)))}</span></div>
+        </div>
+        ${c.reviewedByEmail?`<div class="receipt-note">Reviewed by ${esc(c.reviewedByEmail)} • ${esc(c.reviewedDate?formatDate(c.reviewedDate):'')} ${esc(c.reviewedTime||'')}</div>`:''}
+        ${actions}
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No closing records found.</div>';
+
+  $('closingList').querySelectorAll('[data-closing-approve]').forEach(
+    b=>b.onclick=()=>approveClosing(b.dataset.closingApprove)
+  );
+  $('closingList').querySelectorAll('[data-closing-reject]').forEach(
+    b=>b.onclick=()=>rejectClosing(b.dataset.closingReject)
+  );
+  $('closingList').querySelectorAll('[data-closing-pdf]').forEach(
+    b=>b.onclick=()=>downloadClosingPdf(b.dataset.closingPdf)
+  );
+}
+async function approveClosing(id){
+  if(!isAdmin())return;
+  const c=closings.find(x=>x.id===id&&x.status==='pending');
+  if(!c)return;
+
+  const blockers=pendingClosingBlockers(c.date,c.userId);
+  if(blockers.length){
+    alert(`Cannot approve closing yet. Resolve these pending items first:\n\n${closingBlockerMessage(blockers)}`);
+    return;
+  }
+
+  if(!confirm(`Approve closing for ${formatDate(c.date)} — ${c.userEmail}?\n\nThis will lock new POS sales and new expense submissions for this Staff/date in the app.`))return;
+
+  try{
+    await setDoc(doc(closingsCol(),id),{
+      status:'approved',
+      reviewedDate:today(),
+      reviewedTime:nowTime(),
+      reviewedBy:user.uid,
+      reviewedByEmail:user.email||'',
+      reviewedAt:serverTimestamp(),
+      reviewedAtClient:new Date().toISOString()
+    },{merge:true});
+    cloud('Daily closing approved');
+  }catch(e){alert(e.message)}
+}
+async function rejectClosing(id){
+  if(!isAdmin())return;
+  const c=closings.find(x=>x.id===id&&x.status==='pending');
+  if(!c)return;
+  if(!confirm(`Reject closing for ${formatDate(c.date)} — ${c.userEmail}?`))return;
+
+  try{
+    await setDoc(doc(closingsCol(),id),{
+      status:'rejected',
+      reviewedDate:today(),
+      reviewedTime:nowTime(),
+      reviewedBy:user.uid,
+      reviewedByEmail:user.email||'',
+      reviewedAt:serverTimestamp(),
+      reviewedAtClient:new Date().toISOString()
+    },{merge:true});
+    cloud('Daily closing rejected');
+    alert(`Closing was rejected. If this is today's date and it is between 6:00 AM and 12:00 AM, the Staff POS can be used again.`);
+  }catch(e){alert(e.message)}
+}
+function downloadClosingPdf(id){
+  const c=closings.find(x=>x.id===id);
+  if(!c)return;
+  const doc=getPdfEngine();
+  if(!doc)return;
+
+  const title='Daily Closing Report';
+  const subtitle=`${formatDate(c.date)} | ${c.userEmail||''} | ${String(c.status||'').toUpperCase()}`;
+  pdfPageHeader(doc,title,subtitle);
+  let y=24;
+  y=pdfDrawMetricRow(doc,[
+    {label:'Total Sales',value:pdfMoney(c.totalSales)},
+    {label:'On-hand',value:pdfMoney(c.onHand)},
+    {label:'Credit Sales',value:pdfMoney(c.creditSales)}
+  ],y);
+  y=pdfDrawMetricRow(doc,[
+    {label:'Approved Expenses',value:pdfMoney(c.approvedExpenses)},
+    {label:'Expected Cash',value:pdfMoney(c.expectedCash)},
+    {label:'Actual Cash',value:pdfMoney(c.actualCash)}
+  ],y);
+  y=pdfDrawMetricRow(doc,[
+    {label:'Variance',value:`${pdfMoney(Math.abs(num(c.variance)))} ${c.varianceType||''}`},
+    {label:'Transactions',value:String(c.transactionCount||0)},
+    {label:'Status',value:String(c.status||'').toUpperCase()}
+  ],y);
+
+  doc.autoTable({
+    startY:y+2,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Detail','Value']],
+    body:[
+      ['Walk-in Sales',pdfMoney(c.walkinSales)],
+      ['Credit Sales',pdfMoney(c.creditSales)],
+      ['Credit Collections',pdfMoney(c.creditCollections)],
+      ['Approved Expenses',pdfMoney(c.approvedExpenses)],
+      ['Reviewed By',pdfSafe(c.reviewedByEmail||'Pending Admin review')],
+      ['Reviewed At',pdfSafe(c.reviewedDate?`${formatDate(c.reviewedDate)} ${c.reviewedTime||''}`:'-')]
+    ],
+    styles:{font:'helvetica',fontSize:7,cellPadding:2},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}
+  });
+  pdfPageFooter(doc);
+  doc.save(`POS_CHIKITOS_Closing_${c.date}_${pdfFileName(c.userEmail||'staff')}.pdf`);
+}
+
 /* POS */
 function updateTransactionUI(){
   const isCredit=$('transactionType').value==='credit';
@@ -3393,7 +4647,14 @@ function renderPOS(){
   if(!isStaff())return;
   fillCat('posCat');
   fillProcessorSelect();
-  $('saleDate').value=$('saleDate').value||today();$('saleTime').value=nowTime();
+
+  const currentDate=today();
+  $('saleDate').min=currentDate;
+  $('saleDate').max=currentDate;
+  $('saleDate').value=currentDate;
+  $('saleTime').value=nowTime();
+
+  const access=posAccessState(currentDate,user.uid);
   const q=$('posSearch').value.toLowerCase(),cat=$('posCat').value;
   const rows=products.filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat));
   $('productGrid').innerHTML=rows.map(p=>{
@@ -3403,17 +4664,26 @@ function renderPOS(){
       <div class="product-name">${esc(p.name)}</div>
       <div class="product-price">${peso(p.price)}</div>
       <div class="product-stock">Balance: ${stock}${inCart?` • In cart: ${inCart}`:''}</div>
-      <button class="btn ${stock>inCart?'green':''}" data-add="${attr(p.id)}" ${stock<=inCart?'disabled':''}>${stock>inCart?'+ Add to Cart':'Out / Max Qty'}</button>
+      <button class="btn ${stock>inCart?'green':''}" data-add="${attr(p.id)}" ${(stock<=inCart||!access.allowed)?'disabled':''}>${!access.allowed?'POS Closed':stock>inCart?'+ Add to Cart':'Out / Max Qty'}</button>
     </div>`
   }).join('')||'<div class="empty">No products found.</div>';
   $('productGrid').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>changeCart(b.dataset.add,1));
-  renderCart()
+  renderCart();
+  applyPosAccessState(access);
 }
 function changeCart(id,delta){
+  const access=posAccessState(today(),user?.uid);
+  if(!access.allowed){alert(access.message);return}
   const max=bal(id),next=Math.max(0,num(cart[id])+delta);
   cart[id]=Math.min(max,next);if(cart[id]<=0)delete cart[id];renderPOS()
 }
-function setCartQty(id,val){cart[id]=Math.max(0,Math.min(bal(id),Math.floor(num(val))));if(!cart[id])delete cart[id];renderPOS()}
+function setCartQty(id,val){
+  const access=posAccessState(today(),user?.uid);
+  if(!access.allowed){alert(access.message);return}
+  cart[id]=Math.max(0,Math.min(bal(id),Math.floor(num(val))));
+  if(!cart[id])delete cart[id];
+  renderPOS()
+}
 function renderCart(){
   const entries=products.filter(p=>num(cart[p.id])>0);
   $('cartDateText').textContent=`Sales Date: ${formatDate($('saleDate').value)}`;
@@ -3436,6 +4706,12 @@ async function saveSale(){
   if(!isStaff())return;
 
   const date=$('saleDate').value||today();
+  const access=posAccessState(date,user.uid);
+  if(!access.allowed){
+    alert(access.message);
+    renderPOS();
+    return;
+  }
   const transactionType=$('transactionType').value;
   const processorName=$('processorName').value.trim();
 
@@ -3478,6 +4754,8 @@ async function saveSale(){
     targetRef=doc(salesCol());
   }
 
+  const transactionNo=makeTransactionNo(date,targetRef.id);
+
   try{
     $('saveSale').disabled=true;
     cloud(transactionType==='credit'?'Saving credit...':'Saving walk-in sale...');
@@ -3508,6 +4786,7 @@ async function saveSale(){
       if(transactionType==='credit'){
         tx.set(targetRef,{
           transactionType:'credit',
+          transactionNo,
           status:'open',
           userId:user.uid,
           userEmail:user.email||'',
@@ -3526,6 +4805,8 @@ async function saveSale(){
       }else{
         tx.set(targetRef,{
           transactionType:'walkin',
+          transactionNo,
+          status:'active',
           userId:user.uid,
           userEmail:user.email||'',
           processorName,
@@ -3540,15 +4821,31 @@ async function saveSale(){
     });
 
     if(transactionType==='credit'){
+      lastSavedTransaction={
+        id:targetRef.id,sourceType:'credit',transactionType:'Credit',transactionNo,
+        date,time,userEmail:user.email||'',processorName,
+        borrowerName:creditInfo.borrowerName,borrowerContact:creditInfo.borrowerContact,
+        dueDate:creditInfo.dueDate,creditStatus:'open',paymentStatus:'UNPAID / CREDIT',
+        items,totalQty,totalAmount
+      };
       $('lastSaleInfo').innerHTML=
+        `<span class="txn-number">${esc(transactionNo)}</span><br>`+
         `Credit saved <b>${formatDate(date)} • ${esc(time)}</b><br>`+
         `${esc(creditInfo.borrowerName)} • ${totalQty} item(s) • ${peso(totalAmount)}<br>`+
         `Due: <b>${formatDate(creditInfo.dueDate)}</b><br>Processed by: <b>${esc(processorName)}</b>`;
+      $('downloadLastReceipt').classList.remove('hidden');
       cloud('Credit saved — stock deducted');
     }else{
+      lastSavedTransaction={
+        id:targetRef.id,sourceType:'sale',transactionType:'Walk-in',transactionNo,
+        date,time,userEmail:user.email||'',processorName,
+        borrowerName:'',items,totalQty,totalAmount,paymentStatus:'PAID'
+      };
       $('lastSaleInfo').innerHTML=
+        `<span class="txn-number">${esc(transactionNo)}</span><br>`+
         `Walk-in sale saved <b>${formatDate(date)} • ${esc(time)}</b><br>`+
         `${totalQty} item(s) sold • ${peso(totalAmount)}<br>Processed by: <b>${esc(processorName)}</b>`;
+      $('downloadLastReceipt').classList.remove('hidden');
       cloud('Walk-in sale saved — stock deducted');
     }
 
@@ -3731,6 +5028,7 @@ function renderCredits(){
       <div class="credit-top">
         <div>
           <div class="credit-name">${esc(c.borrowerName||'Unnamed Borrower')}</div>
+          <div style="margin-top:4px"><span class="txn-number">${esc(txnNo(c))}</span></div>
           <div class="credit-meta">
             ${esc(c.borrowerContact||'No contact')} • Credit Date: ${esc(formatDate(c.date))} ${esc(c.time||'')}<br>
             Due: ${esc(formatDate(c.dueDate))} • Encoded by: ${esc(c.userEmail||'')}
@@ -3748,7 +5046,10 @@ function renderCredits(){
         ${c.approvedAtClient?`<br><b>Admin approved:</b> ${esc(new Date(c.approvedAtClient).toLocaleString('en-PH'))}`:''}
         ${c.notes?`<br><b>Note:</b> ${esc(c.notes)}`:''}
       </div>
-      ${actions?`<div class="credit-actions">${actions}</div>`:''}
+      <div class="credit-actions">
+        <button class="btn small" data-credit-receipt="${attr(c.id)}">⬇ Download Receipt</button>
+        ${actions||''}
+      </div>
     </div>`;
   }).join(''):'<div class="empty">No credit accounts found.</div>';
 
@@ -3756,6 +5057,7 @@ function renderCredits(){
   $('creditList').querySelectorAll('[data-credit-approve]').forEach(b=>b.onclick=()=>approveCreditPayment(b.dataset.creditApprove));
   $('creditList').querySelectorAll('[data-credit-reject]').forEach(b=>b.onclick=()=>rejectCreditPayment(b.dataset.creditReject));
   $('creditList').querySelectorAll('[data-credit-void]').forEach(b=>b.onclick=()=>voidCredit(b.dataset.creditVoid));
+  $('creditList').querySelectorAll('[data-credit-receipt]').forEach(b=>b.onclick=()=>downloadCreditReceipt(b.dataset.creditReceipt));
 }
 async function markCreditPaid(id){
   if(!isStaff())return;
@@ -3996,6 +5298,10 @@ async function submitExpense(){
   if(!user)return;
 
   const date=$('expenseDate').value||today();
+  if(isStaff()&&isDateClosed(date,user.uid)){
+    alert(`Expense date ${formatDate(date)} is already CLOSED and approved by Admin.`);
+    return;
+  }
   const category=$('expenseCategory').value;
   const amount=num($('expenseAmount').value);
   const referenceNo=$('expenseRef').value.trim();
@@ -4103,7 +5409,7 @@ function approvedExpensesForReport(){
 
 /* Reports */
 function reportBaseSales(){
-  return isAdmin()?sales.slice():sales.filter(s=>s.userId===user?.uid);
+  return (isAdmin()?sales.slice():sales.filter(s=>s.userId===user?.uid)).filter(s=>s.status!=='voided'&&s.status!=='refunded');
 }
 function reportBaseCredits(){
   return isAdmin()?credits.slice():credits.filter(c=>c.userId===user?.uid);
@@ -4136,6 +5442,7 @@ function reportCombinedRows(){
       id:'sale:'+s.id,
       sourceId:s.id,
       sourceType:'sale',
+      transactionNo:txnNo(s),
       paymentClass:'paid',
       transactionType:'Walk-in',
       paymentStatus:'PAID',
@@ -4154,6 +5461,7 @@ function reportCombinedRows(){
       id:'credit:'+c.id,
       sourceId:c.id,
       sourceType:'credit',
+      transactionNo:txnNo(c),
       paymentClass:c.status==='approved'?'paid':'credit',
       transactionType:'Credit',
       paymentStatus:c.status==='approved'?'PAID / APPROVED':c.status==='payment_pending'?'PAYMENT PENDING APPROVAL':'UNPAID / CREDIT',
@@ -4372,23 +5680,56 @@ function renderReports(){
       ?`${esc(r.userEmail||'')}<br><span class="muted">Processor: ${esc(r.processorName||'—')} • Borrower: ${esc(r.borrowerName||'')}</span>`
       :`${esc(r.userEmail||'')}<br><span class="muted">Processor: ${esc(r.processorName||'—')}</span>`;
 
+    const pendingVoid=voidRequests.find(v=>v.saleId===r.sourceId&&v.status==='pending');
+    const pendingDelete=deleteRequests.find(v=>v.saleId===r.sourceId&&v.status==='pending');
+    const dateClosed=isStaff()&&r.sourceType==='sale'?isDateClosed(r.date,r.userId):false;
+
+    let transactionActions='';
+    if(isStaff()&&r.sourceType==='sale'){
+      if(dateClosed){
+        transactionActions=`<div class="muted" style="margin-top:5px">Date is CLOSED — requests disabled</div>`;
+      }else{
+        transactionActions=`
+          ${pendingVoid
+            ?'<div class="muted" style="margin-top:5px">Void request pending Admin approval</div>'
+            :`<button class="btn danger small no-print" data-request-void="${attr(r.sourceId)}" style="margin-top:5px">Request Void</button>`}
+          ${pendingDelete
+            ?'<div class="muted" style="margin-top:5px">Delete request pending Admin approval</div>'
+            :`<button class="btn danger small no-print" data-request-delete="${attr(r.sourceId)}" style="margin-top:5px">Request Delete</button>`}
+        `;
+      }
+    }
+
     return `<tr>
       <td class="no-print"><input class="tx-check" data-picksale="${attr(r.id)}" type="checkbox" ${selectedSaleIds.has(r.id)?'checked':''}></td>
+      <td>
+        <span class="txn-number">${esc(r.transactionNo||txnNo(r))}</span>
+        <button class="btn small receipt-btn no-print" data-download-receipt="${attr(r.id)}">⬇ Receipt</button>
+      </td>
       <td>${esc(formatDate(r.date))}</td>
       <td>${esc(r.time||'')}</td>
       <td><span class="${typeClass}">${esc(r.transactionType)}</span></td>
-      <td><span class="${statusClass}">${esc(r.paymentStatus)}</span></td>
+      <td><span class="${statusClass}">${esc(r.paymentStatus)}</span>${transactionActions}</td>
       <td>${party}</td>
       <td>${(r.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)}`).join('<br>')}</td>
       <td class="num">${num(r.totalQty)}</td>
       <td class="num">${peso(r.totalAmount)}</td>
     </tr>`;
-  }).join(''):'<tr><td colspan="9" class="empty">No transactions for this period.</td></tr>';
+  }).join(''):'<tr><td colspan="10" class="empty">No transactions for this period.</td></tr>';
 
   $('reportTransactions').querySelectorAll('[data-picksale]').forEach(ch=>ch.onchange=()=>{
     ch.checked?selectedSaleIds.add(ch.dataset.picksale):selectedSaleIds.delete(ch.dataset.picksale);
     $('selectedSalesCount').textContent=`${selectedSaleIds.size} selected`;
   });
+  $('reportTransactions').querySelectorAll('[data-request-void]').forEach(
+    b=>b.onclick=()=>openVoidRequestDialog(b.dataset.requestVoid)
+  );
+  $('reportTransactions').querySelectorAll('[data-request-delete]').forEach(
+    b=>b.onclick=()=>submitDeleteRequest(b.dataset.requestDelete)
+  );
+  $('reportTransactions').querySelectorAll('[data-download-receipt]').forEach(
+    b=>b.onclick=()=>downloadReceiptByCombinedId(b.dataset.downloadReceipt)
+  );
   $('selectedSalesCount').textContent=`${selectedSaleIds.size} selected`;
 }
 function printRows(rows,title=''){
@@ -4464,7 +5805,7 @@ function printRows(rows,title=''){
   }).join('');
 
   $('pGeneratedBy').textContent=`Generated by: ${user?.email||'Chikitos user'} • ${role.toUpperCase()}`;
-  $('pGeneratedAt').textContent=`Printed: ${new Date().toLocaleString('en-PH')}`;
+  $('pGeneratedAt').textContent=`Generated: ${new Date().toLocaleString('en-PH')}`;
 
   activatePrintSheet('printSheet');
   window.print();
@@ -4485,6 +5826,1158 @@ function saveSelectedReportPdf(){
   const rows=reportCombinedRows().filter(r=>selectedSaleIds.has(r.id));
   if(!rows.length){alert('Select at least one sales transaction first.');return}
   generateSalesPdf(rows,`Selected Sales - ${rows.length} transaction${rows.length===1?'':'s'}`);
+}
+
+/* Sales Delete Requests */
+function renderStaffDeleteSearch(){
+  if(!isStaff())return;
+  const term=$('staffDeleteTxnSearch').value.trim().toUpperCase();
+
+  if(!term){
+    $('staffDeleteSearchResult').innerHTML='<div class="empty">Enter the Transaction # from the receipt.</div>';
+    return;
+  }
+
+  const sale=sales.find(s=>txnNo(s).toUpperCase()===term);
+  if(!sale){
+    $('staffDeleteSearchResult').innerHTML=`<div class="empty">Transaction <b>${esc(term)}</b> was not found under your Staff account.</div>`;
+    return;
+  }
+
+  const pending=deleteRequests.find(r=>r.saleId===sale.id&&r.status==='pending');
+  const closed=isDateClosed(sale.date,sale.userId);
+
+  let state='';
+  let action='';
+
+  if(closed){
+    state='<span class="void-status rejected">DATE ALREADY CLOSED</span>';
+  }else if(pending){
+    state='<span class="void-status pending">PENDING ADMIN APPROVAL</span>';
+  }else{
+    state='<span class="void-status pending">ACTIVE TRANSACTION</span>';
+    action=`
+      <div class="void-found-actions">
+        <label class="field-label">Reason for permanent delete *</label>
+        <textarea id="staffDeleteReason" placeholder="Example: duplicate encoding / wrong transaction should not exist..."></textarea>
+        <button class="btn danger" data-submit-delete="${attr(sale.id)}">Send Delete Request to Admin</button>
+      </div>`;
+  }
+
+  $('staffDeleteSearchResult').innerHTML=`
+    <div class="void-found-card">
+      <div class="head">
+        <div>
+          <span class="txn-number">${esc(txnNo(sale))}</span>
+          <h3 style="margin:7px 0 0">Sales Transaction Found</h3>
+        </div>
+        ${state}
+      </div>
+      <div class="void-found-grid">
+        <div class="dash-mini"><b>Date</b><span>${esc(formatDate(sale.date))}</span></div>
+        <div class="dash-mini"><b>Time</b><span>${esc(sale.time||'')}</span></div>
+        <div class="dash-mini"><b>Processor</b><span>${esc(sale.processorName||'—')}</span></div>
+        <div class="dash-mini"><b>Total</b><span>${peso(sale.totalAmount)}</span></div>
+      </div>
+      <div class="void-found-items">
+        ${(sale.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)} — ${peso(i.amount)}`).join('<br>')}
+      </div>
+      ${pending?`<div class="receipt-note" style="margin-top:8px">Pending reason: <b>${esc(pending.reason||'')}</b></div>`:''}
+      ${action}
+    </div>`;
+
+  $('staffDeleteSearchResult').querySelectorAll('[data-submit-delete]').forEach(
+    b=>b.onclick=()=>submitDeleteRequest(b.dataset.submitDelete)
+  );
+}
+async function submitDeleteRequest(saleId,reasonOverride=''){
+  if(!isStaff())return;
+  const sale=sales.find(s=>s.id===saleId&&s.userId===user.uid);
+  if(!sale){alert('Sale not found.');return}
+  if(isDateClosed(sale.date,sale.userId)){
+    alert(`Transaction date ${formatDate(sale.date)} is already CLOSED.`);
+    return;
+  }
+
+  const pendingOther=[
+    voidRequests.find(r=>r.saleId===saleId&&r.status==='pending'),
+    returnRequests.find(r=>r.saleId===saleId&&r.status==='pending')
+  ].filter(Boolean);
+
+  if(pendingOther.length){
+    alert('Resolve the existing Void/Return request first before requesting permanent deletion.');
+    return;
+  }
+
+  if(deleteRequests.some(r=>r.saleId===saleId&&r.status==='pending')){
+    alert('This transaction already has a pending delete request.');
+    return;
+  }
+
+  let reason=reasonOverride.trim();
+  if(!reason){
+    reason=($('staffDeleteReason')?.value||'').trim();
+  }
+  if(!reason){
+    reason=prompt(`Reason for deleting ${txnNo(sale)}:`)?.trim()||'';
+  }
+  if(!reason)return;
+
+  try{
+    await setDoc(doc(deleteRequestsCol()),{
+      saleId:sale.id,
+      transactionNo:txnNo(sale),
+      userId:user.uid,
+      userEmail:user.email||'',
+      processorName:sale.processorName||'',
+      saleDate:sale.date,
+      saleTime:sale.time||'',
+      saleStatus:sale.status||'active',
+      saleTotalQty:num(sale.totalQty),
+      saleTotalAmount:num(sale.totalAmount),
+      items:sale.items||[],
+      reason,
+      status:'pending',
+      createdAt:serverTimestamp(),
+      createdAtClient:new Date().toISOString()
+    });
+    cloud('Delete request sent to Admin');
+    alert(`Delete request for ${txnNo(sale)} was sent to Admin.`);
+  }catch(e){alert(e.message)}
+}
+function renderDeleteRequests(){
+  if(!user)return;
+  renderStaffDeleteSearch();
+
+  const source=isAdmin()?deleteRequests:deleteRequests.filter(r=>r.userId===user.uid);
+  const q=$('deleteRequestSearch').value.trim().toLowerCase();
+  const shown=source.filter(r=>!q||[
+    r.transactionNo,r.saleId,r.userEmail,r.processorName,r.reason,r.saleDate,r.status
+  ].join(' ').toLowerCase().includes(q));
+
+  const pending=source.filter(r=>r.status==='pending');
+  $('deleteRequestBadge').textContent=`${pending.length} pending`;
+
+  if(isAdmin()){
+    $('deletePendingCount').textContent=pending.length;
+    $('deleteApprovedToday').textContent=source.filter(r=>r.status==='approved'&&r.reviewedDate===today()).length;
+    $('deleteRejectedToday').textContent=source.filter(r=>r.status==='rejected'&&r.reviewedDate===today()).length;
+    $('deleteRequestsNav').textContent=pending.length?`🗑️ Delete Approvals • ${pending.length}`:'🗑️ Delete Approvals';
+  }
+
+  $('deleteRequestList').innerHTML=shown.length?shown.map(r=>{
+    const statusText=r.status==='approved'?'APPROVED / DELETED':r.status==='rejected'?'DENIED':'PENDING APPROVAL';
+    const statusClass=r.status==='approved'?'approved':r.status==='rejected'?'rejected':'pending';
+    const actions=isAdmin()&&r.status==='pending'
+      ?`<div class="void-actions">
+          <button class="btn green small" data-delete-approve="${attr(r.id)}">✓ Approve Delete</button>
+          <button class="btn danger small" data-delete-reject="${attr(r.id)}">Deny Delete</button>
+        </div>`
+      :'';
+
+    return `<div class="hist">
+      <div>
+        <span class="txn-number">${esc(r.transactionNo||r.saleId||'')}</span><br>
+        <b>${esc(formatDate(r.saleDate))} • ${esc(r.saleTime||'')} • ${peso(r.saleTotalAmount)}</b><br>
+        Staff: ${esc(r.userEmail||'')} • Processor: ${esc(r.processorName||'—')}<br>
+        ${(r.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)}`).join(' • ')}<br>
+        <b>Delete reason:</b> ${esc(r.reason||'')}<br>
+        <span class="void-status ${statusClass}">${statusText}</span>
+        ${r.reviewedByEmail?`<br>Reviewed by: ${esc(r.reviewedByEmail)} • ${esc(r.reviewedDate?formatDate(r.reviewedDate):'')} ${esc(r.reviewedTime||'')}`:''}
+        ${r.status==='approved'?'<div class="delete-warning">Active sale record was removed. This approval request remains as audit history.</div>':''}
+        ${actions}
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No delete requests found.</div>';
+
+  $('deleteRequestList').querySelectorAll('[data-delete-approve]').forEach(
+    b=>b.onclick=()=>approveDeleteRequest(b.dataset.deleteApprove)
+  );
+  $('deleteRequestList').querySelectorAll('[data-delete-reject]').forEach(
+    b=>b.onclick=()=>rejectDeleteRequest(b.dataset.deleteReject)
+  );
+}
+async function approveDeleteRequest(requestId){
+  if(!isAdmin())return;
+  const req=deleteRequests.find(r=>r.id===requestId&&r.status==='pending');
+  if(!req)return;
+
+  if(isDateClosed(req.saleDate,req.userId)){
+    alert(`Cannot delete ${req.transactionNo}. ${formatDate(req.saleDate)} is already CLOSED.`);
+    return;
+  }
+
+  if(voidRequests.some(r=>r.saleId===req.saleId&&r.status==='pending')||
+     returnRequests.some(r=>r.saleId===req.saleId&&r.status==='pending')){
+    alert('Resolve the pending Void/Return request for this transaction first.');
+    return;
+  }
+
+  if(!confirm(
+    `Permanently delete transaction ${req.transactionNo}?\n\n`+
+    `Amount: ${peso(req.saleTotalAmount)}\nReason: ${req.reason}\n\n`+
+    `The original sale will be removed after an archive snapshot is saved.`
+  ))return;
+
+  try{
+    const auditRefs=(req.items||[]).map(()=>doc(stockAdjustmentsCol()));
+    await runTransaction(db,async tx=>{
+      const reqRef=doc(deleteRequestsCol(),requestId);
+      const saleRef=doc(salesCol(),req.saleId);
+      const archiveRef=doc(deletedSalesArchiveCol());
+
+      const reqSnap=await tx.get(reqRef);
+      const saleSnap=await tx.get(saleRef);
+
+      if(!reqSnap.exists()||reqSnap.data().status!=='pending')throw new Error('Delete request was already reviewed.');
+      if(!saleSnap.exists())throw new Error('Original sale is already missing.');
+
+      const sale=saleSnap.data();
+      const mustReturnStock=sale.status!=='voided'&&sale.status!=='refunded';
+
+      const stockSnaps=[];
+      if(mustReturnStock){
+        for(const item of sale.items||[])stockSnaps.push(await tx.get(invRef(item.productId)));
+      }
+
+      if(mustReturnStock){
+        (sale.items||[]).forEach((item,n)=>{
+          const current=stockSnaps[n].exists()?num(stockSnaps[n].data().balance):0;
+          const after=current+num(item.qty);
+          tx.set(invRef(item.productId),{
+            productId:item.productId,
+            productName:item.productName,
+            balance:after,
+            updatedAt:serverTimestamp(),
+            updatedAtClient:new Date().toISOString(),
+            updatedBy:user.uid,
+            updatedByEmail:user.email||'',
+            updatedByName:user.email||'Admin',
+            lastChangeType:'approved_sale_delete'
+          },{merge:true});
+
+          tx.set(auditRefs[n],{
+            type:'delete_return',
+            productId:item.productId,
+            productName:item.productName,
+            category:item.category||'',
+            qty:num(item.qty),
+            reason:req.reason||'Approved permanent sale deletion',
+            referenceTransactionNo:req.transactionNo||txnNo({id:req.saleId}),
+            balanceBefore:current,
+            balanceAfter:after,
+            date:today(),
+            time:nowTime(),
+            userId:user.uid,
+            userEmail:user.email||'',
+            createdAt:serverTimestamp(),
+            createdAtClient:new Date().toISOString()
+          });
+        });
+      }
+
+      tx.set(archiveRef,{
+        originalSaleId:req.saleId,
+        transactionNo:req.transactionNo,
+        saleSnapshot:sale,
+        deleteReason:req.reason||'',
+        requestedBy:req.userId,
+        requestedByEmail:req.userEmail||'',
+        approvedBy:user.uid,
+        approvedByEmail:user.email||'',
+        deletedAt:serverTimestamp(),
+        deletedAtClient:new Date().toISOString(),
+        saleDate:req.saleDate,
+        saleTime:req.saleTime||'',
+        totalAmount:req.saleTotalAmount,
+        totalQty:req.saleTotalQty
+      });
+
+      tx.delete(saleRef);
+
+      tx.update(reqRef,{
+        status:'approved',
+        archiveId:archiveRef.id,
+        reviewedDate:today(),
+        reviewedTime:nowTime(),
+        reviewedBy:user.uid,
+        reviewedByEmail:user.email||'',
+        reviewedAt:serverTimestamp(),
+        reviewedAtClient:new Date().toISOString()
+      });
+    });
+
+    cloud('Sales transaction deleted after approval');
+  }catch(e){alert(e.message)}
+}
+async function rejectDeleteRequest(requestId){
+  if(!isAdmin())return;
+  const req=deleteRequests.find(r=>r.id===requestId&&r.status==='pending');
+  if(!req)return;
+  if(!confirm(`Deny permanent delete request for ${req.transactionNo}?`))return;
+
+  try{
+    await setDoc(doc(deleteRequestsCol(),requestId),{
+      status:'rejected',
+      reviewedDate:today(),
+      reviewedTime:nowTime(),
+      reviewedBy:user.uid,
+      reviewedByEmail:user.email||'',
+      reviewedAt:serverTimestamp(),
+      reviewedAtClient:new Date().toISOString()
+    },{merge:true});
+    cloud('Delete request denied');
+  }catch(e){alert(e.message)}
+}
+
+/* Returns / Refunds */
+function renderStaffReturnSearch(){
+  if(!isStaff())return;
+  const term=$('staffReturnTxnSearch').value.trim().toUpperCase();
+
+  if(!term){
+    $('staffReturnSearchResult').innerHTML='<div class="empty">Enter a Walk-in Transaction # from the receipt.</div>';
+    return;
+  }
+
+  const sale=sales.find(s=>txnNo(s).toUpperCase()===term);
+  if(!sale){
+    $('staffReturnSearchResult').innerHTML=`<div class="empty">Transaction <b>${esc(term)}</b> was not found under your Staff account.</div>`;
+    return;
+  }
+
+  const existingPending=returnRequests.find(r=>r.saleId===sale.id&&r.status==='pending');
+  const latestReviewed=returnRequests
+    .filter(r=>r.saleId===sale.id&&r.status!=='pending')
+    .sort((a,b)=>String(b.reviewedAtClient||'').localeCompare(String(a.reviewedAtClient||'')))[0];
+
+  let state='';
+  let action='';
+
+  if(sale.status==='voided'){
+    state='<span class="return-status rejected">VOIDED — RETURN NOT AVAILABLE</span>';
+  }else if(sale.status==='refunded'){
+    state='<span class="return-status approved">ALREADY REFUNDED / RETURNED</span>';
+  }else if(existingPending){
+    state='<span class="return-status pending">PENDING ADMIN APPROVAL</span>';
+  }else{
+    state=latestReviewed?.status==='rejected'
+      ?'<span class="return-status rejected">LAST REQUEST REJECTED — YOU MAY SUBMIT AGAIN</span>'
+      :'<span class="return-status pending">ACTIVE PAID SALE</span>';
+
+    action=`
+      <div class="void-found-actions">
+        <label class="field-label">Return / Refund Reason *</label>
+        <textarea id="staffReturnReason" placeholder="Example: customer returned the order, wrong valid order released..."></textarea>
+        <button class="btn danger" data-submit-return="${attr(sale.id)}">Send Return Request to Admin</button>
+      </div>`;
+  }
+
+  $('staffReturnSearchResult').innerHTML=`
+    <div class="void-found-card">
+      <div class="head">
+        <div>
+          <span class="txn-number">${esc(txnNo(sale))}</span>
+          <h3 style="margin:7px 0 0">Walk-in Sale Found</h3>
+        </div>
+        ${state}
+      </div>
+      <div class="void-found-grid">
+        <div class="dash-mini"><b>Date</b><span>${esc(formatDate(sale.date))}</span></div>
+        <div class="dash-mini"><b>Time</b><span>${esc(sale.time||'')}</span></div>
+        <div class="dash-mini"><b>Processor</b><span>${esc(sale.processorName||'—')}</span></div>
+        <div class="dash-mini"><b>Total</b><span>${peso(sale.totalAmount)}</span></div>
+      </div>
+      <div class="void-found-items">
+        <b>Items</b><br>
+        ${(sale.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)} — ${peso(i.amount)}`).join('<br>')}
+      </div>
+      ${existingPending?`<div class="receipt-note" style="margin-top:9px">Request already sent. Reason: <b>${esc(existingPending.reason||'')}</b></div>`:''}
+      ${action}
+    </div>`;
+
+  $('staffReturnSearchResult').querySelectorAll('[data-submit-return]').forEach(
+    b=>b.onclick=()=>submitReturnRequest(b.dataset.submitReturn)
+  );
+}
+async function submitReturnRequest(saleId){
+  if(!isStaff())return;
+  const sale=sales.find(s=>s.id===saleId&&s.userId===user.uid);
+  if(!sale){alert('Sale not found.');return}
+  if(sale.status==='voided'||sale.status==='refunded'){alert('This sale is no longer eligible for return.');return}
+  if(isDateClosed(sale.date,sale.userId)){alert('This transaction date is already CLOSED.');return}
+
+  const reason=($('staffReturnReason')?.value||'').trim();
+  if(!reason){alert('Enter the reason for return / refund.');return}
+
+  if(returnRequests.some(r=>r.saleId===saleId&&r.status==='pending')){
+    alert('This transaction already has a pending return request.');
+    return;
+  }
+
+  try{
+    await setDoc(doc(returnRequestsCol()),{
+      saleId:sale.id,
+      transactionNo:txnNo(sale),
+      userId:user.uid,
+      userEmail:user.email||'',
+      processorName:sale.processorName||'',
+      saleDate:sale.date,
+      saleTime:sale.time||'',
+      saleTotalQty:num(sale.totalQty),
+      saleTotalAmount:num(sale.totalAmount),
+      items:sale.items||[],
+      reason,
+      status:'pending',
+      createdAt:serverTimestamp(),
+      createdAtClient:new Date().toISOString()
+    });
+    cloud('Return request sent to Admin');
+    alert(`Return request for ${txnNo(sale)} was sent to Admin.`);
+  }catch(e){alert(e.message)}
+}
+function renderReturns(){
+  if(!user)return;
+  renderStaffReturnSearch();
+
+  const source=isAdmin()?returnRequests:returnRequests.filter(r=>r.userId===user.uid);
+  const q=$('returnRequestSearch').value.trim().toLowerCase();
+  const shown=source.filter(r=>!q||[
+    r.transactionNo,r.saleId,r.userEmail,r.processorName,r.reason,r.saleDate,r.status
+  ].join(' ').toLowerCase().includes(q));
+
+  const pending=source.filter(r=>r.status==='pending');
+  $('returnRequestBadge').textContent=`${pending.length} pending`;
+
+  if(isAdmin()){
+    $('returnPendingCount').textContent=pending.length;
+    $('returnApprovedToday').textContent=source.filter(r=>r.status==='approved'&&r.reviewedDate===today()).length;
+    $('returnRejectedToday').textContent=source.filter(r=>r.status==='rejected'&&r.reviewedDate===today()).length;
+    $('returnsNav').textContent=pending.length?`↪️ Return Approvals • ${pending.length}`:'↪️ Return Approvals';
+  }
+
+  $('returnRequestList').innerHTML=shown.length?shown.map(r=>{
+    const statusText=r.status==='approved'?'APPROVED / REFUNDED':r.status==='rejected'?'REJECTED':'PENDING APPROVAL';
+    const actions=isAdmin()&&r.status==='pending'
+      ?`<div class="void-actions">
+          <button class="btn green small" data-return-approve="${attr(r.id)}">✓ Approve Return</button>
+          <button class="btn danger small" data-return-reject="${attr(r.id)}">Reject Return</button>
+        </div>`
+      :'';
+
+    return `<div class="hist">
+      <div>
+        <span class="txn-number">${esc(r.transactionNo||`LEGACY-${String(r.saleId||'').slice(0,8).toUpperCase()}`)}</span><br>
+        <b>${esc(formatDate(r.saleDate))} • ${esc(r.saleTime||'')} • ${peso(r.saleTotalAmount)}</b><br>
+        Staff: ${esc(r.userEmail||'')} • Processor: ${esc(r.processorName||'—')}<br>
+        ${(r.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)}`).join(' • ')}<br>
+        <b>Reason:</b> ${esc(r.reason||'')}<br>
+        <span class="return-status ${esc(r.status)}">${statusText}</span>
+        ${r.reviewedByEmail?`<br>Reviewed by: ${esc(r.reviewedByEmail)} • ${esc(r.reviewedDate?formatDate(r.reviewedDate):'')} ${esc(r.reviewedTime||'')}`:''}
+        ${actions}
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No return / refund requests found.</div>';
+
+  $('returnRequestList').querySelectorAll('[data-return-approve]').forEach(
+    b=>b.onclick=()=>approveReturnRequest(b.dataset.returnApprove)
+  );
+  $('returnRequestList').querySelectorAll('[data-return-reject]').forEach(
+    b=>b.onclick=()=>rejectReturnRequest(b.dataset.returnReject)
+  );
+}
+async function approveReturnRequest(requestId){
+  if(!isAdmin())return;
+  const req=returnRequests.find(r=>r.id===requestId&&r.status==='pending');
+  if(!req)return;
+
+  if(!confirm(
+    `Approve RETURN / REFUND for ${req.transactionNo||req.saleId}?\n\n`+
+    `Amount: ${peso(req.saleTotalAmount)}\nReason: ${req.reason||''}\n\n`+
+    `Stock will be returned and this sale will be marked REFUNDED.`
+  ))return;
+
+  try{
+    const auditRefs=(req.items||[]).map(()=>doc(stockAdjustmentsCol()));
+
+    await runTransaction(db,async tx=>{
+      const reqRef=doc(returnRequestsCol(),requestId);
+      const saleRef=doc(salesCol(),req.saleId);
+      const reqSnap=await tx.get(reqRef);
+      const saleSnap=await tx.get(saleRef);
+
+      if(!reqSnap.exists()||reqSnap.data().status!=='pending')throw new Error('Return request was already reviewed.');
+      if(!saleSnap.exists())throw new Error('Original sale not found.');
+
+      const sale=saleSnap.data();
+      if(sale.status==='voided'||sale.status==='refunded')throw new Error('Sale is no longer eligible.');
+
+      const stockSnaps=[];
+      for(const item of sale.items||[])stockSnaps.push(await tx.get(invRef(item.productId)));
+
+      (sale.items||[]).forEach((item,n)=>{
+        const current=stockSnaps[n].exists()?num(stockSnaps[n].data().balance):0;
+        const after=current+num(item.qty);
+
+        tx.set(invRef(item.productId),{
+          productId:item.productId,
+          productName:item.productName,
+          balance:after,
+          updatedAt:serverTimestamp(),
+          updatedAtClient:new Date().toISOString(),
+          updatedBy:user.uid,
+          updatedByEmail:user.email||'',
+          updatedByName:user.email||'Admin',
+          lastChangeType:'refund_return'
+        },{merge:true});
+
+        tx.set(auditRefs[n],{
+          type:'refund_return',
+          productId:item.productId,
+          productName:item.productName,
+          category:item.category||'',
+          qty:num(item.qty),
+          reason:req.reason||'Approved customer return',
+          referenceTransactionNo:req.transactionNo||txnNo({id:req.saleId}),
+          balanceBefore:current,
+          balanceAfter:after,
+          date:today(),
+          time:nowTime(),
+          userId:user.uid,
+          userEmail:user.email||'',
+          createdAt:serverTimestamp(),
+          createdAtClient:new Date().toISOString()
+        });
+      });
+
+      tx.update(saleRef,{
+        status:'refunded',
+        refundedAt:serverTimestamp(),
+        refundedAtClient:new Date().toISOString(),
+        refundedDate:today(),
+        refundedTime:nowTime(),
+        refundedBy:user.uid,
+        refundedByEmail:user.email||'',
+        refundReason:req.reason||'',
+        returnRequestId:requestId
+      });
+
+      tx.update(reqRef,{
+        status:'approved',
+        reviewedDate:today(),
+        reviewedTime:nowTime(),
+        reviewedBy:user.uid,
+        reviewedByEmail:user.email||'',
+        reviewedAt:serverTimestamp(),
+        reviewedAtClient:new Date().toISOString()
+      });
+    });
+    cloud('Return approved; stock restored');
+  }catch(e){alert(e.message)}
+}
+async function rejectReturnRequest(requestId){
+  if(!isAdmin())return;
+  const req=returnRequests.find(r=>r.id===requestId&&r.status==='pending');
+  if(!req)return;
+  if(!confirm(`Reject return request for ${req.transactionNo||req.saleId}?`))return;
+
+  try{
+    await setDoc(doc(returnRequestsCol(),requestId),{
+      status:'rejected',
+      reviewedDate:today(),
+      reviewedTime:nowTime(),
+      reviewedBy:user.uid,
+      reviewedByEmail:user.email||'',
+      reviewedAt:serverTimestamp(),
+      reviewedAtClient:new Date().toISOString()
+    },{merge:true});
+    cloud('Return request rejected');
+  }catch(e){alert(e.message)}
+}
+
+/* Void Requests */
+let pendingVoidSaleId=null;
+
+function openVoidRequestDialog(saleId){
+  if(!isStaff())return;
+  const sale=sales.find(s=>s.id===saleId&&s.userId===user.uid);
+  if(!sale)return;
+  if(sale.status==='voided'){alert('This transaction is already voided.');return}
+  if(isDateClosed(sale.date,sale.userId)){alert('This transaction date is already CLOSED.');return}
+
+  const existing=voidRequests.find(v=>v.saleId===saleId&&v.status==='pending');
+  if(existing){alert('This transaction already has a pending void request.');return}
+
+  pendingVoidSaleId=saleId;
+  $('voidReason').value='';
+  $('voidDialogInfo').innerHTML=`
+    <span class="txn-number">${esc(txnNo(sale))}</span>
+    <b>${esc(formatDate(sale.date))} • ${esc(sale.time||'')} • ${peso(sale.totalAmount)}</b>
+    <span>Processor: ${esc(sale.processorName||'—')}</span>
+    <span>${(sale.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)}`).join(' • ')}</span>
+  `;
+  $('voidDialog').classList.remove('hidden');
+}
+function closeVoidRequestDialog(){
+  pendingVoidSaleId=null;
+  $('voidDialog').classList.add('hidden');
+}
+async function submitVoidRequest(){
+  if(!isStaff()||!pendingVoidSaleId)return;
+  const reason=$('voidReason').value.trim();
+  if(!reason){alert('Enter the reason for requesting a void.');return}
+
+  const sale=sales.find(s=>s.id===pendingVoidSaleId&&s.userId===user.uid);
+  if(!sale){alert('Sale not found.');return}
+
+  const existing=voidRequests.find(v=>v.saleId===pendingVoidSaleId&&v.status==='pending');
+  if(existing){alert('A pending void request already exists.');closeVoidRequestDialog();return}
+
+  try{
+    await setDoc(doc(voidRequestsCol()),{
+      saleId:sale.id,
+      transactionNo:txnNo(sale),
+      userId:user.uid,
+      userEmail:user.email||'',
+      processorName:sale.processorName||'',
+      saleDate:sale.date,
+      saleTime:sale.time||'',
+      saleTotalQty:num(sale.totalQty),
+      saleTotalAmount:num(sale.totalAmount),
+      items:sale.items||[],
+      reason,
+      status:'pending',
+      createdAt:serverTimestamp(),
+      createdAtClient:new Date().toISOString()
+    });
+    closeVoidRequestDialog();
+    cloud('Void request sent to Admin');
+    alert('Void request sent. The transaction will remain active until Admin approves it.');
+  }catch(e){
+    alert(e.message);
+  }
+}
+function updateVoidNav(){
+  if(!isAdmin())return;
+  const pending=voidRequests.filter(v=>v.status==='pending').length;
+  $('voidRequestsNav').textContent=pending?`↩️ Void Requests • ${pending}`:'↩️ Void Requests';
+}
+function renderStaffVoidSearchResult(){
+  if(!isStaff())return;
+  const term=$('staffVoidTxnSearch').value.trim().toUpperCase();
+  if(!term){
+    $('staffVoidSearchResult').innerHTML='<div class="empty">Enter the Transaction # from the receipt to find the exact sale.</div>';
+    return;
+  }
+  const sale=sales.find(s=>txnNo(s).toUpperCase()===term);
+  if(!sale){
+    $('staffVoidSearchResult').innerHTML=`<div class="empty">Transaction <b>${esc(term)}</b> was not found under your Staff account.<br>Make sure you copied the exact Transaction # from the receipt.</div>`;
+    return;
+  }
+  const tx=txnNo(sale);
+  const existingPending=voidRequests.find(v=>v.saleId===sale.id&&v.status==='pending');
+  const existingReviewed=voidRequests.filter(v=>v.saleId===sale.id&&v.status!=='pending').sort((a,b)=>String(b.reviewedAtClient||'').localeCompare(String(a.reviewedAtClient||'')))[0];
+  let statusNote='';
+  let actionHtml='';
+  if(sale.status==='voided'){
+    statusNote='<span class="void-status approved">ALREADY VOIDED</span>';
+  }else if(existingPending){
+    statusNote='<span class="void-status pending">PENDING ADMIN APPROVAL</span>';
+  }else{
+    statusNote=existingReviewed?.status==='rejected'
+      ?'<span class="void-status rejected">LAST REQUEST REJECTED — YOU MAY SUBMIT AGAIN</span>'
+      :'<span class="void-status pending">ACTIVE TRANSACTION</span>';
+    actionHtml=`<div class="void-found-actions">
+      <label class="field-label">Reason for void *</label>
+      <textarea id="staffVoidReasonInline" placeholder="Example: wrong item, duplicate sale, wrong quantity..."></textarea>
+      <button class="btn danger" data-submit-inline-void="${attr(sale.id)}">Send Void Request to Admin</button>
+    </div>`;
+  }
+  $('staffVoidSearchResult').innerHTML=`<div class="void-found-card">
+    <div class="head"><div><span class="txn-number">${esc(tx)}</span><h3 style="margin:7px 0 0">Transaction Found</h3></div>${statusNote}</div>
+    <div class="void-found-grid">
+      <div class="dash-mini"><b>Date</b><span>${esc(formatDate(sale.date))}</span></div>
+      <div class="dash-mini"><b>Time</b><span>${esc(sale.time||'')}</span></div>
+      <div class="dash-mini"><b>Processor</b><span>${esc(sale.processorName||'—')}</span></div>
+      <div class="dash-mini"><b>Total</b><span>${peso(sale.totalAmount)}</span></div>
+    </div>
+    <div class="void-found-items"><b>Items</b><br>${(sale.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)} — ${peso(i.amount)}`).join('<br>')}</div>
+    ${existingPending?`<div class="receipt-note" style="margin-top:9px">Request already sent to Admin.<br>Reason: <b>${esc(existingPending.reason||'')}</b></div>`:''}
+    ${actionHtml}
+  </div>`;
+  $('staffVoidSearchResult').querySelectorAll('[data-submit-inline-void]').forEach(b=>b.onclick=()=>submitInlineVoidRequest(b.dataset.submitInlineVoid));
+}
+async function submitInlineVoidRequest(saleId){
+  if(!isStaff())return;
+  const sale=sales.find(s=>s.id===saleId&&s.userId===user.uid);
+  if(!sale){alert('Transaction not found.');return}
+  if(sale.status==='voided'){alert('This transaction is already voided.');return}
+  const reason=($('staffVoidReasonInline')?.value||'').trim();
+  if(!reason){alert('Enter the reason for requesting a void.');return}
+  if(voidRequests.find(v=>v.saleId===saleId&&v.status==='pending')){alert('This transaction already has a pending void request.');return}
+  try{
+    await setDoc(doc(voidRequestsCol()),{
+      saleId:sale.id,transactionNo:txnNo(sale),userId:user.uid,userEmail:user.email||'',processorName:sale.processorName||'',
+      saleDate:sale.date,saleTime:sale.time||'',saleTotalQty:num(sale.totalQty),saleTotalAmount:num(sale.totalAmount),
+      items:sale.items||[],reason,status:'pending',createdAt:serverTimestamp(),createdAtClient:new Date().toISOString()
+    });
+    cloud('Void request sent to Admin');
+    alert(`Void request for ${txnNo(sale)} was sent to Admin.`);
+    renderStaffVoidSearchResult();
+  }catch(e){alert(e.message)}
+}
+function renderVoidRequests(){
+  if(!user)return;
+  if(isAdmin())updateVoidNav();
+  const source=isAdmin()?voidRequests:voidRequests.filter(v=>v.userId===user.uid);
+  const q=$('voidRequestSearch').value.trim().toLowerCase();
+  const shown=source.filter(v=>!q||[v.transactionNo,v.saleId,v.userEmail,v.processorName,v.reason,v.saleDate,v.status].join(' ').toLowerCase().includes(q));
+  const pending=source.filter(v=>v.status==='pending');
+  if(isAdmin()){
+    $('voidPendingCount').textContent=pending.length;
+    $('voidApprovedToday').textContent=source.filter(v=>v.status==='approved'&&v.reviewedDate===today()).length;
+    $('voidRejectedToday').textContent=source.filter(v=>v.status==='rejected'&&v.reviewedDate===today()).length;
+  }
+  $('voidRequestBadge').textContent=`${pending.length} pending`;
+  $('voidRequestList').innerHTML=shown.length?shown.map(v=>{
+    const statusClass=v.status==='approved'?'approved':v.status==='rejected'?'rejected':'pending';
+    const statusText=v.status==='approved'?'APPROVED / VOIDED':v.status==='rejected'?'REJECTED':'PENDING APPROVAL';
+    const actions=isAdmin()&&v.status==='pending'?`<div class="void-actions"><button class="btn green small" data-void-approve="${attr(v.id)}">✓ Approve Void</button><button class="btn danger small" data-void-reject="${attr(v.id)}">Deny Void</button></div>`:'';
+    return `<div class="hist"><div>
+      <span class="txn-number">${esc(v.transactionNo||`LEGACY-${String(v.saleId||'').slice(0,8).toUpperCase()}`)}</span><br>
+      <b>${esc(formatDate(v.saleDate))} • ${esc(v.saleTime||'')} • ${peso(v.saleTotalAmount)}</b><br>
+      Staff: ${esc(v.userEmail||'')} • Processor: ${esc(v.processorName||'—')}<br>
+      ${(v.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)}`).join(' • ')}<br>
+      <b>Reason:</b> ${esc(v.reason||'')}<br><span class="void-status ${statusClass}">${statusText}</span>
+      ${v.reviewedByEmail?`<br>Reviewed by: ${esc(v.reviewedByEmail)} • ${esc(v.reviewedDate?formatDate(v.reviewedDate):'')} ${esc(v.reviewedTime||'')}`:''}${actions}
+    </div></div>`;
+  }).join(''):'<div class="empty">No void requests found.</div>';
+  if(isAdmin()){
+    $('voidRequestList').querySelectorAll('[data-void-approve]').forEach(b=>b.onclick=()=>approveVoidRequest(b.dataset.voidApprove));
+    $('voidRequestList').querySelectorAll('[data-void-reject]').forEach(b=>b.onclick=()=>rejectVoidRequest(b.dataset.voidReject));
+  }
+  renderStaffVoidSearchResult();
+}
+async function approveVoidRequest(requestId){
+  if(!isAdmin())return;
+  const req=voidRequests.find(v=>v.id===requestId&&v.status==='pending');
+  if(!req)return;
+
+  if(!confirm(`Approve VOID for transaction ${req.transactionNo||req.saleId}?\n\nAmount: ${peso(req.saleTotalAmount)}\nReason: ${req.reason||''}\n\nStock will be returned and this exact transaction will be marked VOIDED.`))return;
+
+  try{
+    const auditRefs=(req.items||[]).map(()=>doc(stockAdjustmentsCol()));
+    await runTransaction(db,async tx=>{
+      const reqRef=doc(voidRequestsCol(),requestId);
+      const saleRef=doc(salesCol(),req.saleId);
+      const reqSnap=await tx.get(reqRef);
+      const saleSnap=await tx.get(saleRef);
+
+      if(!reqSnap.exists())throw new Error('Void request not found.');
+      if(reqSnap.data().status!=='pending')throw new Error('This void request was already reviewed.');
+      if(!saleSnap.exists())throw new Error('Original sale not found.');
+
+      const sale=saleSnap.data();
+      if(sale.status==='voided')throw new Error('Sale is already voided.');
+
+      const stockSnaps=[];
+      for(const item of sale.items||[]){
+        stockSnaps.push(await tx.get(invRef(item.productId)));
+      }
+
+      (sale.items||[]).forEach((item,n)=>{
+        const current=stockSnaps[n].exists()?num(stockSnaps[n].data().balance):0;
+        const after=current+num(item.qty);
+        tx.set(invRef(item.productId),{
+          productId:item.productId,
+          productName:item.productName,
+          balance:after,
+          updatedAt:serverTimestamp(),
+          updatedAtClient:new Date().toISOString(),
+          updatedBy:user.uid,
+          updatedByEmail:user.email||'',
+          updatedByName:user.email||'Admin',
+          lastChangeType:'approved_sale_void'
+        },{merge:true});
+
+        tx.set(auditRefs[n],{
+          type:'void_return',
+          productId:item.productId,
+          productName:item.productName,
+          category:item.category||'',
+          qty:num(item.qty),
+          reason:req.reason||'Approved void',
+          referenceTransactionNo:req.transactionNo||txnNo({id:req.saleId}),
+          balanceBefore:current,
+          balanceAfter:after,
+          date:today(),
+          time:nowTime(),
+          userId:user.uid,
+          userEmail:user.email||'',
+          createdAt:serverTimestamp(),
+          createdAtClient:new Date().toISOString()
+        });
+      });
+
+      tx.update(saleRef,{
+        status:'voided',
+        voidedAt:serverTimestamp(),
+        voidedAtClient:new Date().toISOString(),
+        voidedBy:user.uid,
+        voidedByEmail:user.email||'',
+        voidReason:req.reason||'',
+        voidRequestId:requestId
+      });
+
+      tx.update(reqRef,{
+        status:'approved',
+        reviewedDate:today(),
+        reviewedTime:nowTime(),
+        reviewedBy:user.uid,
+        reviewedByEmail:user.email||'',
+        reviewedAt:serverTimestamp(),
+        reviewedAtClient:new Date().toISOString()
+      });
+    });
+
+    cloud('Void approved; stock returned');
+  }catch(e){
+    alert(e.message);
+  }
+}
+async function rejectVoidRequest(requestId){
+  if(!isAdmin())return;
+  const req=voidRequests.find(v=>v.id===requestId&&v.status==='pending');
+  if(!req)return;
+  if(!confirm(`Deny void request for ${req.transactionNo||req.saleId}?\n\nThe transaction will remain active.`))return;
+
+  try{
+    await setDoc(doc(voidRequestsCol(),requestId),{
+      status:'rejected',
+      reviewedDate:today(),
+      reviewedTime:nowTime(),
+      reviewedBy:user.uid,
+      reviewedByEmail:user.email||'',
+      reviewedAt:serverTimestamp(),
+      reviewedAtClient:new Date().toISOString()
+    },{merge:true});
+    cloud('Void request rejected');
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+/* Admin Data Reset */
+function resetDateRecords(date){
+  const selectedSales=sales.filter(s=>s.date===date);
+  const selectedCredits=credits.filter(c=>c.date===date);
+  const selectedExpenses=expenses.filter(e=>e.date===date);
+  const selectedVoids=voidRequests.filter(r=>r.saleDate===date);
+  const selectedReturns=returnRequests.filter(r=>r.saleDate===date);
+  const selectedDeletes=deleteRequests.filter(r=>r.saleDate===date);
+  const selectedClosings=closings.filter(c=>c.date===date);
+
+  return {
+    sales:selectedSales,
+    credits:selectedCredits,
+    expenses:selectedExpenses,
+    voidRequests:selectedVoids,
+    returnRequests:selectedReturns,
+    deleteRequests:selectedDeletes,
+    closings:selectedClosings
+  };
+}
+function renderResetPreview(){
+  if(!isAdmin())return;
+  const date=$('resetDate').value||today();
+  const r=resetDateRecords(date);
+  const requestCount=r.voidRequests.length+r.returnRequests.length+r.deleteRequests.length;
+
+  $('resetPreview').innerHTML=`
+    <div class="reset-summary-grid">
+      <div class="dash-mini"><b>Sales</b><span>${r.sales.length}</span></div>
+      <div class="dash-mini"><b>Credits</b><span>${r.credits.length}</span></div>
+      <div class="dash-mini"><b>Expenses</b><span>${r.expenses.length}</span></div>
+      <div class="dash-mini"><b>Requests</b><span>${requestCount}</span></div>
+      <div class="dash-mini"><b>Closings</b><span>${r.closings.length}</span></div>
+    </div>
+    <div class="delete-warning">
+      Selected date: <b>${esc(formatDate(date))}</b><br>
+      Sales/Credit deletion will reconcile stock first. Approved Void/Refund sales do not return stock twice.
+    </div>`;
+}
+async function resetDeleteSaleRecord(sale){
+  await runTransaction(db,async tx=>{
+    const saleRef=doc(salesCol(),sale.id);
+    const saleSnap=await tx.get(saleRef);
+    if(!saleSnap.exists())return;
+    const currentSale=saleSnap.data();
+    const needsReturn=currentSale.status!=='voided'&&currentSale.status!=='refunded';
+
+    const stockSnaps=[];
+    if(needsReturn){
+      for(const item of currentSale.items||[])stockSnaps.push(await tx.get(invRef(item.productId)));
+    }
+
+    if(needsReturn){
+      (currentSale.items||[]).forEach((item,n)=>{
+        const current=stockSnaps[n].exists()?num(stockSnaps[n].data().balance):0;
+        tx.set(invRef(item.productId),{
+          productId:item.productId,
+          productName:item.productName,
+          balance:current+num(item.qty),
+          updatedAt:serverTimestamp(),
+          updatedAtClient:new Date().toISOString(),
+          updatedBy:user.uid,
+          updatedByEmail:user.email||'',
+          updatedByName:user.email||'Admin',
+          lastChangeType:'data_reset_sale'
+        },{merge:true});
+      });
+    }
+
+    tx.delete(saleRef);
+  });
+}
+async function resetDeleteCreditRecord(credit){
+  await runTransaction(db,async tx=>{
+    const creditRef=doc(creditsCol(),credit.id);
+    const creditSnap=await tx.get(creditRef);
+    if(!creditSnap.exists())return;
+    const currentCredit=creditSnap.data();
+    const stockSnaps=[];
+    for(const item of currentCredit.items||[])stockSnaps.push(await tx.get(invRef(item.productId)));
+
+    (currentCredit.items||[]).forEach((item,n)=>{
+      const current=stockSnaps[n].exists()?num(stockSnaps[n].data().balance):0;
+      tx.set(invRef(item.productId),{
+        productId:item.productId,
+        productName:item.productName,
+        balance:current+num(item.qty),
+        updatedAt:serverTimestamp(),
+        updatedAtClient:new Date().toISOString(),
+        updatedBy:user.uid,
+        updatedByEmail:user.email||'',
+        updatedByName:user.email||'Admin',
+        lastChangeType:'data_reset_credit'
+      },{merge:true});
+    });
+
+    tx.delete(creditRef);
+  });
+}
+async function runDataReset(){
+  if(!isAdmin())return;
+  const date=$('resetDate').value||today();
+  if($('resetConfirmText').value.trim().toUpperCase()!=='RESET'){
+    alert('Type RESET in the confirmation field first.');
+    return;
+  }
+
+  const selections={
+    sales:$('resetSales').checked,
+    credits:$('resetCredits').checked,
+    expenses:$('resetExpenses').checked,
+    requests:$('resetRequests').checked,
+    closings:$('resetClosings').checked
+  };
+
+  if(!Object.values(selections).some(Boolean)){
+    alert('Select at least one data group to delete.');
+    return;
+  }
+
+  const r=resetDateRecords(date);
+  const requestCount=r.voidRequests.length+r.returnRequests.length+r.deleteRequests.length;
+  const summary=[
+    selections.sales?`Sales: ${r.sales.length}`:null,
+    selections.credits?`Credits: ${r.credits.length}`:null,
+    selections.expenses?`Expenses: ${r.expenses.length}`:null,
+    selections.requests?`Requests: ${requestCount}`:null,
+    selections.closings?`Closings: ${r.closings.length}`:null
+  ].filter(Boolean).join('\n');
+
+  if(!confirm(
+    `DELETE selected operational data for ${formatDate(date)}?\n\n${summary}\n\n`+
+    `This action cannot be undone from the POS.`
+  ))return;
+
+  const affectedTxNos=new Set();
+  try{
+    $('runDataReset').disabled=true;
+    cloud('Resetting selected date data...');
+
+    if(selections.sales){
+      for(const s of r.sales){
+        affectedTxNos.add(txnNo(s));
+        await resetDeleteSaleRecord(s);
+      }
+    }
+
+    if(selections.credits){
+      for(const c of r.credits){
+        affectedTxNos.add(txnNo(c));
+        await resetDeleteCreditRecord(c);
+      }
+    }
+
+    if(selections.expenses){
+      for(const e of r.expenses)await deleteDoc(doc(expensesCol(),e.id));
+    }
+
+    if(selections.requests){
+      for(const v of r.voidRequests)await deleteDoc(doc(voidRequestsCol(),v.id));
+      for(const rr of r.returnRequests)await deleteDoc(doc(returnRequestsCol(),rr.id));
+      for(const dr of r.deleteRequests)await deleteDoc(doc(deleteRequestsCol(),dr.id));
+    }
+
+    if(selections.closings){
+      for(const c of r.closings)await deleteDoc(doc(closingsCol(),c.id));
+    }
+
+    // Remove only system-generated stock-return audit rows tied to reset transactions.
+    for(const a of stockAdjustments){
+      if(['void_return','refund_return','delete_return'].includes(a.type) &&
+         affectedTxNos.has(a.referenceTransactionNo||'')){
+        await deleteDoc(doc(stockAdjustmentsCol(),a.id));
+      }
+    }
+
+    await setDoc(doc(dataResetLogsCol()),{
+      date,
+      selections,
+      deletedCounts:{
+        sales:selections.sales?r.sales.length:0,
+        credits:selections.credits?r.credits.length:0,
+        expenses:selections.expenses?r.expenses.length:0,
+        requests:selections.requests?requestCount:0,
+        closings:selections.closings?r.closings.length:0
+      },
+      performedBy:user.uid,
+      performedByEmail:user.email||'',
+      createdAt:serverTimestamp(),
+      createdAtClient:new Date().toISOString()
+    });
+
+    $('resetConfirmText').value='';
+    cloud('Data reset completed');
+    alert(`Selected data for ${formatDate(date)} was deleted successfully.`);
+    renderResetPreview();
+  }catch(e){
+    alert(`Reset stopped: ${e.message}`);
+    cloud('Data reset failed');
+  }finally{
+    $('runDataReset').disabled=false;
+  }
+}
+function renderDataReset(){
+  if(!isAdmin())return;
+  renderResetPreview();
+
+  $('dataResetHistory').innerHTML=dataResetLogs.length?dataResetLogs.map(r=>{
+    const c=r.deletedCounts||{};
+    return `<div class="hist">
+      <div>
+        <b>${esc(formatDate(r.date))} • Data Reset</b><br>
+        Sales ${num(c.sales)} • Credits ${num(c.credits)} • Expenses ${num(c.expenses)} • Requests ${num(c.requests)} • Closings ${num(c.closings)}<br>
+        Admin: ${esc(r.performedByEmail||'')} • ${r.createdAtClient?esc(new Date(r.createdAtClient).toLocaleString('en-PH')):''}
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No data reset history yet.</div>';
+}
+
+/* Transaction Lookup */
+function transactionLookupRows(){
+  const saleRows=sales.map(s=>({
+    kind:'sale',
+    id:s.id,
+    transactionNo:txnNo(s),
+    date:s.date,
+    time:s.time||'',
+    userEmail:s.userEmail||'',
+    processorName:s.processorName||'',
+    borrowerName:'',
+    totalAmount:num(s.totalAmount),
+    totalQty:num(s.totalQty),
+    status:s.status||'active',
+    items:s.items||[],
+    raw:s
+  }));
+  const creditRows=credits.map(c=>({
+    kind:'credit',
+    id:c.id,
+    transactionNo:txnNo(c),
+    date:c.date,
+    time:c.time||'',
+    userEmail:c.userEmail||'',
+    processorName:c.processorName||'',
+    borrowerName:c.borrowerName||'',
+    totalAmount:num(c.totalAmount),
+    totalQty:num(c.totalQty),
+    status:c.status||'open',
+    items:c.items||[],
+    raw:c
+  }));
+  return [...saleRows,...creditRows];
+}
+function renderTransactionLookup(){
+  if(!isAdmin())return;
+  const q=$('lookupSearch').value.trim().toLowerCase();
+  if(!q){
+    $('lookupResult').innerHTML='<div class="empty">Enter a Transaction # or search term.</div>';
+    return;
+  }
+
+  let rows=transactionLookupRows();
+  const exact=rows.filter(r=>r.transactionNo.toLowerCase()===q);
+  const partial=rows.filter(r=>[
+    r.transactionNo,r.processorName,r.userEmail,r.borrowerName,r.date,
+    String(r.totalAmount),r.status,...r.items.map(i=>i.productName)
+  ].join(' ').toLowerCase().includes(q));
+
+  rows=[...exact,...partial.filter(r=>!exact.some(e=>e.kind===r.kind&&e.id===r.id))].slice(0,50);
+
+  $('lookupResult').innerHTML=rows.length?rows.map(r=>{
+    const voidReq=voidRequests
+      .filter(v=>v.saleId===r.id)
+      .sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')))[0];
+    const returnReq=returnRequests
+      .filter(v=>v.saleId===r.id)
+      .sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')))[0];
+    const deleteReq=deleteRequests
+      .filter(v=>v.saleId===r.id)
+      .sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')))[0];
+
+    return `<div class="lookup-card">
+      <div class="head">
+        <div>
+          <span class="txn-number">${esc(r.transactionNo)}</span>
+          <h3 style="margin:7px 0 0">${r.kind==='sale'?'Walk-in Sale':'Credit Sale'} • ${peso(r.totalAmount)}</h3>
+        </div>
+        <button class="btn blue small" data-lookup-receipt="${attr(r.kind+':'+r.id)}">⬇ Receipt PDF</button>
+      </div>
+      <div class="lookup-meta">
+        <div class="dash-mini"><b>Date / Time</b><span>${esc(formatDate(r.date))} • ${esc(r.time)}</span></div>
+        <div class="dash-mini"><b>Staff</b><span>${esc(r.userEmail||'—')}</span></div>
+        <div class="dash-mini"><b>Processor</b><span>${esc(r.processorName||'—')}</span></div>
+        <div class="dash-mini"><b>Status</b><span>${esc(String(r.status).toUpperCase())}</span></div>
+      </div>
+      ${r.borrowerName?`<div class="receipt-note"><b>Borrower:</b> ${esc(r.borrowerName)}</div>`:''}
+      <div class="void-found-items">
+        ${(r.items||[]).map(i=>`${esc(i.productName)} × ${num(i.qty)} — ${peso(i.amount)}`).join('<br>')}
+      </div>
+      <div class="receipt-note" style="margin-top:8px">
+        Void Request: <b>${esc(voidReq?.status||'none')}</b> •
+        Return Request: <b>${esc(returnReq?.status||'none')}</b> •
+        Delete Request: <b>${esc(deleteReq?.status||'none')}</b>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No matching transactions found.</div>';
+
+  $('lookupResult').querySelectorAll('[data-lookup-receipt]').forEach(b=>b.onclick=()=>{
+    const [kind,id]=b.dataset.lookupReceipt.split(':');
+    kind==='sale'?downloadSaleReceipt(id):downloadCreditReceipt(id);
+  });
 }
 
 /* Admin Transactions */
@@ -4520,15 +7013,17 @@ function renderTx(){
       </div><button class="btn danger small" data-dr="${attr(x.id)}">Delete</button></div>`;
     }
     return `<div class="hist"><div>
-      <b>WALK-IN SALE • ${num(x.totalQty)} units • ${peso(x.totalAmount)}</b><br>
+      <span class="txn-number">${esc(txnNo(x))}</span><br>
+      <b>${x.status==='voided'?'VOIDED SALE':x.status==='refunded'?'REFUNDED SALE':'WALK-IN SALE'} • ${num(x.totalQty)} units • ${peso(x.totalAmount)}</b><br>
       ${esc(formatDate(x.date))} • ${esc(x.time||'')} • ${esc(x.userEmail||'')}
       ${x.processorName?` • Processor: ${esc(x.processorName)}`:''}<br>
       ${(x.items||[]).map(i=>esc(i.productName)+' × '+num(i.qty)).join(' • ')}
-    </div><button class="btn danger small" data-vs="${attr(x.id)}">Void & Return Stock</button></div>`;
+    </div>
+    <button class="btn small" data-history-receipt="${attr(x.id)}">⬇ Receipt</button></div>`;
   }).join('')||'<div class="empty">No transactions.</div>';
 
-  $('txList').querySelectorAll('[data-vs]').forEach(b=>b.onclick=()=>voidSale(b.dataset.vs));
-  $('txList').querySelectorAll('[data-dr]').forEach(b=>b.onclick=()=>deleteRestock(b.dataset.dr))
+  $('txList').querySelectorAll('[data-dr]').forEach(b=>b.onclick=()=>deleteRestock(b.dataset.dr));
+  $('txList').querySelectorAll('[data-history-receipt]').forEach(b=>b.onclick=()=>downloadSaleReceipt(b.dataset.historyReceipt))
 }
 async function voidSale(id){
   const s=sales.find(x=>x.id===id);if(!isAdmin()||!s||!confirm('Void this sale and return stock?'))return;
@@ -4605,6 +7100,7 @@ function renderInventory(){
       <td>${esc(changedBy)}</td>
     </tr>`;
   }).join(''):'<tr><td colspan="8" class="empty">No inventory items.</td></tr>';
+  renderInventoryAudit();
 }
 function buildInventoryPrint(){
   const rows=inventoryRowsFiltered();
@@ -4741,6 +7237,440 @@ function pdfDrawMetricRow(doc,items,y){
   });
   return y+17;
 }
+function pdfNewCategoryPage(doc,title,subtitle,categoryLabel){
+  doc.addPage();
+  pdfPageHeader(doc,title,subtitle);
+  doc.setFillColor(237,244,255);
+  doc.setDrawColor(206,221,249);
+  doc.roundedRect(10,23,doc.internal.pageSize.getWidth()-20,11,2,2,'FD');
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(9.5);
+  doc.setTextColor(47,111,237);
+  doc.text(pdfSafe(categoryLabel),14,30);
+  return 38;
+}
+function groupRows(rows,keyFn){
+  const map=new Map();
+  rows.forEach(row=>{
+    const key=String(keyFn(row)||'Uncategorized').trim()||'Uncategorized';
+    if(!map.has(key))map.set(key,[]);
+    map.get(key).push(row);
+  });
+  return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+}
+function productBreakdownByCategory(rows){
+  const map=new Map();
+  rows.forEach(r=>(r.items||[]).forEach(i=>{
+    const category=i.category||'Uncategorized';
+    if(!map.has(category))map.set(category,new Map());
+    const bucket=map.get(category);
+    const key=i.productId||i.productName;
+    if(!bucket.has(key))bucket.set(key,{name:i.productName,qty:0,amount:0});
+    const obj=bucket.get(key);
+    obj.qty+=num(i.qty);
+    obj.amount+=num(i.amount);
+  }));
+  return [...map.entries()]
+    .sort((a,b)=>a[0].localeCompare(b[0]))
+    .map(([category,bucket])=>[
+      category,
+      [...bucket.values()].sort((a,b)=>b.amount-a.amount)
+    ]);
+}
+
+function filteredCreditsForDownload(){
+  const source=isAdmin()?credits:credits.filter(c=>c.userId===user?.uid);
+  const search=$('creditSearch').value.trim().toLowerCase();
+  const status=$('creditStatusFilter').value;
+
+  let rows=source.filter(c=>isAdmin()?true:c.status!=='approved');
+
+  if(status)rows=rows.filter(c=>c.status===status);
+  if(search)rows=rows.filter(c=>[
+    c.borrowerName,c.borrowerContact,c.userEmail,c.processorName,c.date,c.dueDate,c.notes,
+    ...(c.items||[]).map(i=>i.productName)
+  ].join(' ').toLowerCase().includes(search));
+
+  return rows.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+}
+function creditStatusLabel(status){
+  return status==='approved'?'APPROVED / SETTLED':
+    status==='payment_pending'?'PAID - WAITING ADMIN APPROVAL':
+    'UNPAID / OPEN';
+}
+function generateCreditPdf(){
+  const rows=filteredCreditsForDownload();
+  if(!rows.length){alert('No credit records in the current filter.');return}
+
+  const doc=getPdfEngine();
+  if(!doc)return;
+
+  const title=isAdmin()?'Credit Management Report':'My Credit Report';
+  const subtitle=`Current filter | ${new Date().toLocaleString('en-PH')}`;
+
+  const unsettled=rows.filter(c=>c.status!=='approved').reduce((a,c)=>a+num(c.totalAmount),0);
+  const pending=rows.filter(c=>c.status==='payment_pending').reduce((a,c)=>a+num(c.totalAmount),0);
+  const approved=rows.filter(c=>c.status==='approved').reduce((a,c)=>a+num(c.totalAmount),0);
+
+  pdfPageHeader(doc,title,subtitle);
+  let y=23;
+  y=pdfDrawMetricRow(doc,[
+    {label:'Credit Records',value:String(rows.length)},
+    {label:'Unsettled',value:pdfMoney(unsettled)},
+    {label:'Waiting Approval',value:pdfMoney(pending)},
+    {label:'Approved / Settled',value:pdfMoney(approved)}
+  ],y);
+
+  // Borrower summary on cover.
+  const borrowerMap=new Map();
+  rows.forEach(c=>{
+    const key=(c.borrowerName||'Unknown').trim()||'Unknown';
+    if(!borrowerMap.has(key))borrowerMap.set(key,{count:0,total:0,unsettled:0,contact:c.borrowerContact||'-'});
+    const x=borrowerMap.get(key);
+    x.count++;
+    x.total+=num(c.totalAmount);
+    if(c.status!=='approved')x.unsettled+=num(c.totalAmount);
+  });
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8.5);
+  doc.setTextColor(40,49,63);
+  doc.text('BORROWER SUMMARY',10,y);
+  y+=3;
+
+  doc.autoTable({
+    startY:y,
+    margin:{left:10,right:10,bottom:13},
+    theme:'grid',
+    head:[['Borrower','Contact','Records','Total Credit','Unsettled']],
+    body:[...borrowerMap.entries()]
+      .sort((a,b)=>b[1].unsettled-a[1].unsettled)
+      .map(([name,x])=>[
+        pdfSafe(name),pdfSafe(x.contact),String(x.count),pdfMoney(x.total),pdfMoney(x.unsettled)
+      ]),
+    styles:{font:'helvetica',fontSize:6.2,cellPadding:1.8,overflow:'linebreak'},
+    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+    columnStyles:{2:{halign:'right'},3:{halign:'right'},4:{halign:'right'}},
+    pageBreak:'auto',
+    rowPageBreak:'avoid'
+  });
+
+  // Each CREDIT STATUS is its own page.
+  const order=['open','payment_pending','approved'];
+  order.forEach(status=>{
+    const items=rows.filter(c=>c.status===status);
+    if(!items.length)return;
+
+    let py=pdfNewCategoryPage(doc,title,subtitle,`CREDIT STATUS: ${creditStatusLabel(status)}`);
+    const amount=items.reduce((a,c)=>a+num(c.totalAmount),0);
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Records',value:String(items.length)},
+      {label:'Amount',value:pdfMoney(amount)},
+      {label:'Status',value:creditStatusLabel(status)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Transaction #','Credit Date','Due Date','Borrower','Contact','Staff / Processor','Items','Qty','Amount']],
+      body:items.map(c=>[
+        pdfSafe(txnNo(c)),
+        pdfSafe(formatDate(c.date)),
+        pdfSafe(formatDate(c.dueDate)),
+        pdfSafe(c.borrowerName||''),
+        pdfSafe(c.borrowerContact||'-'),
+        pdfSafe(`${c.userEmail||''}\nProcessor: ${c.processorName||'-'}`),
+        pdfSafe((c.items||[]).map(i=>`${i.productName} x ${num(i.qty)}`).join('\n')),
+        String(num(c.totalQty)),
+        pdfMoney(c.totalAmount)
+      ]),
+      foot:[['','','','','','','STATUS TOTAL',String(items.reduce((a,c)=>a+num(c.totalQty),0)),pdfMoney(amount)]],
+      styles:{font:'helvetica',fontSize:4.85,cellPadding:1.2,overflow:'linebreak',valign:'top'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{
+        0:{cellWidth:31},1:{cellWidth:18},2:{cellWidth:18},3:{cellWidth:27},4:{cellWidth:24},
+        5:{cellWidth:42},6:{cellWidth:73},7:{cellWidth:11,halign:'right'},
+        8:{cellWidth:22,halign:'right'}
+      },
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
+  });
+
+  pdfPageFooter(doc);
+  doc.save(`POS_CHIKITOS_Credits_${today()}.pdf`);
+  cloud('Credit PDF downloaded');
+}
+function filteredExpensesForDownload(){
+  const source=expenseSource();
+  const search=$('expenseSearch').value.trim().toLowerCase();
+  const status=$('expenseStatusFilter').value;
+
+  let rows=source.slice();
+  if(status)rows=rows.filter(e=>e.status===status);
+  if(search)rows=rows.filter(e=>[
+    e.date,e.category,e.description,e.referenceNo,e.userEmail,
+    e.approvedByEmail,e.rejectedByEmail
+  ].join(' ').toLowerCase().includes(search));
+
+  return rows.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+}
+function generateExpensePdf(){
+  const rows=filteredExpensesForDownload();
+  if(!rows.length){alert('No expense records in the current filter.');return}
+
+  const doc=getPdfEngine();
+  if(!doc)return;
+
+  const title=isAdmin()?'Expense Management Report':'My Expense Report';
+  const subtitle=`Current filter | ${new Date().toLocaleString('en-PH')}`;
+
+  const total=rows.reduce((a,e)=>a+num(e.amount),0);
+  const pending=rows.filter(e=>e.status==='pending').reduce((a,e)=>a+num(e.amount),0);
+  const approved=rows.filter(e=>e.status==='approved').reduce((a,e)=>a+num(e.amount),0);
+  const rejected=rows.filter(e=>e.status==='rejected').reduce((a,e)=>a+num(e.amount),0);
+
+  pdfPageHeader(doc,title,subtitle);
+  let y=23;
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Expense Records',value:String(rows.length)},
+    {label:'Total Requests',value:pdfMoney(total)},
+    {label:'Pending',value:pdfMoney(pending)},
+    {label:'Approved',value:pdfMoney(approved)}
+  ],y);
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Rejected',value:pdfMoney(rejected)},
+    {label:'Approved / Deducted',value:pdfMoney(approved)},
+    {label:'Not Deducted',value:pdfMoney(pending+rejected)}
+  ],y);
+
+  // Each EXPENSE CATEGORY starts on its own page.
+  const groups=groupRows(rows,e=>e.category||'Uncategorized');
+  groups.forEach(([category,items])=>{
+    let py=pdfNewCategoryPage(doc,title,subtitle,`EXPENSE CATEGORY: ${category}`);
+    const catTotal=items.reduce((a,e)=>a+num(e.amount),0);
+    const catApproved=items.filter(e=>e.status==='approved').reduce((a,e)=>a+num(e.amount),0);
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Records',value:String(items.length)},
+      {label:'Category Total',value:pdfMoney(catTotal)},
+      {label:'Approved / Deducted',value:pdfMoney(catApproved)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Date','Description','Reference','Staff','Status','Reviewed By','Amount']],
+      body:items.map(e=>[
+        pdfSafe(formatDate(e.date)),
+        pdfSafe(e.description||''),
+        pdfSafe(e.referenceNo||'-'),
+        pdfSafe(e.userEmail||''),
+        e.status==='approved'?'APPROVED / DEDUCTED':e.status==='rejected'?'REJECTED':'PENDING / NOT APPROVED',
+        pdfSafe(e.status==='approved'?(e.approvedByEmail||'-'):e.status==='rejected'?(e.rejectedByEmail||'-'):'-'),
+        pdfMoney(e.amount)
+      ]),
+      foot:[['','','','','','CATEGORY TOTAL',pdfMoney(catTotal)]],
+      styles:{font:'helvetica',fontSize:5.5,cellPadding:1.55,overflow:'linebreak',valign:'top'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{
+        0:{cellWidth:23},1:{cellWidth:85},2:{cellWidth:34},3:{cellWidth:49},
+        4:{cellWidth:42},5:{cellWidth:45},6:{cellWidth:28,halign:'right'}
+      },
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
+  });
+
+  pdfPageFooter(doc);
+  doc.save(`POS_CHIKITOS_Expenses_${today()}.pdf`);
+  cloud('Expense PDF downloaded');
+}
+
+function generateReceiptPdf(record){
+  if(!record)return;
+
+  const items=record.items||[];
+  const estimatedLines=items.reduce((sum,i)=>{
+    const name=String(i.productName||'Item');
+    return sum+Math.max(1,Math.ceil(name.length/24));
+  },0);
+  const receiptHeight=Math.max(125,85+(estimatedLines*4.5)+(items.length*7)+(record.sourceType==='credit'?22:10));
+
+  const jsPDF=window.jspdf?.jsPDF;
+  if(!jsPDF){
+    alert('PDF library did not load. Please check your internet connection, then reload the system.');
+    return;
+  }
+
+  const doc=new jsPDF({
+    orientation:'portrait',
+    unit:'mm',
+    format:[80,receiptHeight],
+    compress:true
+  });
+
+  const tx=record.transactionNo||txnNo(record);
+  let y=8;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.setTextColor(24,33,47);
+  doc.text('POS CHIKITOS',40,y,{align:'center'});
+  y+=5;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(6.6);
+  doc.setTextColor(95,107,122);
+  doc.text('Transaction Receipt',40,y,{align:'center'});
+  y+=5;
+
+  doc.setDrawColor(190,198,210);
+  doc.line(5,y,75,y);
+  y+=5;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8);
+  doc.setTextColor(35,93,190);
+  doc.text(pdfSafe(tx),40,y,{align:'center'});
+  y+=6;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(6.4);
+  doc.setTextColor(45,55,68);
+  doc.text(`Date: ${pdfSafe(formatDate(record.date))}`,5,y);
+  doc.text(`Time: ${pdfSafe(record.time||'')}`,75,y,{align:'right'});
+  y+=4;
+  doc.text(`Type: ${pdfSafe(record.transactionType||'Walk-in')}`,5,y);
+  doc.text(`Processor: ${pdfSafe(record.processorName||'-')}`,75,y,{align:'right'});
+  y+=4;
+
+  if(record.userEmail){
+    const emailLines=doc.splitTextToSize(`Account: ${pdfSafe(record.userEmail)}`,70);
+    doc.text(emailLines,5,y);
+    y+=emailLines.length*3.2;
+  }
+
+  if(record.sourceType==='credit'){
+    doc.setFont('helvetica','bold');
+    doc.text(`Borrower: ${pdfSafe(record.borrowerName||'-')}`,5,y);
+    y+=4;
+    doc.setFont('helvetica','normal');
+    doc.text(`Due Date: ${pdfSafe(formatDate(record.dueDate))}`,5,y);
+    y+=4;
+    doc.text(`Credit Status: ${pdfSafe(record.paymentStatus||creditStatusLabel(record.creditStatus||'open'))}`,5,y);
+    y+=5;
+  }
+
+  doc.setDrawColor(210,215,222);
+  doc.line(5,y,75,y);
+  y+=4;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(6.4);
+  doc.text('ITEM',5,y);
+  doc.text('QTY',53,y,{align:'right'});
+  doc.text('AMOUNT',75,y,{align:'right'});
+  y+=3;
+  doc.line(5,y,75,y);
+  y+=4;
+
+  items.forEach(i=>{
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(6.2);
+    const nameLines=doc.splitTextToSize(pdfSafe(i.productName||'Item'),39);
+    doc.text(nameLines,5,y);
+    doc.text(String(num(i.qty)),53,y,{align:'right'});
+    doc.text(pdfMoney(i.amount),75,y,{align:'right'});
+    y+=Math.max(4,nameLines.length*3.2);
+    doc.setFontSize(5.5);
+    doc.setTextColor(115,124,137);
+    doc.text(`${pdfMoney(i.price)} each`,5,y);
+    doc.setTextColor(45,55,68);
+    y+=4;
+  });
+
+  doc.setDrawColor(190,198,210);
+  doc.line(5,y,75,y);
+  y+=5;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8.5);
+  doc.text('TOTAL',5,y);
+  doc.text(pdfMoney(record.totalAmount),75,y,{align:'right'});
+  y+=6;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(5.8);
+  doc.setTextColor(95,107,122);
+  doc.text(`Total Qty: ${num(record.totalQty)}`,5,y);
+  y+=5;
+
+  doc.setDrawColor(220,224,230);
+  doc.line(5,y,75,y);
+  y+=5;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(6);
+  doc.setTextColor(50,60,74);
+  doc.text('Thank you.',40,y,{align:'center'});
+  y+=4;
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(5.2);
+  doc.setTextColor(115,124,137);
+  doc.text('POS CHIKITOS | System created by Edralene Balase',40,y,{align:'center'});
+
+  doc.save(`${pdfFileName('POS_CHIKITOS_Receipt_'+tx)}.pdf`);
+  cloud('Receipt downloaded');
+}
+function combinedReceiptRecord(id){
+  const rows=reportCombinedRows();
+  return rows.find(r=>r.id===id)||null;
+}
+function downloadReceiptByCombinedId(id){
+  const r=combinedReceiptRecord(id);
+  if(!r){alert('Transaction not found.');return}
+  generateReceiptPdf(r);
+}
+function downloadSaleReceipt(id){
+  const s=sales.find(x=>x.id===id);
+  if(!s){alert('Sale not found.');return}
+  generateReceiptPdf({
+    ...s,
+    id:s.id,
+    sourceId:s.id,
+    sourceType:'sale',
+    transactionType:'Walk-in',
+    transactionNo:txnNo(s),
+    paymentStatus:s.status==='voided'?'VOIDED':s.status==='refunded'?'REFUNDED':'PAID'
+  });
+}
+function downloadCreditReceipt(id){
+  const c=credits.find(x=>x.id===id);
+  if(!c){alert('Credit not found.');return}
+  generateReceiptPdf({
+    ...c,
+    id:c.id,
+    sourceId:c.id,
+    sourceType:'credit',
+    transactionType:'Credit',
+    transactionNo:txnNo(c),
+    paymentStatus:c.status==='approved'?'PAID / APPROVED':
+      c.status==='payment_pending'?'PAYMENT PENDING APPROVAL':'UNPAID / CREDIT'
+  });
+}
+function downloadLastReceipt(){
+  if(!lastSavedTransaction){alert('No saved transaction receipt yet.');return}
+  generateReceiptPdf(lastSavedTransaction);
+}
+
 function generateSalesPdf(rows,title='Sales Report'){
   if(!rows.length){alert('No sales to save.');return}
 
@@ -4752,7 +7682,6 @@ function generateSalesPdf(rows,title='Sales Report'){
     :`Staff: ${user?.email||''} | ${reportHeadingText()}`;
 
   const totals=reportTotals(rows);
-  const productsOut=buildProductBreakdown(rows);
   const reportExpensesAll=expensesForReport();
   const approvedExpenses=reportExpensesAll.filter(e=>e.status==='approved');
   const pendingExpenses=reportExpensesAll.filter(e=>e.status==='pending');
@@ -4765,6 +7694,7 @@ function generateSalesPdf(rows,title='Sales Report'){
   const netSales=totals.totalSales-approvedExpenseTotal;
   const cashAfterExpenses=totals.onHand-approvedExpenseTotal;
 
+  // COVER / SUMMARY PAGE
   pdfPageHeader(doc,title,subtitle);
   let y=23;
 
@@ -4782,13 +7712,22 @@ function generateSalesPdf(rows,title='Sales Report'){
 
   y=pdfDrawMetricRow(doc,[
     {label:'Expense Requests',value:pdfMoney(expenseRequestedTotal)},
-    {label:'Net Sales',value:pdfMoney(netSales)},
-    {label:'Cash On-hand After Expenses',value:pdfMoney(cashAfterExpenses)}
+    {label:'Pending Expenses',value:pdfMoney(pendingExpenseTotal)},
+    {label:'Rejected Expenses',value:pdfMoney(rejectedExpenseTotal)}
   ],y);
 
-  y=pdfEnsureSpace(doc,y,28,title,subtitle);
-  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
-  doc.text('PAYMENT CLASS',10,y); y+=2;
+  y=pdfDrawMetricRow(doc,[
+    {label:'Net Sales',value:pdfMoney(netSales)},
+    {label:'Cash On-hand After Expenses',value:pdfMoney(cashAfterExpenses)},
+    {label:'Generated',value:new Date().toLocaleDateString('en-PH')}
+  ],y);
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8.5);
+  doc.setTextColor(40,49,63);
+  doc.text('PAYMENT CLASS',10,y);
+  y+=3;
+
   doc.autoTable({
     startY:y,
     margin:{left:10,right:10,bottom:13},
@@ -4799,103 +7738,127 @@ function generateSalesPdf(rows,title='Sales Report'){
       ['CREDIT / UTANG',totals.creditTransactions,totals.creditQty,pdfMoney(totals.credit)],
       ['TOTAL SALES / KITA',totals.transactions,totals.qty,pdfMoney(totals.totalSales)]
     ],
-    styles:{font:'helvetica',fontSize:6.5,cellPadding:2,overflow:'linebreak',valign:'top'},
+    styles:{font:'helvetica',fontSize:6.6,cellPadding:2,overflow:'linebreak',valign:'top'},
     headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
     columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'}},
-    pageBreak:'auto',
+    pageBreak:'avoid',
     rowPageBreak:'avoid'
   });
-  y=doc.lastAutoTable.finalY+6;
 
-  y=pdfEnsureSpace(doc,y,35,title,subtitle);
-  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
-  doc.text('EXPENSE REVIEW SUMMARY',10,y); y+=2;
-  const expenseBody=reportExpensesAll.length
-    ?reportExpensesAll.map(e=>[
+  // EXPENSES — EACH EXPENSE CATEGORY STARTS ON ITS OWN PAGE
+  const expenseGroups=groupRows(reportExpensesAll,e=>e.category||'Uncategorized');
+  expenseGroups.forEach(([category,items])=>{
+    let py=pdfNewCategoryPage(doc,title,subtitle,`EXPENSE CATEGORY: ${category}`);
+    const total=items.reduce((a,e)=>a+num(e.amount),0);
+    const approved=items.filter(e=>e.status==='approved').reduce((a,e)=>a+num(e.amount),0);
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Requests',value:String(items.length)},
+      {label:'Category Total',value:pdfMoney(total)},
+      {label:'Approved / Deducted',value:pdfMoney(approved)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Date','Description','Staff','Status','Reference','Amount']],
+      body:items.map(e=>[
         pdfSafe(formatDate(e.date)),
-        pdfSafe(e.category||''),
         pdfSafe(e.description||''),
         pdfSafe(e.userEmail||''),
         e.status==='approved'?'APPROVED / DEDUCTED':e.status==='rejected'?'REJECTED':'PENDING / NOT APPROVED',
+        pdfSafe(e.referenceNo||'-'),
         pdfMoney(e.amount)
-      ])
-    :[['-','-','No expense requests for this period.','-','-','PHP 0.00']];
-  doc.autoTable({
-    startY:y,
-    margin:{left:10,right:10,bottom:13},
-    theme:'grid',
-    head:[['Date','Category','Description','Staff','Status','Amount']],
-    body:expenseBody,
-    foot:[['','','','', 'TOTAL EXPENSE REQUESTS',pdfMoney(expenseRequestedTotal)]],
-    styles:{font:'helvetica',fontSize:5.9,cellPadding:1.7,overflow:'linebreak',valign:'top'},
-    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
-    footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
-    columnStyles:{
-      0:{cellWidth:22},1:{cellWidth:28},2:{cellWidth:82},3:{cellWidth:50},
-      4:{cellWidth:40},5:{cellWidth:28,halign:'right'}
-    },
-    pageBreak:'auto',
-    rowPageBreak:'avoid'
+      ]),
+      foot:[['','','','','CATEGORY TOTAL',pdfMoney(total)]],
+      styles:{font:'helvetica',fontSize:5.9,cellPadding:1.7,overflow:'linebreak',valign:'top'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{
+        0:{cellWidth:24},1:{cellWidth:92},2:{cellWidth:52},
+        3:{cellWidth:42},4:{cellWidth:38},5:{cellWidth:30,halign:'right'}
+      },
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
   });
-  y=doc.lastAutoTable.finalY+6;
 
-  y=pdfEnsureSpace(doc,y,35,title,subtitle);
-  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
-  doc.text('PRODUCT BREAKDOWN',10,y); y+=2;
-  doc.autoTable({
-    startY:y,
-    margin:{left:10,right:10,bottom:13},
-    theme:'grid',
-    head:[['Product','Qty Sold','Sales']],
-    body:productsOut.length
-      ?productsOut.map(p=>[pdfSafe(p.name),String(p.qty),pdfMoney(p.amount)])
-      :[['No products','0','PHP 0.00']],
-    styles:{font:'helvetica',fontSize:6.2,cellPadding:1.8,overflow:'linebreak'},
-    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
-    columnStyles:{1:{halign:'right',cellWidth:28},2:{halign:'right',cellWidth:40}},
-    pageBreak:'auto',
-    rowPageBreak:'avoid'
+  // PRODUCT BREAKDOWN — EACH PRODUCT CATEGORY STARTS ON ITS OWN PAGE
+  const productGroups=productBreakdownByCategory(rows);
+  productGroups.forEach(([category,items])=>{
+    let py=pdfNewCategoryPage(doc,title,subtitle,`PRODUCT CATEGORY: ${category}`);
+    const qty=items.reduce((a,p)=>a+num(p.qty),0);
+    const amount=items.reduce((a,p)=>a+num(p.amount),0);
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Products',value:String(items.length)},
+      {label:'Qty Sold',value:String(qty)},
+      {label:'Category Sales',value:pdfMoney(amount)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Product','Qty Sold','Sales']],
+      body:items.map(p=>[pdfSafe(p.name),String(p.qty),pdfMoney(p.amount)]),
+      foot:[['CATEGORY TOTAL',String(qty),pdfMoney(amount)]],
+      styles:{font:'helvetica',fontSize:6.4,cellPadding:1.9,overflow:'linebreak'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{1:{halign:'right',cellWidth:32},2:{halign:'right',cellWidth:42}},
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
   });
-  y=doc.lastAutoTable.finalY+6;
 
-  y=pdfEnsureSpace(doc,y,45,title,subtitle);
-  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
-  doc.text('SALES TRANSACTIONS',10,y); y+=2;
-  doc.autoTable({
-    startY:y,
-    margin:{left:10,right:10,bottom:13},
-    theme:'grid',
-    head:[['Date','Time','Type','Status','Account / Processor / Borrower','Items','Qty','Amount']],
-    body:rows.map(r=>{
-      const party=r.sourceType==='credit'
-        ?`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}\nBorrower: ${r.borrowerName||''}`
-        :`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}`;
-      const items=(r.items||[]).map(i=>`${i.productName} x ${num(i.qty)}`).join('\n');
-      return [
-        pdfSafe(formatDate(r.date)),
-        pdfSafe(r.time||''),
-        pdfSafe(r.transactionType),
-        pdfSafe(r.paymentStatus),
-        pdfSafe(party),
-        pdfSafe(items),
-        String(num(r.totalQty)),
-        pdfMoney(r.totalAmount)
-      ];
-    }),
-    styles:{font:'helvetica',fontSize:5.2,cellPadding:1.5,overflow:'linebreak',valign:'top'},
-    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
-    columnStyles:{
-      0:{cellWidth:20},1:{cellWidth:17},2:{cellWidth:18},3:{cellWidth:31},
-      4:{cellWidth:55},5:{cellWidth:80},6:{cellWidth:12,halign:'right'},7:{cellWidth:25,halign:'right'}
-    },
-    pageBreak:'auto',
-    rowPageBreak:'avoid',
-    didDrawPage:()=>{
-      // AutoTable pages receive a compact header if a new page was created.
-      if(doc.internal.getCurrentPageInfo().pageNumber>1){
-        pdfPageHeader(doc,title,subtitle);
-      }
-    }
+  // SALES TRANSACTIONS — EACH TRANSACTION TYPE STARTS ON ITS OWN PAGE
+  const txGroups=groupRows(rows,r=>r.transactionType||'Other');
+  txGroups.forEach(([type,items])=>{
+    let py=pdfNewCategoryPage(doc,title,subtitle,`SALES TRANSACTIONS: ${type}`);
+    const qty=items.reduce((a,r)=>a+num(r.totalQty),0);
+    const amount=items.reduce((a,r)=>a+num(r.totalAmount),0);
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Transactions',value:String(items.length)},
+      {label:'Qty',value:String(qty)},
+      {label:'Amount',value:pdfMoney(amount)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Transaction #','Date','Time','Status','Account / Processor / Borrower','Items','Qty','Amount']],
+      body:items.map(r=>{
+        const party=r.sourceType==='credit'
+          ?`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}\nBorrower: ${r.borrowerName||''}`
+          :`${r.userEmail||''}\nProcessor: ${r.processorName||'-'}`;
+        const productText=(r.items||[]).map(i=>`${i.productName} x ${num(i.qty)}`).join('\n');
+        return [
+          pdfSafe(r.transactionNo||txnNo(r)),
+          pdfSafe(formatDate(r.date)),
+          pdfSafe(r.time||''),
+          pdfSafe(r.paymentStatus),
+          pdfSafe(party),
+          pdfSafe(productText),
+          String(num(r.totalQty)),
+          pdfMoney(r.totalAmount)
+        ];
+      }),
+      foot:[['','','','','','TYPE TOTAL',String(qty),pdfMoney(amount)]],
+      styles:{font:'helvetica',fontSize:5.25,cellPadding:1.5,overflow:'linebreak',valign:'top'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{
+        0:{cellWidth:34},1:{cellWidth:19},2:{cellWidth:16},3:{cellWidth:30},
+        4:{cellWidth:50},5:{cellWidth:95},6:{cellWidth:12,halign:'right'},
+        7:{cellWidth:24,halign:'right'}
+      },
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
   });
 
   pdfPageFooter(doc);
@@ -4912,6 +7875,8 @@ function generateInventoryPdf(){
   if(!isAdmin())return;
 
   const rows=inventoryRowsFiltered();
+  if(!rows.length){alert('No inventory items to download.');return}
+
   const doc=getPdfEngine();
   if(!doc)return;
 
@@ -4921,9 +7886,10 @@ function generateInventoryPdf(){
 
   const title='Inventory Report';
   const subtitle=`Generated by ${user?.email||''} | ${new Date().toLocaleString('en-PH')}`;
+
+  // Cover summary
   pdfPageHeader(doc,title,subtitle);
   let y=23;
-
   y=pdfDrawMetricRow(doc,[
     {label:'Products',value:String(rows.length)},
     {label:'Total Units',value:String(totalUnits)},
@@ -4931,46 +7897,79 @@ function generateInventoryPdf(){
     {label:'Total Stock Value',value:pdfMoney(stockValue)}
   ],y);
 
-  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(40,49,63);
-  doc.text('CURRENT INVENTORY',10,y); y+=2;
+  const categoryGroups=groupRows(rows,p=>p.category||'Uncategorized');
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(9);
+  doc.setTextColor(40,49,63);
+  doc.text('CATEGORY SUMMARY',10,y);
+  y+=3;
 
   doc.autoTable({
     startY:y,
     margin:{left:10,right:10,bottom:13},
     theme:'grid',
-    head:[['Category','Item','Price','Balance','Stock Value','Status','Last Updated','Changed By']],
-    body:rows.map(p=>{
-      const inv=inventory[String(p.id)]||{};
-      const balance=bal(p.id);
-      const updatedAt=inv.updatedAtClient?new Date(inv.updatedAtClient).toLocaleString('en-PH'):'-';
-      const changedBy=inv.updatedByName||inv.updatedByEmail||'-';
-      return [
-        pdfSafe(p.category),
-        pdfSafe(p.name),
-        pdfMoney(p.price),
-        String(balance),
-        pdfMoney(balance*num(p.price)),
-        pdfSafe(inventoryStatus(balance)),
-        pdfSafe(updatedAt),
-        pdfSafe(changedBy)
-      ];
-    }),
-    foot:[['','INVENTORY TOTAL','',String(totalUnits),pdfMoney(stockValue),'','','']],
-    styles:{font:'helvetica',fontSize:5.6,cellPadding:1.6,overflow:'linebreak',valign:'top'},
+    head:[['Category','Products','Units','Stock Value','Low Stock']],
+    body:categoryGroups.map(([category,items])=>[
+      pdfSafe(category),
+      String(items.length),
+      String(items.reduce((a,p)=>a+bal(p.id),0)),
+      pdfMoney(items.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0)),
+      String(items.filter(p=>bal(p.id)<10).length)
+    ]),
+    styles:{font:'helvetica',fontSize:6.4,cellPadding:2},
     headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
-    footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
-    columnStyles:{
-      0:{cellWidth:31},1:{cellWidth:58},2:{cellWidth:25,halign:'right'},
-      3:{cellWidth:20,halign:'right'},4:{cellWidth:30,halign:'right'},
-      5:{cellWidth:27},6:{cellWidth:45},7:{cellWidth:40}
-    },
-    pageBreak:'auto',
-    rowPageBreak:'avoid',
-    didDrawPage:()=>{
-      if(doc.internal.getCurrentPageInfo().pageNumber>1){
-        pdfPageHeader(doc,title,subtitle);
-      }
-    }
+    columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'},4:{halign:'right'}},
+    pageBreak:'avoid',
+    rowPageBreak:'avoid'
+  });
+
+  // Each inventory category gets its own paper/page.
+  categoryGroups.forEach(([category,items])=>{
+    let py=pdfNewCategoryPage(doc,title,subtitle,`INVENTORY CATEGORY: ${category}`);
+    const units=items.reduce((a,p)=>a+bal(p.id),0);
+    const value=items.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
+    const lowCount=items.filter(p=>bal(p.id)<10).length;
+
+    py=pdfDrawMetricRow(doc,[
+      {label:'Products',value:String(items.length)},
+      {label:'Units',value:String(units)},
+      {label:'Low Stock',value:String(lowCount)},
+      {label:'Stock Value',value:pdfMoney(value)}
+    ],py);
+
+    doc.autoTable({
+      startY:py,
+      margin:{left:10,right:10,bottom:13},
+      theme:'grid',
+      head:[['Item','Price','Balance','Stock Value','Status','Last Updated','Changed By']],
+      body:items.map(p=>{
+        const inv=inventory[String(p.id)]||{};
+        const balance=bal(p.id);
+        const updatedAt=inv.updatedAtClient?new Date(inv.updatedAtClient).toLocaleString('en-PH'):'-';
+        const changedBy=inv.updatedByName||inv.updatedByEmail||'-';
+        return [
+          pdfSafe(p.name),
+          pdfMoney(p.price),
+          String(balance),
+          pdfMoney(balance*num(p.price)),
+          pdfSafe(inventoryStatus(balance)),
+          pdfSafe(updatedAt),
+          pdfSafe(changedBy)
+        ];
+      }),
+      foot:[['CATEGORY TOTAL','',String(units),pdfMoney(value),'','','']],
+      styles:{font:'helvetica',fontSize:5.7,cellPadding:1.7,overflow:'linebreak',valign:'top'},
+      headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'},
+      footStyles:{fillColor:[248,250,253],textColor:[24,33,47],fontStyle:'bold'},
+      columnStyles:{
+        0:{cellWidth:70},1:{cellWidth:27,halign:'right'},2:{cellWidth:20,halign:'right'},
+        3:{cellWidth:32,halign:'right'},4:{cellWidth:30},
+        5:{cellWidth:55},6:{cellWidth:55}
+      },
+      pageBreak:'auto',
+      rowPageBreak:'avoid'
+    });
   });
 
   pdfPageFooter(doc);
@@ -4988,6 +7987,108 @@ function saveInventoryPdf(){
   generateInventoryPdf();
 }
 window.addEventListener('afterprint',clearPrintSheets);
+
+/* Inventory Audit */
+function fillAuditProducts(){
+  const el=$('auditProduct');
+  if(!el)return;
+  const current=el.value;
+  el.innerHTML='<option value="">All Products</option>'+
+    products.slice().sort((a,b)=>String(a.name).localeCompare(String(b.name)))
+      .map(p=>`<option value="${attr(String(p.id))}">${esc(p.name)}</option>`).join('');
+  if(products.some(p=>String(p.id)===String(current)))el.value=current;
+}
+function inventoryMovements(){
+  const rows=[];
+
+  sales.forEach(s=>(s.items||[]).forEach(i=>{
+    rows.push({
+      productId:String(i.productId),
+      productName:i.productName,
+      date:s.date,time:s.time||'',
+      createdAtClient:s.createdAtClient||`${s.date}T${s.time||'00:00'}`,
+      type:'sale_out',
+      label:s.status==='voided'?'SALE OUT (later voided)':s.status==='refunded'?'SALE OUT (later refunded)':'SALE OUT',
+      qty:-num(i.qty),
+      reference:txnNo(s),
+      by:s.processorName||s.userEmail||'',
+      reason:'',
+      before:i.balanceBefore,
+      after:i.balanceAfter
+    });
+  }));
+
+  credits.forEach(c=>(c.items||[]).forEach(i=>{
+    rows.push({
+      productId:String(i.productId),
+      productName:i.productName,
+      date:c.date,time:c.time||'',
+      createdAtClient:c.createdAtClient||`${c.date}T${c.time||'00:00'}`,
+      type:'credit_out',
+      label:'CREDIT OUT',
+      qty:-num(i.qty),
+      reference:txnNo(c),
+      by:c.processorName||c.userEmail||'',
+      reason:c.borrowerName?`Borrower: ${c.borrowerName}`:'',
+      before:i.balanceBefore,
+      after:i.balanceAfter
+    });
+  }));
+
+  stockAdjustments.forEach(a=>{
+    const positive=['add','void_return','refund_return','delete_return'].includes(a.type);
+    rows.push({
+      productId:String(a.productId),
+      productName:a.productName,
+      date:a.date,time:a.time||'',
+      createdAtClient:a.createdAtClient||`${a.date}T${a.time||'00:00'}`,
+      type:a.type,
+      label:a.type==='add'?'MANUAL ADD':
+        a.type==='minus'?'MANUAL MINUS':
+        a.type==='void_return'?'VOID RETURN':
+        a.type==='refund_return'?'REFUND RETURN':
+        a.type==='delete_return'?'DELETE RETURN':
+        String(a.type||'ADJUSTMENT').toUpperCase(),
+      qty:positive?num(a.qty):-num(a.qty),
+      reference:a.referenceTransactionNo||'',
+      by:a.userEmail||'',
+      reason:a.reason||'',
+      before:a.balanceBefore,
+      after:a.balanceAfter
+    });
+  });
+
+  return rows.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
+}
+function renderInventoryAudit(){
+  if(!isAdmin())return;
+  fillAuditProducts();
+
+  const productId=$('auditProduct').value;
+  const q=$('auditSearch').value.trim().toLowerCase();
+  let rows=inventoryMovements();
+
+  if(productId)rows=rows.filter(r=>String(r.productId)===String(productId));
+  if(q)rows=rows.filter(r=>[
+    r.productName,r.label,r.reference,r.by,r.reason,r.date
+  ].join(' ').toLowerCase().includes(q));
+
+  rows=rows.slice(0,800);
+  $('auditCount').textContent=`${rows.length} movements`;
+
+  $('auditList').innerHTML=rows.length?rows.map(r=>`
+    <div class="hist">
+      <div>
+        <b>${esc(r.productName||'')} • <span class="${r.qty>=0?'audit-in':'audit-out'}">${r.qty>=0?'+':''}${r.qty}</span></b><br>
+        ${esc(formatDate(r.date))} • ${esc(r.time||'')} • ${esc(r.label)}<br>
+        ${r.reference?`Ref: <span class="txn-number">${esc(r.reference)}</span><br>`:''}
+        ${r.before!==undefined&&r.after!==undefined?`Balance ${num(r.before)} → ${num(r.after)}<br>`:''}
+        ${r.by?`By: ${esc(r.by)}<br>`:''}
+        ${r.reason?`Reason: ${esc(r.reason)}`:''}
+      </div>
+    </div>
+  `).join(''):'<div class="empty">No inventory movements found.</div>';
+}
 
 /* Processors */
 function renderProcessors(){
@@ -5051,7 +8152,7 @@ async function delProduct(id){
   await setDoc(prodRef(),{items:products.filter(p=>String(p.id)!==String(id)),updatedAt:serverTimestamp(),updatedBy:user.uid},{merge:true})
 }
 
-function renderAll(){renderDash();renderStock();renderPOS();renderCredits();renderExpenses();renderReports();renderTx();renderInventory();renderProcessors();renderProducts()}
+function renderAll(){renderDash();renderStock();renderPOS();renderCredits();renderExpenses();renderReports();renderTx();renderVoidRequests();renderDeleteRequests();renderReturns();renderClosings();renderDataReset();renderTransactionLookup();renderInventory();renderProcessors();renderProducts()}
 function nav(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
@@ -5059,21 +8160,52 @@ function nav(id){
   if(id==='reportsPage')renderReports();
   if(id==='creditsPage')renderCredits();
   if(id==='expensesPage')renderExpenses();
+  if(id==='voidRequestsPage')renderVoidRequests();
+  if(id==='deleteRequestsPage')renderDeleteRequests();
+  if(id==='returnsPage')renderReturns();
+  if(id==='closingPage')renderClosings();
+  if(id==='lookupPage')renderTransactionLookup();
+  if(id==='dataResetPage')renderDataReset();
   if(id==='inventoryPage')renderInventory();
   if(id==='processorsPage')renderProcessors();
 }
 
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>nav(b.dataset.page));
-['dashSearch','stockSearch','posSearch','txSearch','creditSearch','expenseSearch','inventorySearch'].forEach(id=>$(id).oninput=renderAll);
-['dashCat','stockCat','posCat','txType','creditStatusFilter','expenseStatusFilter','inventoryCat'].forEach(id=>$(id).onchange=renderAll);
+['dashSearch','stockSearch','posSearch','txSearch','creditSearch','expenseSearch','inventorySearch','voidRequestSearch','deleteRequestSearch','returnRequestSearch','closingSearch','auditSearch'].forEach(id=>$(id).oninput=renderAll);
+['dashCat','stockCat','posCat','txType','creditStatusFilter','expenseStatusFilter','inventoryCat','closingStatusFilter','auditProduct'].forEach(id=>$(id).onchange=renderAll);
 $('saleDate').value=today();$('saleTime').value=nowTime();
 $('expenseDate').value=today();
+$('closingDate').value=today();
+$('resetDate').value=today();
 $('saleDate').onchange=renderPOS;
 $('transactionType').onchange=updateTransactionUI;
 $('clearCart').onclick=()=>{if(Object.keys(cart).length&&!confirm('Clear current cart?'))return;cart={};resetTransactionFields();renderPOS()};
 $('saveSale').onclick=saveSale;
 $('openTodayReport').onclick=()=>{$('reportMode').value='today';selectedSaleIds.clear();nav('reportsPage');renderReports()};
+$('downloadCreditPdf').onclick=generateCreditPdf;
 $('creditRefresh').onclick=renderCredits;
+$('downloadExpensePdf').onclick=generateExpensePdf;
+$('downloadLastReceipt').onclick=downloadLastReceipt;
+$('findDeleteTransaction').onclick=renderStaffDeleteSearch;
+$('staffDeleteTxnSearch').onkeydown=e=>{if(e.key==='Enter')renderStaffDeleteSearch()};
+$('findReturnTransaction').onclick=renderStaffReturnSearch;
+$('staffReturnTxnSearch').onkeydown=e=>{if(e.key==='Enter')renderStaffReturnSearch()};
+$('closingDate').onchange=renderClosings;
+$('closingActualCash').oninput=renderClosingDraft;
+$('submitClosing').onclick=submitClosing;
+$('previewReset').onclick=renderResetPreview;
+$('resetDate').onchange=renderResetPreview;
+$('runDataReset').onclick=runDataReset;
+$('lookupButton').onclick=renderTransactionLookup;
+$('lookupSearch').onkeydown=e=>{if(e.key==='Enter')renderTransactionLookup()};
+$('actionCredit').onclick=()=>nav('creditsPage');
+$('actionExpense').onclick=()=>nav('expensesPage');
+$('actionVoid').onclick=()=>nav('voidRequestsPage');
+$('actionDelete').onclick=()=>nav('deleteRequestsPage');
+$('actionReturn').onclick=()=>nav('returnsPage');
+$('actionOverdue').onclick=()=>nav('creditsPage');
+$('actionClosing').onclick=()=>nav('closingPage');
+
 $('expenseRefresh').onclick=renderExpenses;
 $('submitExpense').onclick=submitExpense;
 $('openCreditApprovals').onclick=()=>nav('creditsPage');
@@ -5085,15 +8217,12 @@ $('reportDay').value=today();$('reportMonth').value=monthKey(today());$('reportY
 $('reportStart').value=today();$('reportEnd').value=today();
 ['reportDay','reportMonth','reportYear','reportStart','reportEnd','reportStaff'].forEach(id=>$(id).onchange=renderReports);
 $('reportRefresh').onclick=renderReports;
-$('printCurrentReport').onclick=printCurrentReport;
 $('saveCurrentReportPdf').onclick=saveCurrentReportPdf;
-$('printSelectedSales').onclick=printSelectedReport;
 $('saveSelectedSalesPdf').onclick=saveSelectedReportPdf;
 $('selectAllSales').onclick=()=>{reportCombinedRows().forEach(r=>selectedSaleIds.add(r.id));renderReports()};
 $('clearSelectedSales').onclick=()=>{selectedSaleIds.clear();renderReports()};
 
 document.querySelectorAll('.report-tab').forEach(b=>b.onclick=()=>setReportPanel(b.dataset.reportPanel));
-$('printInventory').onclick=printInventoryReport;
 $('saveInventoryPdf').onclick=saveInventoryPdf;
 $('addProcessorName').onclick=addProcessorName;
 $('newProcessorName').onkeydown=e=>{if(e.key==='Enter')addProcessorName()};
@@ -5111,6 +8240,11 @@ $('authSubmit').onclick=async()=>{
 $('forgot').onclick=async()=>{const e=$('authEmail').value.trim();if(!e)return;await sendPasswordResetEmail(auth,e);$('authMsg').textContent='Reset email sent.'};
 $('logout').onclick=()=>signOut(auth);
 $('mobileLogout').onclick=()=>signOut(auth);
+$('findVoidTransaction').onclick=renderStaffVoidSearchResult;
+$('staffVoidTxnSearch').onkeydown=e=>{if(e.key==='Enter')renderStaffVoidSearchResult()};
+$('closeVoidDialog').onclick=closeVoidRequestDialog;
+$('submitVoidRequest').onclick=submitVoidRequest;
+$('voidDialog').onclick=e=>{if(e.target===$('voidDialog'))closeVoidRequestDialog()};
 $('enterSystem').onclick=()=>$('introScreen').classList.add('hidden');
 
 onAuthStateChanged(auth,async u=>{

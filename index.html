@@ -3978,6 +3978,667 @@ body.staff-role #dashPage > .metrics.staff-dashboard-hide{
   .petty-cash-admin-form,.petty-cash-metrics,.staff-petty-cash-values{grid-template-columns:1fr!important}
 }
 
+
+/* v48 Petty Cash assigned per Processor / Cashier */
+.petty-cash-admin-form{
+  grid-template-columns:170px 220px 170px minmax(190px,1fr) auto!important
+}
+.petty-owner-line{
+  margin:-1px 0 6px;
+  color:#1d4ed8;
+  font-size:7.5px;
+  font-weight:850
+}
+.petty-assignment-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:12px 0 7px
+}
+.petty-assignment-head b{
+  color:#263244;
+  font-size:9px
+}
+.petty-assignment-list{
+  display:grid;
+  gap:7px
+}
+.petty-assignment-row{
+  display:grid;
+  grid-template-columns:minmax(150px,1fr) repeat(3,minmax(90px,.6fr)) auto;
+  gap:7px;
+  align-items:center;
+  padding:9px 10px;
+  border:1px solid #e2e8f0;
+  border-radius:11px;
+  background:#fff
+}
+.petty-assignment-name b{
+  display:block;
+  color:#172033;
+  font-size:9px
+}
+.petty-assignment-name small{
+  display:block;
+  margin-top:2px;
+  color:#7b8798;
+  font-size:6.8px
+}
+.petty-assignment-kpi small{
+  display:block;
+  color:#7a8798;
+  font-size:6.5px;
+  font-weight:850;
+  text-transform:uppercase
+}
+.petty-assignment-kpi strong{
+  display:block;
+  margin-top:2px;
+  color:#263244;
+  font-size:9px
+}
+@media(max-width:1100px){
+  .petty-cash-admin-form{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important
+  }
+  .petty-assignment-row{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+}
+@media(max-width:720px){
+  .petty-cash-admin-form,
+  .petty-assignment-row{
+    grid-template-columns:1fr!important
+  }
+}
+
+
+/* ============================================================
+   v49 FINAL MOBILE FIT / RESPONSIVE POLISH
+   Phone-first cleanup for Admin + Staff without changing logic.
+   ============================================================ */
+
+/* Prevent any child from forcing horizontal page overflow */
+.app,.main,.scroll,.page,.card,.head,.top,.top-title,.top-actions,
+.staff-home-panel,.staff-duty-opening,.staff-duty-active,
+.pos-layout,.pos-products,.pos-cart,.expense-form,
+.processor-row,.processor-secure-row,.petty-cash-admin-card,
+.petty-cash-staff-card,.petty-assignment-row{
+  min-width:0;
+}
+img,svg,canvas{max-width:100%}
+input,select,textarea,button{max-width:100%}
+.long-text,.muted,.receipt-note,.approval-row-meta,.credit-meta,.credit-items,
+.today-saved,.delete-warning,.report-expense-note{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+@media(max-width:720px){
+  :root{
+    --top-h:56px!important;
+    --mobile-nav-h:68px!important;
+  }
+
+  html,body{
+    width:100%;
+    max-width:100%;
+    height:100%;
+    overflow:hidden!important;
+  }
+  body{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  .app{
+    width:100%;
+    max-width:100vw;
+    height:100dvh!important;
+    overflow:hidden;
+  }
+  .main{
+    width:100%;
+    max-width:100vw;
+    height:calc(100dvh - var(--mobile-nav-h) - env(safe-area-inset-bottom))!important;
+    overflow:hidden!important;
+  }
+
+  /* Compact mobile header */
+  .top{
+    width:100%;
+    min-width:0;
+    height:var(--top-h)!important;
+    min-height:var(--top-h)!important;
+    padding:7px 8px!important;
+    gap:5px!important;
+  }
+  .top-title{
+    min-width:0!important;
+    overflow:hidden;
+  }
+  .top h1{
+    max-width:none!important;
+    font-size:13.5px!important;
+    line-height:1.1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .top-title>.muted,
+  .top-role,.live-sync-badge,.cloud,.live-clock{
+    display:none!important;
+  }
+  .top-actions{
+    flex:0 0 auto;
+    min-width:0;
+    gap:4px!important;
+  }
+  .notification-bell{
+    width:36px!important;
+    min-width:36px!important;
+    height:36px!important;
+    padding:0!important;
+  }
+  .mobile-only{
+    min-height:36px!important;
+    height:36px!important;
+    padding:0 8px!important;
+    font-size:8.5px!important;
+    white-space:nowrap;
+  }
+
+  /* Main page scrolling */
+  .scroll{
+    width:100%;
+    max-width:100vw;
+    height:calc(100dvh - var(--top-h) - var(--mobile-nav-h) - env(safe-area-inset-bottom))!important;
+    padding:8px 7px 18px!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;
+  }
+  .page,
+  .page.active{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+
+  /* Bottom navigation remains visible and swipeable */
+  .side{
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    top:auto!important;
+    width:100%!important;
+    max-width:100vw!important;
+    height:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))!important;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom))!important;
+    overflow:hidden!important;
+  }
+  .side .brand,.side .tag,.side .user{display:none!important}
+  .nav{
+    width:100%;
+    height:100%;
+    display:flex!important;
+    align-items:stretch;
+    gap:4px!important;
+    padding:0 1px 1px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .nav::-webkit-scrollbar{display:none}
+  .nav button{
+    flex:0 0 76px!important;
+    width:76px!important;
+    min-width:76px!important;
+    min-height:54px!important;
+    max-height:56px!important;
+    padding:5px 5px!important;
+    border-radius:11px!important;
+    font-size:7.5px!important;
+    line-height:1.18!important;
+    white-space:normal!important;
+    text-align:center!important;
+    justify-content:center!important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    scroll-snap-align:start;
+  }
+
+  /* General mobile cards */
+  .card,.hub-box,.pos-products,.pos-cart,.staff-home-panel{
+    width:100%;
+    max-width:100%;
+    margin-bottom:8px!important;
+    padding:10px!important;
+    border-radius:13px!important;
+  }
+  .sticky{
+    top:-10px!important;
+    margin:-7px 0 8px!important;
+    padding:8px 0 7px!important;
+  }
+  .head{
+    width:100%;
+    min-width:0;
+    flex-wrap:wrap!important;
+    align-items:flex-start!important;
+    gap:6px!important;
+  }
+  .head>div:first-child{
+    min-width:0;
+    max-width:100%;
+  }
+  .head h2{
+    font-size:14px!important;
+    line-height:1.25!important;
+  }
+  h3{font-size:12px!important}
+  .muted{font-size:8px!important;line-height:1.45}
+
+  /* Every main form stacks cleanly */
+  .toolbar,.pos-toolbar,.sale-date,.report-controls,
+  .settings-grid,.shift-form,.hub-form,.expense-form,
+  .staff-duty-form,.staff-duty-pin-form,
+  .processor-pin-form,.processor-admin-form,
+  .petty-cash-admin-form,.closing-controls,
+  .reset-controls,.reset-confirm,.lookup-search,
+  .void-search-box,.purchase-unified-form,
+  .purchase-new-supplier-grid,.purchase-new-item-grid{
+    grid-template-columns:1fr!important;
+    width:100%!important;
+    gap:7px!important;
+  }
+  .expense-form .wide,
+  .credit-fields .wide{
+    grid-column:auto!important;
+  }
+  .toolbar>*,
+  .expense-form>*,
+  .staff-duty-form>*,
+  .petty-cash-admin-form>*{
+    min-width:0!important;
+    width:100%;
+  }
+
+  /* Touch-size inputs without iOS zoom */
+  input,select,textarea{
+    width:100%!important;
+    min-width:0!important;
+    min-height:44px!important;
+    padding:9px 10px!important;
+    font-size:16px!important;
+    line-height:1.2;
+  }
+  textarea{min-height:82px!important}
+  label{max-width:100%;overflow-wrap:anywhere}
+  .btn{
+    min-height:42px!important;
+    max-width:100%;
+    padding:8px 10px!important;
+    font-size:10px!important;
+    line-height:1.25!important;
+    white-space:normal;
+  }
+  .btn.small{
+    min-height:36px!important;
+    padding:7px 9px!important;
+    font-size:9px!important;
+  }
+
+  /* Dashboard / summary figures */
+  .metrics,.credit-metrics,.expense-metrics,
+  .report-money-grid,.report-net-grid,
+  .staff-home-summary-grid,.staff-history-summary,
+  .petty-cash-metrics,.expense-fund-grid,
+  .closing-summary-grid,.closing-source-grid,
+  .staff-duty-active-grid,.lookup-meta{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;
+  }
+  .metric,.money-card,.net-card,.dash-mini,
+  .staff-duty-info-item{
+    min-width:0!important;
+    min-height:76px!important;
+    padding:9px!important;
+  }
+  .metric strong,.money-card strong,.net-card strong{
+    font-size:15px!important;
+    overflow-wrap:anywhere;
+  }
+  .dash-mini span,.dash-mini b,
+  .staff-duty-info-item strong{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+
+  /* Staff Home / Cashier PIN */
+  .staff-home-top,
+  .staff-duty-state-head{
+    align-items:flex-start!important;
+    flex-wrap:wrap!important;
+  }
+  .staff-duty-state-head>div:first-child{
+    min-width:0;
+    width:calc(100% - 72px);
+  }
+  .staff-duty-opening,.staff-duty-active{
+    padding:10px!important;
+  }
+  .staff-duty-form .btn{
+    min-width:0!important;
+    width:100%!important;
+  }
+  .pin-input-row{
+    grid-template-columns:minmax(0,1fr) 68px!important;
+    gap:5px!important;
+  }
+  .staff-petty-cash-readonly{
+    width:100%;
+    padding:9px!important;
+  }
+  .staff-petty-cash-values{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .staff-duty-end-actions,
+  .staff-home-secondary-actions{
+    grid-template-columns:1fr!important;
+  }
+
+  /* Petty Cash Admin / Staff */
+  .petty-cash-admin-form{
+    grid-template-columns:1fr!important;
+  }
+  .petty-cash-admin-note{
+    min-height:0!important;
+    padding:9px!important;
+  }
+  .petty-assignment-head{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:2px!important;
+  }
+  .petty-assignment-row{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    padding:9px!important;
+  }
+  .petty-assignment-name{
+    grid-column:1/-1;
+  }
+  .petty-assignment-row>.btn{
+    grid-column:1/-1;
+    width:100%;
+  }
+
+  /* Processor / Cashier Admin */
+  .processor-row.processor-secure-row{
+    grid-template-columns:1fr!important;
+    padding:9px!important;
+  }
+  .processor-secure-main{
+    min-width:0!important;
+  }
+  .processor-credential-actions{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    width:100%;
+    gap:6px!important;
+  }
+  .processor-credential-actions .btn{
+    width:100%!important;
+  }
+  .processor-credential-actions .btn:last-child:nth-child(odd){
+    grid-column:1/-1;
+  }
+
+  /* POS — 2 products per row, cart under products */
+  .pos-layout{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .pos-products,.pos-cart{
+    width:100%;
+    min-width:0;
+  }
+  .pos-cart{
+    position:relative!important;
+    top:auto!important;
+  }
+  .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+  .product-card{
+    min-width:0!important;
+    min-height:120px!important;
+    padding:8px!important;
+  }
+  .product-name{
+    min-height:0!important;
+    font-size:10.5px!important;
+    overflow-wrap:anywhere;
+  }
+  .product-price{font-size:14px!important}
+  .product-stock{font-size:8px!important}
+  .cart-list{
+    max-height:none!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }
+  .qty-row{
+    grid-template-columns:34px 54px 34px minmax(0,1fr) 34px!important;
+    gap:4px!important;
+  }
+  .qty-row button{
+    width:34px!important;
+    min-width:34px!important;
+    height:34px!important;
+    min-height:34px!important;
+    padding:0!important;
+  }
+  .qty-row input{
+    min-height:34px!important;
+    height:34px!important;
+    padding:3px!important;
+    font-size:15px!important;
+  }
+  .qty-row strong{
+    min-width:0;
+    font-size:9px!important;
+    overflow-wrap:anywhere;
+  }
+
+  /* Approval / expense / credit cards */
+  .approval-row{
+    grid-template-columns:1fr!important;
+    align-items:stretch!important;
+  }
+  .approval-buttons,.expense-actions,.credit-actions,
+  .stock-action-buttons,.void-actions{
+    width:100%;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px!important;
+  }
+  .approval-buttons .btn,.expense-actions .btn,
+  .credit-actions .btn,.stock-action-buttons .btn,
+  .void-actions .btn{
+    width:100%!important;
+    min-width:0!important;
+  }
+  .credit-top,.expense-top{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:6px!important;
+  }
+
+  /* Reports */
+  .report-tabs,.inventory-ops-tabs{
+    width:100%;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .report-tabs::-webkit-scrollbar,
+  .inventory-ops-tabs::-webkit-scrollbar{display:none}
+  .report-tab,.inventory-ops-tabs .ops-tab{
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+  }
+  .download-action-group,.print-action-group{
+    width:100%!important;
+  }
+  .download-action-group .btn,
+  .print-action-group .btn{
+    width:100%!important;
+  }
+
+  /* Tables: never force the full page wider than the phone */
+  .frame,.report-scroll,.credit-summary-table{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .frame table:not(.product-management-table),
+  .report-scroll table,
+  .credit-summary-table table{
+    min-width:700px;
+  }
+  .product-management-table td{
+    grid-template-columns:100px minmax(0,1fr)!important;
+    gap:7px!important;
+  }
+
+  /* Modals / notifications */
+  .modal-backdrop{
+    padding:6px!important;
+    align-items:flex-end!important;
+  }
+  .modal-card{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:90dvh!important;
+    padding:12px!important;
+    border-radius:18px 18px 10px 10px!important;
+  }
+  .notification-panel{
+    left:7px!important;
+    right:7px!important;
+    top:calc(var(--top-h) + 4px)!important;
+    width:auto!important;
+    max-width:none!important;
+    max-height:72dvh!important;
+  }
+
+  /* Auth page fits small phone height/width */
+  .auth{
+    padding:12px!important;
+    overflow-y:auto!important;
+  }
+  .authbox{
+    width:min(100%,420px)!important;
+    max-width:100%!important;
+    padding:16px!important;
+    margin:auto;
+  }
+
+  /* Intro stays usable on short phones */
+  .intro-screen{
+    padding:7px 6px calc(7px + env(safe-area-inset-bottom))!important;
+  }
+  .intro-card{
+    width:100%!important;
+    max-height:94dvh!important;
+    padding:16px 13px!important;
+  }
+  .intro-title{font-size:23px!important}
+  .intro-copy{font-size:10px!important}
+  .intro-grid{margin:13px 0!important}
+}
+
+/* Narrow phones: use a single column where 2 columns become cramped */
+@media(max-width:390px){
+  .top h1{font-size:12.5px!important}
+  .mobile-only{padding:0 6px!important;font-size:8px!important}
+  .nav button{
+    flex-basis:72px!important;
+    width:72px!important;
+    min-width:72px!important;
+  }
+
+  .metrics,.credit-metrics,.expense-metrics,
+  .report-money-grid,.report-net-grid,
+  .staff-home-summary-grid,.staff-history-summary,
+  .petty-cash-metrics,.expense-fund-grid,
+  .closing-summary-grid,.closing-source-grid,
+  .staff-duty-active-grid,.lookup-meta{
+    grid-template-columns:1fr!important;
+  }
+
+  .staff-petty-cash-values{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .petty-assignment-row{
+    grid-template-columns:1fr!important;
+  }
+  .petty-assignment-name,
+  .petty-assignment-row>.btn{
+    grid-column:auto;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .product-card{
+    min-height:112px!important;
+    padding:7px!important;
+  }
+  .product-name{font-size:9.5px!important}
+  .product-price{font-size:13px!important}
+
+  .approval-buttons,.expense-actions,.credit-actions,
+  .stock-action-buttons,.void-actions,
+  .processor-credential-actions{
+    grid-template-columns:1fr!important;
+  }
+
+  .qty-row{
+    grid-template-columns:32px 50px 32px minmax(0,1fr) 32px!important;
+  }
+  .qty-row button{
+    width:32px!important;
+    min-width:32px!important;
+  }
+}
+
+/* Extremely narrow devices */
+@media(max-width:340px){
+  .top h1{font-size:11.5px!important}
+  .notification-bell{display:none!important}
+  .nav button{
+    flex-basis:68px!important;
+    width:68px!important;
+    min-width:68px!important;
+    font-size:7px!important;
+  }
+  .product-grid{grid-template-columns:1fr!important}
+  .staff-petty-cash-values{grid-template-columns:1fr!important}
+  .qty-row{
+    grid-template-columns:32px 48px 32px minmax(0,1fr) 32px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4136,6 +4797,7 @@ body.staff-role #dashPage > .metrics.staff-dashboard-hide{
               </div>
               <div class="staff-petty-cash-readonly">
                 <label>Petty Cash • Opening Float Today</label>
+                <div id="homePettyCashProcessor" class="petty-owner-line">No Processor selected</div>
                 <div class="staff-petty-cash-values">
                   <div><small>Opening Float</small><strong id="homePettyCashOpening">₱0.00</strong></div>
                   <div><small>Remaining</small><strong id="homePettyCashRemaining">₱0.00</strong></div>
@@ -4568,7 +5230,7 @@ body.staff-role #dashPage > .metrics.staff-dashboard-hide{
             <div class="head">
               <div>
                 <h2>Petty Cash</h2>
-                <div class="muted">Admin sets the Opening Float for each date. Staff can view it but cannot edit it.</div>
+                <div class="muted">Admin assigns an Opening Float to a specific Processor / Cashier for each date. Staff can only view their assigned balance.</div>
               </div>
               <span class="pill good">ADMIN CONTROLLED</span>
             </div>
@@ -4580,13 +5242,19 @@ body.staff-role #dashPage > .metrics.staff-dashboard-hide{
               <input id="pettyCashAdminDate" type="date">
             </div>
             <div>
+              <label>Give Petty Cash To *</label>
+              <select id="pettyCashAdminProcessor">
+                <option value="">Select Processor / Cashier</option>
+              </select>
+            </div>
+            <div>
               <label>Opening Float Today *</label>
               <input id="pettyCashAdminAmount" type="number" min="0" step=".01" value="0">
             </div>
             <div class="petty-cash-admin-note">
-              <small>Pending + approved Petty Cash expenses are reserved from this daily amount.</small>
+              <small>The float belongs to the selected Processor / Cashier. Their Petty Cash expenses auto-reserve/deduct from this balance.</small>
             </div>
-            <button id="savePettyCash" class="btn blue">Save / Update Petty Cash</button>
+            <button id="savePettyCash" class="btn blue">Assign / Update Petty Cash</button>
           </div>
 
           <div class="petty-cash-metrics">
@@ -4595,14 +5263,20 @@ body.staff-role #dashPage > .metrics.staff-dashboard-hide{
             <div class="dash-mini"><b>Approved / Used</b><span id="pettyCashAdminApproved">₱0.00</span></div>
             <div class="dash-mini"><b>Remaining Petty Cash</b><span id="pettyCashAdminRemaining">₱0.00</span></div>
           </div>
-          <div id="pettyCashAdminStatus" class="today-saved">No Petty Cash set for this date.</div>
+          <div id="pettyCashAdminStatus" class="today-saved">Select a Processor / Cashier to view or assign Petty Cash.</div>
+
+          <div class="petty-assignment-head">
+            <b>Petty Cash Assignments for Selected Date</b>
+            <span class="muted">One balance per Processor / Cashier</span>
+          </div>
+          <div id="pettyCashAssignmentsList" class="petty-assignment-list"></div>
         </div>
 
         <div id="staffPettyCashBox" class="card staffOnly petty-cash-staff-card">
           <div class="head">
             <div>
               <h2>Petty Cash Today</h2>
-              <div class="muted">Read-only. The Opening Float is set by Admin.</div>
+              <div id="staffPettyCashProcessorText" class="muted">Read-only. Select your Processor / Cashier to see the assigned float.</div>
             </div>
             <span id="staffPettyCashStatus" class="pill">NOT SET</span>
           </div>
@@ -5962,7 +6636,13 @@ const shiftsCol=()=>collection(db,'stores',STORE,'shifts');
 const dailyCashFloatsCol=()=>collection(db,'stores',STORE,'dailyCashFloats');
 const dailyCashFloatRef=(uid,date)=>doc(db,'stores',STORE,'dailyCashFloats',`${uid}_${date}`);
 const dailyPettyCashCol=()=>collection(db,'stores',STORE,'dailyPettyCash');
-const dailyPettyCashRef=date=>doc(db,'stores',STORE,'dailyPettyCash',String(date));
+function pettyCashProcessorKey(name){
+  return encodeURIComponent(String(name||'').trim().toLowerCase());
+}
+const dailyPettyCashRef=(date,processorName)=>doc(
+  db,'stores',STORE,'dailyPettyCash',
+  `${String(date)}_${pettyCashProcessorKey(processorName)}`
+);
 const suppliersCol=()=>collection(db,'stores',STORE,'suppliers');
 const purchasesCol=()=>collection(db,'stores',STORE,'purchases');
 const creditPaymentsCol=()=>collection(db,'stores',STORE,'creditPayments');
@@ -6101,40 +6781,90 @@ function rowGrossProfit(row){return num(row.totalAmount)-rowCOGS(row)}
 function creditApprovedPaid(c){if(c.status==='voided')return 0;if(c.status==='approved'&&c.paidAmount===undefined)return num(c.totalAmount);return Math.min(num(c.totalAmount),num(c.paidAmount))}
 function creditPendingPaid(c){return creditPayments.filter(p=>p.creditId===c.id&&p.status==='pending').reduce((a,p)=>a+num(p.amount),0)}
 function creditRemaining(c){return Math.max(0,num(c.totalAmount)-creditApprovedPaid(c))}
-function pettyCashRecordForDate(date=today()){
-  return dailyPettyCash.find(p=>p.date===date)||null;
+function pettyCashRecordForDate(date=today(),processorName=''){
+  const key=String(processorName||'').trim().toLowerCase();
+  if(!key)return null;
+  return dailyPettyCash.find(p=>
+    p.date===date &&
+    String(p.processorName||'').trim().toLowerCase()===key
+  )||null;
 }
-function pettyCashOpeningForDate(date=today()){
-  return Math.max(0,num(pettyCashRecordForDate(date)?.openingFloat));
+function pettyCashOpeningForDate(date=today(),processorName=''){
+  return Math.max(0,num(pettyCashRecordForDate(date,processorName)?.openingFloat));
 }
-function pettyCashPendingForDate(date=today(),excludeId=''){
+function pettyCashPendingForDate(date=today(),processorName='',excludeId=''){
+  const key=String(processorName||'').trim().toLowerCase();
+  if(!key)return 0;
   return expenses
-    .filter(e=>e.id!==excludeId&&e.date===date&&e.status==='pending'&&expenseFundSource(e)==='petty_cash')
+    .filter(e=>
+      e.id!==excludeId &&
+      e.date===date &&
+      e.status==='pending' &&
+      expenseFundSource(e)==='petty_cash' &&
+      String(e.processorName||'').trim().toLowerCase()===key
+    )
     .reduce((a,e)=>a+num(e.amount),0);
 }
-function pettyCashApprovedForDate(date=today(),excludeId=''){
+function pettyCashApprovedForDate(date=today(),processorName='',excludeId=''){
+  const key=String(processorName||'').trim().toLowerCase();
+  if(!key)return 0;
   return expenses
-    .filter(e=>e.id!==excludeId&&e.date===date&&e.status==='approved'&&expenseFundSource(e)==='petty_cash')
+    .filter(e=>
+      e.id!==excludeId &&
+      e.date===date &&
+      e.status==='approved' &&
+      expenseFundSource(e)==='petty_cash' &&
+      String(e.processorName||'').trim().toLowerCase()===key
+    )
     .reduce((a,e)=>a+num(e.amount),0);
 }
-function pettyCashReservedForDate(date=today(),excludeId=''){
-  return pettyCashPendingForDate(date,excludeId)+pettyCashApprovedForDate(date,excludeId);
+function pettyCashReservedForDate(date=today(),processorName='',excludeId=''){
+  return pettyCashPendingForDate(date,processorName,excludeId)+
+         pettyCashApprovedForDate(date,processorName,excludeId);
 }
-function pettyCashRemainingForDate(date=today(),excludeId=''){
-  return Math.max(0,pettyCashOpeningForDate(date)-pettyCashReservedForDate(date,excludeId));
+function pettyCashRemainingForDate(date=today(),processorName='',excludeId=''){
+  return Math.max(
+    0,
+    pettyCashOpeningForDate(date,processorName)-
+    pettyCashReservedForDate(date,processorName,excludeId)
+  );
+}
+function pettyCashAssignmentsForDate(date=today()){
+  return dailyPettyCash
+    .filter(p=>p.date===date&&String(p.processorName||'').trim())
+    .sort((a,b)=>String(a.processorName||'').localeCompare(String(b.processorName||'')));
+}
+function selectedStaffPettyProcessor(){
+  if(!user||!isStaff())return '';
+  const active=activeShiftFor(user.uid,today());
+  if(active?.processorName)return active.processorName;
+  return $('homeDutyProcessor')?.value?.trim()||'';
 }
 function renderPettyCash(){
   if(!user)return;
 
-  const adminDate=isAdmin()&&$('pettyCashAdminDate')?($('pettyCashAdminDate').value||today()):today();
-  const record=pettyCashRecordForDate(adminDate);
-  const opening=pettyCashOpeningForDate(adminDate);
-  const pending=pettyCashPendingForDate(adminDate);
-  const approved=pettyCashApprovedForDate(adminDate);
-  const remaining=Math.max(0,opening-pending-approved);
-
   if(isAdmin()&&$('pettyCashAdminDate')){
-    if(!$('pettyCashAdminDate').value)$('pettyCashAdminDate').value=today();
+    const date=$('pettyCashAdminDate').value||today();
+    const current=$('pettyCashAdminProcessor').value;
+    const availableNames=[
+      ...new Set([
+        ...processorProfiles.map(p=>p.name).filter(Boolean),
+        ...pettyCashAssignmentsForDate(date).map(p=>p.processorName).filter(Boolean)
+      ])
+    ].sort((a,b)=>a.localeCompare(b));
+
+    $('pettyCashAdminProcessor').innerHTML=
+      '<option value="">Select Processor / Cashier</option>'+
+      availableNames.map(n=>`<option value="${attr(n)}">${esc(n)}</option>`).join('');
+    if(availableNames.includes(current))$('pettyCashAdminProcessor').value=current;
+
+    const processorName=$('pettyCashAdminProcessor').value.trim();
+    const record=pettyCashRecordForDate(date,processorName);
+    const opening=pettyCashOpeningForDate(date,processorName);
+    const pending=pettyCashPendingForDate(date,processorName);
+    const approved=pettyCashApprovedForDate(date,processorName);
+    const remaining=pettyCashRemainingForDate(date,processorName);
+
     $('pettyCashAdminOpening').textContent=peso(opening);
     $('pettyCashAdminPending').textContent=peso(pending);
     $('pettyCashAdminApproved').textContent=peso(approved);
@@ -6144,27 +6874,75 @@ function renderPettyCash(){
       $('pettyCashAdminAmount').value=record?String(num(record.openingFloat)):'0';
     }
 
-    $('pettyCashAdminStatus').innerHTML=record
-      ?`Opening Float for <b>${esc(formatDate(adminDate))}</b>: <b>${peso(opening)}</b> • Remaining: <b>${peso(remaining)}</b> • Updated by ${esc(record.updatedByEmail||record.createdByEmail||'Admin')}`
-      :`No Petty Cash set for <b>${esc(formatDate(adminDate))}</b>.`;
+    $('pettyCashAdminStatus').innerHTML=!processorName
+      ?'Select a <b>Processor / Cashier</b> first.'
+      :record
+        ?`<b>${esc(processorName)}</b> • ${esc(formatDate(date))} • Opening: <b>${peso(opening)}</b> • Remaining: <b>${peso(remaining)}</b> • Updated by ${esc(record.updatedByEmail||record.createdByEmail||'Admin')}`
+        :`No Petty Cash assigned to <b>${esc(processorName)}</b> for <b>${esc(formatDate(date))}</b>.`;
+
+    const assignments=pettyCashAssignmentsForDate(date);
+    $('pettyCashAssignmentsList').innerHTML=assignments.length?assignments.map(p=>{
+      const pn=p.processorName||'';
+      const pen=pettyCashPendingForDate(date,pn);
+      const app=pettyCashApprovedForDate(date,pn);
+      const rem=pettyCashRemainingForDate(date,pn);
+      return `<div class="petty-assignment-row">
+        <div class="petty-assignment-name">
+          <b>${esc(pn)}</b>
+          <small>${esc(formatDate(date))}</small>
+        </div>
+        <div class="petty-assignment-kpi"><small>Opening</small><strong>${peso(p.openingFloat)}</strong></div>
+        <div class="petty-assignment-kpi"><small>Reserved / Used</small><strong>${peso(pen+app)}</strong></div>
+        <div class="petty-assignment-kpi"><small>Remaining</small><strong>${peso(rem)}</strong></div>
+        <button class="btn small blue" data-petty-edit="${attr(pn)}">Edit</button>
+      </div>`;
+    }).join(''):'<div class="empty">No Petty Cash assignments for this date.</div>';
+
+    $('pettyCashAssignmentsList').querySelectorAll('[data-petty-edit]').forEach(b=>b.onclick=()=>{
+      $('pettyCashAdminProcessor').value=b.dataset.pettyEdit;
+      const r=pettyCashRecordForDate(date,b.dataset.pettyEdit);
+      $('pettyCashAdminAmount').value=r?String(num(r.openingFloat)):'0';
+      renderPettyCash();
+    });
   }
 
   if(isStaff()){
-    const d=today();
-    if($('staffPettyCashOpening'))$('staffPettyCashOpening').textContent=peso(pettyCashOpeningForDate(d));
-    if($('staffPettyCashPending'))$('staffPettyCashPending').textContent=peso(pettyCashPendingForDate(d));
-    if($('staffPettyCashApproved'))$('staffPettyCashApproved').textContent=peso(pettyCashApprovedForDate(d));
-    if($('staffPettyCashRemaining'))$('staffPettyCashRemaining').textContent=peso(pettyCashRemainingForDate(d));
-    if($('staffPettyCashStatus')){
-      $('staffPettyCashStatus').textContent=pettyCashRecordForDate(d)?'AVAILABLE':'NOT SET';
-      $('staffPettyCashStatus').className=pettyCashRecordForDate(d)?'pill good':'pill warn';
+    const date=today();
+    const processorName=selectedStaffPettyProcessor();
+    const record=pettyCashRecordForDate(date,processorName);
+    const opening=pettyCashOpeningForDate(date,processorName);
+    const pending=pettyCashPendingForDate(date,processorName);
+    const approved=pettyCashApprovedForDate(date,processorName);
+    const remaining=pettyCashRemainingForDate(date,processorName);
+
+    if($('staffPettyCashOpening'))$('staffPettyCashOpening').textContent=peso(opening);
+    if($('staffPettyCashPending'))$('staffPettyCashPending').textContent=peso(pending);
+    if($('staffPettyCashApproved'))$('staffPettyCashApproved').textContent=peso(approved);
+    if($('staffPettyCashRemaining'))$('staffPettyCashRemaining').textContent=peso(remaining);
+
+    if($('staffPettyCashProcessorText')){
+      $('staffPettyCashProcessorText').textContent=processorName
+        ?`Assigned to Processor / Cashier: ${processorName}`
+        :'Read-only. Start Duty or select your Processor / Cashier to see the assigned float.';
     }
-    if($('homePettyCashOpening'))$('homePettyCashOpening').textContent=peso(pettyCashOpeningForDate(d));
-    if($('homePettyCashRemaining'))$('homePettyCashRemaining').textContent=peso(pettyCashRemainingForDate(d));
+    if($('staffPettyCashStatus')){
+      $('staffPettyCashStatus').textContent=!processorName?'NO CASHIER':record?'AVAILABLE':'NOT ASSIGNED';
+      $('staffPettyCashStatus').className=record?'pill good':'pill warn';
+    }
+
+    if($('homePettyCashProcessor')){
+      $('homePettyCashProcessor').textContent=processorName
+        ?`Assigned to: ${processorName}`
+        :'No Processor selected';
+    }
+    if($('homePettyCashOpening'))$('homePettyCashOpening').textContent=peso(opening);
+    if($('homePettyCashRemaining'))$('homePettyCashRemaining').textContent=peso(remaining);
     if($('homePettyCashNote')){
-      $('homePettyCashNote').textContent=pettyCashRecordForDate(d)
-        ?`Set by Admin • ${peso(pettyCashReservedForDate(d))} reserved/used today.`
-        :'Admin has not set Petty Cash for today yet.';
+      $('homePettyCashNote').textContent=!processorName
+        ?'Select your Processor / Cashier to view the Petty Cash assigned by Admin.'
+        :record
+          ?`Set by Admin for ${processorName} • ${peso(pending+approved)} reserved/used today.`
+          :`No Petty Cash has been assigned to ${processorName} for today.`;
     }
   }
 }
@@ -6172,29 +6950,39 @@ async function saveAdminPettyCash(){
   if(!isAdmin())return;
 
   const date=$('pettyCashAdminDate').value||today();
+  const processorName=$('pettyCashAdminProcessor').value.trim();
   const opening=Math.max(0,num($('pettyCashAdminAmount').value));
-  const reserved=pettyCashReservedForDate(date);
 
+  if(!processorName){
+    alert('Select which Processor / Cashier will receive this Petty Cash.');
+    $('pettyCashAdminProcessor').focus();
+    return;
+  }
+
+  const reserved=pettyCashReservedForDate(date,processorName);
   if(opening<reserved-0.005){
     alert(
-      `Opening Float cannot be lower than Petty Cash already reserved/used.\n\n`+
+      `Opening Float cannot be lower than the Petty Cash already reserved/used by ${processorName}.\n\n`+
       `Reserved / Used: ${peso(reserved)}\n`+
       `Entered Opening Float: ${peso(opening)}`
     );
     return;
   }
 
-  const existing=pettyCashRecordForDate(date);
+  const existing=pettyCashRecordForDate(date,processorName);
   if(!confirm(
-    `${existing?'Update':'Set'} Petty Cash for ${formatDate(date)}?\n\n`+
+    `${existing?'Update':'Assign'} Petty Cash to ${processorName}?\n\n`+
+    `Date: ${formatDate(date)}\n`+
     `Opening Float: ${peso(opening)}\n`+
     `Reserved / Used: ${peso(reserved)}\n`+
     `Remaining: ${peso(Math.max(0,opening-reserved))}`
   ))return;
 
   try{
-    await setDoc(dailyPettyCashRef(date),{
+    await setDoc(dailyPettyCashRef(date,processorName),{
       date,
+      processorName,
+      processorKey:pettyCashProcessorKey(processorName),
       openingFloat:opening,
       createdBy:existing?.createdBy||user.uid,
       createdByEmail:existing?.createdByEmail||user.email||'',
@@ -6204,8 +6992,9 @@ async function saveAdminPettyCash(){
       updatedAt:serverTimestamp(),
       updatedAtClient:new Date().toISOString()
     },{merge:true});
-    cloud('Petty Cash saved');
-    alert(`Petty Cash Opening Float for ${formatDate(date)} is ${peso(opening)}.`);
+
+    cloud('Petty Cash assigned');
+    alert(`${peso(opening)} Petty Cash assigned to ${processorName} for ${formatDate(date)}.`);
   }catch(e){alert(e.message)}
 }
 
@@ -6534,8 +7323,8 @@ function renderStaffHome(){
       <div class="staff-duty-info-item"><small>Processor / Cashier</small><strong>${esc(shift.processorName||'—')}</strong></div>
       <div class="staff-duty-info-item"><small>Duty / Shift</small><strong>${esc(shift.shiftLabel||'—')}</strong></div>
       <div class="staff-duty-info-item"><small>Started</small><strong>${esc(shift.startTime||'—')}</strong><span>${esc(formatDate(shift.date||today()))}</span></div>
-      <div class="staff-duty-info-item"><small>Petty Cash • Opening Float</small><strong>${peso(pettyCashOpeningForDate(today()))}</strong></div>
-      <div class="staff-duty-info-item"><small>Petty Cash Remaining</small><strong>${peso(pettyCashRemainingForDate(today()))}</strong></div>
+      <div class="staff-duty-info-item"><small>Petty Cash • Opening Float</small><strong>${peso(pettyCashOpeningForDate(today(),shift.processorName||''))}</strong></div>
+      <div class="staff-duty-info-item"><small>Petty Cash Remaining</small><strong>${peso(pettyCashRemainingForDate(today(),shift.processorName||''))}</strong></div>
       <div class="staff-duty-info-item"><small>Shift Sales</small><strong>${peso(shiftSalesTotal(shift.id))}</strong></div>`;
   }
 }
@@ -6926,8 +7715,8 @@ async function startDutySession(processorName,shiftLabel,pin){
       processorPinVersion:verified.profile.pinUpdatedAtClient||'',
       shiftLabel:shiftLabel||'Custom',
       openingCash:0,
-      pettyCashOpeningSnapshot:pettyCashOpeningForDate(date),
-      pettyCashRemainingSnapshot:pettyCashRemainingForDate(date),
+      pettyCashOpeningSnapshot:pettyCashOpeningForDate(date,processorName),
+      pettyCashRemainingSnapshot:pettyCashRemainingForDate(date,processorName),
       date,
       startTime:nowTime(),
       status:'active',
@@ -6977,7 +7766,7 @@ async function finishDutySession({logoutAfter=false,navigateClosing=false}={}){
     `${action} for ${s.processorName||'Staff'}?\n\n`+
     `Started: ${s.startTime||'—'}\n`+
     `Shift sales: ${peso(shiftSalesTotal(s.id))}\n`+
-    `Petty Cash Remaining: ${peso(pettyCashRemainingForDate(today()))}\n\n`+
+    `Petty Cash Remaining for ${s.processorName||'Cashier'}: ${peso(pettyCashRemainingForDate(today(),s.processorName||''))}\n\n`+
     `Petty Cash is controlled by Admin and is not reset by End Duty / Sign Out.`
   ))return false;
 
@@ -7023,7 +7812,7 @@ function renderAdminDutyOverview(){
       <div><small>Processor / Cashier</small><b>${esc(s.processorName||'—')}</b></div>
       <div><small>Duty / Shift</small><b>${esc(s.shiftLabel||'—')}</b></div>
       <div><small>Started</small><b>${esc(s.startTime||'—')}</b></div>
-      <div><small>Petty Cash Remaining</small><b>${peso(pettyCashRemainingForDate(s.date))}</b></div>
+      <div><small>Petty Cash Remaining</small><b>${peso(pettyCashRemainingForDate(s.date,s.processorName||''))}</b></div>
       <div><small>Shift Sales</small><b>${peso(shiftSalesTotal(s.id))}</b></div>
     </div>`).join(''):'<div class="empty">No Staff currently on duty.</div>';
 }
@@ -7072,7 +7861,7 @@ function renderShifts(){
     const salesAmount=active?shiftSalesTotal(active.id):0;
     $('shiftStatus').textContent=active?'ACTIVE':'NO ACTIVE SHIFT';
     $('shiftProcessor').textContent=active?.processorName||'—';
-    $('shiftOpeningCash').textContent=peso(pettyCashOpeningForDate(today()));
+    $('shiftOpeningCash').textContent=peso(pettyCashOpeningForDate(today(),active?.processorName||''));
     $('shiftSales').textContent=peso(salesAmount);
     $('activeShiftBadge').textContent=active?'ACTIVE SHIFT':'NO SHIFT';
     $('activeShiftBadge').className=active?'pill good':'pill';
@@ -7139,7 +7928,7 @@ function renderShifts(){
           <div><small>Time</small><strong>${esc(s.startTime||'—')} – ${esc(s.endTime||'ACTIVE')}</strong></div>
           <div><small>Transactions</small><strong>${txCount}</strong><span>${walkinCount} Walk-in • ${creditCount} Credit</span></div>
           <div><small>Shift Sales</small><strong>${peso(salesAmount)}</strong></div>
-          <div><small>Petty Cash Today</small><strong>${peso(pettyCashOpeningForDate(s.date))}</strong></div>
+          <div><small>Petty Cash Today</small><strong>${peso(pettyCashOpeningForDate(s.date,s.processorName||''))}</strong></div>
         </div>
       </div>
 
@@ -7230,16 +8019,30 @@ function closingSnapshot(date,uid=user?.uid){
   const approvedExpenses=expenseFromSales+expenseFromPetty;
   const netSalesCash=onHand-expenseFromSales;
 
-  const pettyCashOpening=pettyCashOpeningForDate(date);
-  const pettyCashUsed=pettyCashApprovedForDate(date);
-  const pettyCashRemaining=Math.max(0,pettyCashOpening-pettyCashUsed);
+  const processorNames=[...new Set(
+    shifts
+      .filter(s=>s.userId===uid&&s.date===date)
+      .map(s=>String(s.processorName||'').trim())
+      .filter(Boolean)
+  )];
 
-  // Petty Cash is separate from the Staff sales drawer.
+  const pettyCashOpening=processorNames.reduce(
+    (a,name)=>a+pettyCashOpeningForDate(date,name),0
+  );
+  const pettyCashUsed=processorNames.reduce(
+    (a,name)=>a+pettyCashApprovedForDate(date,name),0
+  );
+  const pettyCashRemaining=processorNames.reduce(
+    (a,name)=>a+pettyCashRemainingForDate(date,name),0
+  );
+
+  // Petty Cash is assigned per Processor and remains separate from Staff sales cash.
   const expectedCash=netSalesCash;
 
   return {
     walkinSales,creditSales,totalSales,creditCollectionsAmount,onHand,
     pettyCashOpening,expenseFromSales,expenseFromPetty,pettyCashUsed,pettyCashRemaining,
+    pettyCashProcessors:processorNames,
     approvedExpenses,netSalesCash,expectedCash,
     transactionCount:ownSales.length+ownCreditSales.length
   };
@@ -8094,30 +8897,33 @@ function expenseUsedFromSource(source,date,uid,{statuses=['pending','approved'],
     return true;
   }).reduce((a,e)=>a+num(e.amount),0);
 }
-function expenseSourceAvailability(source,date,uid,{shiftId='',statuses=['pending','approved'],excludeId=''}={}){
+function expenseSourceAvailability(source,date,uid,{shiftId='',processorName='',statuses=['pending','approved'],excludeId=''}={}){
   source=expenseFundSource(source);
 
   if(source==='petty_cash'){
-    const base=pettyCashOpeningForDate(date);
+    const key=String(processorName||'').trim();
+    const base=pettyCashOpeningForDate(date,key);
     const used=expenses.filter(e=>
       e.id!==excludeId &&
       e.date===date &&
       statuses.includes(e.status) &&
-      expenseFundSource(e)==='petty_cash'
+      expenseFundSource(e)==='petty_cash' &&
+      String(e.processorName||'').trim().toLowerCase()===key.toLowerCase()
     ).reduce((a,e)=>a+num(e.amount),0);
 
     return {
       source:'petty_cash',
+      processorName:key,
       base,
       used,
       available:Math.max(0,base-used),
-      pettyCash:pettyCashRecordForDate(date)
+      pettyCash:pettyCashRecordForDate(date,key)
     };
   }
 
   const base=cashCollectedForDate(date,uid);
   const used=expenseUsedFromSource('sales',date,uid,{statuses,excludeId});
-  return {source:'sales',base,used,available:Math.max(0,base-used),pettyCash:null};
+  return {source:'sales',processorName:'',base,used,available:Math.max(0,base-used),pettyCash:null};
 }
 function renderExpenseSourceAvailability(){
   if(!user||!$('expenseFundSource'))return;
@@ -8125,22 +8931,34 @@ function renderExpenseSourceAvailability(){
   const source=expenseFundSource($('expenseFundSource').value||'sales');
   const date=$('expenseDate').value||today();
   const amount=Math.max(0,num($('expenseAmount').value));
-  const info=expenseSourceAvailability(source,date,user.uid,{statuses:['pending','approved']});
+  const active=activeShiftFor(user.uid,date);
+  const processorName=active?.processorName||'';
+
+  const info=expenseSourceAvailability(source,date,user.uid,{
+    processorName,
+    statuses:['pending','approved']
+  });
 
   $('expenseFundTitle').textContent=expenseFundSourceLabel(source);
-  $('expenseFundBaseLabel').textContent=source==='petty_cash'?'Petty Cash • Opening Float':'Sales Cash Collected';
+  $('expenseFundBaseLabel').textContent=source==='petty_cash'
+    ?'Assigned Petty Cash • Opening Float'
+    :'Sales Cash Collected';
   $('expenseFundBase').textContent=peso(info.base);
   $('expenseFundUsed').textContent=peso(info.used);
   $('expenseFundAvailable').textContent=peso(info.available);
   $('expenseFundAfter').textContent=peso(Math.max(0,info.available-amount));
 
   let ready=true,context='';
+
   if(source==='petty_cash'){
-    if(!info.pettyCash){
+    if(!active){
       ready=false;
-      context='Petty Cash has not been set by Admin for this date.';
+      context='Start Duty first. Petty Cash is tied to the active Processor / Cashier.';
+    }else if(!info.pettyCash){
+      ready=false;
+      context=`No Petty Cash assigned by Admin to ${processorName} for ${formatDate(date)}.`;
     }else{
-      context=`Admin-set Opening Float for ${formatDate(date)} • shared Petty Cash balance`;
+      context=`Assigned to ${processorName} • ${formatDate(date)} • Admin-controlled balance`;
     }
   }else{
     context=`Paid / collected sales cash for ${formatDate(date)} before Sales-funded expenses.`;
@@ -8152,6 +8970,7 @@ function renderExpenseSourceAvailability(){
   $('expenseFundContext').textContent=context;
   $('expenseFundStatus').textContent=ready?'AVAILABLE':'CHECK SOURCE';
   $('expenseFundStatus').className=ready?'pill good':'pill warn';
+
   if(isStaff())$('submitExpense').disabled=!ready&&amount>0;
 }
 
@@ -8316,11 +9135,24 @@ async function submitExpense(){
   if(amount<=0){alert('Enter a valid expense amount.');return}
   if(!description){alert('Enter the expense description / reason.');return}
 
+  if(fundSource==='petty_cash'&&!activeShift){
+    alert('Start Duty first. Petty Cash is assigned to a specific Processor / Cashier.');
+    nav('dashPage');
+    return;
+  }
 
+  const processorName=activeShift?.processorName||'';
   const availability=expenseSourceAvailability(fundSource,date,user.uid,{
     shiftId:activeShift?.id||'',
+    processorName:fundSource==='petty_cash'?processorName:'',
     statuses:['pending','approved']
   });
+
+  if(fundSource==='petty_cash'&&!availability.pettyCash){
+    alert(`No Petty Cash is assigned to ${processorName} for ${formatDate(date)}. Ask Admin to assign an Opening Float first.`);
+    renderExpenseSourceAvailability();
+    return;
+  }
 
   if(amount>availability.available+0.005){
     alert(
@@ -8349,8 +9181,9 @@ async function submitExpense(){
       fundSourceLabel:expenseFundSourceLabel(fundSource),
       shiftId:activeShift?.id||'',
       processorName:activeShift?.processorName||'',
+      pettyCashProcessorName:fundSource==='petty_cash'?processorName:'',
       shiftLabel:activeShift?.shiftLabel||'',
-      pettyCashOpeningSnapshot:fundSource==='petty_cash'?pettyCashOpeningForDate(date):0,
+      pettyCashOpeningSnapshot:fundSource==='petty_cash'?pettyCashOpeningForDate(date,processorName):0,
       sourceBaseSnapshot:availability.base,
       sourceReservedBefore:availability.used,
       sourceAvailableBefore:availability.available,
@@ -8387,14 +9220,22 @@ async function approveExpense(id){
   }
 
   const source=expenseFundSource(e);
+  const processorName=String(e.processorName||e.pettyCashProcessorName||'').trim();
+
+  if(source==='petty_cash'&&!processorName){
+    alert('Cannot approve this Petty Cash expense because no Processor / Cashier is attached to the request.');
+    return;
+  }
+
   const availability=expenseSourceAvailability(source,e.date,e.userId,{
     shiftId:'',
+    processorName:source==='petty_cash'?processorName:'',
     statuses:['pending','approved'],
     excludeId:e.id
   });
 
   if(source==='petty_cash'&&!availability.pettyCash){
-    alert('Cannot approve this Petty Cash expense because Admin has not set a Petty Cash Opening Float for that date.');
+    alert(`Cannot approve this Petty Cash expense because no Opening Float is assigned to ${processorName} for ${formatDate(e.date)}.`);
     return;
   }
 
@@ -8420,6 +9261,7 @@ async function approveExpense(id){
       status:'approved',
       fundSource:source,
       fundSourceLabel:expenseFundSourceLabel(source),
+      pettyCashProcessorName:source==='petty_cash'?processorName:'',
       sourceAvailableAtApproval:availability.available,
       sourceRemainingAfterApproval:Math.max(0,availability.available-num(e.amount)),
       approvedDate:today(),
@@ -12151,7 +12993,7 @@ function renderBorrowerProfiles(){if(!isAdmin())return;const q=$('borrowerProfil
 function masterAuditRows(){
   const rows=[];sales.forEach(s=>rows.push({type:'sale',date:s.date,time:s.time||'',sort:s.createdAtClient||`${s.date}T${s.time||'00:00'}`,action:s.status==='voided'?'SALE VOIDED':s.status==='refunded'?'SALE REFUNDED':'WALK-IN SALE',ref:txnNo(s),user:s.userEmail||'',detail:`${peso(s.totalAmount)} • ${num(s.totalQty)} units`}));credits.forEach(c=>rows.push({type:'credit',date:c.date,time:c.time||'',sort:c.createdAtClient||`${c.date}T${c.time||'00:00'}`,action:c.status==='voided'?'CREDIT VOIDED':'CREDIT CREATED',ref:txnNo(c),user:c.userEmail||'',detail:`${c.borrowerName||''} • ${peso(c.totalAmount)} • Balance ${peso(creditRemaining(c))}`}));creditPayments.forEach(p=>rows.push({type:'payment',date:p.paymentDate||'',time:p.paymentTime||'',sort:p.createdAtClient||`${p.paymentDate||''}T${p.paymentTime||'00:00'}`,action:`CREDIT PAYMENT ${String(p.status||'pending').toUpperCase()}`,ref:p.transactionNo||p.creditId,user:p.userEmail||'',detail:`${p.borrowerName||''} • ${peso(p.amount)}`}));expenses.forEach(e=>rows.push({type:'expense',date:e.date,time:'',sort:e.createdAtClient||e.date,action:`EXPENSE ${String(e.status||'pending').toUpperCase()}`,ref:e.referenceNo||e.category||'',user:e.userEmail||'',detail:`${e.category||''} • ${peso(e.amount)}`}));stockAdjustments.forEach(a=>rows.push({type:'stock',date:a.date,time:a.time||'',sort:a.createdAtClient||`${a.date||''}T${a.time||'00:00'}`,action:`STOCK ${String(a.type||'adjustment').toUpperCase()}`,ref:a.referenceTransactionNo||a.invoiceNo||'',user:a.userEmail||'',detail:`${a.productName||''} • ${num(a.qty)} • ${a.reason||''}`}));[['VOID',voidRequests],['RETURN',returnRequests],['DELETE',deleteRequests]].forEach(([label,list])=>list.forEach(r=>rows.push({type:'approval',date:r.reviewedDate||r.saleDate,time:r.reviewedTime||r.saleTime||'',sort:r.reviewedAtClient||r.createdAtClient||`${r.saleDate||''}T${r.saleTime||'00:00'}`,action:`${label} REQUEST ${String(r.status||'pending').toUpperCase()}`,ref:r.transactionNo||r.saleId||r.creditId||'',user:r.userEmail||'',detail:r.reason||''})));closings.forEach(c=>rows.push({type:'closing',date:c.date,time:c.reviewedTime||'',sort:c.reviewedAtClient||c.createdAtClient||c.date,action:`DAILY CLOSING ${String(c.status||'pending').toUpperCase()}`,ref:c.date,user:c.userEmail||'',detail:`Expected ${peso(c.expectedCash)} • Actual ${peso(c.actualCash)}`}));shifts.forEach(s=>rows.push({type:'shift',date:s.date,time:s.startTime||'',sort:s.createdAtClient||`${s.date||''}T${s.startTime||'00:00'}`,action:`SHIFT ${String(s.status||'').toUpperCase()}`,ref:s.shiftLabel||'',user:s.userEmail||'',detail:`${s.processorName||''} • Opening ${peso(s.openingCash)}`}));purchases.forEach(p=>rows.push({type:'purchase',date:p.date,time:'',sort:p.createdAtClient||p.date,action:'PURCHASE / RESTOCK',ref:p.invoiceNo||'',user:p.userEmail||'',detail:`${p.supplierName||''} • ${p.productName||''} × ${num(p.qty)} • ${peso(p.totalCost)}`}));deletedSalesArchive.forEach(a=>rows.push({type:'approval',date:a.saleDate||'',time:a.saleTime||'',sort:a.deletedAtClient||`${a.saleDate||''}T${a.saleTime||'00:00'}`,action:'SALE PERMANENTLY DELETED',ref:a.transactionNo||a.originalSaleId||'',user:a.approvedByEmail||'',detail:`Reason: ${a.deleteReason||''} • Stock: ${a.stockAction==='return_stock'?'RETURNED':'NO STOCK CHANGE'} • Amount: ${peso(a.totalAmount)}`}));dataResetLogs.forEach(r=>rows.push({type:'reset',date:r.date,time:'',sort:r.createdAtClient||r.date,action:'DATA RESET',ref:r.date,user:r.performedByEmail||'',detail:JSON.stringify(r.deletedCounts||{})}));
   dailyCashFloats.forEach(f=>rows.push({type:'shift',date:f.date,time:'',sort:f.createdAtClient||f.date,action:'DAILY OPENING CASH',ref:f.date,user:f.userEmail||'',detail:`Opening ${peso(f.initialAmount)} • Remaining ${peso(openingCashRemainingForDate(f.date,f.userId,['pending','approved']))}`}));
-  dailyPettyCash.forEach(p=>rows.push({type:'expense',date:p.date,time:'',sort:p.updatedAtClient||p.createdAtClient||p.date,action:'PETTY CASH OPENING FLOAT',ref:p.date,user:p.updatedByEmail||p.createdByEmail||'',detail:`Opening ${peso(p.openingFloat)} • Remaining ${peso(pettyCashRemainingForDate(p.date))}`}));
+  dailyPettyCash.forEach(p=>rows.push({type:'expense',date:p.date,time:'',sort:p.updatedAtClient||p.createdAtClient||p.date,action:'PETTY CASH OPENING FLOAT',ref:p.processorName||p.date,user:p.updatedByEmail||p.createdByEmail||'',detail:`${p.processorName||'Unassigned'} • Opening ${peso(p.openingFloat)} • Remaining ${peso(pettyCashRemainingForDate(p.date,p.processorName||''))}`}));
   return rows.sort((a,b)=>String(b.sort||'').localeCompare(String(a.sort||'')))
 }
 function renderMasterAudit(){if(!isAdmin())return;const q=$('masterAuditSearch').value.trim().toLowerCase(),type=$('masterAuditType').value;let rows=masterAuditRows();if(type)rows=rows.filter(r=>r.type===type);if(q)rows=rows.filter(r=>[r.action,r.ref,r.user,r.detail,r.date,r.time].join(' ').toLowerCase().includes(q));rows=rows.slice(0,1500);$('masterAuditCount').textContent=`${rows.length} events`;$('masterAuditList').innerHTML=rows.length?rows.map(r=>`<div class="hist"><div><b>${esc(r.action)}</b> ${r.ref?`• <span class="txn-number">${esc(r.ref)}</span>`:''}<br>${r.date?esc(formatDate(r.date)):''} ${esc(r.time||'')} • ${esc(r.user||'—')}<br>${esc(r.detail||'')}</div><span class="pill">${esc(r.type.toUpperCase())}</span></div>`).join(''):'<div class="empty">No audit events found.</div>'}
@@ -12591,10 +13433,18 @@ $('expenseAmount').oninput=renderExpenseSourceAvailability;
 $('savePettyCash').onclick=saveAdminPettyCash;
 $('pettyCashAdminDate').onchange=()=>{
   const d=$('pettyCashAdminDate').value||today();
-  const r=pettyCashRecordForDate(d);
+  const p=$('pettyCashAdminProcessor').value.trim();
+  const r=pettyCashRecordForDate(d,p);
   $('pettyCashAdminAmount').value=r?String(num(r.openingFloat)):'0';
   renderPettyCash();
   renderExpenseSourceAvailability();
+};
+$('pettyCashAdminProcessor').onchange=()=>{
+  const d=$('pettyCashAdminDate').value||today();
+  const p=$('pettyCashAdminProcessor').value.trim();
+  const r=pettyCashRecordForDate(d,p);
+  $('pettyCashAdminAmount').value=r?String(num(r.openingFloat)):'0';
+  renderPettyCash();
 };
 $('submitExpense').onclick=submitExpense;
 $('openCreditApprovals').onclick=()=>nav('creditsPage');
@@ -12626,6 +13476,10 @@ $('toggleHomeDutyPin').onclick=()=>{
   const show=$('homeDutyPin').type==='password';
   $('homeDutyPin').type=show?'text':'password';
   $('toggleHomeDutyPin').textContent=show?'Hide':'Show';
+};
+$('homeDutyProcessor').onchange=()=>{
+  renderPettyCash();
+  renderExpenseSourceAvailability();
 };
 $('homeDutyPin').onkeydown=e=>{if(e.key==='Enter')startHomeDuty()};
 $('closeProcessorPinDialog').onclick=closeProcessorPinDialog;

@@ -6140,6 +6140,32 @@ input,select,textarea,button{max-width:100%}
   .staff-today-status-actions,.staff-attention-actions{grid-template-columns:1fr}
 }
 
+
+
+/* v69 Daily Closing actionable pending items */
+.closing-blocker-list{display:grid;gap:8px;margin-top:8px}
+.closing-blocker-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid #f0cf91;border-radius:13px;background:#fffaf0}
+.closing-blocker-row b{display:block;font-size:10px;color:#704b08;line-height:1.35}
+.closing-blocker-row small{display:block;margin-top:3px;font-size:8px;color:#8b6728;line-height:1.45}
+.closing-blocker-row .btn{white-space:nowrap}
+.closing-resolve-primary{cursor:pointer!important;opacity:1!important}
+.closing-resolve-primary:disabled{cursor:not-allowed!important}
+.closing-target-flash{animation:closingTargetFlash 1.3s ease 2}
+@keyframes closingTargetFlash{0%,100%{box-shadow:0 0 0 0 rgba(47,111,237,0)}50%{box-shadow:0 0 0 5px rgba(47,111,237,.18)}}
+@media(max-width:720px){
+  .closing-blocker-row{grid-template-columns:1fr;align-items:stretch;padding:10px}
+  .closing-blocker-row .btn{width:100%}
+}
+
+
+/* v70 End of Day flow: close while cashier is signed in, then download report */
+.closing-post-actions{display:grid;grid-template-columns:1.5fr 1fr;gap:8px;margin-top:9px}
+.closing-post-actions.hidden{display:none!important}
+.closing-report-ready{margin-top:9px;padding:11px 12px;border:1px solid #bfe3cf;background:#f2fbf6;border-radius:13px;color:#1f6f49;font-size:9px;line-height:1.5}
+.closing-report-ready b{display:block;font-size:10px;margin-bottom:2px}
+.closing-eod-note{margin:9px 0;padding:10px 11px;border:1px solid #dbe5f7;background:#f7faff;border-radius:12px;font-size:9px;color:#536276;line-height:1.5}
+@media(max-width:720px){.closing-post-actions{grid-template-columns:1fr}.closing-post-actions .btn{width:100%}}
+
 </style>
 
 
@@ -8341,7 +8367,7 @@ body.cashier-access-locked .app{
             <div class="head">
               <div>
                 <h2>Daily Closing / End of Day</h2>
-                <div class="muted">Review the figures, enter your actual cash count, then submit to Admin. Once submitted, POS and same-date financial changes are locked while waiting for approval.</div>
+                <div class="muted">Do the End of Day while the Cashier is still signed in. Review the complete day totals, enter the actual cash count, then submit. Submitting the Closing automatically ends the active Duty, locks the POS for the date, and prepares the PDF report.</div>
               </div>
               <span id="closingTodayBadge" class="pill">OPEN</span>
             </div>
@@ -8358,15 +8384,21 @@ body.cashier-access-locked .app{
             </div>
           </div>
 
+          <div class="closing-eod-note"><b>End of Day sequence:</b> Cashier stays signed in → review Sales / Credit / Petty Cash / Expenses → enter Actual Cash → Submit End of Day → Duty ends automatically → PDF report is ready.</div>
+
           <div class="closing-summary-grid closing-source-grid">
             <div class="dash-mini"><b>Total Sales / Kita</b><span id="clSales">₱0.00</span></div>
-            <div class="dash-mini"><b>Sales Cash / On-hand</b><span id="clOnHand">₱0.00</span></div>
+            <div class="dash-mini"><b>Walk-in / Paid Sales</b><span id="clWalkin">₱0.00</span></div>
             <div class="dash-mini"><b>Credit Sales</b><span id="clCredit">₱0.00</span></div>
+            <div class="dash-mini"><b>Credit Collections</b><span id="clCreditCollections">₱0.00</span></div>
+            <div class="dash-mini"><b>Outstanding Credit Today</b><span id="clCreditOutstanding">₱0.00</span></div>
+            <div class="dash-mini"><b>Sales Cash / On-hand</b><span id="clOnHand">₱0.00</span></div>
             <div class="dash-mini"><b>Petty Cash • Opening Float</b><span id="clPettyCashOpening">₱0.00</span></div>
             <div class="dash-mini"><b>Expenses from Sales</b><span id="clExpenseSales">₱0.00</span></div>
             <div class="dash-mini"><b>Expenses from Petty Cash</b><span id="clExpensePetty">₱0.00</span></div>
             <div class="dash-mini"><b>Remaining Petty Cash</b><span id="clPettyCashRemaining">₱0.00</span></div>
             <div class="dash-mini"><b>Total Approved Expenses</b><span id="clExpenses">₱0.00</span></div>
+            <div class="dash-mini"><b>Transactions / Items</b><span id="clTxnItems">0 / 0</span></div>
             <div class="dash-mini"><b>Expected Cash in Drawer</b><span id="clExpected">₱0.00</span></div>
             <div class="dash-mini"><b>Short / Over</b><span id="clVariance">₱0.00</span></div>
           </div>
@@ -8377,7 +8409,12 @@ body.cashier-access-locked .app{
           </div>
           <div id="closingPendingBlockers" class="closing-blockers hidden"></div>
           <div id="closingStatusNote" class="today-saved">No closing submitted for this date.</div>
-          <button id="submitClosing" class="btn green" style="width:100%;margin-top:8px">Submit Daily Closing for Admin Approval</button>
+          <button id="submitClosing" class="btn green" style="width:100%;margin-top:8px">Submit End of Day & End Duty</button>
+          <div id="closingReportReady" class="closing-report-ready hidden"><b>End of Day report is ready.</b><span>The Duty has ended and the POS is locked for this date. Download the PDF below, then Sign Out when finished.</span></div>
+          <div id="closingPostActions" class="closing-post-actions hidden">
+            <button id="downloadCurrentClosingPdf" class="btn blue" type="button">⬇ Download End of Day PDF</button>
+            <button id="closingSignOut" class="btn danger" type="button">Sign Out</button>
+          </div>
         </div>
 
         <div class="adminOnly metrics">
@@ -10950,14 +10987,75 @@ function pendingClosingBlockers(date,uid){
     .filter(c=>c.userId===uid&&c.status==='payment_pending'&&(c.paymentDate===date||c.date===date))
     .forEach(c=>rows.push({type:'Legacy Credit Payment',ref:txnNo(c),detail:'Waiting Admin approval'}));
 
-  shifts
-    .filter(s=>s.userId===uid&&s.date===date&&s.status==='active')
-    .forEach(s=>rows.push({type:'Active Shift',ref:s.processorName||s.shiftLabel||'Shift',detail:'End Shift before Daily Closing'}));
+  // Active Duty is intentionally NOT a blocker. Daily Closing ends the Duty automatically.
 
   return rows;
 }
 function closingBlockerMessage(blockers){
   return blockers.map(b=>`${b.type}: ${b.ref}${b.detail?` — ${b.detail}`:''}`).join('\n');
+}
+function closingBlockerTarget(blocker){
+  const type=String(blocker?.type||'');
+  if(type==='Expense')return {page:'expensesPage',label:'View Pending Expense',searchId:'expenseSearch',render:'renderExpenses'};
+  if(type==='Credit Payment'||type==='Legacy Credit Payment')return {page:'creditsPage',label:'View Pending Payment',searchId:'creditSearch',render:'renderCredits'};
+  if(type==='Void Request')return {page:'staffHistoryPage',label:'View Void Request',searchId:'staffHistorySearch',render:'renderStaffHistory'};
+  if(type==='Delete Request')return {page:'staffHistoryPage',label:'View Delete Request',searchId:'staffHistorySearch',render:'renderStaffHistory'};
+  if(type==='Return Request')return {page:'staffHistoryPage',label:'View Return Request',searchId:'staffHistorySearch',render:'renderStaffHistory'};
+  return {page:'dashPage',label:'Open',searchId:'',render:''};
+}
+function flashClosingTarget(el){
+  if(!el)return;
+  el.classList.remove('closing-target-flash');
+  void el.offsetWidth;
+  el.classList.add('closing-target-flash');
+  try{el.scrollIntoView({behavior:'smooth',block:'center'})}catch{}
+  setTimeout(()=>el.classList.remove('closing-target-flash'),2800);
+}
+function openClosingBlocker(blocker){
+  if(!blocker)return;
+  const target=closingBlockerTarget(blocker);
+  if(target.searchId&&$(target.searchId))$(target.searchId).value=blocker.ref||'';
+  if(blocker.type==='Void Request'||blocker.type==='Delete Request'||blocker.type==='Return Request'){
+    if($('staffHistoryPeriod'))$('staffHistoryPeriod').value='today';
+    if($('staffHistoryType'))$('staffHistoryType').value='';
+  }
+  nav(target.page);
+  if(target.render&&typeof window[target.render]==='function')window[target.render]();
+  else if(target.render==='renderExpenses')renderExpenses();
+  else if(target.render==='renderCredits')renderCredits();
+  else if(target.render==='renderStaffHistory')renderStaffHistory();
+
+  setTimeout(()=>{
+    if(blocker.type==='Active Shift'){
+      flashClosingTarget($('posDutyBar'));
+    }else if(target.searchId){
+      flashClosingTarget($(target.searchId));
+    }
+  },120);
+}
+function handleClosingPrimaryAction(){
+  if(!isStaff())return;
+  const date=$('closingDate').value||today();
+  const blockers=pendingClosingBlockers(date,user.uid);
+  if(blockers.length){
+    openClosingBlocker(blockers[0]);
+    return;
+  }
+  const checklist=closingChecklistItems(date,user.uid);
+  const waiting=checklist.find(x=>!x.ok);
+  if(waiting){
+    if(waiting.label==='Actual Cash Count Entered'){
+      $('closingActualCash')?.focus();
+      flashClosingTarget($('closingActualCash'));
+      return;
+    }
+    if(waiting.page){
+      nav(waiting.page);
+      setTimeout(()=>{if(waiting.page==='salesPage')flashClosingTarget($('posDutyBar'))},120);
+      return;
+    }
+  }
+  submitClosing();
 }
 
 function closingSnapshot(date,uid=user?.uid){
@@ -11000,17 +11098,23 @@ function closingSnapshot(date,uid=user?.uid){
   // Petty Cash is assigned per Processor and remains separate from Staff sales cash.
   const expectedCash=netSalesCash;
 
+  const outstandingCreditToday=ownCreditSales.reduce((a,c)=>a+creditRemaining(c),0);
+  const walkinTransactionCount=ownSales.length;
+  const creditTransactionCount=ownCreditSales.length;
+  const itemCount=ownSales.reduce((a,s)=>a+num(s.totalQty),0)+ownCreditSales.reduce((a,c)=>a+num(c.totalQty),0);
+
   return {
-    walkinSales,creditSales,totalSales,creditCollectionsAmount,onHand,
+    walkinSales,creditSales,totalSales,creditCollectionsAmount,outstandingCreditToday,onHand,
     pettyCashOpening,expenseFromSales,expenseFromPetty,pettyCashUsed,pettyCashRemaining,
     pettyCashProcessors:processorNames,
     approvedExpenses,netSalesCash,expectedCash,
+    walkinTransactionCount,creditTransactionCount,itemCount,
     transactionCount:ownSales.length+ownCreditSales.length
   };
 }
 function closingChecklistItems(date,uid){
   const shift=activeShiftFor(uid,date),pendingExpenses=expenses.filter(e=>e.userId===uid&&e.date===date&&e.status==='pending').length,pendingPayments=creditPayments.filter(p=>p.userId===uid&&p.paymentDate===date&&p.status==='pending').length+credits.filter(c=>c.userId===uid&&c.status==='payment_pending'&&(c.paymentDate===date||c.date===date)).length,pendingRequests=voidRequests.filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending').length+deleteRequests.filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending').length+returnRequests.filter(r=>r.userId===uid&&r.saleDate===date&&r.status==='pending').length,cashEntered=$('closingActualCash').value.trim()!=='';
-  return [{label:'Duty Ended',ok:!shift,detail:shift?`${shift.processorName||'Cashier'} duty is still ACTIVE`:'No active duty for this date',page:'dashPage'},{label:'Expenses Cleared',ok:pendingExpenses===0,detail:pendingExpenses?`${pendingExpenses} pending expense request(s)`:'No pending expenses',page:'expensesPage'},{label:'Credit Payments Cleared',ok:pendingPayments===0,detail:pendingPayments?`${pendingPayments} payment(s) waiting Admin`:'No pending credit payments',page:'creditsPage'},{label:'Transaction Requests Cleared',ok:pendingRequests===0,detail:pendingRequests?`${pendingRequests} Void/Delete/Return request(s) pending`:'No pending transaction requests',page:'staffHistoryPage'},{label:'Actual Cash Count Entered',ok:cashEntered,detail:cashEntered?`Cash count: ${peso(num($('closingActualCash').value))}`:'Enter the actual cash count above',page:''}];
+  return [{label:'Cashier Duty Active',ok:!!shift,detail:shift?`${shift.processorName||'Cashier'} is signed in • ${shift.shiftLabel||'Duty'} • Started ${shift.startTime||'—'}`:'Sign in the Cashier first before End of Day',page:'salesPage'},{label:'Expenses Cleared',ok:pendingExpenses===0,detail:pendingExpenses?`${pendingExpenses} pending expense request(s)`:'No pending expenses',page:'expensesPage'},{label:'Credit Payments Cleared',ok:pendingPayments===0,detail:pendingPayments?`${pendingPayments} payment(s) waiting Admin`:'No pending credit payments',page:'creditsPage'},{label:'Transaction Requests Cleared',ok:pendingRequests===0,detail:pendingRequests?`${pendingRequests} Void/Delete/Return request(s) pending`:'No pending transaction requests',page:'staffHistoryPage'},{label:'Actual Cash Count Entered',ok:cashEntered,detail:cashEntered?`Cash count: ${peso(num($('closingActualCash').value))}`:'Enter the actual cash count above',page:''}];
 }
 function renderClosingChecklist(date,uid){if(!isStaff())return true;const items=closingChecklistItems(date,uid),complete=items.every(x=>x.ok);$('closingChecklistBadge').textContent=complete?'READY':'ACTION NEEDED';$('closingChecklistBadge').className=complete?'pill good':'pill warn';$('closingChecklistList').innerHTML=items.map(x=>`<div class="closing-check-item ${x.ok?'ok':'wait'}"><div><b>${x.ok?'✓':'•'} ${esc(x.label)}</b><small>${esc(x.detail)}</small></div>${!x.ok&&x.page?`<button class="btn small" data-check-page="${attr(x.page)}">Open</button>`:`<span class="closing-check-state">${x.ok?'READY':'WAITING'}</span>`}</div>`).join('');$('closingChecklistList').querySelectorAll('[data-check-page]').forEach(b=>b.onclick=()=>nav(b.dataset.checkPage));return complete}
 
@@ -11023,8 +11127,11 @@ function renderClosingDraft(){
   const varianceType=variance>0?'SHORT':variance<0?'OVER':'BALANCED';
 
   $('clSales').textContent=peso(snap.totalSales);
+  if($('clWalkin'))$('clWalkin').textContent=peso(snap.walkinSales);
   $('clOnHand').textContent=peso(snap.onHand);
   $('clCredit').textContent=peso(snap.creditSales);
+  if($('clCreditCollections'))$('clCreditCollections').textContent=peso(snap.creditCollectionsAmount);
+  if($('clCreditOutstanding'))$('clCreditOutstanding').textContent=peso(snap.outstandingCreditToday);
   $('clPettyCashOpening').textContent=peso(snap.pettyCashOpening);
   $('clExpenseSales').textContent=peso(snap.expenseFromSales);
   $('clExpensePetty').textContent=peso(snap.expenseFromPetty);
@@ -11032,42 +11139,53 @@ function renderClosingDraft(){
   $('clExpenses').textContent=peso(snap.approvedExpenses);
   $('clExpected').textContent=peso(snap.expectedCash);
   $('clVariance').textContent=`${peso(Math.abs(variance))} ${varianceType}`;
+  if($('clTxnItems'))$('clTxnItems').textContent=`${snap.transactionCount} / ${snap.itemCount}`;
 
   const approved=closings.find(c=>c.userId===user.uid&&c.date===date&&c.status==='approved');
   const pending=closings.find(c=>c.userId===user.uid&&c.date===date&&c.status==='pending');
   const blockers=pendingClosingBlockers(date,user.uid);
+  const readyRecord=approved||pending;
+  if($('closingPostActions'))$('closingPostActions').classList.toggle('hidden',!readyRecord);
+  if($('closingReportReady'))$('closingReportReady').classList.toggle('hidden',!readyRecord);
+  if($('downloadCurrentClosingPdf'))$('downloadCurrentClosingPdf').dataset.closingId=readyRecord?.id||'';
   const checklistReady=renderClosingChecklist(date,user.uid);
 
   $('closingPendingBlockers').classList.toggle('hidden',blockers.length===0);
   $('closingPendingBlockers').innerHTML=blockers.length
-    ?`<b>Cannot close yet — ${blockers.length} pending item(s):</b><br>`+
-      blockers.map(b=>`• ${esc(b.type)}: <b>${esc(b.ref)}</b>${b.detail?` — ${esc(b.detail)}`:''}`).join('<br>')
+    ?`<b>Cannot close yet — ${blockers.length} pending item(s):</b>`+
+      `<div class="closing-blocker-list">`+
+      blockers.map((b,index)=>{const target=closingBlockerTarget(b);return `<div class="closing-blocker-row"><div><b>${esc(b.type)} • ${esc(b.ref)}</b><small>${b.detail?esc(b.detail):'This item must be cleared before Daily Closing.'}</small></div><button class="btn small ${b.type==='Active Shift'?'blue':''}" type="button" data-closing-blocker="${index}">${esc(target.label)}</button></div>`}).join('')+
+      `</div>`
     :'';
+  $('closingPendingBlockers').querySelectorAll('[data-closing-blocker]').forEach(btn=>btn.onclick=()=>openClosingBlocker(blockers[num(btn.dataset.closingBlocker)]));
 
   if(approved){
     $('closingTodayBadge').textContent='CLOSED';
     $('closingTodayBadge').className='pill good';
     $('closingStatusNote').innerHTML=
       `Approved / Closed by <b>${esc(approved.reviewedByEmail||'Admin')}</b> • ${esc(approved.reviewedDate?formatDate(approved.reviewedDate):'')} ${esc(approved.reviewedTime||'')}`;
+    $('submitClosing').classList.remove('closing-resolve-primary');
     $('submitClosing').disabled=true;
     $('submitClosing').textContent='This Date is Closed';
   }else if(pending){
     $('closingTodayBadge').textContent='PENDING';
     $('closingTodayBadge').className='pill warn';
     $('closingStatusNote').innerHTML=
-      `Closing submitted and waiting for Admin approval. Actual cash: <b>${peso(pending.actualCash)}</b><br><b>POS is locked for this date.</b>`;
+      `End of Day submitted. Duty ended automatically. Waiting for Admin approval. Actual cash: <b>${peso(pending.actualCash)}</b><br><b>POS is locked for this date.</b>`;
+    $('submitClosing').classList.remove('closing-resolve-primary');
     $('submitClosing').disabled=true;
     $('submitClosing').textContent='Waiting for Admin Approval • POS Locked';
   }else{
     $('closingTodayBadge').textContent=blockers.length?'WAITING':'OPEN';
     $('closingTodayBadge').className=blockers.length?'pill warn':'pill';
     $('closingStatusNote').textContent=blockers.length
-      ?'Resolve all pending approvals first. Closing cannot be submitted yet.'
+      ?'Open the pending item below and clear it first. Return here when it is resolved.'
       :'No closing submitted for this date.';
-    $('submitClosing').disabled=blockers.length>0||!checklistReady;
+    $('submitClosing').classList.toggle('closing-resolve-primary',blockers.length>0||!checklistReady);
+    $('submitClosing').disabled=false;
     $('submitClosing').textContent=blockers.length
-      ?`Resolve ${blockers.length} Pending Item(s) First`
-      :!checklistReady?'Complete End of Day Checklist First':'Submit Daily Closing for Admin Approval';
+      ?`Open & Resolve ${blockers.length} Pending Item(s) →`
+      :!checklistReady?'Complete Next End of Day Step →':'Submit End of Day & End Duty';
   }
 }
 async function submitClosing(){
@@ -11080,6 +11198,12 @@ async function submitClosing(){
   }
   if(closings.some(c=>c.userId===user.uid&&c.date===date&&c.status==='pending')){
     alert('A closing for this date is already waiting for Admin approval.');
+    return;
+  }
+
+  const active=activeShiftFor(user.uid,date);
+  if(!active){
+    alert('Cashier must still be signed in / on Duty before submitting End of Day. Sign in the Cashier first.');
     return;
   }
 
@@ -11097,44 +11221,93 @@ async function submitClosing(){
 
   const variance=snap.expectedCash-actualCash;
   const varianceType=variance>0?'SHORT':variance<0?'OVER':'BALANCED';
+  const activeForDate=shifts.filter(s=>s.userId===user.uid&&s.date===date&&s.status==='active');
+  const cashierNames=[...new Set(shifts.filter(s=>s.userId===user.uid&&s.date===date).map(s=>String(s.processorName||'').trim()).filter(Boolean))];
 
   if(!confirm(
-    `Submit closing for ${formatDate(date)}?\n\n`+
+    `Submit End of Day for ${formatDate(date)}?\n\n`+
+    `Total Sales: ${peso(snap.totalSales)}\n`+
+    `Walk-in / Paid: ${peso(snap.walkinSales)}\n`+
+    `Credit Sales: ${peso(snap.creditSales)}\n`+
+    `Credit Collections: ${peso(snap.creditCollectionsAmount)}\n`+
+    `Petty Cash Remaining: ${peso(snap.pettyCashRemaining)}\n`+
     `Expected Cash: ${peso(snap.expectedCash)}\n`+
     `Actual Cash: ${peso(actualCash)}\n`+
-    `${varianceType}: ${peso(Math.abs(variance))}`
+    `${varianceType}: ${peso(Math.abs(variance))}\n\n`+
+    `Submitting will automatically END the active Cashier Duty and lock the POS for this date.`
   ))return;
 
+  const closeRef=doc(closingsCol());
+  const iso=new Date().toISOString();
+  const closeTime=nowTime();
+  const closeData={
+    userId:user.uid,
+    userEmail:user.email||'',
+    date,
+    status:'pending',
+    totalSales:snap.totalSales,
+    walkinSales:snap.walkinSales,
+    creditSales:snap.creditSales,
+    creditCollections:snap.creditCollectionsAmount,
+    outstandingCreditToday:snap.outstandingCreditToday,
+    onHand:snap.onHand,
+    pettyCashOpening:snap.pettyCashOpening,
+    pettyCashUsed:snap.pettyCashUsed,
+    expenseFromSales:snap.expenseFromSales,
+    expenseFromPetty:snap.expenseFromPetty,
+    approvedExpenses:snap.approvedExpenses,
+    netSalesCash:snap.netSalesCash,
+    pettyCashRemaining:snap.pettyCashRemaining,
+    pettyCashProcessors:snap.pettyCashProcessors||[],
+    expectedCash:snap.expectedCash,
+    actualCash,
+    variance,
+    varianceType,
+    transactionCount:snap.transactionCount,
+    walkinTransactionCount:snap.walkinTransactionCount,
+    creditTransactionCount:snap.creditTransactionCount,
+    itemCount:snap.itemCount,
+    cashierNames,
+    closingProcessor:active.processorName||'',
+    closingShift:active.shiftLabel||'',
+    closingTime:closeTime,
+    dutyEndedByClosing:true,
+    createdAt:serverTimestamp(),
+    createdAtClient:iso
+  };
+
   try{
-    await setDoc(doc(closingsCol()),{
-      userId:user.uid,
-      userEmail:user.email||'',
-      date,
-      status:'pending',
-      totalSales:snap.totalSales,
-      walkinSales:snap.walkinSales,
-      creditSales:snap.creditSales,
-      creditCollections:snap.creditCollectionsAmount,
-      onHand:snap.onHand,
-      pettyCashOpening:snap.pettyCashOpening,
-      expenseFromSales:snap.expenseFromSales,
-      expenseFromPetty:snap.expenseFromPetty,
-      approvedExpenses:snap.approvedExpenses,
-      netSalesCash:snap.netSalesCash,
-      pettyCashRemaining:snap.pettyCashRemaining,
-      expectedCash:snap.expectedCash,
-      actualCash,
-      variance,
-      varianceType,
-      transactionCount:snap.transactionCount,
-      createdAt:serverTimestamp(),
-      createdAtClient:new Date().toISOString()
-    });
-    cloud('Daily closing submitted — POS locked');
-    alert(`End of Day submitted for ${formatDate(date)}. Your POS for this date is now locked while waiting for Admin approval. It will be available again on the next operating day at 6:00 AM.`);
+    const batch=writeBatch(db);
+    batch.set(closeRef,closeData);
+    activeForDate.forEach(s=>batch.set(doc(shiftsCol(),s.id),{
+      status:'ended',
+      endDate:date,
+      endTime:closeTime,
+      endingSales:shiftSalesTotal(s.id),
+      endedByClosing:true,
+      closingId:closeRef.id,
+      endedAt:serverTimestamp(),
+      endedAtClient:iso,
+      endedBy:user.uid,
+      endedByEmail:user.email||''
+    },{merge:true}));
+    await batch.commit();
+
+    activeForDate.forEach(s=>Object.assign(s,{status:'ended',endDate:date,endTime:closeTime,endingSales:shiftSalesTotal(s.id),endedByClosing:true,closingId:closeRef.id,endedAtClient:iso}));
+    if(!closings.some(c=>c.id===closeRef.id))closings.unshift({id:closeRef.id,...closeData});
+
+    // Keep this account session unlocked so the Cashier can download the report and Sign Out.
+    cashierGateSessionUnlocked=true;
+    cloud('End of Day submitted - Duty ended - PDF ready');
+    renderClosings();
+    renderClosingDraft();
     renderPOS();
+
+    alert(`End of Day completed for ${formatDate(date)}.\n\nThe Cashier Duty has ended automatically and the POS is locked for this date.\n\nYour End of Day PDF report is ready. If the download does not start automatically, tap "Download End of Day PDF".`);
+    setTimeout(()=>downloadClosingPdf(closeRef.id),180);
   }catch(e){alert(e.message)}
 }
+
 function renderClosings(){
   if(!user)return;
   renderClosingDraft();
@@ -11177,10 +11350,10 @@ function renderClosings(){
         <div class="lookup-meta">
           <div class="dash-mini"><b>Total Sales</b><span>${peso(c.totalSales)}</span></div>
           <div class="dash-mini"><b>Sales Cash</b><span>${peso(c.onHand)}</span></div>
-          <div class="dash-mini"><b>Opening Cash</b><span>${peso(c.openingCash||0)}</span></div>
+          <div class="dash-mini"><b>Petty Cash Opening</b><span>${peso(c.pettyCashOpening||c.openingCash||0)}</span></div>
           <div class="dash-mini"><b>Expense • Sales</b><span>${peso(c.expenseFromSales!==undefined?c.expenseFromSales:c.approvedExpenses||0)}</span></div>
-          <div class="dash-mini"><b>Expense • Petty Cash</b><span>${peso(c.expenseFromOpening||0)}</span></div>
-          <div class="dash-mini"><b>Expected Drawer</b><span>${peso(c.expectedCash)}</span></div>
+          <div class="dash-mini"><b>Expense • Petty Cash</b><span>${peso(c.expenseFromPetty!==undefined?c.expenseFromPetty:c.expenseFromOpening||0)}</span></div>
+          <div class="dash-mini"><b>Remaining Petty Cash</b><span>${peso(c.pettyCashRemaining!==undefined?c.pettyCashRemaining:0)}</span></div><div class="dash-mini"><b>Expected Drawer</b><span>${peso(c.expectedCash)}</span></div>
           <div class="dash-mini"><b>Actual Cash</b><span>${peso(c.actualCash)}</span></div>
           <div class="dash-mini"><b>${esc(c.varianceType||'Variance')}</b><span>${peso(Math.abs(num(c.variance)))}</span></div>
         </div>
@@ -11246,76 +11419,129 @@ async function rejectClosing(id){
     alert(`Closing was rejected. If this is today's date and it is between 6:00 AM and 12:00 AM, the Staff POS can be used again.`);
   }catch(e){alert(e.message)}
 }
+function closingReportRows(c){
+  const uid=c.userId,date=c.date;
+  const paid=sales.filter(s=>s.userId===uid&&s.date===date&&s.status!=='voided'&&s.status!=='refunded');
+  const creditRows=credits.filter(x=>x.userId===uid&&x.date===date&&x.status!=='voided');
+  const collections=creditPayments.filter(p=>p.userId===uid&&p.status==='approved'&&p.approvedDate===date);
+  const expenseRows=expenses.filter(e=>e.userId===uid&&e.date===date&&e.status==='approved');
+  const adjustments=[
+    ...voidRequests.filter(r=>r.userId===uid&&r.saleDate===date).map(r=>({type:'VOID',ref:r.transactionNo||r.saleId||'',status:r.status||'',reason:r.reason||''})),
+    ...returnRequests.filter(r=>r.userId===uid&&r.saleDate===date).map(r=>({type:'RETURN',ref:r.transactionNo||r.saleId||'',status:r.status||'',reason:r.reason||''})),
+    ...deleteRequests.filter(r=>r.userId===uid&&r.saleDate===date).map(r=>({type:'DELETE',ref:r.transactionNo||r.saleId||'',status:r.status||'',reason:r.reason||''}))
+  ];
+  const productMap=new Map();
+  [...paid,...creditRows].forEach(r=>(r.items||[]).forEach(i=>{
+    const key=String(i.productId||i.productName||'');
+    const cur=productMap.get(key)||{name:i.productName||'Product',qty:0,amount:0};
+    cur.qty+=num(i.qty);cur.amount+=num(i.amount);productMap.set(key,cur);
+  }));
+  const productsSold=[...productMap.values()].sort((a,b)=>b.qty-a.qty||b.amount-a.amount);
+  return {paid,creditRows,collections,expenseRows,adjustments,productsSold};
+}
 function downloadClosingPdf(id){
   const c=closings.find(x=>x.id===id);
   if(!c)return;
   const doc=getPdfEngine();
   if(!doc)return;
 
-  const sourceSales=c.expenseFromSales!==undefined?num(c.expenseFromSales):num(c.approvedExpenses);
-  const sourceOpening=num(c.expenseFromOpening);
-  const openingCash=num(c.openingCash);
-  const remainingOpening=c.remainingOpeningCash!==undefined
-    ?num(c.remainingOpeningCash)
-    :openingCash-sourceOpening;
-  const netSalesCash=c.netSalesCash!==undefined
-    ?num(c.netSalesCash)
-    :num(c.onHand)-sourceSales;
+  const pettyOpening=num(c.pettyCashOpening!==undefined?c.pettyCashOpening:c.openingCash);
+  const pettyExpense=num(c.expenseFromPetty!==undefined?c.expenseFromPetty:c.expenseFromOpening);
+  const pettyRemaining=c.pettyCashRemaining!==undefined?num(c.pettyCashRemaining):Math.max(0,pettyOpening-pettyExpense);
+  const sourceSales=num(c.expenseFromSales!==undefined?c.expenseFromSales:c.approvedExpenses);
+  const netSalesCash=c.netSalesCash!==undefined?num(c.netSalesCash):num(c.onHand)-sourceSales;
+  const details=closingReportRows(c);
+  const cashierText=(c.cashierNames||[]).length?(c.cashierNames||[]).join(', '):(c.closingProcessor||'');
 
-  const title='Daily Closing Report';
-  const subtitle=`${formatDate(c.date)} | ${c.userEmail||''} | ${String(c.status||'').toUpperCase()}`;
+  const title='End of Day / Daily Closing Report';
+  const subtitle=`${formatDate(c.date)} | ${c.userEmail||''}${cashierText?` | Cashier: ${cashierText}`:''} | ${String(c.status||'').toUpperCase()}`;
 
   pdfPageHeader(doc,title,subtitle);
   let y=24;
 
   y=pdfDrawMetricRow(doc,[
     {label:'Total Sales',value:pdfMoney(c.totalSales)},
+    {label:'Walk-in / Paid',value:pdfMoney(c.walkinSales)},
+    {label:'Credit Sales',value:pdfMoney(c.creditSales)},
+    {label:'Credit Collections',value:pdfMoney(c.creditCollections)}
+  ],y);
+
+  y=pdfDrawMetricRow(doc,[
+    {label:'Outstanding Credit Today',value:pdfMoney(c.outstandingCreditToday||0)},
     {label:'Sales Cash / On-hand',value:pdfMoney(c.onHand)},
-    {label:'Petty Cash',value:pdfMoney(openingCash)}
-  ],y);
-
-  y=pdfDrawMetricRow(doc,[
     {label:'Expenses from Sales',value:pdfMoney(sourceSales)},
-    {label:'Expenses from Petty Cash',value:pdfMoney(sourceOpening)},
-    {label:'Total Approved Expenses',value:pdfMoney(c.approvedExpenses)}
+    {label:'Net Sales Cash',value:pdfMoney(netSalesCash)}
   ],y);
 
   y=pdfDrawMetricRow(doc,[
-    {label:'Net Sales Cash',value:pdfMoney(netSalesCash)},
-    {label:'Remaining Petty Cash',value:pdfMoney(remainingOpening)},
-    {label:'Expected Cash in Drawer',value:pdfMoney(c.expectedCash)}
+    {label:'Petty Cash Opening',value:pdfMoney(pettyOpening)},
+    {label:'Petty Cash Used',value:pdfMoney(c.pettyCashUsed!==undefined?c.pettyCashUsed:pettyExpense)},
+    {label:'Expense from Petty Cash',value:pdfMoney(pettyExpense)},
+    {label:'Petty Cash Remaining',value:pdfMoney(pettyRemaining)}
   ],y);
 
   y=pdfDrawMetricRow(doc,[
+    {label:'Expected Cash',value:pdfMoney(c.expectedCash)},
     {label:'Actual Cash',value:pdfMoney(c.actualCash)},
-    {label:'Variance',value:`${pdfMoney(Math.abs(num(c.variance)))} ${c.varianceType||''}`},
-    {label:'Transactions',value:String(c.transactionCount||0)}
+    {label:'Short / Over',value:`${pdfMoney(Math.abs(num(c.variance)))} ${c.varianceType||''}`},
+    {label:'Transactions / Items',value:`${c.transactionCount||0} / ${c.itemCount||0}`}
   ],y);
 
-  doc.autoTable({
-    startY:y+2,
-    margin:{left:10,right:10,bottom:13},
-    theme:'grid',
-    head:[['Detail','Value']],
-    body:[
-      ['Walk-in Sales',pdfMoney(c.walkinSales)],
-      ['Credit Sales',pdfMoney(c.creditSales)],
-      ['Credit Collections',pdfMoney(c.creditCollections)],
-      ['Sales Cash / On-hand',pdfMoney(c.onHand)],
-      ['Petty Cash',pdfMoney(openingCash)],
-      ['Expenses from Sales Cash',pdfMoney(sourceSales)],
-      ['Expenses from Petty Cash',pdfMoney(sourceOpening)],
-      ['Remaining Petty Cash',pdfMoney(remainingOpening)],
-      ['Expected Cash in Drawer',pdfMoney(c.expectedCash)],
-      ['Reviewed By',pdfSafe(c.reviewedByEmail||'Pending Admin review')],
-      ['Reviewed At',pdfSafe(c.reviewedDate?`${formatDate(c.reviewedDate)} ${c.reviewedTime||''}`:'-')]
-    ],
-    styles:{font:'helvetica',fontSize:7,cellPadding:2},
-    headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}
-  });
+  const summaryBody=[
+    ['Closing Time',pdfSafe(c.closingTime||'-')],
+    ['Closing Cashier',pdfSafe(c.closingProcessor||cashierText||'-')],
+    ['Duty Ended by Closing',c.dutyEndedByClosing?'YES':'-'],
+    ['Walk-in Transactions',String(c.walkinTransactionCount??details.paid.length)],
+    ['Credit Transactions',String(c.creditTransactionCount??details.creditRows.length)],
+    ['Total Approved Expenses',pdfMoney(c.approvedExpenses)],
+    ['Admin Review',pdfSafe(c.reviewedByEmail?`${c.reviewedByEmail} • ${c.reviewedDate?formatDate(c.reviewedDate):''} ${c.reviewedTime||''}`:'Pending Admin approval')]
+  ];
+  doc.autoTable({startY:y+1,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['End of Day Detail','Value']],body:summaryBody,styles:{font:'helvetica',fontSize:6.8,cellPadding:2},headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}});
+
+  let nextY=(doc.lastAutoTable?.finalY||y)+5;
+  nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,33,47);doc.text('SALES TRANSACTIONS',10,nextY);nextY+=3;
+  const salesRows=[
+    ...details.paid.map(s=>['PAID',txnNo(s),s.time||'',s.processorName||'',String(num(s.totalQty)),pdfMoney(s.totalAmount)]),
+    ...details.creditRows.map(crow=>['CREDIT',txnNo(crow),crow.time||'',crow.processorName||'',String(num(crow.totalQty)),pdfMoney(crow.totalAmount)])
+  ];
+  doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Type','Transaction #','Time','Cashier','Qty','Amount']],body:salesRows.length?salesRows:[['-','No sales transactions','-','-','0',pdfMoney(0)]],styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[237,244,255],textColor:[47,78,130],fontStyle:'bold'}});
+
+  nextY=(doc.lastAutoTable?.finalY||nextY)+5;
+  nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,33,47);doc.text('PRODUCTS SOLD',10,nextY);nextY+=3;
+  doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Product','Qty Sold','Sales Amount']],body:details.productsSold.length?details.productsSold.map(p=>[pdfSafe(p.name),String(p.qty),pdfMoney(p.amount)]):[['No products sold','0',pdfMoney(0)]],styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}});
+
+  nextY=(doc.lastAutoTable?.finalY||nextY)+5;
+  nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,33,47);doc.text('CREDIT DETAILS / COLLECTIONS',10,nextY);nextY+=3;
+  const creditDetailRows=details.creditRows.map(cr=>[txnNo(cr),cr.borrowerName||'',pdfMoney(cr.totalAmount),pdfMoney(creditRemaining(cr)),cr.dueDate?formatDate(cr.dueDate):'-']);
+  doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Credit Transaction','Borrower','Credit Sale','Remaining','Due Date']],body:creditDetailRows.length?creditDetailRows:[['No credit sales','-',pdfMoney(0),pdfMoney(0),'-']],styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[255,248,230],textColor:[112,75,8],fontStyle:'bold'}});
+
+  nextY=(doc.lastAutoTable?.finalY||nextY)+5;
+  const collectionRows=details.collections.map(p=>[p.transactionNo||p.creditId||'',p.borrowerName||'',p.approvedTime||p.paymentTime||'',pdfMoney(p.amount),p.note||'']);
+  if(collectionRows.length){
+    nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('Approved Credit Collections',10,nextY);nextY+=3;
+    doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Reference','Borrower','Time','Amount','Note']],body:collectionRows,styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}});
+    nextY=(doc.lastAutoTable?.finalY||nextY)+5;
+  }
+
+  nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,33,47);doc.text('APPROVED EXPENSES',10,nextY);nextY+=3;
+  const expenseRows=details.expenseRows.map(e=>[e.category||'Expense',expenseFundSource(e)==='petty_cash'?'PETTY CASH':'SALES CASH',e.referenceNo||'',pdfMoney(e.amount),e.notes||e.note||'']);
+  doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Category','Fund Source','Reference','Amount','Note']],body:expenseRows.length?expenseRows:[['No approved expenses','-', '-',pdfMoney(0),'-']],styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}});
+
+  if(details.adjustments.length){
+    nextY=(doc.lastAutoTable?.finalY||nextY)+5;
+    nextY=pdfEnsureSpace(doc,nextY,22,title,subtitle);
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('TRANSACTION REQUESTS / ADJUSTMENTS',10,nextY);nextY+=3;
+    doc.autoTable({startY:nextY,margin:{left:10,right:10,bottom:13},theme:'grid',head:[['Type','Transaction #','Status','Reason']],body:details.adjustments.map(r=>[r.type,pdfSafe(r.ref),String(r.status||'').toUpperCase(),pdfSafe(r.reason||'-')]),styles:{font:'helvetica',fontSize:6.2,cellPadding:1.7},headStyles:{fillColor:[243,246,251],textColor:[55,65,81],fontStyle:'bold'}});
+  }
 
   pdfPageFooter(doc);
-  doc.save(`POS_CHIKITOS_Closing_${c.date}_${pdfFileName(c.userEmail||'staff')}.pdf`);
+  doc.save(`POS_CHIKITOS_End_of_Day_${c.date}_${pdfFileName(c.closingProcessor||c.userEmail||'staff')}.pdf`);
+  cloud('End of Day PDF downloaded');
 }
 
 /* POS */
@@ -16721,7 +16947,9 @@ $('findReturnTransaction').onclick=renderStaffReturnSearch;
 $('staffReturnTxnSearch').onkeydown=e=>{if(e.key==='Enter')renderStaffReturnSearch()};
 $('closingDate').onchange=renderClosings;
 $('closingActualCash').oninput=renderClosingDraft;
-$('submitClosing').onclick=submitClosing;
+$('submitClosing').onclick=handleClosingPrimaryAction;
+if($('downloadCurrentClosingPdf'))$('downloadCurrentClosingPdf').onclick=()=>{const id=$('downloadCurrentClosingPdf').dataset.closingId;if(id)downloadClosingPdf(id)};
+if($('closingSignOut'))$('closingSignOut').onclick=()=>handleLogout();
 $('previewReset').onclick=renderResetPreview;
 $('resetDate').onchange=renderResetPreview;
 $('runDataReset').onclick=runDataReset;

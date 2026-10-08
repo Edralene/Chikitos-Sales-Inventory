@@ -5943,6 +5943,651 @@ input,select,textarea,button{max-width:100%}
 }
 
 </style>
+
+
+<!-- ============================================================
+     v59 DESKTOP POLISH + HOME DUTY FLOW
+     Layout/spacing only. Existing color palette is intentionally preserved.
+     Mobile v58 rules and checkout behavior are not overridden.
+     ============================================================ -->
+<style id="v59-desktop-layout-polish">
+@media (min-width:1100px){
+  :root{--sidebar-w:248px}
+
+  .side{padding:18px 13px 14px!important}
+  .nav{gap:4px!important}
+  .nav button{min-height:43px!important;padding:9px 10px!important}
+  .top{min-height:68px!important;padding:10px 18px!important}
+  .scroll{padding:16px 18px 26px!important}
+  .page.active{max-width:1660px!important}
+
+  /* Dashboard / Home: more balanced use of desktop width */
+  .metrics,.credit-metrics,.expense-metrics{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:10px!important
+  }
+  .report-money-grid,.report-net-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .metric,.money-card,.net-card{min-height:92px!important;padding:13px!important}
+  .low-stock-wrap{grid-template-columns:minmax(0,1.55fr) minmax(300px,.45fr)!important;gap:14px!important}
+
+  /* Home Duty intro - uses the app's existing colors */
+  .home-duty-intro{
+    display:grid;
+    grid-template-columns:minmax(280px,1.15fr) minmax(420px,1fr);
+    gap:14px;
+    align-items:center;
+    margin:12px 0;
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--panel, #fff);
+    box-shadow:var(--shadow-card, 0 2px 10px rgba(23,43,77,.05));
+  }
+  .home-duty-intro-copy h3{margin:3px 0 4px;font-size:15px}
+  .home-duty-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+  .home-duty-steps>div{
+    min-width:0;
+    padding:10px 8px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:var(--panel-2, #fff);
+    text-align:center;
+  }
+  .home-duty-steps b{display:grid;place-items:center;width:25px;height:25px;margin:0 auto 6px;border:1px solid currentColor;border-radius:999px;font-size:9px}
+  .home-duty-steps span{display:block;font-size:8px;font-weight:800;line-height:1.35}
+  .staff-duty-opening{margin-top:12px!important}
+  .staff-duty-form{grid-template-columns:minmax(190px,1fr) minmax(190px,1fr) minmax(160px,.7fr) minmax(230px,1.15fr) auto!important;align-items:end!important}
+  .staff-duty-form .btn{min-height:44px!important;white-space:nowrap!important}
+
+  /* Desktop POS: denser catalog + stronger checkout hierarchy */
+  .staff-role #salesPage .pos-layout{
+    grid-template-columns:minmax(0,1fr) 390px!important;
+    gap:15px!important;
+    align-items:start!important
+  }
+  .staff-role #salesPage .pos-products{padding:13px!important}
+  .staff-role #salesPage .pos-sticky-head{margin-bottom:9px!important}
+  .staff-role #salesPage .pos-toolbar{margin:8px 0!important}
+  .staff-role #salesPage #posSearch{min-height:42px!important}
+  .staff-role #salesPage .pos-category-chips{gap:6px!important;margin:7px 0 9px!important}
+  .staff-role #salesPage .pos-category-chips button{min-height:32px!important;padding:6px 10px!important}
+  .staff-role #salesPage .product-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:8px!important;
+    max-height:calc(100dvh - 285px)!important
+  }
+  .staff-role #salesPage .product-card{
+    min-height:132px!important;
+    padding:10px!important;
+  }
+  .staff-role #salesPage .product-name{min-height:28px!important;font-size:10.5px!important}
+  .staff-role #salesPage .product-price{font-size:16px!important}
+  .staff-role #salesPage .product-stock{margin:4px 0 7px!important}
+  .staff-role #salesPage .product-card .btn[data-add]{min-height:34px!important}
+  .staff-role #salesPage .pos-cart{
+    width:390px!important;
+    min-height:560px!important;
+    max-height:calc(100dvh - 94px)!important;
+  }
+  .staff-role #salesPage .cart-list{padding:10px 11px!important}
+  .staff-role #salesPage .cart-item{padding:9px!important}
+  .staff-role #salesPage .cart-review-summary{padding:11px 12px 12px!important}
+  .staff-role #salesPage .checkout-primary{min-height:46px!important}
+  .staff-role #salesPage .payment-due-card{padding:12px!important}
+
+  /* Reports / tables: desktop density without changing content */
+  .frame{max-height:min(61dvh,680px)!important}
+  .report-scroll{max-height:min(51dvh,560px)!important}
+  .toolbar{grid-template-columns:minmax(260px,1fr) minmax(170px,210px) auto!important}
+  .report-controls{grid-template-columns:minmax(150px,.7fr) minmax(180px,.8fr) minmax(220px,1fr) auto!important}
+}
+
+@media (min-width:1550px){
+  .staff-role #salesPage .pos-layout{grid-template-columns:minmax(0,1fr) 410px!important}
+  .staff-role #salesPage .pos-cart{width:410px!important}
+  .staff-role #salesPage .product-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+</style>
+
+
+
+<!-- ============================================================
+     v60 CASHIER LOGIN GATE
+     Staff account signs in first; Cashier PIN must then be verified
+     before the application workspace can be used. Same flow on
+     desktop and mobile. Existing app/mobile color palette preserved.
+     ============================================================ -->
+<style id="v61-cashier-login-gate-style">
+/* ============================================================
+   v61 FINAL CASHIER ACCESS
+   Visual-only gate polish + reliable session lock.
+   Existing app palette and POS/mobile checkout colors preserved.
+   ============================================================ */
+.cashier-access-gate{
+  position:fixed;
+  inset:0;
+  z-index:6500;
+  display:grid;
+  place-items:center;
+  padding:clamp(14px,3vw,30px);
+  overflow:auto;
+  background:
+    radial-gradient(circle at 15% 12%,rgba(47,111,237,.11),transparent 31%),
+    radial-gradient(circle at 88% 88%,rgba(25,148,95,.075),transparent 28%),
+    #f4f7fb;
+}
+.cashier-access-gate.hidden{display:none!important}
+body.cashier-access-locked{overflow:hidden!important}
+body.cashier-access-locked .app{
+  pointer-events:none!important;
+  user-select:none!important;
+  filter:blur(3px);
+}
+.cashier-gate-shell{
+  width:min(790px,100%);
+  margin:auto;
+  background:#fff;
+  border:1px solid #e2e8f1;
+  border-radius:28px;
+  box-shadow:0 30px 90px rgba(23,43,77,.16);
+  overflow:hidden;
+}
+.cashier-gate-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:18px 22px;
+  border-bottom:1px solid #e7ecf3;
+  background:rgba(255,255,255,.97);
+}
+.cashier-gate-brand{display:flex;align-items:center;gap:11px;min-width:0}
+.cashier-gate-mark{
+  flex:0 0 44px;
+  width:44px;height:44px;
+  display:grid;place-items:center;
+  border-radius:14px;
+  background:linear-gradient(145deg,var(--brand,#2f6fed),#6c8fff);
+  color:#fff;
+  font-size:17px;font-weight:900;
+  box-shadow:0 9px 22px rgba(47,111,237,.22);
+}
+.cashier-gate-kicker{font-size:8px;font-weight:900;letter-spacing:.12em;color:var(--brand,#2f6fed)}
+.cashier-gate-title{margin:2px 0 0;font-size:19px;line-height:1.2;color:var(--ink,#18212f)}
+.cashier-gate-account{
+  max-width:280px;
+  padding:7px 11px;
+  border:1px solid #e0e6ef;
+  border-radius:999px;
+  background:#f8faff;
+  color:#667386;
+  font-size:8px;font-weight:800;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.cashier-gate-body{padding:23px 24px 25px}
+.cashier-gate-copy{text-align:center;max-width:600px;margin:0 auto 18px}
+.cashier-gate-copy h2{margin:0 0 6px;font-size:25px;letter-spacing:-.03em;color:var(--ink,#18212f)}
+.cashier-gate-copy p{margin:0;color:#6f7b8c;font-size:10px;line-height:1.65}
+
+/* Compact progress line instead of large boxes. */
+.cashier-gate-steps{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  max-width:610px;
+  margin:0 auto 20px;
+}
+.cashier-gate-steps::before{
+  content:"";
+  position:absolute;
+  left:12.5%;right:12.5%;top:15px;
+  height:2px;
+  background:#e2e7ef;
+  z-index:0;
+}
+.cashier-gate-step{
+  position:relative;z-index:1;
+  min-width:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  gap:7px;
+  padding:0 5px;
+  background:transparent;
+  text-align:center;
+}
+.cashier-gate-step b{
+  display:grid;place-items:center;
+  width:31px;height:31px;
+  border:2px solid #d9e0ea;
+  border-radius:999px;
+  background:#fff;
+  color:#667386;
+  font-size:9px;
+  box-shadow:0 0 0 5px #fff;
+}
+.cashier-gate-step.done b{
+  background:var(--success,#19945f);
+  border-color:var(--success,#19945f);
+  color:#fff;
+}
+.cashier-gate-step.done span{color:#277756}
+.cashier-gate-step span{font-size:8px;font-weight:850;line-height:1.25;color:#59677a}
+
+.cashier-gate-login{
+  max-width:620px;
+  margin:0 auto;
+  padding:18px;
+  border:1px solid #e1e7ef;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 7px 24px rgba(23,43,77,.055);
+}
+.cashier-gate-login-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.cashier-gate-login-title h3{margin:0;font-size:15px;color:var(--ink,#18212f)}
+.cashier-gate-login-title span{
+  font-size:8px;font-weight:900;
+  color:var(--brand,#2f6fed);
+  background:var(--brand-soft,#edf4ff);
+  padding:6px 9px;border-radius:999px;
+}
+.cashier-gate-login-title span[data-state="active"]{color:#15734a;background:#eaf8f1}
+.cashier-gate-login-title span[data-state="checking"]{color:#8a650d;background:#fff6d9}
+.cashier-gate-login-title span[data-state="closed"]{color:#a33434;background:#fff0f0}
+.cashier-gate-form{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(185px,.7fr);
+  gap:10px;
+  align-items:end;
+}
+.cashier-gate-field:first-child{grid-column:1/-1}
+.cashier-gate-field label{display:block;margin:0 0 5px;font-size:8px;text-transform:uppercase;font-weight:900;color:#6a7789}
+.cashier-gate-field input,.cashier-gate-field select{
+  width:100%;min-height:46px;
+  border:1px solid #d8e0ea;
+  border-radius:11px;
+  padding:9px 11px;
+  background:#fff;
+  color:var(--ink,#18212f);
+}
+.cashier-gate-field input:focus,.cashier-gate-field select:focus{
+  border-color:#8db0f5!important;
+  box-shadow:0 0 0 4px rgba(47,111,237,.10)!important;
+}
+.cashier-gate-pin-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}
+.cashier-gate-pin-row .btn{min-width:64px;min-height:46px;border-radius:11px}
+.cashier-gate-cash{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  margin-top:11px;
+}
+.cashier-gate-cash>div{padding:10px 11px;border:1px solid #e1e7ef;border-radius:12px;background:#f8faff}
+.cashier-gate-cash small{display:block;color:#718094;font-size:7px;text-transform:uppercase;font-weight:900}
+.cashier-gate-cash strong{display:block;margin-top:4px;font-size:15px;color:var(--ink,#18212f)}
+.cashier-gate-status{
+  min-height:20px;
+  margin:10px 2px 0;
+  padding:8px 10px;
+  border-radius:10px;
+  background:#f8faff;
+  font-size:9px;line-height:1.45;color:#677487;
+}
+.cashier-gate-status.error{color:#a43737;background:#fff4f4;font-weight:800}
+.cashier-gate-status.good{color:#19704b;background:#effaf4;font-weight:800}
+.cashier-gate-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:11px}
+.cashier-gate-actions .cashier-gate-open{
+  width:100%;min-height:50px;
+  border-radius:12px;
+  font-size:11px;
+  box-shadow:0 8px 20px rgba(25,148,95,.16);
+}
+.cashier-gate-signout{
+  justify-self:center;
+  min-height:36px!important;
+  padding:6px 12px!important;
+  border-color:transparent!important;
+  background:transparent!important;
+  color:#667386!important;
+  box-shadow:none!important;
+}
+.cashier-gate-signout:hover{background:#f5f7fa!important;color:#38465a!important}
+.cashier-gate-foot{margin-top:8px;text-align:center;color:#8994a4;font-size:7.5px;line-height:1.5}
+
+@media(max-width:720px){
+  .cashier-access-gate{
+    place-items:start center;
+    padding:max(10px,env(safe-area-inset-top)) 9px max(10px,env(safe-area-inset-bottom));
+  }
+  .cashier-gate-shell{
+    width:100%;
+    margin:auto 0;
+    border-radius:22px;
+    max-height:calc(100dvh - 20px);
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cashier-gate-head{padding:13px 14px 11px;gap:9px;align-items:center}
+  .cashier-gate-mark{width:38px;height:38px;flex-basis:38px;border-radius:12px;font-size:15px}
+  .cashier-gate-kicker{font-size:6.8px}
+  .cashier-gate-title{font-size:16px}
+  .cashier-gate-account{max-width:125px;font-size:6.8px;padding:6px 8px}
+  .cashier-gate-body{padding:15px 13px 16px}
+  .cashier-gate-copy{margin-bottom:15px}
+  .cashier-gate-copy h2{font-size:21px}
+  .cashier-gate-copy p{font-size:8.7px;line-height:1.55}
+  .cashier-gate-steps{max-width:100%;margin-bottom:16px}
+  .cashier-gate-steps::before{left:12.5%;right:12.5%;top:13px}
+  .cashier-gate-step{gap:5px;padding:0 2px}
+  .cashier-gate-step b{width:27px;height:27px;font-size:8px;box-shadow:0 0 0 4px #fff}
+  .cashier-gate-step span{font-size:7px}
+  .cashier-gate-login{padding:13px;border-radius:16px}
+  .cashier-gate-login-title{margin-bottom:11px}
+  .cashier-gate-login-title h3{font-size:13px}
+  .cashier-gate-form{grid-template-columns:1fr;gap:8px}
+  .cashier-gate-field:first-child{grid-column:auto}
+  .cashier-gate-field input,.cashier-gate-field select{font-size:16px!important;min-height:47px}
+  .cashier-gate-pin-row .btn{min-height:47px}
+  .cashier-gate-cash{gap:7px;margin-top:9px}
+  .cashier-gate-cash>div{padding:9px}
+  .cashier-gate-cash strong{font-size:13px}
+  .cashier-gate-status{font-size:8.5px;padding:7px 9px}
+  .cashier-gate-actions .cashier-gate-open{min-height:50px;font-size:10px}
+}
+@media(max-width:390px){
+  .cashier-gate-head{padding:11px 12px 10px}
+  .cashier-gate-account{max-width:110px}
+  .cashier-gate-body{padding:13px 11px 14px}
+  .cashier-gate-copy h2{font-size:19px}
+  .cashier-gate-copy p{font-size:8.2px}
+  .cashier-gate-step span{font-size:6.7px}
+  .cashier-gate-login{padding:11px}
+  .cashier-gate-cash small{font-size:6.5px}
+  .cashier-gate-cash strong{font-size:12px}
+}
+</style>
+
+
+
+<style id="v62-duty-flow-polish">
+/* ============================================================
+   v62 FINAL DUTY / LOGOUT FLOW POLISH
+   Presentation only for Staff Home + Cashier gate.
+   Existing palette and mobile POS checkout rules are unchanged.
+   ============================================================ */
+.staff-role #dashPage .staff-home-panel{
+  max-width:1180px;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.staff-role #staffDutyActive{
+  padding:17px!important;
+  border-radius:19px!important;
+  border-color:#cfe6d9!important;
+  background:linear-gradient(145deg,#fff,#f7fcf9)!important;
+  box-shadow:0 10px 30px rgba(21,80,54,.055)!important;
+}
+.staff-role #staffDutyActive .staff-duty-state-head{
+  margin-bottom:13px!important;
+  padding-bottom:12px;
+  border-bottom:1px solid #e3eee8;
+}
+.staff-role #staffDutyActive .staff-duty-state-icon.active{
+  width:38px;height:38px;flex-basis:38px;
+  border-radius:12px;
+}
+.staff-role #staffDutyActive .staff-duty-active-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+.staff-role #staffDutyActive .staff-duty-info-item{
+  min-height:76px;
+  padding:11px 12px!important;
+  border-color:#dfeae4!important;
+  border-radius:13px!important;
+  background:#fff!important;
+}
+.staff-role #staffDutyActive .staff-duty-info-item small{font-size:7px!important}
+.staff-role #staffDutyActive .staff-duty-info-item strong{font-size:12px!important}
+.staff-role #staffDutyActive .staff-duty-end-actions{
+  grid-template-columns:minmax(0,1.55fr) minmax(150px,.72fr) minmax(150px,.72fr)!important;
+  gap:9px!important;
+  margin-top:13px!important;
+}
+.staff-role #staffDutyActive .staff-duty-end-actions .btn{
+  min-height:45px!important;
+  border-radius:11px!important;
+}
+.staff-role #homeOpenPos{font-weight:900!important}
+.staff-role #homeEndDutyLogout{font-weight:850!important}
+
+/* Cashier access gate remains the only Staff entry point when Duty is not active. */
+.cashier-gate-shell{width:min(760px,100%)!important}
+.cashier-gate-login{max-width:600px!important}
+.cashier-gate-copy{max-width:560px!important}
+
+@media(max-width:720px){
+  .staff-role #dashPage .staff-home-panel{
+    width:100%!important;
+    max-width:100%!important;
+    padding:8px!important;
+  }
+  .staff-role #staffDutyActive{
+    padding:11px!important;
+    border-radius:15px!important;
+  }
+  .staff-role #staffDutyActive .staff-duty-state-head{
+    margin-bottom:9px!important;
+    padding-bottom:9px;
+  }
+  .staff-role #staffDutyActive .staff-duty-state-head>div:first-child{
+    width:calc(100% - 70px)!important;
+  }
+  .staff-role #staffDutyActive .staff-duty-active-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;
+  }
+  .staff-role #staffDutyActive .staff-duty-info-item{
+    min-height:70px!important;
+    padding:9px!important;
+  }
+  .staff-role #staffDutyActive .staff-duty-info-item strong{font-size:11px!important}
+  .staff-role #staffDutyActive .staff-duty-end-actions{
+    grid-template-columns:1fr 1fr!important;
+    gap:7px!important;
+    margin-top:10px!important;
+  }
+  .staff-role #homeOpenPos{grid-column:1/-1}
+  .staff-role #staffDutyActive .staff-duty-end-actions .btn{min-height:44px!important}
+
+  .cashier-access-gate{
+    padding:max(8px,env(safe-area-inset-top)) 7px max(8px,env(safe-area-inset-bottom))!important;
+  }
+  .cashier-gate-shell{
+    width:100%!important;
+    max-height:calc(100dvh - 16px)!important;
+    border-radius:19px!important;
+  }
+  .cashier-gate-head{padding:11px 12px!important}
+  .cashier-gate-account{display:none!important}
+  .cashier-gate-body{padding:13px 11px 14px!important}
+  .cashier-gate-copy{margin-bottom:12px!important}
+  .cashier-gate-copy h2{font-size:19px!important}
+  .cashier-gate-steps{margin-bottom:13px!important}
+  .cashier-gate-login{padding:12px!important;border-radius:15px!important}
+  .cashier-gate-cash{grid-template-columns:1fr 1fr!important}
+  .cashier-gate-actions{margin-top:9px!important}
+}
+@media(max-width:380px){
+  .staff-role #staffDutyActive .staff-duty-active-grid{grid-template-columns:1fr!important}
+  .staff-role #staffDutyActive .staff-duty-end-actions{grid-template-columns:1fr!important}
+  .staff-role #homeOpenPos{grid-column:auto}
+  .cashier-gate-step span{font-size:6.2px!important}
+  .cashier-gate-cash{grid-template-columns:1fr!important}
+}
+</style>
+
+
+<style id="v63-pos-duty-controls">
+/* ============================================================
+   v63 FINAL — Duty controls live inside POS
+   Existing palette, inventory logic, and mobile checkout flow unchanged.
+   ============================================================ */
+
+/* Home is now summary-only once Cashier Login has opened the POS. */
+.staff-role #staffDutyActive{display:none!important}
+.staff-role #dashPage .staff-duty-pos-note{display:none!important}
+
+/* Staff account Sign Out is centralized inside POS. Admin keeps the sidebar control. */
+.staff-role #logout,
+.staff-role #mobileLogout{display:none!important}
+
+/* Hide the older duplicate mobile status; the unified session bar below replaces it. */
+.staff-role #salesPage #mobilePosStatus{display:none!important}
+
+.staff-role #salesPage .pos-duty-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:0 0 11px;
+  padding:10px 11px;
+  border:1px solid #dfe8e4;
+  border-radius:13px;
+  background:linear-gradient(135deg,#fbfffd 0%,#f4faf7 100%);
+  box-shadow:0 3px 12px rgba(22,72,50,.035);
+}
+.staff-role #salesPage .pos-duty-identity{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.staff-role #salesPage .pos-duty-dot{
+  width:10px;
+  height:10px;
+  flex:0 0 10px;
+  border-radius:50%;
+  background:#22a06b;
+  box-shadow:0 0 0 5px rgba(34,160,107,.10);
+}
+.staff-role #salesPage .pos-duty-copy{min-width:0}
+.staff-role #salesPage .pos-duty-copy small{
+  display:block;
+  margin-bottom:2px;
+  color:#718096;
+  font-size:6.8px;
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:.085em;
+}
+.staff-role #salesPage .pos-duty-copy strong{
+  display:inline;
+  color:#172235;
+  font-size:11px;
+  line-height:1.2;
+  font-weight:900;
+}
+.staff-role #salesPage .pos-duty-copy span{
+  display:inline;
+  margin-left:6px;
+  color:#6f7c8f;
+  font-size:8px;
+  line-height:1.3;
+  font-weight:650;
+}
+.staff-role #salesPage .pos-duty-actions{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.staff-role #salesPage .pos-duty-actions .btn{
+  min-height:36px!important;
+  padding:7px 12px!important;
+  border-radius:9px!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  white-space:nowrap;
+}
+.staff-role #salesPage .pos-duty-end{
+  background:#fff!important;
+  color:#445164!important;
+  border-color:#dbe3ec!important;
+}
+.staff-role #salesPage .pos-duty-signout{
+  background:#fff5f5!important;
+  color:#c83232!important;
+  border-color:#f1cece!important;
+}
+.staff-role #salesPage .pos-duty-bar.no-duty{
+  border-color:#ead8a3;
+  background:#fffbef;
+}
+.staff-role #salesPage .pos-duty-bar.no-duty .pos-duty-dot{
+  background:#d59b24;
+  box-shadow:0 0 0 5px rgba(213,155,36,.11);
+}
+
+/* Slightly cleaner desktop POS heading now that duty actions are in-context. */
+@media(min-width:721px){
+  .staff-role #salesPage .pos-products{padding:13px!important}
+  .staff-role #salesPage .pos-sticky-head{margin-bottom:8px!important}
+  .staff-role #salesPage .pos-duty-bar{position:relative;z-index:3}
+}
+
+@media(max-width:720px){
+  .staff-role #salesPage .pos-duty-bar{
+    margin:0 0 8px!important;
+    padding:9px!important;
+    border-radius:12px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:8px!important;
+    align-items:center!important;
+  }
+  .staff-role #salesPage .pos-duty-identity{gap:8px!important}
+  .staff-role #salesPage .pos-duty-dot{
+    width:9px!important;height:9px!important;flex-basis:9px!important;
+    box-shadow:0 0 0 4px rgba(34,160,107,.10)!important;
+  }
+  .staff-role #salesPage .pos-duty-copy small{font-size:6.4px!important}
+  .staff-role #salesPage .pos-duty-copy strong{
+    display:block!important;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:10.5px!important;
+  }
+  .staff-role #salesPage .pos-duty-copy span{
+    display:block!important;
+    margin:2px 0 0!important;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:7.4px!important;
+  }
+  .staff-role #salesPage .pos-duty-actions{gap:5px!important}
+  .staff-role #salesPage .pos-duty-actions .btn{
+    min-height:35px!important;
+    padding:6px 8px!important;
+    font-size:8px!important;
+  }
+}
+
+@media(max-width:390px){
+  .staff-role #salesPage .pos-duty-bar{
+    grid-template-columns:1fr!important;
+    gap:7px!important;
+  }
+  .staff-role #salesPage .pos-duty-actions{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    width:100%!important;
+  }
+  .staff-role #salesPage .pos-duty-actions .btn{width:100%!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -6045,6 +6690,85 @@ input,select,textarea,button{max-width:100%}
   </div>
 </div>
 
+
+
+<div id="cashierAccessGate" class="cashier-access-gate hidden" aria-hidden="true">
+  <div class="cashier-gate-shell" role="dialog" aria-modal="true" aria-labelledby="cashierGateTitle">
+    <div class="cashier-gate-head">
+      <div class="cashier-gate-brand">
+        <div class="cashier-gate-mark">C</div>
+        <div>
+          <div class="cashier-gate-kicker">POS CHIKITOS • STAFF ACCESS</div>
+          <h1 class="cashier-gate-title">Cashier Login</h1>
+        </div>
+      </div>
+      <div id="cashierGateAccount" class="cashier-gate-account">Account signed in</div>
+    </div>
+
+    <div class="cashier-gate-body">
+      <div class="cashier-gate-copy">
+        <h2 id="cashierGateTitle">Who is on duty?</h2>
+        <p id="cashierGateIntroText">Cashier verification is required before the store workspace opens. Select your name, enter your PIN, then continue to POS.</p>
+      </div>
+
+      <div class="cashier-gate-steps" aria-label="Cashier access steps">
+        <div class="cashier-gate-step done"><b>✓</b><span>Account</span></div>
+        <div id="cashierGateStep2" class="cashier-gate-step"><b>2</b><span>Cashier</span></div>
+        <div id="cashierGateStep3" class="cashier-gate-step"><b>3</b><span>PIN &amp; Shift</span></div>
+        <div id="cashierGateStep4" class="cashier-gate-step"><b>4</b><span>Open POS</span></div>
+      </div>
+
+      <div class="cashier-gate-login">
+        <div class="cashier-gate-login-title">
+          <h3 id="cashierGatePanelTitle">Cashier Verification</h3>
+          <span id="cashierGateBadge" data-state="locked">LOCKED</span>
+        </div>
+
+        <div class="cashier-gate-form">
+          <div class="cashier-gate-field">
+            <label>Processor / Cashier *</label>
+            <select id="cashierGateProcessor">
+              <option value="">Loading Cashiers...</option>
+            </select>
+          </div>
+
+          <div class="cashier-gate-field">
+            <label>Cashier PIN *</label>
+            <div class="cashier-gate-pin-row">
+              <input id="cashierGatePin" type="password" inputmode="numeric" maxlength="6" placeholder="4–6 digit PIN" autocomplete="off">
+              <button id="cashierGateTogglePin" class="btn small" type="button">Show</button>
+            </div>
+          </div>
+
+          <div class="cashier-gate-field">
+            <label>Duty / Shift *</label>
+            <select id="cashierGateShift">
+              <option value="Morning">Morning</option>
+              <option value="Afternoon">Afternoon</option>
+              <option value="Night">Night</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cashier-gate-cash">
+          <div><small>Petty Cash Opening</small><strong id="cashierGateOpening">₱0.00</strong></div>
+          <div><small>Petty Cash Remaining</small><strong id="cashierGateRemaining">₱0.00</strong></div>
+        </div>
+
+        <div id="cashierGateStatus" class="cashier-gate-status">Loading Cashier access...</div>
+
+        <div class="cashier-gate-actions">
+          <button id="cashierGateOpen" class="btn green cashier-gate-open" type="button" disabled>Verify Cashier & Open POS</button>
+          <button id="cashierGateSignOut" class="btn cashier-gate-signout" type="button">Sign out account</button>
+        </div>
+
+        <div class="cashier-gate-foot">For security, Cashier PIN verification is required again after every account sign-in or page reload.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="app">
   <aside class="side">
     <div class="brand">CHIKI<span>TOS</span></div>
@@ -6104,6 +6828,20 @@ input,select,textarea,button{max-width:100%}
               <div id="staffHomeStatusText" class="muted">Checking duty and POS status...</div>
             </div>
             <span id="staffHomePosBadge" class="pill">CHECKING</span>
+          </div>
+
+          <div id="homeDutyIntro" class="home-duty-intro">
+            <div class="home-duty-intro-copy">
+              <div class="staff-home-eyebrow">HOME DUTY</div>
+              <h3>Start your duty before opening the POS</h3>
+              <div class="muted">Your account is signed in. Verify the actual Processor / Cashier below so the POS records who is handling the shift.</div>
+            </div>
+            <div class="home-duty-steps" aria-label="Home Duty steps">
+              <div><b>1</b><span>Account Signed In</span></div>
+              <div><b>2</b><span>Select Cashier</span></div>
+              <div><b>3</b><span>Enter Cashier PIN</span></div>
+              <div><b>4</b><span>Open POS</span></div>
+            </div>
           </div>
 
           <!-- OPENING STATE: visible only when Staff has no active duty -->
@@ -6170,10 +6908,8 @@ input,select,textarea,button{max-width:100%}
 
             <div id="staffDutyActiveInfo" class="staff-duty-active-grid"></div>
 
-            <div class="staff-duty-end-actions">
-              <button id="homeOpenPos" class="btn blue">Open POS</button>
-              <button id="homeEndDuty" class="btn">End Duty</button>
-              <button id="homeEndDutyLogout" class="btn danger">End Duty & Sign Out</button>
+            <div class="staff-duty-pos-note">
+              Duty controls are now available directly inside the POS.
             </div>
           </div>
 
@@ -6426,9 +7162,24 @@ input,select,textarea,button{max-width:100%}
               <div class="head">
                 <div>
                   <h2>Daily Sales POS</h2>
-                  <div class="muted desktop-pos-help">Start Duty / Opening first, then POS follows the configured operating hours. End of Day submission locks the POS.</div>
+                  <div class="muted desktop-pos-help">Cashier Login must be verified first. POS then follows the configured operating hours. End of Day submission locks the POS.</div>
                 </div>
                 <span id="posAccessBadge" class="pill ok">POS OPEN</span>
+              </div>
+            </div>
+
+            <div id="posDutyBar" class="pos-duty-bar">
+              <div class="pos-duty-identity">
+                <span class="pos-duty-dot" aria-hidden="true"></span>
+                <div class="pos-duty-copy">
+                  <small>CASHIER ON DUTY</small>
+                  <strong id="posDutyCashier">Cashier</strong>
+                  <span id="posDutyMeta">Duty session</span>
+                </div>
+              </div>
+              <div class="pos-duty-actions">
+                <button id="posEndDuty" class="btn pos-duty-end" type="button">End Duty</button>
+                <button id="posSignOut" class="btn danger pos-duty-signout" type="button">Sign Out</button>
               </div>
             </div>
 
@@ -7991,10 +8742,9 @@ input,select,textarea,button{max-width:100%}
       <button id="closeStaffMore" class="btn small" type="button">Close</button>
     </div>
     <div class="staff-more-grid">
-      <button id="staffMoreHome" class="staff-more-action" type="button"><span>🏠</span><b>Home / Duty</b></button>
+      <button id="staffMoreHome" class="staff-more-action" type="button"><span>🏠</span><b>Home</b></button>
       <button id="staffMoreClosing" class="staff-more-action" type="button"><span>🧮</span><b>Daily Closing</b></button>
-      <button id="staffMoreEndDuty" class="staff-more-action danger-soft" type="button"><span>⏹</span><b>End Duty</b></button>
-      <button id="staffMoreLogout" class="staff-more-action danger-soft" type="button"><span>↪</span><b>Sign Out</b></button>
+
     </div>
   </div>
 </div>
@@ -8056,6 +8806,7 @@ const formatDate=d=>{if(!d)return '—';const [y,m,day]=d.split('-');return new 
 
 let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],creditPayments=[],expenses=[],stockAdjustments=[],voidRequests=[],returnRequests=[],deleteRequests=[],closings=[],dataResetLogs=[],deletedSalesArchive=[],shifts=[],dailyCashFloats=[],dailyPettyCash=[],suppliers=[],purchases=[],processors=[],processorProfiles=[],lastSavedTransaction=null,lastPosAccessKey='',authMode='login';
 let staffMobileInitialRouteDone=false;
+let cashierGateProcessorReady=false,cashierGateShiftReady=false,cashierGateSubmitting=false,cashierGateSessionUnlocked=false;
 let activeOpsPanel='inventory',pendingCreditPaymentId=null;
 const adminDrafts={stock:{},product:{}};
 let dashboardCharts={sales7:null,mix:null,expense:null};
@@ -8227,6 +8978,7 @@ async function verifyProcessorPin(name,pin){
 }
 
 let preLoginTimer=null;
+let explicitSignOutToLogin=false;
 function hidePreLoginSplash(){
   if(preLoginTimer){clearTimeout(preLoginTimer);preLoginTimer=null}
   $('preLoginSplash').classList.add('hidden');
@@ -8578,7 +9330,7 @@ function applyRole(){
   document.querySelectorAll('.staffOnly').forEach(e=>e.style.display=isStaff()?'block':'none');
   $('roleBadge').textContent=role.toUpperCase();$('roleBadge').className='badge '+(isStaff()?'staff':'');
   $('topRole').textContent=role.toUpperCase();
-  $('dashboardNav').textContent=isAdmin()?'🏠 Dashboard':'🏠 Home / Duty';
+  $('dashboardNav').textContent=isAdmin()?'🏠 Dashboard':'🏠 Home';
   $('reportsNav').textContent=isAdmin()?'📊 Sales Reports':'🧾 My Sales Reports';
   $('reportsTitle').textContent=isAdmin()?'Admin Sales Reports':'My Sales Reports';
   $('reportsSubtitle').textContent=isAdmin()
@@ -8636,6 +9388,7 @@ function listen(){
   unsubs.push(onSnapshot(prodRef(),s=>{products=s.exists()?s.data().items||[]:[];renderAll()}));
   unsubs.push(onSnapshot(collection(db,'stores',STORE,'inventory'),s=>{inventory={};s.forEach(d=>inventory[d.id]=d.data());renderAll();cloud('Live synced')}));
   unsubs.push(onSnapshot(processorsRef(),s=>{
+    cashierGateProcessorReady=true;
     const data=s.exists()?s.data():{};
     processorProfiles=normalizedProcessorProfiles(data.profiles||[],data.names||[]);
     // Staff can only open duty with active Cashiers that already have a PIN.
@@ -8726,6 +9479,7 @@ function listen(){
       renderAll()
     }));
     unsubs.push(onSnapshot(query(shiftsCol(),where('userId','==',user.uid),limit(1000)),s=>{
+      cashierGateShiftReady=true;
       shifts=[];s.forEach(d=>shifts.push({id:d.id,...d.data()}));
       shifts.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
       autoEndStaleShifts();
@@ -8761,9 +9515,242 @@ function dashboardCreditRows(){
 function dashboardExpenseRows(){
   return isAdmin()?expenses:expenses.filter(e=>e.userId===user?.uid);
 }
+
+function cashierGateNeedsLock(){
+  if(!user||!isStaff())return false;
+  return !cashierGateSessionUnlocked;
+}
+function setCashierAccessGateVisible(show){
+  const gate=$('cashierAccessGate');
+  if(!gate)return;
+  gate.classList.toggle('hidden',!show);
+  gate.setAttribute('aria-hidden',show?'false':'true');
+  document.body.classList.toggle('cashier-access-locked',!!show);
+  if(show)setTimeout(()=>{
+    const active=cashierGateShiftReady?activeShiftFor(user?.uid):null;
+    (active?$('cashierGatePin'):$('cashierGateProcessor'))?.focus();
+  },80);
+}
+function renderCashierGatePettyCash(){
+  if(!$('cashierGateProcessor'))return;
+  const processorName=$('cashierGateProcessor').value.trim();
+  $('cashierGateOpening').textContent=peso(processorName?pettyCashOpeningForDate(today(),processorName):0);
+  $('cashierGateRemaining').textContent=peso(processorName?pettyCashRemainingForDate(today(),processorName):0);
+  $('cashierGateStep2')?.classList.toggle('done',!!processorName);
+  $('cashierGateStep3')?.classList.toggle('done',processorPinValidFormat($('cashierGatePin')?.value||''));
+}
+function setCashierGateBadge(text,state='locked'){
+  const badge=$('cashierGateBadge');
+  if(!badge)return;
+  badge.textContent=text;
+  badge.dataset.state=state;
+}
+function renderCashierAccessGate(){
+  if(!$('cashierAccessGate'))return;
+  if(!user||!isStaff()){
+    setCashierAccessGateVisible(false);
+    return;
+  }
+
+  $('cashierGateAccount').textContent=user.email||'Staff account signed in';
+
+  // This unlock is intentionally in-memory only. A page reload or a new account
+  // sign-in requires Cashier PIN verification again before the workspace opens.
+  if(cashierGateSessionUnlocked){
+    setCashierAccessGateVisible(false);
+    return;
+  }
+
+  setCashierAccessGateVisible(true);
+
+  const active=cashierGateShiftReady?activeShiftFor(user.uid):null;
+  const closing=closingRecordForDate(today(),user.uid);
+  const current=$('cashierGateProcessor').value;
+  const listReady=cashierGateProcessorReady;
+  const shiftReady=cashierGateShiftReady;
+
+  if(active){
+    const name=String(active.processorName||'').trim();
+    $('cashierGateProcessor').innerHTML=`<option value="${attr(name)}">${esc(name||'Active Cashier')}</option>`;
+    $('cashierGateProcessor').value=name;
+    const shiftValue=String(active.shiftLabel||'Custom');
+    if([...$('cashierGateShift').options].some(o=>o.value===shiftValue))$('cashierGateShift').value=shiftValue;
+    else $('cashierGateShift').value='Custom';
+  }else{
+    $('cashierGateProcessor').innerHTML=!listReady
+      ?'<option value="">Loading Cashiers...</option>'
+      :'<option value="">Select Cashier</option>'+processors.map(n=>`<option value="${attr(n)}">${esc(n)}</option>`).join('');
+    if(processors.includes(current))$('cashierGateProcessor').value=current;
+  }
+
+  const noCashiers=listReady&&processors.length===0&&!active;
+  const loading=!listReady||!shiftReady;
+  const closedDay=!!closing&&!active;
+  const disabled=loading||noCashiers||cashierGateSubmitting;
+
+  $('cashierGateOpen').disabled=disabled;
+  $('cashierGateProcessor').disabled=disabled||!!active;
+  $('cashierGatePin').disabled=disabled;
+  $('cashierGateShift').disabled=disabled||!!active||closedDay;
+  $('cashierGateOpen').textContent=active
+    ?'Verify PIN & Resume POS'
+    :closedDay?'Verify PIN & Enter Workspace':'Verify Cashier & Open POS';
+  $('cashierGatePanelTitle').textContent=active?'Resume Cashier Session':'Cashier Verification';
+  $('cashierGateIntroText').textContent=active
+    ?`An active Duty session was found for ${active.processorName||'this Cashier'}. Enter the Cashier PIN to unlock and resume POS.`
+    :closedDay
+      ?'Today is already closed. Verify the Cashier PIN to enter the workspace; POS sales will remain locked for the closed day.'
+      :'Cashier verification is required before the store workspace opens. Select your name, enter your PIN, then continue to POS.';
+
+  const status=$('cashierGateStatus');
+  status.className='cashier-gate-status';
+  if(cashierGateSubmitting){
+    setCashierGateBadge('VERIFYING','checking');
+    status.textContent='Verifying Cashier PIN securely...';
+  }else if(active){
+    setCashierGateBadge('ACTIVE DUTY','active');
+    status.textContent=`Active ${active.shiftLabel||'Duty'} session • Started ${active.startTime||'—'}. Enter the PIN to resume.`;
+  }else if(closedDay){
+    setCashierGateBadge('DAY CLOSED','closed');
+    status.textContent='Verify your Cashier PIN to enter the workspace. New POS sales remain blocked because today is already closed.';
+  }else if(loading){
+    setCashierGateBadge('LOADING','checking');
+    status.textContent='Loading Cashier access and today’s Duty status...';
+  }else if(noCashiers){
+    setCashierGateBadge('LOCKED','locked');
+    status.textContent='No active Cashier with a PIN is available. Ask Admin to add or reset a Cashier PIN under Processors.';
+    status.classList.add('error');
+  }else{
+    setCashierGateBadge('LOCKED','locked');
+    status.textContent='Select your Cashier, enter the 4–6 digit PIN, then open the POS.';
+  }
+
+  $('cashierGateStep4')?.classList.remove('done');
+  renderCashierGatePettyCash();
+}
+async function waitForCashierDutySync(timeoutMs=6500){
+  const start=Date.now();
+  while(Date.now()-start<timeoutMs){
+    if(activeShiftFor(user?.uid))return true;
+    await new Promise(r=>setTimeout(r,120));
+  }
+  return !!activeShiftFor(user?.uid);
+}
+async function openPosFromCashierGate(){
+  if(cashierGateSubmitting||!isStaff()||!user)return;
+
+  const active=cashierGateShiftReady?activeShiftFor(user.uid):null;
+  const processorName=$('cashierGateProcessor').value.trim();
+  const pin=$('cashierGatePin').value.trim();
+  const shiftLabel=$('cashierGateShift').value||'Custom';
+  const status=$('cashierGateStatus');
+
+  if(!processorName){
+    status.textContent='Select your Processor / Cashier name first.';
+    status.className='cashier-gate-status error';
+    $('cashierGateProcessor').focus();
+    return;
+  }
+  if(!processorPinValidFormat(pin)){
+    status.textContent='Enter the valid 4–6 digit Cashier PIN.';
+    status.className='cashier-gate-status error';
+    $('cashierGatePin').focus();
+    return;
+  }
+
+  cashierGateSubmitting=true;
+  renderCashierAccessGate();
+
+  const closing=closingRecordForDate(today(),user.uid);
+  if(closing&&!active){
+    try{
+      const verified=await verifyProcessorPin(processorName,pin);
+      cashierGateSubmitting=false;
+      if(!verified.ok){
+        renderCashierAccessGate();
+        status.textContent=verified.message;
+        status.className='cashier-gate-status error';
+        $('cashierGatePin').select();
+        return;
+      }
+      cashierGateSessionUnlocked=true;
+      $('cashierGatePin').value='';
+      $('cashierGateStep4')?.classList.add('done');
+      setCashierAccessGateVisible(false);
+      cloud('Cashier PIN verified — workspace unlocked');
+      nav('dashPage');
+      return;
+    }catch(e){
+      cashierGateSubmitting=false;
+      renderCashierAccessGate();
+      status.textContent=e.message||'Unable to verify Cashier PIN.';
+      status.className='cashier-gate-status error';
+      return;
+    }
+  }
+
+  // If Duty is already active (for example after refresh/sign-in), do not create
+  // another shift. Re-verify the PIN and unlock this browser session only.
+  if(active){
+    try{
+      const verified=await verifyProcessorPin(active.processorName||processorName,pin);
+      cashierGateSubmitting=false;
+      if(!verified.ok){
+        renderCashierAccessGate();
+        status.textContent=verified.message;
+        status.className='cashier-gate-status error';
+        $('cashierGatePin').select();
+        return;
+      }
+      cashierGateSessionUnlocked=true;
+      $('cashierGatePin').value='';
+      $('cashierGateStep4')?.classList.add('done');
+      setCashierAccessGateVisible(false);
+      cloud('Cashier PIN verified — POS unlocked');
+      nav('salesPage');
+      setTimeout(()=>$('posSearch')?.focus(),120);
+      return;
+    }catch(e){
+      cashierGateSubmitting=false;
+      renderCashierAccessGate();
+      status.textContent=e.message||'Unable to verify Cashier PIN.';
+      status.className='cashier-gate-status error';
+      return;
+    }
+  }
+
+  const ok=await startDutySession(processorName,shiftLabel,pin);
+  if(!ok){
+    cashierGateSubmitting=false;
+    renderCashierAccessGate();
+    return;
+  }
+
+  status.textContent='PIN verified. Opening POS...';
+  status.className='cashier-gate-status good';
+  $('cashierGatePin').value='';
+
+  const synced=await waitForCashierDutySync();
+  cashierGateSubmitting=false;
+  if(!synced){
+    renderCashierAccessGate();
+    status.textContent='Duty was saved but the live session is still syncing. Please wait a moment and tap Open POS again.';
+    status.className='cashier-gate-status error';
+    return;
+  }
+
+  cashierGateSessionUnlocked=true;
+  $('cashierGateStep4')?.classList.add('done');
+  setCashierAccessGateVisible(false);
+  cloud('Cashier PIN verified — POS unlocked');
+  nav('salesPage');
+  setTimeout(()=>$('posSearch')?.focus(),120);
+}
+
 function renderStaffHome(){
   if(!user||!isStaff())return;
 
+  renderCashierAccessGate();
   const shift=activeShiftFor(user.uid);
   document.body.classList.toggle('staff-no-duty',!shift);
   const access=posAccessState(today(),user.uid);
@@ -8798,6 +9785,7 @@ function renderStaffHome(){
 
   renderPettyCash();
 
+  $('homeDutyIntro')?.classList.toggle('hidden',!!shift||!!closing);
   $('staffDutyOpening').classList.toggle('hidden',!!shift||!!closing);
   $('staffDutyActive').classList.toggle('hidden',!shift);
 
@@ -9138,7 +10126,7 @@ function posAccessState(date=today(),uid=user?.uid){
   if(closing?.status==='approved')return {allowed:false,code:'eod_approved',message:`End of Day for ${formatDate(date)} is already APPROVED / CLOSED.`};
   if(closing?.status==='pending')return {allowed:false,code:'eod_pending',message:`End of Day for ${formatDate(date)} was already submitted and is waiting for Admin approval.`};
   if(date===currentDate&&!posOperatingHoursOpen())return {allowed:false,code:'outside_hours',message:`POS is outside operating hours (${setting('openTime','06:00')} to ${setting('closeTime','00:00')}).`};
-  if(!activeShiftFor(uid))return {allowed:false,code:'no_shift',message:'POS requires an active Duty session. Use Opening / Start Duty on Home first.'};
+  if(!activeShiftFor(uid))return {allowed:false,code:'no_shift',message:'POS requires an active Duty session. Sign in through the Cashier Login screen first.'};
   return {allowed:true,code:'open',message:`POS OPEN • Operating hours: ${setting('openTime','06:00')} to ${setting('closeTime','00:00')}.`};
 }
 function applyPosAccessState(state){
@@ -9236,44 +10224,86 @@ async function startHomeDuty(){
     nav('salesPage');
   }
 }
+function resetCashierAccessAfterDutyEnd(){
+  cashierGateSessionUnlocked=false;
+  cashierGateSubmitting=false;
+  if($('cashierGatePin')){
+    $('cashierGatePin').value='';
+    $('cashierGatePin').type='password';
+  }
+  if($('cashierGateTogglePin'))$('cashierGateTogglePin').textContent='Show';
+  if($('cashierGateProcessor'))$('cashierGateProcessor').value='';
+  if($('cashierGateShift'))$('cashierGateShift').value='Morning';
+  renderCashierAccessGate();
+  setCashierAccessGateVisible(true);
+  const status=$('cashierGateStatus');
+  if(status){
+    status.textContent='Duty ended successfully. Select the next Cashier and enter the Cashier PIN to open POS again.';
+    status.className='cashier-gate-status good';
+  }
+  setCashierGateBadge('READY','active');
+}
+
 async function finishDutySession({logoutAfter=false,navigateClosing=false}={}){
   if(!isStaff())return false;
   const s=activeShiftFor(user.uid);
   if(!s){
-    if(logoutAfter)await signOut(auth);
+    if(logoutAfter){
+      explicitSignOutToLogin=true;
+      await signOut(auth);
+    }else{
+      resetCashierAccessAfterDutyEnd();
+    }
     return true;
   }
 
-  const action=logoutAfter?'End duty and sign out':'End current duty';
+  const action=logoutAfter?'Sign out and end the current duty':'End current duty';
   if(!confirm(
     `${action} for ${s.processorName||'Staff'}?\n\n`+
     `Started: ${s.startTime||'—'}\n`+
     `Shift sales: ${peso(shiftSalesTotal(s.id))}\n`+
     `Petty Cash Remaining for ${s.processorName||'Cashier'}: ${peso(pettyCashRemainingForDate(today(),s.processorName||''))}\n\n`+
-    `Petty Cash is controlled by Admin and is not reset by End Duty / Sign Out.`
+    `Petty Cash is controlled by Admin and is not reset when duty ends.`
   ))return false;
 
   try{
+    const endedDate=today();
+    const endedTime=nowTime();
+    const endingSales=shiftSalesTotal(s.id);
     await setDoc(doc(shiftsCol(),s.id),{
-      status:'ended',endDate:today(),endTime:nowTime(),endingSales:shiftSalesTotal(s.id),
+      status:'ended',endDate:endedDate,endTime:endedTime,endingSales,
       endedAt:serverTimestamp(),endedAtClient:new Date().toISOString(),
       endedBy:user.uid,endedByEmail:user.email||''
     },{merge:true});
+
+    // Update the local copy immediately so the access gate cannot briefly
+    // mistake the just-ended duty for an active session while Firestore syncs.
+    Object.assign(s,{status:'ended',endDate:endedDate,endTime:endedTime,endingSales});
+    cashierGateSessionUnlocked=false;
     cloud('Duty ended');
+
     if(logoutAfter){
+      explicitSignOutToLogin=true;
       await signOut(auth);
     }else if(navigateClosing){
       alert('Duty ended. You may now proceed to Daily Closing.');
       nav('closingPage');
+    }else{
+      resetCashierAccessAfterDutyEnd();
     }
     return true;
-  }catch(e){alert(e.message);return false}
+  }catch(e){
+    explicitSignOutToLogin=false;
+    alert(e.message);
+    return false;
+  }
 }
 async function handleLogout(){
   if(isStaff()&&activeShiftFor(user?.uid)){
     await finishDutySession({logoutAfter:true,navigateClosing:false});
     return;
   }
+  explicitSignOutToLogin=true;
   await signOut(auth);
 }
 function renderAdminDutyOverview(){
@@ -9428,9 +10458,9 @@ function renderShifts(){
 }
 async function startShift(){
   if(!isStaff())return;
-  alert('For security, Start Duty now requires your Cashier PIN. Open Home and use Opening / Start Duty.');
-  nav('dashPage');
-  setTimeout(()=>$('homeDutyProcessor').focus(),120);
+  cashierGateSessionUnlocked=false;
+  renderCashierAccessGate();
+  setCashierAccessGateVisible(true);
 }
 async function endShift(){
   await finishDutySession({logoutAfter:false,navigateClosing:true});
@@ -9930,7 +10960,11 @@ function renderPOS(){
   const activeShift=activeShiftFor(user.uid);
   if(activeShift)$('processorName').value=activeShift.processorName||'';
   $('mobilePosCashier').textContent=activeShift?`${activeShift.processorName||'Cashier'} • ON DUTY`:'No active cashier';
-  $('mobilePosShift').textContent=activeShift?`${activeShift.shiftLabel||'Duty'} • Started ${activeShift.startTime||'—'}`:'Start Duty to open POS';
+  $('mobilePosShift').textContent=activeShift?`${activeShift.shiftLabel||'Duty'} • Started ${activeShift.startTime||'—'}`:'Cashier login required';
+  if($('posDutyCashier'))$('posDutyCashier').textContent=activeShift?(activeShift.processorName||'Cashier'):'No active cashier';
+  if($('posDutyMeta'))$('posDutyMeta').textContent=activeShift?`${activeShift.shiftLabel||'Duty'} • Started ${activeShift.startTime||'—'}`:'Cashier login required before POS use';
+  if($('posDutyBar'))$('posDutyBar').classList.toggle('no-duty',!activeShift);
+  if($('posEndDuty'))$('posEndDuty').disabled=!activeShift;
   const access=posAccessState($('saleDate').value||currentDate,user.uid);
   const q=$('posSearch').value.toLowerCase(),cat=$('posCat').value;
   const rows=activeProducts().filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat));
@@ -10076,7 +11110,12 @@ async function saveSale(){
   const transactionType=$('transactionType').value;
   let processorName=$('processorName').value.trim();
   const activeShift=activeShiftFor(user.uid);
-  if(!activeShift){alert('Start Duty / Opening on Home before saving a POS transaction.');nav('dashPage');return}
+  if(!activeShift){
+    alert('Cashier login is required before saving a POS transaction.');
+    cashierGateSessionUnlocked=false;
+    renderCashierAccessGate();
+    return
+  }
   processorName=activeShift.processorName||processorName;
   if(setting('requireProcessor',true)&&!processorName){alert('Select who processed this transaction before saving.');$('processorName').focus();return}
   if(!processorName)processorName=user.email||'Staff';
@@ -15007,8 +16046,9 @@ function goToPaymentStage(){
   }
 
   if(!activeShiftFor(user?.uid)){
-    alert('Start Duty / Opening first before checkout.');
-    nav('dashPage');
+    alert('Cashier login is required before checkout.');
+    cashierGateSessionUnlocked=false;
+    renderCashierAccessGate();
     return;
   }
 
@@ -15070,7 +16110,7 @@ function openStaffMore(){
   $('staffMoreDutyText').textContent=shift
     ?`${shift.processorName||'Cashier'} • ${shift.shiftLabel||'Duty'} • On Duty`
     :'No active Duty';
-  $('staffMoreEndDuty').disabled=!shift;
+  if($('staffMoreEndDuty'))$('staffMoreEndDuty').disabled=!shift;
   $('staffMoreBackdrop').classList.remove('hidden');
 }
 function closeSaleSuccess(){
@@ -15092,6 +16132,10 @@ function showSaleSuccess(record){
 function nav(id){
   closeMobileCart();
   closeStaffMore();
+  if(isStaff()&&user&&id!=='dashPage'&&cashierGateNeedsLock()){
+    renderCashierAccessGate();
+    return;
+  }
   if(id==='stockPage'){activeOpsPanel='inventory';id='operationsPage';setTimeout(()=>openInventorySection('inventorySection_stock'),0)}
   if(id==='productsPage'){activeOpsPanel='inventory';id='operationsPage';setTimeout(()=>openInventorySection('inventorySection_suppliers'),0)}
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
@@ -15192,12 +16236,11 @@ $('closeStaffMore').onclick=closeStaffMore;
 $('staffMoreBackdrop').onclick=e=>{if(e.target===$('staffMoreBackdrop'))closeStaffMore()};
 $('staffMoreHome').onclick=()=>{closeStaffMore();nav('dashPage')};
 $('staffMoreClosing').onclick=()=>{closeStaffMore();nav('closingPage')};
-$('staffMoreEndDuty').onclick=async()=>{
+if($('staffMoreEndDuty'))$('staffMoreEndDuty').onclick=async()=>{
   closeStaffMore();
-  const ok=await finishDutySession({logoutAfter:false,navigateClosing:false});
-  if(ok)nav('dashPage');
+  await finishDutySession({logoutAfter:false,navigateClosing:false});
 };
-$('staffMoreLogout').onclick=async()=>{closeStaffMore();await handleLogout()};
+if($('staffMoreLogout'))$('staffMoreLogout').onclick=async()=>{closeStaffMore();await handleLogout()};
 
 $('successNewSale').onclick=()=>{
   closeSaleSuccess();
@@ -15250,9 +16293,11 @@ $('actionClosing').onclick=()=>nav('closingPage');
 $('staffHomeHistoryBtn').onclick=()=>nav('staffHistoryPage');
 $('staffHomeClosingBtn').onclick=()=>nav('closingPage');
 $('homeStartDuty').onclick=startHomeDuty;
-$('homeOpenPos').onclick=()=>nav('salesPage');
-$('homeEndDuty').onclick=()=>finishDutySession({logoutAfter:false,navigateClosing:false});
-$('homeEndDutyLogout').onclick=()=>finishDutySession({logoutAfter:true,navigateClosing:false});
+if($('homeOpenPos'))$('homeOpenPos').onclick=()=>nav('salesPage');
+if($('homeEndDuty'))$('homeEndDuty').onclick=()=>finishDutySession({logoutAfter:false,navigateClosing:false});
+if($('homeEndDutyLogout'))$('homeEndDutyLogout').onclick=()=>finishDutySession({logoutAfter:true,navigateClosing:false});
+bindReliableTap('posEndDuty',()=>finishDutySession({logoutAfter:false,navigateClosing:false}));
+bindReliableTap('posSignOut',()=>handleLogout());
 $('shiftAllDates').onclick=()=>{
   $('shiftDateFilter').value='';
   renderShifts();
@@ -15349,6 +16394,36 @@ $('showResetProcessorPin').onchange=e=>{
 
 
 
+/* Cashier Access Gate — bindings are intentionally inside the module script. */
+$('cashierGateProcessor').onchange=()=>{
+  renderCashierGatePettyCash();
+  if($('homeDutyProcessor')){
+    const v=$('cashierGateProcessor').value;
+    if([...$('homeDutyProcessor').options].some(o=>o.value===v))$('homeDutyProcessor').value=v;
+  }
+};
+$('cashierGatePin').oninput=renderCashierGatePettyCash;
+$('cashierGatePin').onkeydown=e=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    openPosFromCashierGate();
+  }
+};
+$('cashierGateShift').onkeydown=e=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    openPosFromCashierGate();
+  }
+};
+$('cashierGateTogglePin').onclick=()=>{
+  const show=$('cashierGatePin').type==='password';
+  $('cashierGatePin').type=show?'text':'password';
+  $('cashierGateTogglePin').textContent=show?'Hide':'Show';
+  $('cashierGatePin').focus();
+};
+$('cashierGateOpen').onclick=()=>openPosFromCashierGate();
+$('cashierGateSignOut').onclick=()=>handleLogout();
+
 /* Auth */
 function authModeSet(m){
   authMode=m;
@@ -15369,6 +16444,8 @@ $('toggleAuthPass').onclick=()=>{
   $('toggleAuthPass').textContent=show?'Hide':'Show';
 };
 $('loginTab').onclick=()=>authModeSet('login');$('registerTab').onclick=()=>authModeSet('register');
+$('authEmail').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('authPass').focus()}};
+$('authPass').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('authSubmit').click()}};
 $('authSubmit').onclick=async()=>{
   const e=$('authEmail').value.trim(),p=$('authPass').value;if(!e||p.length<6){$('authMsg').textContent='Enter valid email/password.';return}
   try{if(authMode==='login')await signInWithEmailAndPassword(auth,e,p);else await createUserWithEmailAndPassword(auth,e,p)}
@@ -15396,19 +16473,46 @@ onAuthStateChanged(auth,async u=>{
   user=u||null;
   staffMobileInitialRouteDone=false;
   if(!u){
+    const directToLogin=explicitSignOutToLogin;
+    explicitSignOutToLogin=false;
     stop();
+    cashierGateProcessorReady=false;
+    cashierGateShiftReady=false;
+    cashierGateSubmitting=false;
+    cashierGateSessionUnlocked=false;
+    setCashierAccessGateVisible(false);
     $('introScreen').classList.add('hidden');
-    showPreLoginSplash();
     cloud('Not signed in');
+    if(directToLogin){
+      if(preLoginTimer){clearTimeout(preLoginTimer);preLoginTimer=null}
+      $('preLoginSplash').classList.add('hidden');
+      $('preLoginSplash').setAttribute('aria-hidden','true');
+      authModeSet('login');
+      $('auth').classList.remove('hidden');
+      setTimeout(()=>$('authEmail')?.focus(),100);
+    }else{
+      showPreLoginSplash();
+    }
     return
   }
   if(preLoginTimer){clearTimeout(preLoginTimer);preLoginTimer=null}
+  cashierGateProcessorReady=false;
+  cashierGateShiftReady=false;
+  cashierGateSubmitting=false;
+  cashierGateSessionUnlocked=false;
   $('preLoginSplash').classList.add('hidden');
   $('auth').classList.add('hidden');
   $('userEmail').textContent=u.email||u.uid;
   cloud('Connecting...');
-  try{await profile();await ensureProducts();listen();cloud('Connected')}catch(e){alert(e.message)}
+  try{
+    await profile();
+    if(isStaff())renderCashierAccessGate();
+    await ensureProducts();
+    listen();
+    cloud('Connected');
+  }catch(e){alert(e.message)}
 });
 </script>
+<!-- v63 FINAL: Cashier Login opens POS directly; End Duty + Sign Out live inside POS; mobile checkout logic unchanged -->
 </body>
 </html>

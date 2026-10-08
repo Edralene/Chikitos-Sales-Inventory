@@ -4866,6 +4866,326 @@ input,select,textarea,button{max-width:100%}
 @media(max-width:390px){.prelogin-card{padding:22px 15px 18px}.prelogin-title{font-size:24px}.prelogin-copy{font-size:9px}.auth-brand-row{margin-bottom:17px}.auth-welcome h2{font-size:20px}.authbox-clean{padding:17px 13px!important}}
 @media(prefers-reduced-motion:reduce){.prelogin-card,.prelogin-ring,.prelogin-mark,.prelogin-progress span,.prelogin-glow{animation:none!important}}
 
+
+/* ============================================================
+   v53 MOBILE CASHIER FLOW
+   Staff mobile: Duty -> POS -> Cart -> Checkout -> Success.
+   ============================================================ */
+.staff-more-nav{display:none!important}
+.mobile-pos-status,.pos-category-chips,.mobile-cart-bar,.mobile-cart-close,.mobile-txn-toggle{display:none}
+.mobile-cart-backdrop,.staff-more-backdrop,.sale-success-backdrop{position:fixed;inset:0}
+
+.pos-category-chips{
+  gap:6px;
+  overflow-x:auto;
+  padding:2px 0 8px;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch
+}
+.pos-category-chips::-webkit-scrollbar{display:none}
+.pos-category-chips button{
+  flex:0 0 auto;
+  min-height:34px;
+  padding:6px 10px;
+  border:1px solid #dfe6f1;
+  border-radius:999px;
+  background:#fff;
+  color:#667386;
+  font-size:8px;
+  font-weight:850;
+  white-space:nowrap;
+  cursor:pointer
+}
+.pos-category-chips button.active{
+  border-color:#bfd2ff;
+  background:#eaf2ff;
+  color:#255fdb
+}
+
+.mobile-pos-status{
+  align-items:center;
+  gap:8px;
+  margin:0 0 8px;
+  padding:8px 10px;
+  border:1px solid #d8e5f8;
+  border-radius:11px;
+  background:#f7faff
+}
+.mobile-pos-status-dot{
+  width:9px;height:9px;flex:0 0 9px;border-radius:999px;background:#22a06b;
+  box-shadow:0 0 0 4px rgba(34,160,107,.10)
+}
+.mobile-pos-status b{display:block;color:#243247;font-size:9px}
+.mobile-pos-status span{display:block;margin-top:2px;color:#738197;font-size:7px}
+
+.cart-head-actions{display:flex;align-items:center;gap:5px}
+.walkin-payment-fields{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:7px;
+  align-items:end;
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px dashed #dfe6f1
+}
+.walkin-payment-fields.hidden{display:none!important}
+.walkin-payment-fields label{display:block;margin-bottom:4px;font-size:7px;font-weight:900;text-transform:uppercase;color:#788598}
+.walkin-payment-fields input{width:100%}
+.change-box{
+  grid-column:1/-1;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:9px 10px;
+  border-radius:10px;
+  background:#eef7f2;
+  border:1px solid #cfe5d8
+}
+.change-box small{font-size:7px;font-weight:900;text-transform:uppercase;color:#527261}
+.change-box strong{font-size:15px;color:#13764c}
+
+.mobile-txn-toggle{
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  margin-bottom:8px
+}
+.mobile-txn-toggle button{
+  min-height:42px;
+  border:1px solid #dfe6f1;
+  border-radius:10px;
+  background:#fff;
+  color:#68778b;
+  font-size:9px;
+  font-weight:850
+}
+.mobile-txn-toggle button.active{
+  border-color:#bcd1ff;
+  background:#eaf2ff;
+  color:#245fd8
+}
+
+.mobile-cart-bar{
+  position:fixed;
+  z-index:3200;
+  left:10px;
+  right:10px;
+  bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom) + 8px);
+  min-height:58px;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 12px;
+  border:0;
+  border-radius:15px;
+  background:#1f2937;
+  color:#fff;
+  box-shadow:0 14px 34px rgba(20,29,43,.24);
+  cursor:pointer
+}
+.mobile-cart-bar div{text-align:left}
+.mobile-cart-bar small{display:block;color:#aeb8c8;font-size:7px;font-weight:850;letter-spacing:.04em}
+.mobile-cart-bar strong{display:block;margin-top:2px;font-size:16px}
+.mobile-cart-bar>span{padding:8px 11px;border-radius:10px;background:#2f6fed;font-size:8px;font-weight:900}
+
+.mobile-cart-backdrop{
+  z-index:4390;
+  background:rgba(12,18,27,.42);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px)
+}
+.mobile-cart-backdrop.hidden{display:none!important}
+
+.staff-more-backdrop{
+  z-index:4550;
+  display:flex;
+  align-items:flex-end;
+  background:rgba(12,18,27,.42);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom))
+}
+.staff-more-backdrop.hidden{display:none!important}
+.staff-more-sheet{
+  width:min(100%,520px);
+  margin:0 auto;
+  padding:9px 12px 14px;
+  border-radius:22px 22px 14px 14px;
+  background:#fff;
+  box-shadow:0 -18px 45px rgba(18,31,53,.18);
+  animation:staffMoreIn .22s ease-out both
+}
+.staff-more-handle{width:42px;height:4px;margin:0 auto 10px;border-radius:999px;background:#d8dee8}
+.staff-more-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.staff-more-head h3{margin:0;font-size:16px}
+.staff-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.staff-more-action{
+  min-height:70px;
+  padding:10px;
+  border:1px solid #e0e6ef;
+  border-radius:13px;
+  background:#f8faff;
+  color:#29364a;
+  text-align:left;
+  cursor:pointer
+}
+.staff-more-action span{display:block;font-size:18px}
+.staff-more-action b{display:block;margin-top:5px;font-size:9px}
+.staff-more-action.danger-soft{background:#fff8f7;border-color:#f3d7d3;color:#9a4138}
+
+.sale-success-backdrop{
+  z-index:7200;
+  display:grid;
+  place-items:center;
+  padding:14px;
+  background:rgba(12,18,27,.52);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px)
+}
+.sale-success-backdrop.hidden{display:none!important}
+.sale-success-card{
+  width:min(420px,100%);
+  padding:24px 18px 18px;
+  border-radius:24px;
+  background:#fff;
+  text-align:center;
+  box-shadow:0 28px 70px rgba(15,26,44,.24);
+  animation:saleSuccessIn .28s cubic-bezier(.2,.8,.2,1) both
+}
+.sale-success-check{
+  width:68px;height:68px;margin:0 auto 12px;display:grid;place-items:center;border-radius:999px;
+  background:#e9f8f0;color:#178653;font-size:34px;font-weight:900;
+  animation:saleCheckPop .42s cubic-bezier(.2,.9,.3,1.3) both
+}
+.sale-success-kicker{color:#178653;font-size:7px;font-weight:900;letter-spacing:.12em}
+.sale-success-card h2{margin:4px 0 6px;color:#1e293b;font-size:22px}
+.sale-success-txn{display:inline-block;padding:5px 8px;border-radius:999px;background:#f1f5f9;color:#526175;font-size:8px;font-weight:850}
+.sale-success-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:14px 0 8px}
+.sale-success-grid>div{padding:9px;border:1px solid #e4eaf2;border-radius:11px;background:#fbfcfe}
+.sale-success-grid small{display:block;color:#8390a2;font-size:6.5px;font-weight:850;text-transform:uppercase}
+.sale-success-grid strong{display:block;margin-top:3px;color:#263244;font-size:13px;overflow-wrap:anywhere}
+.sale-success-payment{min-height:0;color:#5f6d80;font-size:8px;line-height:1.5}
+.sale-success-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px}
+.sale-success-actions .btn:last-child{grid-column:1/-1}
+
+@keyframes staffMoreIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes saleSuccessIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes saleCheckPop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
+
+@media(max-width:720px){
+  /* Staff mobile nav: POS / Credits / Expenses / History / More */
+  .staff-role #dashboardNav,
+  .staff-role #closingNav{display:none!important}
+  .staff-role .staff-more-nav{display:flex!important}
+  .staff-role .nav{
+    display:grid!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    gap:4px!important;
+    overflow:hidden!important
+  }
+  .staff-role .nav button{
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    flex:none!important;
+    padding:5px 2px!important;
+    font-size:7px!important
+  }
+  .staff-role.staff-no-duty .staff-home-summary-grid,
+  .staff-role.staff-no-duty .staff-home-secondary-actions{display:none!important}
+
+  /* Staff POS becomes the primary mobile work surface */
+  .staff-role #salesPage.active{padding-bottom:82px}
+  .staff-role #salesPage.active .mobile-cart-bar{display:flex}
+  .mobile-pos-status{display:flex}
+  .desktop-pos-help{display:none!important}
+  .staff-role #salesPage .sale-date,
+  .staff-role #salesPage .processor-select-box{display:none!important}
+
+  .staff-role #salesPage .pos-toolbar{
+    grid-template-columns:1fr!important;
+    margin:7px 0 4px!important
+  }
+  .staff-role #salesPage #posCat{display:none!important}
+  .pos-category-chips{display:flex}
+
+  .staff-role #salesPage .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+    max-height:none!important;
+    overflow:visible!important;
+    padding-bottom:6px!important
+  }
+  .staff-role #salesPage .pos-products{
+    padding-bottom:84px!important
+  }
+  .staff-role #salesPage .product-card{
+    min-height:112px!important;
+    padding:9px!important;
+    cursor:pointer;
+    transition:transform .08s ease,background .08s ease
+  }
+  .staff-role #salesPage .product-card:active{transform:scale(.985);background:#f7faff}
+  .staff-role #salesPage .product-card .btn{display:none!important}
+  .staff-role #salesPage .product-card:not(.out)::after{
+    content:'Tap to add';
+    margin-top:auto;
+    color:#2f6fed;
+    font-size:7px;
+    font-weight:850
+  }
+
+  /* Cart turns into a proper mobile bottom sheet */
+  .staff-role #salesPage .mobile-cart-sheet{
+    position:fixed!important;
+    z-index:4400!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    top:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    max-height:88dvh!important;
+    margin:0!important;
+    padding:12px 10px calc(12px + env(safe-area-inset-bottom))!important;
+    border-radius:22px 22px 0 0!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch;
+    transform:translateY(105%);
+    transition:transform .24s ease;
+    box-shadow:0 -22px 55px rgba(13,24,42,.22)!important
+  }
+  .staff-role #salesPage .mobile-cart-sheet.mobile-open{transform:translateY(0)}
+  .mobile-cart-close{display:inline-flex!important}
+  .cart-sheet-head{top:-12px!important;padding-top:11px!important}
+  .staff-role #salesPage .cart-list{max-height:none!important;min-height:0!important;overflow:visible!important}
+  .staff-role #salesPage .cart-summary{padding-bottom:4px}
+  .staff-role #salesPage #openTodayReport{display:none!important}
+  .staff-role #salesPage .today-saved{display:none!important}
+  .staff-role #salesPage #downloadLastReceipt{display:none!important}
+
+  .mobile-txn-toggle{display:grid}
+  .staff-role #salesPage .desktop-txn-label,
+  .staff-role #salesPage #transactionType{display:none!important}
+  .walkin-payment-fields{grid-template-columns:minmax(0,1fr) 105px}
+  .walkin-payment-fields input{font-size:16px!important}
+  .checkout-box{margin-bottom:8px}
+  .staff-role #salesPage .pos-save{
+    min-height:50px!important;
+    border-radius:12px!important;
+    font-size:11px!important;
+    font-weight:900!important
+  }
+}
+
+@media(max-width:390px){
+  .staff-more-grid{grid-template-columns:1fr 1fr}
+  .mobile-cart-bar{left:7px;right:7px}
+  .sale-success-actions{grid-template-columns:1fr}
+  .sale-success-actions .btn:last-child{grid-column:auto}
+  .walkin-payment-fields{grid-template-columns:1fr}
+  .change-box{grid-column:auto}
+}
+
 </style>
 </head>
 <body>
@@ -4976,10 +5296,11 @@ input,select,textarea,button{max-width:100%}
     <div class="nav">
       <button id="dashboardNav" class="active" data-page="dashPage">🏠 Dashboard</button>
       <button id="shiftNav" class="adminOnly" data-page="shiftPage">⏱️ Staff Duty Monitor</button>
-      <button class="staffOnly" data-page="salesPage">🛒 Daily Sales POS</button>
+      <button id="salesNav" class="staffOnly" data-page="salesPage">🛒 POS</button>
       <button id="creditsNav" data-page="creditsPage">💳 Credits</button>
       <button id="expensesNav" data-page="expensesPage">🧾 Expenses</button>
-      <button id="staffHistoryNav" class="staffOnly" data-page="staffHistoryPage">📚 My History</button>
+      <button id="staffHistoryNav" class="staffOnly" data-page="staffHistoryPage">📚 History</button>
+      <button id="staffMoreNav" class="staffOnly staff-more-nav" type="button">☰ More</button>
       <button id="reportsNav" class="adminOnly" data-page="reportsPage">📊 Sales Reports</button>
       <button class="adminOnly" data-page="txPage">📚 Transactions</button>
       <button id="voidRequestsNav" class="adminOnly" data-page="voidRequestsPage">↩️ Void Requests</button>
@@ -5345,13 +5666,21 @@ input,select,textarea,button{max-width:100%}
       <section id="salesPage" class="page">
         <div class="pos-layout">
           <div class="pos-products">
-            <div class="sticky">
+            <div class="sticky pos-sticky-head">
               <div class="head">
                 <div>
                   <h2>Daily Sales POS</h2>
-                  <div class="muted">Start Duty / Opening first, then POS follows the configured operating hours. End of Day submission locks the POS.</div>
+                  <div class="muted desktop-pos-help">Start Duty / Opening first, then POS follows the configured operating hours. End of Day submission locks the POS.</div>
                 </div>
                 <span id="posAccessBadge" class="pill ok">POS OPEN</span>
+              </div>
+            </div>
+
+            <div id="mobilePosStatus" class="mobile-pos-status">
+              <div class="mobile-pos-status-dot"></div>
+              <div>
+                <b id="mobilePosCashier">No active cashier</b>
+                <span id="mobilePosShift">Start Duty to open POS</span>
               </div>
             </div>
 
@@ -5375,23 +5704,54 @@ input,select,textarea,button{max-width:100%}
             </div>
 
             <div class="pos-toolbar">
-              <input id="posSearch" placeholder="Search product...">
+              <input id="posSearch" placeholder="Search product..." autocomplete="off">
               <select id="posCat"><option value="">All Categories</option></select>
             </div>
 
+            <div id="posCategoryChips" class="pos-category-chips"></div>
             <div id="productGrid" class="product-grid"></div>
           </div>
 
-          <div class="pos-cart">
-            <div class="sticky"><div class="head"><div><h2>Current Sale</h2><div id="cartDateText" class="muted"></div></div><button id="clearCart" class="btn small">Clear</button></div></div>
+          <div id="posCartSheet" class="pos-cart mobile-cart-sheet">
+            <div class="sticky cart-sheet-head">
+              <div class="head">
+                <div>
+                  <h2>Current Sale</h2>
+                  <div id="cartDateText" class="muted"></div>
+                </div>
+                <div class="cart-head-actions">
+                  <button id="clearCart" class="btn small">Clear</button>
+                  <button id="mobileCloseCart" class="btn small mobile-cart-close" type="button">Done</button>
+                </div>
+              </div>
+            </div>
+
             <div id="cartList" class="cart-list"></div>
+
             <div class="cart-summary">
-              <div class="txn-box">
-                <label>Transaction Type</label>
+              <div class="txn-box checkout-box">
+                <label class="desktop-txn-label">Transaction Type</label>
                 <select id="transactionType">
                   <option value="walkin">Walk-in / Paid</option>
                   <option value="credit">Credit / Utang</option>
                 </select>
+
+                <div id="mobileTxnToggle" class="mobile-txn-toggle">
+                  <button type="button" class="active" data-mobile-txn="walkin">✓ Paid</button>
+                  <button type="button" data-mobile-txn="credit">💳 Credit / Utang</button>
+                </div>
+
+                <div id="walkinPaymentFields" class="walkin-payment-fields">
+                  <div>
+                    <label>Cash Received *</label>
+                    <input id="cashReceived" type="number" min="0" step=".01" inputmode="decimal" placeholder="0.00">
+                  </div>
+                  <button id="exactCash" class="btn small" type="button">Exact Amount</button>
+                  <div class="change-box">
+                    <small>Change</small>
+                    <strong id="cashChange">₱0.00</strong>
+                  </div>
+                </div>
 
                 <div id="creditFields" class="credit-fields hidden">
                   <div class="wide">
@@ -5416,13 +5776,22 @@ input,select,textarea,button{max-width:100%}
               <div class="sumrow"><span>Items</span><b id="cartItems">0</b></div>
               <div class="sumrow"><span>Total Qty</span><b id="cartQty">0</b></div>
               <div class="sumrow total"><span>Total</span><b id="cartTotal">₱0.00</b></div>
-              <button id="saveSale" class="btn green pos-save">Save Sale & Deduct Stock</button>
+              <button id="saveSale" class="btn green pos-save">Complete Sale</button>
               <div id="lastSaleInfo" class="today-saved">No sale saved yet in this session.</div>
               <button id="downloadLastReceipt" class="btn blue hidden" style="margin-top:6px;width:100%">⬇ Download Last Receipt</button>
               <button id="openTodayReport" class="btn pos-save" style="margin-top:6px">View My Today Sales</button>
             </div>
           </div>
         </div>
+
+        <button id="mobileCartBar" class="mobile-cart-bar" type="button">
+          <div>
+            <small id="mobileCartCount">0 ITEMS</small>
+            <strong id="mobileCartTotal">₱0.00</strong>
+          </div>
+          <span>VIEW CART</span>
+        </button>
+        <div id="mobileCartBackdrop" class="mobile-cart-backdrop hidden"></div>
       </section>
 
       <section id="creditsPage" class="page">
@@ -6829,6 +7198,45 @@ input,select,textarea,button{max-width:100%}
   </div>
 </div>
 
+
+<div id="staffMoreBackdrop" class="staff-more-backdrop hidden">
+  <div class="staff-more-sheet">
+    <div class="staff-more-handle"></div>
+    <div class="staff-more-head">
+      <div>
+        <h3>More</h3>
+        <div id="staffMoreDutyText" class="muted">Staff options</div>
+      </div>
+      <button id="closeStaffMore" class="btn small" type="button">Close</button>
+    </div>
+    <div class="staff-more-grid">
+      <button id="staffMoreHome" class="staff-more-action" type="button"><span>🏠</span><b>Home / Duty</b></button>
+      <button id="staffMoreClosing" class="staff-more-action" type="button"><span>🧮</span><b>Daily Closing</b></button>
+      <button id="staffMoreEndDuty" class="staff-more-action danger-soft" type="button"><span>⏹</span><b>End Duty</b></button>
+      <button id="staffMoreLogout" class="staff-more-action danger-soft" type="button"><span>↪</span><b>Sign Out</b></button>
+    </div>
+  </div>
+</div>
+
+<div id="saleSuccessDialog" class="sale-success-backdrop hidden">
+  <div class="sale-success-card">
+    <div class="sale-success-check">✓</div>
+    <div class="sale-success-kicker">TRANSACTION COMPLETED</div>
+    <h2 id="saleSuccessTitle">Sale Completed</h2>
+    <div id="saleSuccessTxn" class="sale-success-txn">CHK-—</div>
+    <div class="sale-success-grid">
+      <div><small>Amount</small><strong id="saleSuccessAmount">₱0.00</strong></div>
+      <div><small>Cashier</small><strong id="saleSuccessCashier">—</strong></div>
+    </div>
+    <div id="saleSuccessPayment" class="sale-success-payment"></div>
+    <div class="sale-success-actions">
+      <button id="successNewSale" class="btn green" type="button">New Sale</button>
+      <button id="successReceipt" class="btn blue" type="button">Download Receipt</button>
+      <button id="successHistory" class="btn" type="button">View Transaction</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
@@ -6865,6 +7273,7 @@ const yearKey=d=>String(d||'').slice(0,4);
 const formatDate=d=>{if(!d)return '—';const [y,m,day]=d.split('-');return new Date(+y,+m-1,+day).toLocaleDateString('en-PH',{year:'numeric',month:'short',day:'numeric'})};
 
 let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],creditPayments=[],expenses=[],stockAdjustments=[],voidRequests=[],returnRequests=[],deleteRequests=[],closings=[],dataResetLogs=[],deletedSalesArchive=[],shifts=[],dailyCashFloats=[],dailyPettyCash=[],suppliers=[],purchases=[],processors=[],processorProfiles=[],lastSavedTransaction=null,lastPosAccessKey='',authMode='login';
+let staffMobileInitialRouteDone=false;
 let activeOpsPanel='inventory',pendingCreditPaymentId=null;
 const adminDrafts={stock:{},product:{}};
 let dashboardCharts={sales7:null,mix:null,expense:null};
@@ -7387,7 +7796,7 @@ function applyRole(){
   document.querySelectorAll('.staffOnly').forEach(e=>e.style.display=isStaff()?'block':'none');
   $('roleBadge').textContent=role.toUpperCase();$('roleBadge').className='badge '+(isStaff()?'staff':'');
   $('topRole').textContent=role.toUpperCase();
-  $('dashboardNav').textContent=isAdmin()?'🏠 Dashboard':'🏠 Home';
+  $('dashboardNav').textContent=isAdmin()?'🏠 Dashboard':'🏠 Home / Duty';
   $('reportsNav').textContent=isAdmin()?'📊 Sales Reports':'🧾 My Sales Reports';
   $('reportsTitle').textContent=isAdmin()?'Admin Sales Reports':'My Sales Reports';
   $('reportsSubtitle').textContent=isAdmin()
@@ -7430,6 +7839,7 @@ function applyRole(){
   $('shiftNav').textContent='⏱️ Staff Duty Monitor';
   $('shiftHistoryTitle').textContent=isAdmin()?'Staff Duty Sessions':'My Duty History';
   $('topRole').textContent=role.toUpperCase();
+  staffMobileInitialRouteDone=false;
   nav('dashPage');
   $('introScreen').classList.add('hidden');
   $('preLoginSplash').classList.add('hidden');
@@ -7537,7 +7947,8 @@ function listen(){
       shifts=[];s.forEach(d=>shifts.push({id:d.id,...d.data()}));
       shifts.sort((a,b)=>String(b.createdAtClient||'').localeCompare(String(a.createdAtClient||'')));
       autoEndStaleShifts();
-      renderAll()
+      renderAll();
+      resolveStaffMobileInitialRoute();
     }));
     unsubs.push(onSnapshot(query(dailyCashFloatsCol(),where('userId','==',user.uid),limit(1000)),s=>{
       dailyCashFloats=[];s.forEach(d=>dailyCashFloats.push({id:d.id,...d.data()}));
@@ -7572,6 +7983,7 @@ function renderStaffHome(){
   if(!user||!isStaff())return;
 
   const shift=activeShiftFor(user.uid);
+  document.body.classList.toggle('staff-no-duty',!shift);
   const access=posAccessState(today(),user.uid);
   const mySales=dashboardSalesRows().filter(s=>s.date===today());
   const myCredits=dashboardCreditRows().filter(c=>c.date===today());
@@ -8650,15 +9062,32 @@ function downloadClosingPdf(id){
 function updateTransactionUI(){
   const isCredit=$('transactionType').value==='credit';
   $('creditFields').classList.toggle('hidden',!isCredit);
-  $('saveSale').textContent=isCredit?'Save Credit & Deduct Stock':'Save Walk-in Sale & Deduct Stock';
+  $('walkinPaymentFields').classList.toggle('hidden',isCredit);
+  $('saveSale').textContent=isCredit?'Save Credit & Deduct Stock':'Complete Paid Sale';
   $('cartDateText').textContent=`Sales Date: ${formatDate($('saleDate').value)} • ${isCredit?'CREDIT / UTANG':'WALK-IN / PAID'}`;
+  document.querySelectorAll('[data-mobile-txn]').forEach(b=>b.classList.toggle('active',b.dataset.mobileTxn===(isCredit?'credit':'walkin')));
+  updateWalkinPayment();
 }
+function cartTotalAmount(){
+  return products.reduce((a,p)=>a+num(cart[p.id])*num(p.price),0);
+}
+function updateWalkinPayment(){
+  if(!$('cashReceived')||!$('cashChange'))return;
+  const total=cartTotalAmount();
+  const received=Math.max(0,num($('cashReceived').value));
+  const change=Math.max(0,received-total);
+  $('cashChange').textContent=peso(change);
+  $('exactCash').disabled=total<=0;
+}
+
 function resetTransactionFields(){
   $('transactionType').value='walkin';
   $('creditName').value='';
   $('creditContact').value='';
   $('creditDueDate').value='';
   $('creditNotes').value='';
+  $('cashReceived').value='';
+  $('cashChange').textContent=peso(0);
   updateTransactionUI();
 }
 
@@ -8683,10 +9112,23 @@ function fillProcessorSelect(){
   if(processors.includes(current))el.value=current;
 }
 
+function renderPosCategoryChips(){
+  const wrap=$('posCategoryChips');
+  if(!wrap)return;
+  const selected=$('posCat').value||'';
+  const values=['',...cats()];
+  wrap.innerHTML=values.map(c=>`<button type="button" class="${selected===c?'active':''}" data-pos-cat-chip="${attr(c)}">${c?esc(c):'All'}</button>`).join('');
+  wrap.querySelectorAll('[data-pos-cat-chip]').forEach(b=>b.onclick=()=>{
+    $('posCat').value=b.dataset.posCatChip||'';
+    renderPOS();
+  });
+}
+
 function renderPOS(){
   if(!isStaff())return;
   fillCat('posCat');
   fillProcessorSelect();
+  renderPosCategoryChips();
 
   const currentDate=today();
   if(setting('allowBackdatedSales',false)){
@@ -8698,12 +9140,14 @@ function renderPOS(){
   $('saleTime').value=nowTime();
   const activeShift=activeShiftFor(user.uid);
   if(activeShift)$('processorName').value=activeShift.processorName||'';
+  $('mobilePosCashier').textContent=activeShift?`${activeShift.processorName||'Cashier'} • ON DUTY`:'No active cashier';
+  $('mobilePosShift').textContent=activeShift?`${activeShift.shiftLabel||'Duty'} • Started ${activeShift.startTime||'—'}`:'Start Duty to open POS';
   const access=posAccessState($('saleDate').value||currentDate,user.uid);
   const q=$('posSearch').value.toLowerCase(),cat=$('posCat').value;
   const rows=activeProducts().filter(p=>(!q||[p.name,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat));
   $('productGrid').innerHTML=rows.map(p=>{
     const stock=bal(p.id),inCart=num(cart[p.id]);
-    return `<div class="product-card ${stock<=0?'out':''}">
+    return `<div class="product-card ${stock<=0?'out':''}" data-card-add="${attr(p.id)}" data-card-enabled="${stock>inCart&&access.allowed?'1':'0'}">
       <div class="product-cat">${esc(p.category)}</div>
       <div class="product-name">${esc(p.name)}</div>
       <div class="product-price">${peso(p.price)}</div>
@@ -8711,7 +9155,11 @@ function renderPOS(){
       <button class="btn ${stock>inCart?'green':''}" data-add="${attr(p.id)}" ${(stock<=inCart||!access.allowed)?'disabled':''}>${!access.allowed?'POS Closed':stock>inCart?'+ Add to Cart':'Out / Max Qty'}</button>
     </div>`
   }).join('')||'<div class="empty">No products found.</div>';
-  $('productGrid').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>changeCart(b.dataset.add,1));
+  $('productGrid').querySelectorAll('[data-add]').forEach(b=>b.onclick=e=>{e.stopPropagation();changeCart(b.dataset.add,1)});
+  $('productGrid').querySelectorAll('[data-card-add]').forEach(card=>card.onclick=e=>{
+    if(!isMobileStaffViewport()||card.dataset.cardEnabled!=='1'||e.target.closest('button,input,select,textarea'))return;
+    changeCart(card.dataset.cardAdd,1);
+  });
   renderCart();
   applyPosAccessState(access);
 }
@@ -8744,7 +9192,10 @@ function renderCart(){
   $('cartList').querySelectorAll('[data-cartqty]').forEach(i=>i.onchange=()=>setCartQty(i.dataset.cartqty,i.value));
   const qty=entries.reduce((a,p)=>a+num(cart[p.id]),0),total=entries.reduce((a,p)=>a+num(cart[p.id])*num(p.price),0);
   $('cartItems').textContent=entries.length;$('cartQty').textContent=qty;$('cartTotal').textContent=peso(total);
-  updateTransactionUI()
+  $('mobileCartCount').textContent=`${qty} ITEM${qty===1?'':'S'}`;
+  $('mobileCartTotal').textContent=peso(total);
+  updateTransactionUI();
+  updateWalkinPayment()
 }
 async function saveSale(){
   if(!isStaff())return;
@@ -8780,6 +9231,17 @@ async function saveSale(){
   const totalQty=items.reduce((a,i)=>a+i.qty,0);
   const totalAmount=items.reduce((a,i)=>a+i.amount,0);
   const time=nowTime(),iso=new Date().toISOString();
+
+  let cashReceived=0,changeDue=0;
+  if(transactionType==='walkin'){
+    cashReceived=Math.max(0,num($('cashReceived').value));
+    if(cashReceived+0.005<totalAmount){
+      alert(`Cash received is not enough.\n\nTotal: ${peso(totalAmount)}\nCash received: ${peso(cashReceived)}`);
+      $('cashReceived').focus();
+      return;
+    }
+    changeDue=Math.max(0,cashReceived-totalAmount);
+  }
 
   let targetRef=null;
   let creditInfo=null;
@@ -8848,6 +9310,7 @@ async function saveSale(){
           dueDate:creditInfo.dueDate,
           notes:creditInfo.notes,
           items,totalQty,totalAmount,
+          cashReceived,changeDue,
           createdAt:serverTimestamp(),
           createdAtClient:iso
         });
@@ -8865,6 +9328,7 @@ async function saveSale(){
           monthKey:monthKey(date),
           yearKey:yearKey(date),
           items,totalQty,totalAmount,
+          cashReceived,changeDue,
           createdAt:serverTimestamp(),
           createdAtClient:iso
         });
@@ -8890,19 +9354,23 @@ async function saveSale(){
       lastSavedTransaction={
         id:targetRef.id,sourceType:'sale',transactionType:'Walk-in',transactionNo,
         date,time,userEmail:user.email||'',processorName,shiftLabel:activeShift?.shiftLabel||'',
-        borrowerName:'',items,totalQty,totalAmount,paymentStatus:'PAID'
+        borrowerName:'',items,totalQty,totalAmount,cashReceived,changeDue,paymentStatus:'PAID'
       };
       $('lastSaleInfo').innerHTML=
         `<span class="txn-number">${esc(transactionNo)}</span><br>`+
         `Walk-in sale saved <b>${formatDate(date)} • ${esc(time)}</b><br>`+
-        `${totalQty} item(s) sold • ${peso(totalAmount)}<br>Processed by: <b>${esc(processorName)}</b>`;
+        `${totalQty} item(s) sold • ${peso(totalAmount)}<br>`+
+        `Cash: ${peso(cashReceived)} • Change: ${peso(changeDue)}<br>Processed by: <b>${esc(processorName)}</b>`;
       $('downloadLastReceipt').classList.remove('hidden');
       cloud('Walk-in sale saved — stock deducted');
     }
 
+    const completedTransaction={...lastSavedTransaction};
     cart={};
     resetTransactionFields();
     renderPOS();
+    closeMobileCart();
+    showSaleSuccess(completedTransaction);
   }catch(e){
     alert(e.message);
     cloud('Save failed');
@@ -12208,7 +12676,7 @@ function generateReceiptPdf(record){
     const name=String(i.productName||'Item');
     return sum+Math.max(1,Math.ceil(name.length/24));
   },0);
-  const receiptHeight=Math.max(125,85+(estimatedLines*4.5)+(items.length*7)+(record.sourceType==='credit'?22:10));
+  const receiptHeight=Math.max(130,85+(estimatedLines*4.5)+(items.length*7)+(record.sourceType==='credit'?22:18));
 
   const jsPDF=window.jspdf?.jsPDF;
   if(!jsPDF){
@@ -12316,7 +12784,14 @@ function generateReceiptPdf(record){
   doc.setFontSize(5.8);
   doc.setTextColor(95,107,122);
   doc.text(`Total Qty: ${num(record.totalQty)}`,5,y);
-  y+=5;
+  y+=4;
+  if(record.sourceType!=='credit'&&record.cashReceived!==undefined){
+    doc.text(`Cash Received: ${pdfMoney(record.cashReceived)}`,5,y);
+    doc.text(`Change: ${pdfMoney(record.changeDue||0)}`,75,y,{align:'right'});
+    y+=5;
+  }else{
+    y+=1;
+  }
 
   doc.setDrawColor(220,224,230);
   doc.line(5,y,75,y);
@@ -13617,11 +14092,62 @@ function renderAll(){
   renderDash();renderPettyCash();renderShifts();renderStock();renderPOS();renderCredits();renderExpenses();renderReports();renderStaffHistory();renderTx();renderVoidRequests();renderDeleteRequests();renderReturns();renderClosings();renderDataReset();renderTransactionLookup();renderInventory();renderProcessors();renderProducts();renderOperations();renderNotifications();
   if($('liveSyncBadge')){$('liveSyncBadge').textContent='● LIVE AUTO-SYNC';$('liveSyncBadge').title=`Last UI sync: ${new Date().toLocaleTimeString('en-PH')}`}
 }
+function isMobileStaffViewport(){
+  return isStaff()&&window.matchMedia('(max-width: 720px)').matches;
+}
+function resolveStaffMobileInitialRoute(){
+  if(!isMobileStaffViewport()||staffMobileInitialRouteDone)return;
+  staffMobileInitialRouteDone=true;
+  const shift=activeShiftFor(user?.uid);
+  nav(shift?'salesPage':'dashPage');
+}
+function closeMobileCart(){
+  $('posCartSheet')?.classList.remove('mobile-open');
+  $('mobileCartBackdrop')?.classList.add('hidden');
+  document.body.classList.remove('mobile-cart-open');
+}
+function openMobileCart(){
+  if(!isMobileStaffViewport())return;
+  $('posCartSheet')?.classList.add('mobile-open');
+  $('mobileCartBackdrop')?.classList.remove('hidden');
+  document.body.classList.add('mobile-cart-open');
+}
+function closeStaffMore(){
+  $('staffMoreBackdrop')?.classList.add('hidden');
+}
+function openStaffMore(){
+  if(!isStaff())return;
+  const shift=activeShiftFor(user?.uid);
+  $('staffMoreDutyText').textContent=shift
+    ?`${shift.processorName||'Cashier'} • ${shift.shiftLabel||'Duty'} • On Duty`
+    :'No active Duty';
+  $('staffMoreEndDuty').disabled=!shift;
+  $('staffMoreBackdrop').classList.remove('hidden');
+}
+function closeSaleSuccess(){
+  $('saleSuccessDialog')?.classList.add('hidden');
+}
+function showSaleSuccess(record){
+  if(!record)return;
+  $('saleSuccessTitle').textContent=record.sourceType==='credit'?'Credit Saved':'Sale Completed';
+  $('saleSuccessTxn').textContent=record.transactionNo||'Transaction saved';
+  $('saleSuccessAmount').textContent=peso(record.totalAmount);
+  $('saleSuccessCashier').textContent=record.processorName||'—';
+  $('saleSuccessPayment').innerHTML=record.sourceType==='credit'
+    ?`Credit / Utang • Due <b>${esc(formatDate(record.dueDate))}</b>`
+    :`Cash received <b>${peso(record.cashReceived||record.totalAmount)}</b> • Change <b>${peso(record.changeDue||0)}</b>`;
+  $('saleSuccessDialog').classList.remove('hidden');
+  try{navigator.vibrate?.(70)}catch{}
+}
+
 function nav(id){
+  closeMobileCart();
+  closeStaffMore();
   if(id==='stockPage'){activeOpsPanel='inventory';id='operationsPage';setTimeout(()=>openInventorySection('inventorySection_stock'),0)}
   if(id==='productsPage'){activeOpsPanel='inventory';id='operationsPage';setTimeout(()=>openInventorySection('inventorySection_suppliers'),0)}
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  if($('staffMoreNav'))$('staffMoreNav').classList.toggle('active',isStaff()&&['dashPage','closingPage'].includes(id));
   $('scroll').scrollTo({top:0});
   if(id==='reportsPage')renderReports();
   if(id==='staffHistoryPage')renderStaffHistory();
@@ -13652,6 +14178,41 @@ $('saleDate').onchange=renderPOS;
 $('transactionType').onchange=updateTransactionUI;
 $('clearCart').onclick=()=>{if(Object.keys(cart).length&&!confirm('Clear current cart?'))return;cart={};resetTransactionFields();renderPOS()};
 $('saveSale').onclick=saveSale;
+$('mobileCartBar').onclick=openMobileCart;
+$('mobileCloseCart').onclick=closeMobileCart;
+$('mobileCartBackdrop').onclick=closeMobileCart;
+$('cashReceived').oninput=updateWalkinPayment;
+$('exactCash').onclick=()=>{
+  const total=cartTotalAmount();
+  $('cashReceived').value=total?total.toFixed(2):'';
+  updateWalkinPayment();
+};
+document.querySelectorAll('[data-mobile-txn]').forEach(b=>b.onclick=()=>{
+  $('transactionType').value=b.dataset.mobileTxn;
+  updateTransactionUI();
+});
+
+$('staffMoreNav').onclick=openStaffMore;
+$('closeStaffMore').onclick=closeStaffMore;
+$('staffMoreBackdrop').onclick=e=>{if(e.target===$('staffMoreBackdrop'))closeStaffMore()};
+$('staffMoreHome').onclick=()=>{closeStaffMore();nav('dashPage')};
+$('staffMoreClosing').onclick=()=>{closeStaffMore();nav('closingPage')};
+$('staffMoreEndDuty').onclick=async()=>{
+  closeStaffMore();
+  const ok=await finishDutySession({logoutAfter:false,navigateClosing:false});
+  if(ok)nav('dashPage');
+};
+$('staffMoreLogout').onclick=async()=>{closeStaffMore();await handleLogout()};
+
+$('successNewSale').onclick=()=>{
+  closeSaleSuccess();
+  $('posSearch').value='';
+  nav('salesPage');
+  setTimeout(()=>$('posSearch').focus(),80);
+};
+$('successReceipt').onclick=downloadLastReceipt;
+$('successHistory').onclick=()=>{closeSaleSuccess();nav('staffHistoryPage')};
+
 $('openTodayReport').onclick=()=>{$('reportMode').value='today';selectedSaleIds.clear();nav('reportsPage');renderReports()};
 $('downloadCreditPdf').onclick=generateCreditPdf;
 
@@ -13828,6 +14389,7 @@ $('enterSystem').onclick=()=>{
 
 onAuthStateChanged(auth,async u=>{
   user=u||null;
+  staffMobileInitialRouteDone=false;
   if(!u){
     stop();
     $('introScreen').classList.add('hidden');

@@ -4734,6 +4734,78 @@ input,select,textarea,button{max-width:100%}
   }
 }
 
+
+/* v51 MOBILE FLOATING INTRO + LOGIN */
+@media(max-width:720px){
+  .intro-screen{
+    display:grid!important;
+    place-items:center!important;
+    align-items:center!important;
+    justify-items:center!important;
+    width:100%!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    overflow:hidden!important;
+    padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))!important;
+  }
+  .intro-screen.hidden{display:none!important}
+  .intro-card{
+    width:min(100%,520px)!important;
+    max-width:520px!important;
+    max-height:calc(100dvh - 28px)!important;
+    margin:auto!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    border-radius:24px!important;
+    padding:18px 14px 14px!important;
+    box-shadow:0 24px 58px rgba(30,56,99,.18)!important;
+    transform:none!important;
+  }
+  .intro-logo{margin-bottom:14px!important}
+  .intro-grid{margin:14px 0!important;gap:7px!important}
+  .intro-actions{position:static!important;margin-top:12px!important;padding:0!important;background:none!important}
+  .intro-enter{width:100%!important;min-height:48px!important;border-radius:14px!important}
+
+  .auth{
+    display:grid!important;
+    place-items:center!important;
+    align-items:center!important;
+    justify-items:center!important;
+    width:100%!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    overflow:hidden!important;
+    padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))!important;
+  }
+  .auth.hidden{display:none!important}
+  .authbox{
+    width:min(100%,420px)!important;
+    max-width:420px!important;
+    max-height:calc(100dvh - 28px)!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    margin:auto!important;
+    padding:18px 16px!important;
+    border-radius:24px!important;
+    box-shadow:0 24px 58px rgba(20,28,40,.24)!important;
+    transform:none!important;
+  }
+}
+@media(max-width:390px){
+  .intro-card{padding:15px 12px 12px!important;border-radius:21px!important}
+  .intro-title{font-size:22px!important}
+  .intro-copy{font-size:9.5px!important;line-height:1.55!important}
+  .intro-feature{padding:9px 10px!important}
+  .authbox{padding:16px 13px!important;border-radius:21px!important}
+}
+@media(max-height:700px) and (max-width:720px){
+  .intro-card,.authbox{max-height:calc(100dvh - 16px)!important}
+  .intro-grid{margin:9px 0!important}
+  .intro-feature{padding:8px 9px!important}
+}
+
 </style>
 </head>
 <body>

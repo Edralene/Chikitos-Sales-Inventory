@@ -6027,6 +6027,119 @@ input,select,textarea,button{max-width:100%}
   .live-pill{font-size:6.5px;padding:4px 7px}
 }
 
+
+
+/* ============================================================
+   v68 STAFF DASHBOARD — cashier-first, responsive, realtime
+   Staff Home only. POS/Admin business logic unchanged.
+   ============================================================ */
+.staff-role #dashPage .staff-home-panel{padding:16px!important}
+.staff-role #dashPage .staff-home-top{margin-bottom:10px}
+
+/* Compact on-duty status strip */
+.staff-role #dashPage .staff-duty-active{
+  margin:0 0 12px!important;
+  padding:10px 12px!important;
+  border-radius:14px!important;
+  background:#f7fbf9!important;
+  border:1px solid #d8eadf!important;
+  box-shadow:none!important
+}
+.staff-role #dashPage .staff-duty-active .staff-duty-state-head{margin:0!important;align-items:center!important}
+.staff-role #dashPage .staff-duty-active .staff-duty-state-head h3{font-size:12px!important;margin:0!important}
+.staff-role #dashPage .staff-duty-active .staff-duty-state-head .muted{font-size:7.5px!important}
+.staff-role #dashPage .staff-duty-active-grid{
+  margin-top:8px!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px!important
+}
+.staff-role #dashPage .staff-duty-info-item{
+  padding:8px 10px!important;
+  min-height:0!important;
+  border-radius:10px!important;
+  background:#fff!important
+}
+.staff-role #dashPage .staff-duty-info-item small{font-size:6.8px!important}
+.staff-role #dashPage .staff-duty-info-item strong{font-size:10px!important;margin-top:2px!important}
+.staff-role #dashPage .staff-duty-pos-note{display:none!important}
+
+/* First row */
+.staff-dashboard-overview{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(330px,.8fr);gap:12px;margin-top:12px}
+.staff-dashboard-overview .staff-sales-hero{grid-column:auto!important;margin:0!important;min-height:178px!important;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:18px 20px;border-color:#bfd2fb!important;background:linear-gradient(135deg,#eef4ff 0%,#dfeaff 100%)!important;box-shadow:0 10px 26px rgba(47,111,237,.12)!important}
+.staff-dashboard-overview .staff-sales-hero::after{content:"";position:absolute;width:190px;height:190px;right:-62px;top:-78px;border-radius:999px;background:rgba(47,111,237,.08)}
+.staff-dashboard-overview .staff-sales-hero strong{position:relative;z-index:1;font-size:42px!important;margin-top:10px!important;color:#173d79!important;letter-spacing:-.045em}
+.staff-dashboard-overview .staff-sales-hero .staff-sales-label-row,.staff-dashboard-overview .staff-sales-hero .staff-sales-live-note,.staff-dashboard-overview .staff-sales-hero .staff-sales-kpis{position:relative;z-index:1}
+.staff-sales-kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:1}
+.staff-sales-kpi{min-width:120px;padding:8px 10px;border:1px solid rgba(107,143,207,.22);border-radius:11px;background:rgba(255,255,255,.62)}
+.staff-sales-kpi small{display:block!important;color:#607a9f!important;font-size:7px!important;font-weight:800!important}
+.staff-sales-kpi b{display:block;margin-top:2px;color:#173d79;font-size:13px}
+
+.staff-today-status-card{padding:14px;border:1px solid rgba(205,221,251,.95);border-radius:16px;background:rgba(255,255,255,.9);box-shadow:0 8px 24px rgba(47,111,237,.055)}
+.staff-today-status-card h3{margin:0;font-size:15px}
+.staff-today-status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.staff-today-status-item{padding:10px;border:1px solid #e6ecf6;border-radius:12px;background:#fbfcff;min-width:0}
+.staff-today-status-item small{display:block;color:#778498;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+.staff-today-status-item strong{display:block;margin-top:4px;color:#253249;font-size:15px;overflow-wrap:anywhere}
+.staff-today-status-item.sync strong{font-size:10px;color:#178052}
+.staff-today-status-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+
+/* Insight cards */
+.staff-role #dashPage .staff-home-insight-grid{grid-template-columns:1fr 1fr!important;gap:12px!important;margin-top:12px!important}
+.staff-role #dashPage .staff-insight-card{min-height:330px}
+.staff-role #dashPage .staff-insight-row{min-height:52px}
+
+/* Third row */
+.staff-home-lower-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);gap:12px;margin-top:12px}
+.staff-recent-card,.staff-attention-card{background:rgba(255,255,255,.92);border:1px solid rgba(205,221,251,.9);border-radius:16px;padding:14px;box-shadow:0 8px 24px rgba(47,111,237,.055)}
+.staff-recent-list{display:grid;gap:8px;margin-top:10px}
+.staff-recent-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 11px;border:1px solid #e5ebf6;border-radius:12px;background:#fff}
+.staff-recent-main b{display:block;font-size:10.5px;color:#253044}.staff-recent-main span{display:block;margin-top:2px;font-size:7.5px;color:#758298;line-height:1.4}
+.staff-recent-amount{text-align:right}.staff-recent-amount strong{display:block;font-size:12px;color:#1f2a3c}.staff-recent-amount small{display:block;font-size:7px;color:#768397;margin-top:2px}
+.staff-recent-type{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:7px;font-weight:900;margin-right:5px}
+.staff-recent-type.paid{background:#e8f7ef;color:#13784b}.staff-recent-type.credit{background:#fff3d3;color:#805c00}
+.staff-recent-view{min-width:52px}
+
+.staff-pending-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.staff-pending-tile{padding:10px;border:1px solid #e5ebf6;border-radius:12px;background:#fbfcff}
+.staff-pending-tile small{display:block;color:#788599;font-size:7px;font-weight:800}.staff-pending-tile strong{display:block;margin-top:4px;font-size:16px;color:#28344a}
+.staff-closing-panel{margin-top:10px;padding:11px;border:1px solid #e2e8f2;border-radius:13px;background:#fff}
+.staff-closing-panel-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.staff-closing-panel b{font-size:11px}.staff-closing-panel span{display:block;margin-top:4px;font-size:7.5px;color:#758296;line-height:1.45}
+.staff-closing-badge{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:7px;font-weight:900}.staff-closing-badge.open{background:#eef4ff;color:#2f6fed}.staff-closing-badge.pending{background:#fff4d8;color:#8b5b00}.staff-closing-badge.closed{background:#e8f7ef;color:#13784b}
+.staff-attention-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+
+@media(max-width:1100px){
+  .staff-dashboard-overview,.staff-home-lower-grid{grid-template-columns:1fr}
+  .staff-role #dashPage .staff-home-insight-grid{grid-template-columns:1fr!important}
+  .staff-role #dashPage .staff-insight-card{min-height:0}
+}
+@media(max-width:720px){
+  .staff-role #dashPage .staff-home-panel{padding:10px!important;border-radius:14px!important}
+  .staff-role #dashPage .staff-home-top{align-items:center!important}
+  .staff-role #dashPage .staff-home-top h2{font-size:15px!important}
+  .staff-role #dashPage .staff-duty-active{padding:9px!important}
+  .staff-role #dashPage .staff-duty-active-grid{grid-template-columns:1fr 1fr!important}
+  .staff-role #dashPage .staff-duty-active-grid .staff-duty-info-item:last-child{grid-column:1/-1}
+  .staff-dashboard-overview{grid-template-columns:1fr;gap:9px;margin-top:9px}
+  .staff-dashboard-overview .staff-sales-hero{min-height:145px!important;padding:15px!important}
+  .staff-dashboard-overview .staff-sales-hero strong{font-size:34px!important}
+  .staff-sales-kpis{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:6px;margin-top:11px}
+  .staff-sales-kpi{min-width:0;padding:7px 9px}
+  .staff-today-status-card,.staff-recent-card,.staff-attention-card{padding:11px;border-radius:13px}
+  .staff-today-status-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .staff-today-status-item{padding:8px}.staff-today-status-item strong{font-size:13px}
+  .staff-today-status-actions{grid-template-columns:1fr 1fr}
+  .staff-role #dashPage .staff-home-insight-grid{grid-template-columns:1fr!important;gap:9px!important;margin-top:9px!important}
+  .staff-home-lower-grid{grid-template-columns:1fr;gap:9px;margin-top:9px}
+  .staff-recent-row{grid-template-columns:minmax(0,1fr) auto;gap:7px}.staff-recent-view{grid-column:1/-1;width:100%}.staff-recent-amount{min-width:84px}
+  .staff-pending-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .staff-attention-actions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:390px){
+  .staff-today-status-grid,.staff-pending-grid{grid-template-columns:1fr 1fr}
+  .staff-today-status-actions,.staff-attention-actions{grid-template-columns:1fr}
+}
+
 </style>
 
 
@@ -6978,28 +7091,23 @@ body.cashier-access-locked .app{
             <div id="homeDutyNoProcessor" class="staff-duty-warning hidden">No active Cashier with a PIN is available. Ask Admin to add or reset a Cashier PIN under Processors.</div>
           </div>
 
-          <!-- ACTIVE DUTY STATE: this is the ONLY place that repeats Processor/Shift -->
+          <!-- ACTIVE DUTY STATE: compact cashier status only -->
           <div id="staffDutyActive" class="staff-duty-active hidden">
             <div class="staff-duty-state-head">
               <div>
                 <span class="staff-duty-state-icon active">●</span>
                 <div>
-                  <h3>Currently On Duty</h3>
-                  <div class="muted">This live duty session is automatically reflected on the Admin dashboard.</div>
+                  <h3>Cashier On Duty</h3>
+                  <div class="muted">Current verified cashier handling the POS.</div>
                 </div>
               </div>
               <span class="pill good">ON DUTY</span>
             </div>
-
             <div id="staffDutyActiveInfo" class="staff-duty-active-grid"></div>
-
-            <div class="staff-duty-pos-note">
-              Duty controls are now available directly inside the POS.
-            </div>
+            <div class="staff-duty-pos-note">Duty controls are available inside the POS.</div>
           </div>
 
-          <!-- BUSINESS SUMMARY: no Processor / Shift duplication -->
-          <div class="staff-home-grid staff-home-summary-grid">
+          <div class="staff-dashboard-overview">
             <div id="staffSalesHero" class="staff-home-stat staff-sales-hero">
               <div class="staff-sales-label-row">
                 <small>MY SALES TODAY</small>
@@ -7007,24 +7115,25 @@ body.cashier-access-locked .app{
               </div>
               <strong id="staffHomeSales">₱0.00</strong>
               <span id="staffHomeSalesLiveNote" class="staff-sales-live-note">Auto-updates after every saved transaction.</span>
+              <div class="staff-sales-kpis">
+                <div class="staff-sales-kpi"><small>TRANSACTIONS TODAY</small><b id="staffHomeTxnCount">0</b></div>
+                <div class="staff-sales-kpi"><small>ITEMS SOLD TODAY</small><b id="staffHomeItemsSold">0</b></div>
+              </div>
             </div>
-            <div class="staff-home-stat">
-              <small>Credit Balance</small>
-              <strong id="staffHomeCredit">₱0.00</strong>
-            </div>
-            <div class="staff-home-stat">
-              <small>Pending Requests</small>
-              <strong id="staffHomePending">0</strong>
-            </div>
-            <div class="staff-home-stat">
-              <small>Closing Today</small>
-              <strong id="staffHomeClosing">OPEN</strong>
-            </div>
-          </div>
 
-          <div class="staff-home-actions staff-home-secondary-actions">
-            <button id="staffHomeHistoryBtn" class="btn">My History</button>
-            <button id="staffHomeClosingBtn" class="btn">Daily Closing</button>
+            <div class="staff-today-status-card">
+              <div class="head"><div><h3>Today Status</h3><div class="muted">Quick status for the logged-in cashier.</div></div><span class="live-pill">LIVE</span></div>
+              <div class="staff-today-status-grid">
+                <div class="staff-today-status-item"><small>Credit Balance</small><strong id="staffHomeCredit">₱0.00</strong></div>
+                <div class="staff-today-status-item"><small>Pending Requests</small><strong id="staffHomePending">0</strong></div>
+                <div class="staff-today-status-item"><small>Daily Closing</small><strong id="staffHomeClosing">OPEN</strong></div>
+                <div class="staff-today-status-item sync"><small>Realtime Sync</small><strong id="staffHomeSyncText">● Synced</strong></div>
+              </div>
+              <div class="staff-today-status-actions">
+                <button id="staffHomeHistoryBtn" class="btn" type="button">My History</button>
+                <button id="staffHomeClosingBtn" class="btn" type="button">Daily Closing</button>
+              </div>
+            </div>
           </div>
 
           <div class="staff-home-insight-grid">
@@ -7032,7 +7141,7 @@ body.cashier-access-locked .app{
               <div class="head">
                 <div>
                   <h3>Top 5 Malakas na Products</h3>
-                  <div class="muted">Based on today's saved Walk-in + Credit transactions.</div>
+                  <div class="muted">Current cashier's top products today, ranked by quantity sold.</div>
                 </div>
               </div>
               <div id="staffTopProductsList" class="staff-insight-list"></div>
@@ -7047,6 +7156,36 @@ body.cashier-access-locked .app{
                 <button id="staffNearOutViewAll" class="btn small" type="button">View All</button>
               </div>
               <div id="staffNearOutList" class="staff-insight-list"></div>
+            </div>
+          </div>
+
+          <div class="staff-home-lower-grid">
+            <div class="staff-recent-card">
+              <div class="head">
+                <div><h3>Recent Transactions</h3><div class="muted">Latest saved transactions of the current cashier today.</div></div>
+                <button id="staffRecentViewAll" class="btn small" type="button">View All</button>
+              </div>
+              <div id="staffRecentList" class="staff-recent-list"></div>
+            </div>
+
+            <div class="staff-attention-card">
+              <div class="head"><div><h3>My Pending & Closing</h3><div class="muted">Your requests and end-of-day status.</div></div></div>
+              <div class="staff-pending-grid">
+                <div class="staff-pending-tile"><small>Void</small><strong id="staffPendingVoid">0</strong></div>
+                <div class="staff-pending-tile"><small>Delete</small><strong id="staffPendingDelete">0</strong></div>
+                <div class="staff-pending-tile"><small>Return</small><strong id="staffPendingReturn">0</strong></div>
+                <div class="staff-pending-tile"><small>Credit Payment</small><strong id="staffPendingPayment">0</strong></div>
+                <div class="staff-pending-tile"><small>Expense</small><strong id="staffPendingExpense">0</strong></div>
+                <div class="staff-pending-tile"><small>Total Pending</small><strong id="staffPendingTotal">0</strong></div>
+              </div>
+              <div class="staff-closing-panel">
+                <div class="staff-closing-panel-top"><b>Daily Closing</b><em id="staffClosingBadge" class="staff-closing-badge open">OPEN</em></div>
+                <span id="staffClosingStatusText">Not yet submitted.</span>
+              </div>
+              <div class="staff-attention-actions">
+                <button id="staffPendingOpenHistory" class="btn" type="button">Open Requests</button>
+                <button id="staffClosingOpen" class="btn" type="button">Open Closing</button>
+              </div>
             </div>
           </div>
         </div>
@@ -9953,6 +10092,58 @@ function setRealtimeMetricText(id,value,flashId=''){
     const host=$(flashId);if(host){host.classList.remove('live-metric-flash');void host.offsetWidth;host.classList.add('live-metric-flash')}
   }
 }
+function currentCashierRecentTransactions(limit=5){
+  const shift=isStaff()?activeShiftFor(user?.uid):null;
+  if(!shift)return [];
+  const salesRows=cashierSalesRowsToday(shift.processorName).map(r=>({...r,kind:'sale',transactionType:'Paid'}));
+  const creditRows=cashierCreditRowsToday(shift.processorName).map(r=>({...r,kind:'credit',transactionType:'Credit'}));
+  return [...salesRows,...creditRows].sort((a,b)=>{
+    const ac=String(a.createdAtClient||`${a.date||''}T${a.time||''}`);
+    const bc=String(b.createdAtClient||`${b.date||''}T${b.time||''}`);
+    return bc.localeCompare(ac);
+  }).slice(0,limit);
+}
+function openStaffHistoryForTransaction(transactionNo='',kind=''){
+  if($('staffHistorySearch'))$('staffHistorySearch').value=transactionNo||'';
+  if($('staffHistoryType'))$('staffHistoryType').value=kind||'';
+  if($('staffHistoryPeriod'))$('staffHistoryPeriod').value='today';
+  nav('staffHistoryPage');
+  renderStaffHistory();
+}
+function renderStaffRecentTransactions(){
+  if(!$('staffRecentList'))return;
+  const rows=currentCashierRecentTransactions(5);
+  $('staffRecentList').innerHTML=rows.length?rows.map(r=>{
+    const tno=txnNo(r);
+    const type=r.kind==='credit'?'Credit':'Paid';
+    const cls=r.kind==='credit'?'credit':'paid';
+    const qty=num(r.totalQty)||(r.items||[]).reduce((a,i)=>a+num(i.qty),0);
+    return `<div class="staff-recent-row"><div class="staff-recent-main"><b><span class="staff-recent-type ${cls}">${type.toUpperCase()}</span>${esc(tno)}</b><span>${esc(r.time||'')} • ${qty} item${qty===1?'':'s'}</span></div><div class="staff-recent-amount"><strong>${peso(r.totalAmount)}</strong><small>${esc(r.processorName||'Cashier')}</small></div><button class="btn small staff-recent-view" type="button" data-home-recent="${attr(r.kind+':'+tno)}">View</button></div>`;
+  }).join(''):'<div class="empty">No saved transactions yet for this cashier today.</div>';
+  $('staffRecentList').querySelectorAll('[data-home-recent]').forEach(b=>b.onclick=()=>{const[k,...rest]=b.dataset.homeRecent.split(':');openStaffHistoryForTransaction(rest.join(':'),k)});
+}
+function renderStaffPendingClosing(){
+  if(!$('staffPendingTotal'))return;
+  const counts={
+    void:voidRequests.filter(r=>r.userId===user?.uid&&r.status==='pending').length,
+    del:deleteRequests.filter(r=>r.userId===user?.uid&&r.status==='pending').length,
+    ret:returnRequests.filter(r=>r.userId===user?.uid&&r.status==='pending').length,
+    pay:creditPayments.filter(p=>p.userId===user?.uid&&p.status==='pending').length,
+    exp:expenses.filter(e=>e.userId===user?.uid&&e.status==='pending').length
+  };
+  const total=counts.void+counts.del+counts.ret+counts.pay+counts.exp;
+  $('staffPendingVoid').textContent=counts.void;$('staffPendingDelete').textContent=counts.del;$('staffPendingReturn').textContent=counts.ret;$('staffPendingPayment').textContent=counts.pay;$('staffPendingExpense').textContent=counts.exp;$('staffPendingTotal').textContent=total;
+  const closing=closingRecordForDate(today(),user?.uid);
+  const badge=$('staffClosingBadge'),desc=$('staffClosingStatusText');
+  if(closing?.status==='approved'){
+    badge.textContent='CLOSED ✓';badge.className='staff-closing-badge closed';desc.textContent='Daily closing is approved and completed.';
+  }else if(closing?.status==='pending'){
+    badge.textContent='PENDING';badge.className='staff-closing-badge pending';desc.textContent='Submitted and waiting for Admin approval.';
+  }else{
+    badge.textContent='OPEN';badge.className='staff-closing-badge open';desc.textContent='Not yet submitted. Complete Daily Closing at end of day.';
+  }
+}
+
 function renderStaffHomeInsights(){
   if(!$('staffTopProductsList')||!$('staffNearOutList'))return;
   const top=topSellingProductsToday(5);
@@ -9990,7 +10181,9 @@ function renderStaffHome(){
   const mySales=shift?cashierSalesRowsToday(shift.processorName):[];
   const myCredits=shift?cashierCreditRowsToday(shift.processorName):[];
   const totalToday=mySales.reduce((a,s)=>a+num(s.totalAmount),0)+myCredits.reduce((a,c)=>a+num(c.totalAmount),0);
-  const creditBalance=dashboardCreditRows().reduce((a,c)=>a+creditRemaining(c),0);
+  const txnCount=mySales.length+myCredits.length;
+  const itemsSold=[...mySales,...myCredits].reduce((a,r)=>a+(num(r.totalQty)||(r.items||[]).reduce((x,i)=>x+num(i.qty),0)),0);
+  const creditBalance=shift?dashboardCreditRows().filter(c=>sameProcessorName(c.processorName,shift.processorName)).reduce((a,c)=>a+creditRemaining(c),0):0;
   const pendingRequests=
     voidRequests.filter(r=>r.userId===user.uid&&r.status==='pending').length+
     deleteRequests.filter(r=>r.userId===user.uid&&r.status==='pending').length+
@@ -10005,10 +10198,13 @@ function renderStaffHome(){
   $('staffHomePosBadge').textContent=access.allowed?'POS OPEN':shift?'POS CLOSED':'OPENING REQUIRED';
   $('staffHomePosBadge').className=access.allowed?'pill good':'pill warn';
   setRealtimeMetricText('staffHomeSales',peso(totalToday),'staffSalesHero');
-  if($('staffHomeSalesLiveNote'))$('staffHomeSalesLiveNote').textContent=shift?`LIVE • ${shift.processorName||'Cashier'} • ${mySales.length+myCredits.length} transaction${mySales.length+myCredits.length===1?'':'s'} today`:'Waiting for Cashier login';
+  if($('staffHomeTxnCount'))$('staffHomeTxnCount').textContent=txnCount;
+  if($('staffHomeItemsSold'))$('staffHomeItemsSold').textContent=itemsSold;
+  if($('staffHomeSalesLiveNote'))$('staffHomeSalesLiveNote').textContent=shift?`LIVE • ${shift.processorName||'Cashier'} • auto-updates after every saved transaction`:'Waiting for Cashier login';
   $('staffHomeCredit').textContent=peso(creditBalance);
   $('staffHomePending').textContent=pendingRequests;
   $('staffHomeClosing').textContent=closingLabel;
+  if($('staffHomeSyncText'))$('staffHomeSyncText').textContent=`● ${new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'})}`;
 
   // Opening selector comes directly from Admin Processor names.
   const current=$('homeDutyProcessor').value;
@@ -10025,14 +10221,13 @@ function renderStaffHome(){
 
   if(shift){
     $('staffDutyActiveInfo').innerHTML=`
-      <div class="staff-duty-info-item"><small>Processor / Cashier</small><strong>${esc(shift.processorName||'—')}</strong></div>
-      <div class="staff-duty-info-item"><small>Duty / Shift</small><strong>${esc(shift.shiftLabel||'—')}</strong></div>
-      <div class="staff-duty-info-item"><small>Started</small><strong>${esc(shift.startTime||'—')}</strong><span>${esc(formatDate(shift.date||today()))}</span></div>
-      <div class="staff-duty-info-item"><small>Petty Cash • Opening Float</small><strong>${peso(pettyCashOpeningForDate(today(),shift.processorName||''))}</strong></div>
-      <div class="staff-duty-info-item"><small>Petty Cash Remaining</small><strong>${peso(pettyCashRemainingForDate(today(),shift.processorName||''))}</strong></div>
-      <div class="staff-duty-info-item"><small>Cashier Sales Today</small><strong>${peso(cashierSalesTodayTotal(shift.processorName||''))}</strong></div>`;
+      <div class="staff-duty-info-item"><small>Cashier</small><strong>${esc(shift.processorName||'—')}</strong></div>
+      <div class="staff-duty-info-item"><small>Shift</small><strong>${esc(shift.shiftLabel||'—')}</strong></div>
+      <div class="staff-duty-info-item"><small>Started</small><strong>${esc(shift.startTime||'—')}</strong><span>${esc(formatDate(shift.date||today()))}</span></div>`;
   }
   renderStaffHomeInsights();
+  renderStaffRecentTransactions();
+  renderStaffPendingClosing();
 }
 
 function renderDash(){
@@ -16546,6 +16741,9 @@ $('actionOverdue').onclick=()=>nav('creditsPage');
 $('actionClosing').onclick=()=>nav('closingPage');
 $('staffHomeHistoryBtn').onclick=()=>nav('staffHistoryPage');
 $('staffHomeClosingBtn').onclick=()=>nav('closingPage');
+if($('staffRecentViewAll'))$('staffRecentViewAll').onclick=()=>{if($('staffHistorySearch'))$('staffHistorySearch').value='';if($('staffHistoryType'))$('staffHistoryType').value='';if($('staffHistoryPeriod'))$('staffHistoryPeriod').value='today';nav('staffHistoryPage');renderStaffHistory()};
+if($('staffPendingOpenHistory'))$('staffPendingOpenHistory').onclick=()=>nav('staffHistoryPage');
+if($('staffClosingOpen'))$('staffClosingOpen').onclick=()=>nav('closingPage');
 if($('staffNearOutViewAll'))$('staffNearOutViewAll').onclick=()=>openStockInsightModal('low');
 bindReliableTap('dLowStockCard',()=>openStockInsightModal('low'));
 bindReliableTap('dCriticalStockCard',()=>openStockInsightModal('critical'));

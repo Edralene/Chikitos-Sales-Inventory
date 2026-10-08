@@ -5186,6 +5186,415 @@ input,select,textarea,button{max-width:100%}
   .change-box{grid-column:auto}
 }
 
+
+/* ============================================================
+   v54 POS CHECKOUT REDESIGN
+   Desktop: catalog + staged checkout panel
+   Mobile: full-screen Cart -> Payment, no overlap
+   ============================================================ */
+
+.staff-role #salesPage .mobile-pos-status{
+  display:flex;
+}
+.staff-role #salesPage .pos-category-chips{
+  display:flex;
+}
+.staff-role #salesPage #posCat{
+  display:none!important;
+}
+.staff-role #salesPage .pos-toolbar{
+  grid-template-columns:1fr!important;
+}
+
+/* Desktop POS */
+.staff-role #salesPage .pos-layout{
+  grid-template-columns:minmax(0,1.75fr) minmax(360px,.85fr);
+  gap:14px;
+  align-items:start;
+}
+.staff-role #salesPage .pos-products,
+.staff-role #salesPage .pos-cart{
+  border-color:#dfe6ef;
+  box-shadow:0 7px 24px rgba(20,35,58,.06);
+}
+.staff-role #salesPage .pos-products{
+  padding:14px;
+}
+.staff-role #salesPage .product-card{
+  cursor:pointer;
+  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease;
+}
+.staff-role #salesPage .product-card:not(.out):hover{
+  transform:translateY(-1px);
+  border-color:#c8d8f6;
+  box-shadow:0 7px 18px rgba(47,111,237,.08);
+}
+.staff-role #salesPage .product-card:not(.out):active{
+  transform:scale(.99);
+}
+.staff-role #salesPage .pos-cart{
+  position:sticky;
+  top:8px;
+  min-height:560px;
+  max-height:calc(100dvh - 92px);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  padding:0;
+  background:#fff;
+}
+.cart-sheet-head{
+  flex:0 0 auto;
+  padding:14px 14px 11px;
+  border-bottom:1px solid #e8edf4;
+  background:#fff;
+  z-index:3;
+}
+.checkout-kicker{
+  margin-bottom:3px;
+  color:#2f6fed;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.cart-sheet-head h2{
+  margin:0;
+  font-size:17px;
+}
+.checkout-stage{
+  min-height:0;
+}
+.checkout-stage-review{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.staff-role #salesPage .cart-list{
+  flex:1 1 auto;
+  min-height:150px;
+  max-height:none;
+  overflow-y:auto;
+  padding:11px 12px;
+}
+.cart-item{
+  padding:10px;
+  border-color:#e3e9f1;
+}
+.cart-item-main{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.cart-item-main>div{
+  min-width:0;
+}
+.cart-line-total{
+  flex:0 0 auto;
+  color:#1f2937;
+  font-size:10px;
+}
+.qty-caption{
+  min-width:0;
+  color:#788598;
+  font-size:8px;
+  text-align:right;
+}
+.cart-review-summary{
+  flex:0 0 auto;
+  padding:11px 13px 13px;
+  border-top:1px solid #e8edf4;
+  background:#fbfcfe;
+}
+.cart-review-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.cart-review-metrics>div{
+  padding:8px 9px;
+  border:1px solid #e6ebf2;
+  border-radius:10px;
+  background:#fff;
+}
+.cart-review-metrics small{
+  display:block;
+  color:#8190a3;
+  font-size:6.5px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.cart-review-metrics strong{
+  display:block;
+  margin-top:2px;
+  color:#27364b;
+  font-size:12px;
+}
+.cart-review-total{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 1px 8px;
+}
+.cart-review-total span{
+  color:#5f6d80;
+  font-size:9px;
+  font-weight:850;
+}
+.cart-review-total strong{
+  color:#111827;
+  font-size:25px;
+  line-height:1;
+}
+.checkout-primary{
+  width:100%;
+  min-height:48px;
+  border-radius:11px!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.checkout-primary:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+.checkout-stage-payment{
+  flex:1 1 auto;
+  overflow-y:auto;
+  padding:12px 13px 14px;
+}
+.checkout-back{
+  min-height:34px;
+  padding:6px 9px;
+  border:1px solid #dfe6ef;
+  border-radius:9px;
+  background:#fff;
+  color:#607087;
+  font-size:8px;
+  font-weight:850;
+  cursor:pointer;
+}
+.payment-due-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:10px 0;
+  padding:12px;
+  border:1px solid #d8e5f8;
+  border-radius:13px;
+  background:linear-gradient(145deg,#f7faff,#eef4ff);
+}
+.payment-due-card small{
+  display:block;
+  color:#718198;
+  font-size:7px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.payment-due-card strong{
+  display:block;
+  margin-top:2px;
+  color:#1d4ed8;
+  font-size:24px;
+}
+.payment-due-card>span{
+  color:#65748a;
+  font-size:8px;
+  text-align:right;
+}
+.checkout-box{
+  margin:0 0 10px;
+  padding:11px;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  background:#fff;
+}
+.staff-role #salesPage .mobile-txn-toggle{
+  display:grid!important;
+}
+.staff-role #salesPage .desktop-txn-label,
+.staff-role #salesPage #transactionType{
+  display:none!important;
+}
+.mobile-txn-toggle{
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.mobile-txn-toggle button{
+  min-height:46px;
+  border-radius:11px;
+  font-size:9px;
+}
+.walkin-payment-fields{
+  grid-template-columns:minmax(0,1fr) 108px;
+}
+.walkin-payment-fields input{
+  min-height:46px;
+}
+.change-box{
+  min-height:46px;
+}
+.desktop-checkout-extras{
+  margin-top:10px;
+}
+.cart-empty-state{
+  margin:auto;
+  width:100%;
+  padding:30px 10px!important;
+  text-align:center;
+}
+.cart-empty-state b{
+  display:block;
+  margin-bottom:4px;
+  color:#344155;
+  font-size:10px;
+}
+
+@media(min-width:1450px){
+  .staff-role #salesPage .product-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+}
+
+/* Mobile: dedicated full-screen checkout surface */
+@media(max-width:720px){
+  body.mobile-cart-open{
+    overflow:hidden!important;
+  }
+  body.mobile-cart-open .side{
+    display:none!important;
+  }
+
+  .staff-role #salesPage .mobile-cart-sheet{
+    position:fixed!important;
+    z-index:5200!important;
+    inset:0!important;
+    width:100%!important;
+    height:100dvh!important;
+    max-width:none!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    overflow:hidden!important;
+    background:#fff!important;
+    transform:translateY(105%);
+    transition:transform .22s ease;
+    box-shadow:none!important;
+  }
+  .staff-role #salesPage .mobile-cart-sheet.mobile-open{
+    transform:translateY(0);
+  }
+
+  .staff-role #salesPage .cart-sheet-head{
+    position:relative!important;
+    top:auto!important;
+    flex:0 0 auto;
+    padding:
+      calc(10px + env(safe-area-inset-top))
+      11px
+      10px!important;
+    border-bottom:1px solid #e5eaf1;
+    background:#fff!important;
+  }
+  .mobile-cart-close{
+    display:inline-flex!important;
+  }
+  .staff-role #salesPage .cart-sheet-head h2{
+    font-size:17px!important;
+  }
+
+  .staff-role #salesPage .checkout-stage-review{
+    flex:1 1 auto;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .staff-role #salesPage .checkout-stage-review.hidden,
+  .staff-role #salesPage .checkout-stage-payment.hidden{
+    display:none!important;
+  }
+
+  .staff-role #salesPage .cart-list{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    padding:9px 9px 12px!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .staff-role #salesPage .cart-review-summary{
+    flex:0 0 auto;
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom))!important;
+    background:#fff;
+    box-shadow:0 -10px 28px rgba(30,45,68,.08);
+  }
+  .staff-role #salesPage .cart-review-total strong{
+    font-size:25px!important;
+  }
+  .staff-role #salesPage .checkout-primary{
+    min-height:50px!important;
+    font-size:11px!important;
+  }
+
+  .staff-role #salesPage .checkout-stage-payment{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto!important;
+    padding:10px 10px calc(16px + env(safe-area-inset-bottom))!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .staff-role #salesPage .payment-due-card{
+    margin:9px 0!important;
+  }
+  .staff-role #salesPage .payment-due-card strong{
+    font-size:25px!important;
+  }
+  .staff-role #salesPage .checkout-box{
+    margin-bottom:9px!important;
+  }
+  .staff-role #salesPage .walkin-payment-fields{
+    grid-template-columns:1fr!important;
+  }
+  .staff-role #salesPage .change-box{
+    grid-column:auto!important;
+  }
+
+  .staff-role #salesPage .desktop-checkout-extras{
+    display:none!important;
+  }
+
+  .mobile-cart-backdrop{
+    display:none!important;
+  }
+
+  /* The product page remains clean while cart bar floats above the bottom nav. */
+  .staff-role #salesPage .product-card{
+    min-height:116px!important;
+  }
+  .staff-role #salesPage .product-card:not(.out)::after{
+    content:'Tap to add';
+  }
+}
+
+@media(max-width:390px){
+  .cart-review-metrics{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .payment-due-card{
+    align-items:flex-end;
+  }
+  .payment-due-card strong{
+    font-size:22px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -5713,24 +6122,49 @@ input,select,textarea,button{max-width:100%}
           </div>
 
           <div id="posCartSheet" class="pos-cart mobile-cart-sheet">
-            <div class="sticky cart-sheet-head">
+            <div class="cart-sheet-head">
               <div class="head">
                 <div>
-                  <h2>Current Sale</h2>
+                  <div id="cartStageKicker" class="checkout-kicker">CURRENT SALE</div>
+                  <h2 id="cartPanelTitle">Review Cart</h2>
                   <div id="cartDateText" class="muted"></div>
                 </div>
                 <div class="cart-head-actions">
                   <button id="clearCart" class="btn small">Clear</button>
-                  <button id="mobileCloseCart" class="btn small mobile-cart-close" type="button">Done</button>
+                  <button id="mobileCloseCart" class="btn small mobile-cart-close" type="button">Close</button>
                 </div>
               </div>
             </div>
 
-            <div id="cartList" class="cart-list"></div>
+            <div id="cartReviewStage" class="checkout-stage checkout-stage-review">
+              <div id="cartList" class="cart-list"></div>
 
-            <div class="cart-summary">
+              <div class="cart-review-summary">
+                <div class="cart-review-metrics">
+                  <div><small>Items</small><strong id="cartItems">0</strong></div>
+                  <div><small>Total Qty</small><strong id="cartQty">0</strong></div>
+                </div>
+                <div class="cart-review-total">
+                  <span>Total</span>
+                  <strong id="cartTotal">₱0.00</strong>
+                </div>
+                <button id="continueToPayment" class="btn blue checkout-primary" type="button">Continue to Payment</button>
+              </div>
+            </div>
+
+            <div id="paymentStage" class="checkout-stage checkout-stage-payment hidden">
+              <button id="backToCart" class="checkout-back" type="button">← Back to Cart</button>
+
+              <div class="payment-due-card">
+                <div>
+                  <small>Total Due</small>
+                  <strong id="paymentTotal">₱0.00</strong>
+                </div>
+                <span id="paymentItemSummary">0 items</span>
+              </div>
+
               <div class="txn-box checkout-box">
-                <label class="desktop-txn-label">Transaction Type</label>
+                <label class="desktop-txn-label">Payment Type</label>
                 <select id="transactionType">
                   <option value="walkin">Walk-in / Paid</option>
                   <option value="credit">Credit / Utang</option>
@@ -5773,13 +6207,13 @@ input,select,textarea,button{max-width:100%}
                 </div>
               </div>
 
-              <div class="sumrow"><span>Items</span><b id="cartItems">0</b></div>
-              <div class="sumrow"><span>Total Qty</span><b id="cartQty">0</b></div>
-              <div class="sumrow total"><span>Total</span><b id="cartTotal">₱0.00</b></div>
-              <button id="saveSale" class="btn green pos-save">Complete Sale</button>
-              <div id="lastSaleInfo" class="today-saved">No sale saved yet in this session.</div>
-              <button id="downloadLastReceipt" class="btn blue hidden" style="margin-top:6px;width:100%">⬇ Download Last Receipt</button>
-              <button id="openTodayReport" class="btn pos-save" style="margin-top:6px">View My Today Sales</button>
+              <button id="saveSale" class="btn green pos-save checkout-primary">Complete Sale</button>
+
+              <div class="desktop-checkout-extras">
+                <div id="lastSaleInfo" class="today-saved">No sale saved yet in this session.</div>
+                <button id="downloadLastReceipt" class="btn blue hidden" style="margin-top:6px;width:100%">⬇ Download Last Receipt</button>
+                <button id="openTodayReport" class="btn pos-save" style="margin-top:6px">View My Today Sales</button>
+              </div>
             </div>
           </div>
         </div>
@@ -7279,7 +7713,7 @@ const adminDrafts={stock:{},product:{}};
 let dashboardCharts={sales7:null,mix:null,expense:null};
 const defaultSystemSettings={storeName:'POS CHIKITOS',logoText:'CHIKITOS',address:'',contact:'',receiptFooter:'Thank you for your purchase.',openTime:'06:00',closeTime:'00:00',lowStockDefault:10,criticalStockDefault:3,allowBackdatedSales:false,requireProcessor:true,requireShift:true};
 let systemSettings={...defaultSystemSettings};
-let unsubs=[],cart={};
+let unsubs=[],cart={},posCheckoutStage='cart';
 const selectedSaleIds=new Set();
 
 const defaults=[
@@ -9064,8 +9498,10 @@ function updateTransactionUI(){
   $('creditFields').classList.toggle('hidden',!isCredit);
   $('walkinPaymentFields').classList.toggle('hidden',isCredit);
   $('saveSale').textContent=isCredit?'Save Credit & Deduct Stock':'Complete Paid Sale';
-  $('cartDateText').textContent=`Sales Date: ${formatDate($('saleDate').value)} • ${isCredit?'CREDIT / UTANG':'WALK-IN / PAID'}`;
-  document.querySelectorAll('[data-mobile-txn]').forEach(b=>b.classList.toggle('active',b.dataset.mobileTxn===(isCredit?'credit':'walkin')));
+  document.querySelectorAll('[data-mobile-txn]').forEach(
+    b=>b.classList.toggle('active',b.dataset.mobileTxn===(isCredit?'credit':'walkin'))
+  );
+  renderCheckoutStage();
   updateWalkinPayment();
 }
 function cartTotalAmount(){
@@ -9081,6 +9517,7 @@ function updateWalkinPayment(){
 }
 
 function resetTransactionFields(){
+  posCheckoutStage='cart';
   $('transactionType').value='walkin';
   $('creditName').value='';
   $('creditContact').value='';
@@ -9089,6 +9526,7 @@ function resetTransactionFields(){
   $('cashReceived').value='';
   $('cashChange').textContent=peso(0);
   updateTransactionUI();
+  renderCheckoutStage();
 }
 
 function fillProcessorSelect(){
@@ -9157,7 +9595,7 @@ function renderPOS(){
   }).join('')||'<div class="empty">No products found.</div>';
   $('productGrid').querySelectorAll('[data-add]').forEach(b=>b.onclick=e=>{e.stopPropagation();changeCart(b.dataset.add,1)});
   $('productGrid').querySelectorAll('[data-card-add]').forEach(card=>card.onclick=e=>{
-    if(!isMobileStaffViewport()||card.dataset.cardEnabled!=='1'||e.target.closest('button,input,select,textarea'))return;
+    if(card.dataset.cardEnabled!=='1'||e.target.closest('button,input,select,textarea'))return;
     changeCart(card.dataset.cardAdd,1);
   });
   renderCart();
@@ -9178,24 +9616,47 @@ function setCartQty(id,val){
 }
 function renderCart(){
   const entries=products.filter(p=>num(cart[p.id])>0);
-  $('cartDateText').textContent=`Sales Date: ${formatDate($('saleDate').value)}`;
+
   $('cartList').innerHTML=entries.length?entries.map(p=>{
     const q=num(cart[p.id]);
     return `<div class="cart-item">
-      <div class="cart-name">${esc(p.name)}</div><div class="cart-meta">${peso(p.price)} each • Current stock ${bal(p.id)}</div>
-      <div class="qty-row"><button data-minus="${attr(p.id)}">−</button><input data-cartqty="${attr(p.id)}" type="number" min="1" max="${bal(p.id)}" value="${q}"><button data-plus="${attr(p.id)}">+</button><strong>${peso(q*num(p.price))}</strong><button data-remove="${attr(p.id)}">×</button></div>
-    </div>`
-  }).join(''):'<div class="empty">Cart is empty.<br>Tap a product to start.</div>';
+      <div class="cart-item-main">
+        <div>
+          <div class="cart-name">${esc(p.name)}</div>
+          <div class="cart-meta">${peso(p.price)} each • Stock ${bal(p.id)}</div>
+        </div>
+        <strong class="cart-line-total">${peso(q*num(p.price))}</strong>
+      </div>
+      <div class="qty-row">
+        <button data-minus="${attr(p.id)}" aria-label="Decrease quantity">−</button>
+        <input data-cartqty="${attr(p.id)}" type="number" min="1" max="${bal(p.id)}" value="${q}">
+        <button data-plus="${attr(p.id)}" aria-label="Increase quantity">+</button>
+        <span class="qty-caption">Qty ${q}</span>
+        <button data-remove="${attr(p.id)}" aria-label="Remove item">×</button>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty cart-empty-state"><b>Your cart is empty</b><br>Tap or click a product to add it.</div>';
+
   $('cartList').querySelectorAll('[data-minus]').forEach(b=>b.onclick=()=>changeCart(b.dataset.minus,-1));
   $('cartList').querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>changeCart(b.dataset.plus,1));
   $('cartList').querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{delete cart[b.dataset.remove];renderPOS()});
   $('cartList').querySelectorAll('[data-cartqty]').forEach(i=>i.onchange=()=>setCartQty(i.dataset.cartqty,i.value));
-  const qty=entries.reduce((a,p)=>a+num(cart[p.id]),0),total=entries.reduce((a,p)=>a+num(cart[p.id])*num(p.price),0);
-  $('cartItems').textContent=entries.length;$('cartQty').textContent=qty;$('cartTotal').textContent=peso(total);
+
+  const qty=entries.reduce((a,p)=>a+num(cart[p.id]),0);
+  const total=entries.reduce((a,p)=>a+num(cart[p.id])*num(p.price),0);
+
+  $('cartItems').textContent=entries.length;
+  $('cartQty').textContent=qty;
+  $('cartTotal').textContent=peso(total);
   $('mobileCartCount').textContent=`${qty} ITEM${qty===1?'':'S'}`;
   $('mobileCartTotal').textContent=peso(total);
+  $('paymentTotal').textContent=peso(total);
+  $('paymentItemSummary').textContent=`${qty} item${qty===1?'':'s'} • ${entries.length} product${entries.length===1?'':'s'}`;
+  $('continueToPayment').disabled=qty<=0;
+
   updateTransactionUI();
-  updateWalkinPayment()
+  updateWalkinPayment();
+  renderCheckoutStage();
 }
 async function saveSale(){
   if(!isStaff())return;
@@ -14101,13 +14562,73 @@ function resolveStaffMobileInitialRoute(){
   const shift=activeShiftFor(user?.uid);
   nav(shift?'salesPage':'dashPage');
 }
+function renderCheckoutStage(){
+  const payment=posCheckoutStage==='payment';
+  $('cartReviewStage')?.classList.toggle('hidden',payment);
+  $('paymentStage')?.classList.toggle('hidden',!payment);
+
+  if($('cartPanelTitle'))$('cartPanelTitle').textContent=payment?'Payment':'Review Cart';
+  if($('cartStageKicker'))$('cartStageKicker').textContent=payment?'CHECKOUT':'CURRENT SALE';
+  if($('clearCart'))$('clearCart').classList.toggle('hidden',payment);
+
+  const type=$('transactionType')?.value==='credit'?'CREDIT / UTANG':'WALK-IN / PAID';
+  if($('cartDateText')){
+    $('cartDateText').textContent=payment
+      ?`${type} • ${formatDate($('saleDate').value||today())}`
+      :`Sales Date: ${formatDate($('saleDate').value||today())}`;
+  }
+
+  if(payment&&isMobileStaffViewport()){
+    const sheet=$('posCartSheet');
+    if(sheet)sheet.scrollTop=0;
+  }
+}
+function goToPaymentStage(){
+  const total=cartTotalAmount();
+  if(total<=0){
+    alert('Cart is empty. Add at least one product first.');
+    return;
+  }
+
+  const date=$('saleDate').value||today();
+  const access=posAccessState(date,user?.uid);
+  if(!access.allowed){
+    alert(access.message);
+    renderPOS();
+    return;
+  }
+
+  if(!activeShiftFor(user?.uid)){
+    alert('Start Duty / Opening first before checkout.');
+    nav('dashPage');
+    return;
+  }
+
+  posCheckoutStage='payment';
+  renderCheckoutStage();
+  updateTransactionUI();
+
+  setTimeout(()=>{
+    if($('transactionType').value==='walkin')$('cashReceived')?.focus();
+    else $('creditName')?.focus();
+  },90);
+}
+function goBackToCartStage(){
+  posCheckoutStage='cart';
+  renderCheckoutStage();
+}
+
 function closeMobileCart(){
+  posCheckoutStage='cart';
   $('posCartSheet')?.classList.remove('mobile-open');
   $('mobileCartBackdrop')?.classList.add('hidden');
   document.body.classList.remove('mobile-cart-open');
+  renderCheckoutStage();
 }
 function openMobileCart(){
   if(!isMobileStaffViewport())return;
+  posCheckoutStage='cart';
+  renderCheckoutStage();
   $('posCartSheet')?.classList.add('mobile-open');
   $('mobileCartBackdrop')?.classList.remove('hidden');
   document.body.classList.add('mobile-cart-open');
@@ -14176,9 +14697,11 @@ $('purchaseDate').value=today();
 $('creditPaymentDate').value=today();
 $('saleDate').onchange=renderPOS;
 $('transactionType').onchange=updateTransactionUI;
-$('clearCart').onclick=()=>{if(Object.keys(cart).length&&!confirm('Clear current cart?'))return;cart={};resetTransactionFields();renderPOS()};
+$('clearCart').onclick=()=>{if(Object.keys(cart).length&&!confirm('Clear current cart?'))return;cart={};posCheckoutStage='cart';resetTransactionFields();renderPOS()};
 $('saveSale').onclick=saveSale;
 $('mobileCartBar').onclick=openMobileCart;
+$('continueToPayment').onclick=goToPaymentStage;
+$('backToCart').onclick=goBackToCartStage;
 $('mobileCloseCart').onclick=closeMobileCart;
 $('mobileCartBackdrop').onclick=closeMobileCart;
 $('cashReceived').oninput=updateWalkinPayment;

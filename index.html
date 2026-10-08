@@ -5835,6 +5835,84 @@ input,select,textarea,button{max-width:100%}
   100%{transform:scale(1);background:#fff}
 }
 
+
+/* ============================================================
+   v57 MOBILE POS STABILITY
+   ============================================================ */
+@media(max-width:720px){
+  .staff-role.mobile-pos-cart-mode #salesPage .mobile-cart-bar{
+    display:none!important;
+    pointer-events:none!important;
+  }
+
+  .staff-role #salesPage .product-card .btn[data-add]{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-height:38px!important;
+    margin-top:7px!important;
+    padding:7px 8px!important;
+    border-radius:9px!important;
+    font-size:9px!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:3!important;
+  }
+
+  .staff-role #salesPage .product-card{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+  }
+
+  .staff-role #salesPage .product-card:not(.out)::after{
+    content:none!important;
+    display:none!important;
+  }
+
+  #mobileCartBar,
+  #mobileCloseCart,
+  #continueToPayment,
+  #backToCart,
+  #saveSale,
+  #exactCash,
+  #mobileTxnToggle button,
+  #clearCart{
+    min-height:44px!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:rgba(47,111,237,.10);
+  }
+
+  .staff-role:not(.mobile-pos-cart-mode) #salesPage .mobile-cart-sheet{
+    display:none!important;
+    pointer-events:none!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .mobile-cart-sheet.mobile-open{
+    display:flex!important;
+    position:relative!important;
+    z-index:1!important;
+    pointer-events:auto!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .cart-review-summary{
+    z-index:4!important;
+  }
+
+  .staff-role:not(.mobile-pos-cart-mode) #salesPage .mobile-cart-bar:not(.cart-empty){
+    display:flex!important;
+    z-index:3200!important;
+    pointer-events:auto!important;
+  }
+
+  #mobileCartBackdrop{
+    display:none!important;
+    pointer-events:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -7936,6 +8014,7 @@ const auth=getAuth(app),db=getFirestore(app);
 setPersistence(auth,browserLocalPersistence).catch(()=>{});
 
 const STORE='main',$=id=>document.getElementById(id);
+const cssEscapeSafe=value=>String(value).replace(/(["\\])/g,'\\$1');
 const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
 const num=n=>Number(n||0);
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -9744,6 +9823,9 @@ function updateTransactionUI(){
   renderCheckoutStage();
   updateWalkinPayment();
 }
+function cartTotalQty(){
+  return products.reduce((a,p)=>a+num(cart[p.id]),0);
+}
 function cartTotalAmount(){
   return products.reduce((a,p)=>a+num(cart[p.id])*num(p.price),0);
 }
@@ -9833,18 +9915,24 @@ function renderPOS(){
       <button class="btn ${stock>inCart?'green':''}" data-add="${attr(p.id)}" ${(stock<=inCart||!access.allowed)?'disabled':''}>${!access.allowed?'POS Closed':stock>inCart?'+ Add to Cart':'Out / Max Qty'}</button>
     </div>`
   }).join('')||'<div class="empty">No products found.</div>';
-  // One delegated tap handler is more reliable on mobile/in-app browsers.
+  // One delegated tap handler is reliable on mobile / Messenger / Safari.
   $('productGrid').onclick=e=>{
-    const addBtn=e.target.closest('[data-add]');
-    const card=e.target.closest('[data-card-add]');
+    const targetEl=e.target instanceof Element?e.target:e.target?.parentElement;
+    if(!targetEl)return;
+
+    const addBtn=targetEl.closest('[data-add]');
+    const card=targetEl.closest('[data-card-add]');
     const target=addBtn||card;
     if(!target)return;
 
     e.preventDefault();
+    e.stopPropagation();
 
-    const id=(addBtn?.dataset.add)||(card?.dataset.cardAdd);
+    const id=String((addBtn&&addBtn.dataset.add)||(card&&card.dataset.cardAdd)||'');
+    if(!id)return;
+
     const product=productById(id);
-    const cardEl=card||addBtn?.closest('[data-card-add]');
+    const cardEl=card||(addBtn?addBtn.closest('[data-card-add]'):null);
     const enabled=cardEl?.dataset.cardEnabled==='1';
 
     if(!enabled){
@@ -9875,7 +9963,8 @@ function changeCart(id,delta){
     void bar?.offsetWidth;
     bar?.classList.add('mobile-cart-pulse');
 
-    const card=$('productGrid')?.querySelector(`[data-card-add="${CSS.escape(String(id))}"]`);
+    const cards=$('productGrid')?.querySelectorAll('[data-card-add]')||[];
+    const card=Array.from(cards).find(el=>String(el.dataset.cardAdd)===String(id));
     if(card){
       card.classList.remove('mobile-added');
       void card.offsetWidth;
@@ -14715,7 +14804,7 @@ function renderProducts(){
 
   Object.entries(adminDrafts.product).forEach(([key,value])=>{
     const parts=key.split('|'),id=parts[0],field=parts[1];
-    const selector=field==='cat'?`[data-cat="${CSS.escape(id)}"]`:field==='name'?`[data-name="${CSS.escape(id)}"]`:field==='price'?`[data-price="${CSS.escape(id)}"]`:field==='cost'?`[data-cost="${CSS.escape(id)}"]`:field==='reorder'?`[data-reorder="${CSS.escape(id)}"]`:`[data-critical="${CSS.escape(id)}"]`;
+    const selector=field==='cat'?`[data-cat="${cssEscapeSafe(id)}"]`:field==='name'?`[data-name="${cssEscapeSafe(id)}"]`:field==='price'?`[data-price="${cssEscapeSafe(id)}"]`:field==='cost'?`[data-cost="${cssEscapeSafe(id)}"]`:field==='reorder'?`[data-reorder="${cssEscapeSafe(id)}"]`:`[data-critical="${cssEscapeSafe(id)}"]`;
     const el=$('prodBody').querySelector(selector);if(el&&!el.disabled)el.value=value;
   });
 
@@ -14916,7 +15005,7 @@ function closeMobileCart(){
   document.body.classList.remove('mobile-pos-cart-mode');
   renderCheckoutStage();
 
-  if(isMobileStaffViewport()&&$('salesPage')?.classList.contains('active')){
+  if(!isMobileStaffViewport()&&$('salesPage')?.classList.contains('active')){
     setTimeout(()=>$('posSearch')?.focus(),80);
   }
 }
@@ -14992,6 +15081,18 @@ function nav(id){
   if(id==='operationsPage')renderOperations();
 }
 
+function validateMobilePosRuntime(){
+  const requiredIds=[
+    'productGrid','mobileCartBar','posCartSheet','cartList',
+    'continueToPayment','paymentStage','backToCart','saveSale'
+  ];
+  const missing=requiredIds.filter(id=>!$(id));
+  if(missing.length)console.error('POS mobile runtime missing element(s):',missing);
+  if(typeof cartTotalQty!=='function')console.error('POS mobile runtime missing cartTotalQty()');
+  return missing.length===0&&typeof cartTotalQty==='function';
+}
+validateMobilePosRuntime();
+
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>nav(b.dataset.page));
 ['dashSearch','stockSearch','posSearch','txSearch','creditSearch','expenseSearch','inventorySearch','voidRequestSearch','deleteRequestSearch','returnRequestSearch','closingSearch','auditSearch','purchaseSearch','borrowerProfileSearch','masterAuditSearch','productMasterSearch','staffHistorySearch'].forEach(id=>$(id).oninput=renderAll);
 ['dashCat','stockCat','posCat','txType','creditStatusFilter','expenseStatusFilter','inventoryCat','closingStatusFilter','auditProduct','masterAuditType','productMasterCategory','productMasterStatus','staffHistoryType','staffHistoryPeriod','shiftDateFilter'].forEach(id=>$(id).onchange=renderAll);
@@ -15037,10 +15138,20 @@ $('successNewSale').onclick=()=>{
   closeSaleSuccess();
   $('posSearch').value='';
   nav('salesPage');
-  setTimeout(()=>$('posSearch').focus(),80);
+  if(!isMobileStaffViewport())setTimeout(()=>$('posSearch')?.focus(),80);
 };
 $('successReceipt').onclick=downloadLastReceipt;
 $('successHistory').onclick=()=>{closeSaleSuccess();nav('staffHistoryPage')};
+
+window.addEventListener('resize',()=>{
+  if(!isStaff())return;
+  if(!window.matchMedia('(max-width: 720px)').matches){
+    document.body.classList.remove('mobile-pos-cart-mode');
+    document.body.classList.remove('mobile-cart-open');
+    $('posCartSheet')?.classList.remove('mobile-open');
+    $('mobileCartBackdrop')?.classList.add('hidden');
+  }
+});
 
 $('openTodayReport').onclick=()=>{$('reportMode').value='today';selectedSaleIds.clear();nav('reportsPage');renderReports()};
 $('downloadCreditPdf').onclick=generateCreditPdf;

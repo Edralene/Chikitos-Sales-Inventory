@@ -5942,6 +5942,91 @@ input,select,textarea,button{max-width:100%}
   }
 }
 
+
+
+/* v64 home insights + stock insight modal */
+.metric-action{cursor:pointer;transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease}
+.metric-action:hover{transform:translateY(-1px);border-color:#c9d8f5;box-shadow:0 10px 24px rgba(47,111,237,.09)}
+.metric-action:focus-visible{outline:3px solid rgba(47,111,237,.18);outline-offset:2px}
+.metric-action .metric-click{display:block;margin-top:6px;font-size:7px;font-weight:800;color:#2f6fed;letter-spacing:.04em}
+.staff-home-summary-grid .staff-home-stat strong{font-size:26px;line-height:1.05}
+.staff-home-summary-grid .staff-home-stat small{font-size:8px}
+.staff-home-insight-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:12px}
+.staff-insight-card{background:rgba(255,255,255,.9);border:1px solid rgba(205,221,251,.9);border-radius:16px;padding:14px;box-shadow:0 8px 24px rgba(47,111,237,.06)}
+.staff-insight-card .head{align-items:center}
+.staff-insight-card h3{margin:0;font-size:15px}
+.staff-insight-list{display:grid;gap:8px;margin-top:10px}
+.staff-insight-row{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 11px;border:1px solid #e5ebf6;border-radius:13px;background:#fff}
+.staff-insight-row .rank{display:grid;place-items:center;width:30px;height:30px;border-radius:999px;background:#eef4ff;color:#2f6fed;font-size:10px;font-weight:900}
+.staff-insight-row b{display:block;font-size:11px;line-height:1.25;color:#253044}
+.staff-insight-row span{display:block;font-size:8px;color:#738195;line-height:1.4;margin-top:2px}
+.staff-insight-value{min-width:92px;text-align:right}
+.staff-insight-value strong{display:block;font-size:13px;color:#1f2a3c}
+.staff-insight-value small{display:block;font-size:8px;color:#738195}
+.stock-state-pill{display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:999px;font-size:8px;font-weight:900;letter-spacing:.04em}
+.stock-state-pill.low{background:#fff4d8;color:#8b5b00}
+.stock-state-pill.critical{background:#ffe4e4;color:#b42323}
+.stock-state-pill.out{background:#c53d3d;color:#fff}
+.stock-insight-modal{width:min(880px,100%)}
+.stock-insight-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.stock-insight-summary .dash-mini{min-height:74px}
+.stock-insight-list{display:grid;gap:9px;margin-top:14px}
+.stock-insight-item{display:grid;grid-template-columns:minmax(0,1.2fr) auto auto;gap:10px;align-items:center;padding:12px;border:1px solid #e6ebf4;border-radius:15px;background:#fff}
+.stock-insight-item b{display:block;font-size:12px;color:#243145;line-height:1.25}
+.stock-insight-item span{display:block;font-size:8px;color:#728093;line-height:1.45;margin-top:2px}
+.stock-insight-balance{min-width:88px;text-align:center;padding:9px 10px;border-radius:12px;background:#f8fafc;border:1px solid #e6edf7}
+.stock-insight-balance strong{display:block;font-size:16px;color:#1f2a3c;line-height:1}
+.stock-insight-balance small{display:block;font-size:8px;color:#738195;margin-top:3px}
+.stock-insight-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap}
+@media(max-width:1050px){.staff-home-insight-grid{grid-template-columns:1fr}.stock-insight-summary{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.staff-home-summary-grid .staff-home-stat strong{font-size:20px}.staff-home-insight-grid{grid-template-columns:1fr}.staff-insight-card{padding:12px}.staff-insight-row{grid-template-columns:28px minmax(0,1fr);align-items:start}.staff-insight-value{grid-column:2/-1;text-align:left;min-width:0}.stock-insight-summary{grid-template-columns:1fr}.stock-insight-item{grid-template-columns:1fr}.stock-insight-balance{text-align:left}.stock-insight-actions{display:grid;grid-template-columns:1fr}}
+
+
+
+/* v65 realtime sales hero + live stock polish */
+.staff-home-summary-grid .staff-sales-hero{
+  grid-column:span 2;
+  position:relative;
+  overflow:hidden;
+  min-height:118px;
+  padding:16px 18px;
+  border-color:#bfd2fb;
+  background:linear-gradient(135deg,#eef4ff 0%,#dfeaff 100%);
+  box-shadow:0 10px 26px rgba(47,111,237,.12)
+}
+.staff-home-summary-grid .staff-sales-hero::after{
+  content:"";
+  position:absolute;
+  width:150px;height:150px;
+  right:-54px;top:-62px;
+  border-radius:999px;
+  background:rgba(47,111,237,.08)
+}
+.staff-sales-label-row{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}
+.staff-sales-label-row small{font-size:9px!important;font-weight:900!important;letter-spacing:.06em;color:#315ea8!important}
+.live-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#e7f8ef;color:#137b4d;border:1px solid #c8ead8;font-size:7px;font-weight:900;letter-spacing:.08em}
+.live-pill::before{content:"";width:6px;height:6px;border-radius:999px;background:#18a564;box-shadow:0 0 0 3px rgba(24,165,100,.11)}
+.staff-home-summary-grid .staff-sales-hero strong{
+  position:relative;z-index:1;
+  margin-top:9px;
+  font-size:34px!important;
+  line-height:1!important;
+  color:#173d79!important;
+  letter-spacing:-.045em
+}
+.staff-sales-live-note{position:relative;z-index:1;display:block;margin-top:8px;font-size:8px;color:#55709a;font-weight:700}
+.live-metric-flash{animation:liveMetricFlash .6s ease}
+@keyframes liveMetricFlash{0%{transform:scale(1);filter:brightness(1)}35%{transform:scale(1.018);filter:brightness(1.04)}100%{transform:scale(1);filter:brightness(1)}}
+.staff-stock-live-line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:4px}
+.staff-stock-live-time{font-size:7px;color:#7a8798;font-weight:700}
+@media(max-width:1050px){.staff-home-summary-grid .staff-sales-hero{grid-column:1/-1}}
+@media(max-width:720px){
+  .staff-home-summary-grid .staff-sales-hero{grid-column:1/-1;min-height:108px;padding:14px 15px}
+  .staff-home-summary-grid .staff-sales-hero strong{font-size:31px!important}
+  .staff-sales-live-note{font-size:7.5px}
+  .live-pill{font-size:6.5px;padding:4px 7px}
+}
+
 </style>
 
 
@@ -6915,9 +7000,13 @@ body.cashier-access-locked .app{
 
           <!-- BUSINESS SUMMARY: no Processor / Shift duplication -->
           <div class="staff-home-grid staff-home-summary-grid">
-            <div class="staff-home-stat">
-              <small>My Sales Today</small>
+            <div id="staffSalesHero" class="staff-home-stat staff-sales-hero">
+              <div class="staff-sales-label-row">
+                <small>MY SALES TODAY</small>
+                <span class="live-pill">LIVE</span>
+              </div>
               <strong id="staffHomeSales">₱0.00</strong>
+              <span id="staffHomeSalesLiveNote" class="staff-sales-live-note">Auto-updates after every saved transaction.</span>
             </div>
             <div class="staff-home-stat">
               <small>Credit Balance</small>
@@ -6937,6 +7026,29 @@ body.cashier-access-locked .app{
             <button id="staffHomeHistoryBtn" class="btn">My History</button>
             <button id="staffHomeClosingBtn" class="btn">Daily Closing</button>
           </div>
+
+          <div class="staff-home-insight-grid">
+            <div class="staff-insight-card">
+              <div class="head">
+                <div>
+                  <h3>Top 5 Malakas na Products</h3>
+                  <div class="muted">Based on today's saved Walk-in + Credit transactions.</div>
+                </div>
+              </div>
+              <div id="staffTopProductsList" class="staff-insight-list"></div>
+            </div>
+
+            <div class="staff-insight-card">
+              <div class="head">
+                <div>
+                  <h3>Malalapit na Maubos</h3>
+                  <div class="staff-stock-live-line"><span class="live-pill">LIVE STOCK</span><span id="staffStockLiveTime" class="staff-stock-live-time">Auto-syncing shared inventory</span></div>
+                </div>
+                <button id="staffNearOutViewAll" class="btn small" type="button">View All</button>
+              </div>
+              <div id="staffNearOutList" class="staff-insight-list"></div>
+            </div>
+          </div>
         </div>
 
         <div class="metrics staff-dashboard-hide">
@@ -6955,10 +7067,10 @@ body.cashier-access-locked .app{
             <strong id="dTodayCredit">₱0.00</strong>
             <span id="dTodayCreditSub" class="dash-subline">Unpaid / waiting approval</span>
           </div>
-          <div class="metric">
+          <div id="dLowStockCard" class="metric metric-action" role="button" tabindex="0">
             <small>Low / Critical Stock</small>
             <strong id="dLowStockCount">0</strong>
-            <span class="dash-subline">Top 10 lowest items shown below</span>
+            <span class="dash-subline">Top 10 lowest items shown below</span><span class="metric-click">Click to view items</span>
           </div>
         </div>
 
@@ -6966,7 +7078,7 @@ body.cashier-access-locked .app{
           <div class="metric"><small>Cost of Goods Sold Today</small><strong id="dTodayCOGS">₱0.00</strong><span class="dash-subline">Based on saved product cost</span></div>
           <div class="metric good"><small>Gross Profit Today</small><strong id="dTodayGrossProfit">₱0.00</strong><span class="dash-subline">Sales minus product cost</span></div>
           <div class="metric good"><small>Estimated Net Profit</small><strong id="dTodayNetProfit">₱0.00</strong><span class="dash-subline">Gross profit minus approved expenses</span></div>
-          <div class="metric"><small>Critical Stock</small><strong id="dCriticalStockCount">0</strong><span class="dash-subline">Based on per-product level</span></div>
+          <div id="dCriticalStockCard" class="metric metric-action" role="button" tabindex="0"><small>Critical Stock</small><strong id="dCriticalStockCount">0</strong><span class="dash-subline">Based on per-product level</span><span class="metric-click">Click to view items</span></div>
         </div>
 
         <div id="creditAdminNotice" class="credit-notice hidden adminOnly">
@@ -8186,7 +8298,8 @@ body.cashier-access-locked .app{
         <div class="metrics">
           <div class="metric"><small>Active Products</small><strong id="invProductCount">0</strong></div>
           <div class="metric"><small>Total Units</small><strong id="invTotalUnits">0</strong></div>
-          <div class="metric bad"><small>Low / Critical Stock</small><strong id="invLowCount">0</strong></div>
+          <div id="invLowCard" class="metric bad metric-action" role="button" tabindex="0"><small>Low / Critical Stock</small><strong id="invLowCount">0</strong><span class="metric-click">Click to view items</span></div>
+          <div id="invCriticalCard" class="metric metric-action" role="button" tabindex="0"><small>Critical Stock</small><strong id="invCriticalCount">0</strong><span class="dash-subline">Critical level or out of stock</span><span class="metric-click">Click to view items</span></div>
           <div class="metric"><small>Inventory Cost Value</small><strong id="invCostValue">₱0.00</strong></div>
           <div class="metric good"><small>Potential Retail Value</small><strong id="invStockValue">₱0.00</strong></div>
         </div>
@@ -8662,6 +8775,31 @@ body.cashier-access-locked .app{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<div id="stockInsightModal" class="modal-backdrop hidden">
+  <div class="modal-card stock-insight-modal">
+    <div class="head">
+      <div>
+        <h2 id="stockInsightTitle" style="margin:0">Low / Critical Stock</h2>
+        <div id="stockInsightSubtitle" class="muted">Products that need restock attention.</div>
+      </div>
+      <button id="closeStockInsight" class="btn small" type="button">Close</button>
+    </div>
+
+    <div class="stock-insight-summary">
+      <div class="dash-mini"><b id="stockInsightCount">0 Items</b><span id="stockInsightCountSub">Live count from active products.</span></div>
+      <div class="dash-mini"><b id="stockInsightCriticalMini">0 Critical</b><span>Products at critical level or out of stock.</span></div>
+      <div class="dash-mini"><b id="stockInsightLowMini">0 Low</b><span>Products below reorder level.</span></div>
+    </div>
+
+    <div id="stockInsightBody" class="stock-insight-list"></div>
+
+    <div class="stock-insight-actions">
+      <button id="stockInsightOpenInventory" class="btn blue" type="button">Open Inventory</button>
+      <button id="stockInsightCloseBottom" class="btn" type="button">Close</button>
+    </div>
+  </div>
+</div>
 
 <div id="voidDialog" class="modal-backdrop hidden">
   <div class="modal-card">
@@ -9747,6 +9885,101 @@ async function openPosFromCashierGate(){
   setTimeout(()=>$('posSearch')?.focus(),120);
 }
 
+function sameProcessorName(a,b){
+  return String(a||'').trim().toLowerCase()===String(b||'').trim().toLowerCase();
+}
+function cashierSalesRowsToday(processorName){
+  if(!processorName)return [];
+  return dashboardSalesRows().filter(r=>r.date===today()&&sameProcessorName(r.processorName,processorName));
+}
+function cashierCreditRowsToday(processorName){
+  if(!processorName)return [];
+  return dashboardCreditRows().filter(r=>r.date===today()&&sameProcessorName(r.processorName,processorName));
+}
+function cashierSalesTodayTotal(processorName){
+  return cashierSalesRowsToday(processorName).reduce((a,r)=>a+num(r.totalAmount),0)+
+    cashierCreditRowsToday(processorName).reduce((a,r)=>a+num(r.totalAmount),0);
+}
+
+function topSellingProductsToday(limit=5){
+  const map=new Map();
+  const addRows=rows=>rows.forEach(r=>(r.items||[]).forEach(i=>{
+    const pid=String(i.productId||'');
+    if(!pid)return;
+    const p=productById(pid);
+    const current=map.get(pid)||{id:pid,name:p?.name||i.name||'Unknown Product',category:p?.category||'',qty:0,amount:0};
+    current.qty+=num(i.qty);
+    current.amount+=num(i.amount);
+    map.set(pid,current);
+  }));
+  const currentShift=isStaff()?activeShiftFor(user?.uid):null;
+  if(currentShift){
+    addRows(cashierSalesRowsToday(currentShift.processorName));
+    addRows(cashierCreditRowsToday(currentShift.processorName));
+  }else{
+    addRows(dashboardSalesRows().filter(r=>r.date===today()));
+    addRows(dashboardCreditRows().filter(r=>r.date===today()));
+  }
+  return Array.from(map.values()).sort((a,b)=>b.qty-a.qty||b.amount-a.amount||String(a.name).localeCompare(String(b.name))).slice(0,limit);
+}
+function stockAttentionRows(opts={}){
+  const criticalOnly=!!opts.criticalOnly,limit=opts.limit??9999;
+  return activeProducts().map(p=>{
+    const state=stockState(p);
+    return {
+      id:String(p.id),
+      name:p.name||'Unnamed Product',
+      category:p.category||'',
+      price:num(p.price),
+      balance:bal(p.id),
+      reorder:productReorder(p),
+      critical:productCritical(p),
+      stateLabel:state.label,
+      stateRank:state.rank
+    };
+  }).filter(p=>criticalOnly?p.stateRank<=1:p.stateRank<3)
+    .sort((a,b)=>a.balance-b.balance||a.stateRank-b.stateRank||String(a.name).localeCompare(String(b.name)))
+    .slice(0,limit);
+}
+function stockStatePillClass(row){
+  return row.stateRank===0?'out':row.stateRank===1?'critical':'low';
+}
+function setRealtimeMetricText(id,value,flashId=''){
+  const el=$(id);if(!el)return;
+  const next=String(value);
+  const changed=el.textContent!==next;
+  el.textContent=next;
+  if(changed&&flashId){
+    const host=$(flashId);if(host){host.classList.remove('live-metric-flash');void host.offsetWidth;host.classList.add('live-metric-flash')}
+  }
+}
+function renderStaffHomeInsights(){
+  if(!$('staffTopProductsList')||!$('staffNearOutList'))return;
+  const top=topSellingProductsToday(5);
+  $('staffTopProductsList').innerHTML=top.length?top.map((p,idx)=>`<div class="staff-insight-row"><div class="rank">${idx+1}</div><div><b>${esc(p.name)}</b><span>${esc(p.category||'No category')} • ${p.qty} qty sold</span></div><div class="staff-insight-value"><strong>${peso(p.amount)}</strong><small>Sales amount</small></div></div>`).join(''):'<div class="empty">No sales yet today.</div>';
+
+  const near=stockAttentionRows({criticalOnly:false,limit:5});
+  $('staffNearOutList').innerHTML=near.length?near.map((p,idx)=>`<div class="staff-insight-row"><div class="rank">${idx+1}</div><div><b>${esc(p.name)}</b><span>${esc(p.category||'No category')} • Reorder ${p.reorder} • Critical ${p.critical}</span></div><div class="staff-insight-value"><strong>${p.balance}</strong><small><span class="stock-state-pill ${stockStatePillClass(p)}">${esc(p.stateLabel)}</span></small></div></div>`).join(''):'<div class="empty">Good stock level — no low or critical items.</div>';
+  if($('staffStockLiveTime'))$('staffStockLiveTime').textContent=`Last UI sync ${new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'})}`;
+}
+function openStockInsightModal(mode='low'){
+  const criticalOnly=mode==='critical';
+  const rows=stockAttentionRows({criticalOnly,limit:9999});
+  const lowCount=stockAttentionRows({criticalOnly:false,limit:9999}).length;
+  const criticalCount=stockAttentionRows({criticalOnly:true,limit:9999}).length;
+  $('stockInsightTitle').textContent=criticalOnly?'Critical Stock Items':'Low / Critical Stock Items';
+  $('stockInsightSubtitle').textContent=criticalOnly
+    ?'Products that are already at critical level or out of stock.'
+    :'Products that are already low, critical, or out of stock and may need restocking.';
+  $('stockInsightCount').textContent=`${rows.length} Item${rows.length===1?'':'s'}`;
+  $('stockInsightCountSub').textContent=criticalOnly?'Critical level based on product Critical Level setting.':'Low + Critical based on product Reorder/Critical levels.';
+  $('stockInsightCriticalMini').textContent=`${criticalCount} Critical`;
+  $('stockInsightLowMini').textContent=`${lowCount} Low / Critical`;
+  $('stockInsightBody').innerHTML=rows.length?rows.map((p,idx)=>`<div class="stock-insight-item"><div><b>${idx+1}. ${esc(p.name)}</b><span>${esc(p.category||'No category')} • Price ${peso(p.price)} • Reorder ${p.reorder} • Critical ${p.critical}</span></div><div><span class="stock-state-pill ${stockStatePillClass(p)}">${esc(p.stateLabel)}</span></div><div class="stock-insight-balance"><strong>${p.balance}</strong><small>Current stock</small></div></div>`).join(''):'<div class="empty">No products match this stock condition.</div>';
+  $('stockInsightModal').classList.remove('hidden');
+}
+function closeStockInsightModal(){ $('stockInsightModal')?.classList.add('hidden'); }
+
 function renderStaffHome(){
   if(!user||!isStaff())return;
 
@@ -9754,8 +9987,8 @@ function renderStaffHome(){
   const shift=activeShiftFor(user.uid);
   document.body.classList.toggle('staff-no-duty',!shift);
   const access=posAccessState(today(),user.uid);
-  const mySales=dashboardSalesRows().filter(s=>s.date===today());
-  const myCredits=dashboardCreditRows().filter(c=>c.date===today());
+  const mySales=shift?cashierSalesRowsToday(shift.processorName):[];
+  const myCredits=shift?cashierCreditRowsToday(shift.processorName):[];
   const totalToday=mySales.reduce((a,s)=>a+num(s.totalAmount),0)+myCredits.reduce((a,c)=>a+num(c.totalAmount),0);
   const creditBalance=dashboardCreditRows().reduce((a,c)=>a+creditRemaining(c),0);
   const pendingRequests=
@@ -9771,7 +10004,8 @@ function renderStaffHome(){
   $('staffHomeStatusText').textContent=access.message;
   $('staffHomePosBadge').textContent=access.allowed?'POS OPEN':shift?'POS CLOSED':'OPENING REQUIRED';
   $('staffHomePosBadge').className=access.allowed?'pill good':'pill warn';
-  $('staffHomeSales').textContent=peso(totalToday);
+  setRealtimeMetricText('staffHomeSales',peso(totalToday),'staffSalesHero');
+  if($('staffHomeSalesLiveNote'))$('staffHomeSalesLiveNote').textContent=shift?`LIVE • ${shift.processorName||'Cashier'} • ${mySales.length+myCredits.length} transaction${mySales.length+myCredits.length===1?'':'s'} today`:'Waiting for Cashier login';
   $('staffHomeCredit').textContent=peso(creditBalance);
   $('staffHomePending').textContent=pendingRequests;
   $('staffHomeClosing').textContent=closingLabel;
@@ -9796,8 +10030,9 @@ function renderStaffHome(){
       <div class="staff-duty-info-item"><small>Started</small><strong>${esc(shift.startTime||'—')}</strong><span>${esc(formatDate(shift.date||today()))}</span></div>
       <div class="staff-duty-info-item"><small>Petty Cash • Opening Float</small><strong>${peso(pettyCashOpeningForDate(today(),shift.processorName||''))}</strong></div>
       <div class="staff-duty-info-item"><small>Petty Cash Remaining</small><strong>${peso(pettyCashRemainingForDate(today(),shift.processorName||''))}</strong></div>
-      <div class="staff-duty-info-item"><small>Shift Sales</small><strong>${peso(shiftSalesTotal(shift.id))}</strong></div>`;
+      <div class="staff-duty-info-item"><small>Cashier Sales Today</small><strong>${peso(cashierSalesTodayTotal(shift.processorName||''))}</strong></div>`;
   }
+  renderStaffHomeInsights();
 }
 
 function renderDash(){
@@ -10151,9 +10386,24 @@ function refreshPosAccessLive(){
 setInterval(refreshPosAccessLive,30000);
 
 /* Shift Sessions */
+function rowBelongsToShift(row,shift){
+  if(!row||!shift)return false;
+  if(String(row.shiftId||'')===String(shift.id))return true;
+  if(String(row.shiftId||'').trim())return false;
+  if(String(row.userId||'')!==String(shift.userId||''))return false;
+  if(String(row.date||'')!==String(shift.date||''))return false;
+  if(row.processorName&&shift.processorName&&!sameProcessorName(row.processorName,shift.processorName))return false;
+  const rowIso=String(row.createdAtClient||'');
+  const startIso=String(shift.createdAtClient||'');
+  if(rowIso&&startIso&&rowIso<startIso)return false;
+  const endIso=String(shift.endedAtClient||'');
+  if(rowIso&&endIso&&rowIso>endIso)return false;
+  return true;
+}
 function shiftSalesTotal(shiftId){
-  const saleTotal=sales.filter(s=>s.shiftId===shiftId&&s.status!=='voided'&&s.status!=='refunded').reduce((a,s)=>a+num(s.totalAmount),0);
-  const creditTotal=credits.filter(c=>c.shiftId===shiftId&&c.status!=='voided').reduce((a,c)=>a+num(c.totalAmount),0);
+  const shift=shifts.find(s=>String(s.id)===String(shiftId));
+  const saleTotal=sales.filter(s=>(shift?rowBelongsToShift(s,shift):String(s.shiftId||'')===String(shiftId))&&s.status!=='voided'&&s.status!=='refunded').reduce((a,s)=>a+num(s.totalAmount),0);
+  const creditTotal=credits.filter(c=>(shift?rowBelongsToShift(c,shift):String(c.shiftId||'')===String(shiftId))&&c.status!=='voided').reduce((a,c)=>a+num(c.totalAmount),0);
   return saleTotal+creditTotal;
 }
 async function startDutySession(processorName,shiftLabel,pin){
@@ -10258,10 +10508,12 @@ async function finishDutySession({logoutAfter=false,navigateClosing=false}={}){
   }
 
   const action=logoutAfter?'Sign out and end the current duty':'End current duty';
+  const cashierDaySales=cashierSalesTodayTotal(s.processorName||'');
+  const currentDutySales=shiftSalesTotal(s.id);
   if(!confirm(
     `${action} for ${s.processorName||'Staff'}?\n\n`+
     `Started: ${s.startTime||'—'}\n`+
-    `Shift sales: ${peso(shiftSalesTotal(s.id))}\n`+
+    `Cashier Sales Today: ${peso(cashierDaySales)}\n`+
     `Petty Cash Remaining for ${s.processorName||'Cashier'}: ${peso(pettyCashRemainingForDate(today(),s.processorName||''))}\n\n`+
     `Petty Cash is controlled by Admin and is not reset when duty ends.`
   ))return false;
@@ -10269,7 +10521,7 @@ async function finishDutySession({logoutAfter=false,navigateClosing=false}={}){
   try{
     const endedDate=today();
     const endedTime=nowTime();
-    const endingSales=shiftSalesTotal(s.id);
+    const endingSales=currentDutySales;
     await setDoc(doc(shiftsCol(),s.id),{
       status:'ended',endDate:endedDate,endTime:endedTime,endingSales,
       endedAt:serverTimestamp(),endedAtClient:new Date().toISOString(),
@@ -10331,8 +10583,9 @@ function renderAdminDutyOverview(){
 }
 
 function shiftTransactionsFor(shiftId){
-  const saleRows=sales.filter(s=>s.shiftId===shiftId&&s.status!=='voided'&&s.status!=='refunded');
-  const creditRows=credits.filter(c=>c.shiftId===shiftId&&c.status!=='voided');
+  const shift=shifts.find(s=>String(s.id)===String(shiftId));
+  const saleRows=sales.filter(s=>(shift?rowBelongsToShift(s,shift):String(s.shiftId||'')===String(shiftId))&&s.status!=='voided'&&s.status!=='refunded');
+  const creditRows=credits.filter(c=>(shift?rowBelongsToShift(c,shift):String(c.shiftId||'')===String(shiftId))&&c.status!=='voided');
   return [...saleRows.map(x=>({kind:'Walk-in',...x})),...creditRows.map(x=>({kind:'Credit',...x}))];
 }
 function shiftTransactionCount(shiftId){
@@ -14184,7 +14437,8 @@ function renderInventory(){
   const low=all.filter(p=>stockState(p).rank<3).length;
   const costValue=all.reduce((a,p)=>a+(bal(p.id)*num(p.costPrice)),0);
   const retailValue=all.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
-  $('invProductCount').textContent=all.length;$('invTotalUnits').textContent=totalUnits;$('invLowCount').textContent=low;$('invCostValue').textContent=peso(costValue);$('invStockValue').textContent=peso(retailValue);$('inventoryCount').textContent=`${rows.length} items`;
+  const critical=all.filter(p=>stockState(p).rank<=1).length;
+  $('invProductCount').textContent=all.length;$('invTotalUnits').textContent=totalUnits;$('invLowCount').textContent=low;if($('invCriticalCount'))$('invCriticalCount').textContent=critical;$('invCostValue').textContent=peso(costValue);$('invStockValue').textContent=peso(retailValue);$('inventoryCount').textContent=`${rows.length} items`;
   const shownUnits=rows.reduce((a,p)=>a+bal(p.id),0),shownCost=rows.reduce((a,p)=>a+(bal(p.id)*num(p.costPrice)),0),shownRetail=rows.reduce((a,p)=>a+(bal(p.id)*num(p.price)),0);
   $('inventoryUnitsFooter').textContent=shownUnits;$('inventoryCostFooter').textContent=peso(shownCost);$('inventoryValueFooter').textContent=peso(shownRetail);
   $('inventoryBody').innerHTML=rows.length?rows.map(p=>{
@@ -16292,6 +16546,15 @@ $('actionOverdue').onclick=()=>nav('creditsPage');
 $('actionClosing').onclick=()=>nav('closingPage');
 $('staffHomeHistoryBtn').onclick=()=>nav('staffHistoryPage');
 $('staffHomeClosingBtn').onclick=()=>nav('closingPage');
+if($('staffNearOutViewAll'))$('staffNearOutViewAll').onclick=()=>openStockInsightModal('low');
+bindReliableTap('dLowStockCard',()=>openStockInsightModal('low'));
+bindReliableTap('dCriticalStockCard',()=>openStockInsightModal('critical'));
+bindReliableTap('invLowCard',()=>openStockInsightModal('low'));
+bindReliableTap('invCriticalCard',()=>openStockInsightModal('critical'));
+$('closeStockInsight').onclick=closeStockInsightModal;
+$('stockInsightCloseBottom').onclick=closeStockInsightModal;
+$('stockInsightOpenInventory').onclick=()=>{closeStockInsightModal();nav('inventoryPage')};
+$('stockInsightModal').onclick=e=>{if(e.target===$('stockInsightModal'))closeStockInsightModal()};
 $('homeStartDuty').onclick=startHomeDuty;
 if($('homeOpenPos'))$('homeOpenPos').onclick=()=>nav('salesPage');
 if($('homeEndDuty'))$('homeEndDuty').onclick=()=>finishDutySession({logoutAfter:false,navigateClosing:false});

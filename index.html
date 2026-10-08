@@ -5595,6 +5595,60 @@ input,select,textarea,button{max-width:100%}
   }
 }
 
+
+/* ============================================================
+   v55 MOBILE EMPTY CART / OVERLAY FIX
+   ============================================================ */
+@media(max-width:720px){
+  /* Critical: cart must not exist above Product Catalog until explicitly opened. */
+  .staff-role #salesPage .mobile-cart-sheet:not(.mobile-open){
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    opacity:0!important;
+    transform:none!important;
+  }
+
+  .staff-role #salesPage .mobile-cart-sheet.mobile-open{
+    display:flex!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+
+  /* No need to offer View Cart before an item is added. */
+  .staff-role #salesPage .mobile-cart-bar.cart-empty{
+    display:none!important;
+  }
+
+  /* Product catalog stays the primary mobile screen. */
+  .staff-role #salesPage .pos-products{
+    display:block!important;
+    position:relative!important;
+    z-index:1!important;
+    min-height:calc(100dvh - var(--top-h) - var(--mobile-nav-h) - 35px)!important;
+  }
+  .staff-role #salesPage .product-grid{
+    position:relative!important;
+    z-index:2!important;
+  }
+  .staff-role #salesPage .product-card{
+    pointer-events:auto!important;
+  }
+}
+
+
+@media(max-width:720px){
+  .mobile-cart-bar.mobile-cart-pulse{
+    animation:mobileCartPulse .28s ease-out;
+  }
+}
+@keyframes mobileCartPulse{
+  0%{transform:scale(.97);opacity:.75}
+  100%{transform:scale(1);opacity:1}
+}
+
 </style>
 </head>
 <body>
@@ -9605,7 +9659,13 @@ function changeCart(id,delta){
   const access=posAccessState(today(),user?.uid);
   if(!access.allowed){alert(access.message);return}
   const max=bal(id),next=Math.max(0,num(cart[id])+delta);
-  cart[id]=Math.min(max,next);if(cart[id]<=0)delete cart[id];renderPOS()
+  cart[id]=Math.min(max,next);if(cart[id]<=0)delete cart[id];renderPOS();
+  if(delta>0&&isMobileStaffViewport()){
+    const bar=$('mobileCartBar');
+    bar?.classList.remove('mobile-cart-pulse');
+    void bar?.offsetWidth;
+    bar?.classList.add('mobile-cart-pulse');
+  }
 }
 function setCartQty(id,val){
   const access=posAccessState(today(),user?.uid);
@@ -9653,6 +9713,16 @@ function renderCart(){
   $('paymentTotal').textContent=peso(total);
   $('paymentItemSummary').textContent=`${qty} item${qty===1?'':'s'} • ${entries.length} product${entries.length===1?'':'s'}`;
   $('continueToPayment').disabled=qty<=0;
+  $('mobileCartBar').classList.toggle('cart-empty',qty<=0);
+
+  // Mobile safety: an empty cart must immediately release the whole screen
+  // so the cashier can tap Product cards again.
+  if(qty<=0&&isMobileStaffViewport()){
+    posCheckoutStage='cart';
+    $('posCartSheet')?.classList.remove('mobile-open');
+    $('mobileCartBackdrop')?.classList.add('hidden');
+    document.body.classList.remove('mobile-cart-open');
+  }
 
   updateTransactionUI();
   updateWalkinPayment();
@@ -14627,6 +14697,16 @@ function closeMobileCart(){
 }
 function openMobileCart(){
   if(!isMobileStaffViewport())return;
+
+  if(cartTotalQty()<=0){
+    // Empty cart should never cover the Product Catalog.
+    posCheckoutStage='cart';
+    $('posCartSheet')?.classList.remove('mobile-open');
+    $('mobileCartBackdrop')?.classList.add('hidden');
+    document.body.classList.remove('mobile-cart-open');
+    return;
+  }
+
   posCheckoutStage='cart';
   renderCheckoutStage();
   $('posCartSheet')?.classList.add('mobile-open');

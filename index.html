@@ -5837,6 +5837,35 @@ input,select,textarea,button{max-width:100%}
 
 
 /* ============================================================
+   v58 MOBILE CHECKOUT TAP / PROCEED FIX
+   ============================================================ */
+@media(max-width:720px){
+  .staff-role.mobile-pos-cart-mode #salesPage .checkout-stage-payment:not(.hidden){
+    display:block!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
+  .staff-role.mobile-pos-cart-mode #salesPage #saveSale{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-height:52px!important;
+    position:sticky!important;
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    z-index:20!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+  }
+  .staff-role.mobile-pos-cart-mode #salesPage #continueToPayment{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:20!important;
+  }
+}
+
+/* ============================================================
    v57 MOBILE POS STABILITY
    ============================================================ */
 @media(max-width:720px){
@@ -6525,7 +6554,7 @@ input,select,textarea,button{max-width:100%}
                 </div>
               </div>
 
-              <button id="saveSale" class="btn green pos-save checkout-primary">Complete Sale</button>
+              <button id="saveSale" class="btn green pos-save checkout-primary" type="button">Complete Sale</button>
 
               <div class="desktop-checkout-extras">
                 <div id="lastSaleInfo" class="today-saved">No sale saved yet in this session.</div>
@@ -14930,7 +14959,11 @@ function renderAll(){
   if($('liveSyncBadge')){$('liveSyncBadge').textContent='● LIVE AUTO-SYNC';$('liveSyncBadge').title=`Last UI sync: ${new Date().toLocaleTimeString('en-PH')}`}
 }
 function isMobileStaffViewport(){
-  return isStaff()&&window.matchMedia('(max-width: 720px)').matches;
+  if(!isStaff())return false;
+  try{
+    if(typeof window.matchMedia==='function')return window.matchMedia('(max-width: 720px)').matches;
+  }catch(e){}
+  return Math.min(window.innerWidth||9999,document.documentElement?.clientWidth||9999)<=720;
 }
 function resolveStaffMobileInitialRoute(){
   if(!isMobileStaffViewport()||staffMobileInitialRouteDone)return;
@@ -15081,6 +15114,27 @@ function nav(id){
   if(id==='operationsPage')renderOperations();
 }
 
+function bindReliableTap(id,handler){
+  const el=$(id);
+  if(!el)return;
+  let touchHandledAt=0;
+
+  // Standard browser/desktop path.
+  el.onclick=e=>{
+    if(Date.now()-touchHandledAt<650)return;
+    return handler(e);
+  };
+
+  // Fallback for mobile/in-app browsers where a tap may not reliably emit click.
+  el.addEventListener('touchend',e=>{
+    if(el.disabled)return;
+    touchHandledAt=Date.now();
+    e.preventDefault();
+    e.stopPropagation();
+    return handler(e);
+  },{passive:false});
+}
+
 function validateMobilePosRuntime(){
   const requiredIds=[
     'productGrid','mobileCartBar','posCartSheet','cartList',
@@ -15105,21 +15159,32 @@ $('creditPaymentDate').value=today();
 $('saleDate').onchange=renderPOS;
 $('transactionType').onchange=updateTransactionUI;
 $('clearCart').onclick=()=>{if(Object.keys(cart).length&&!confirm('Clear current cart?'))return;cart={};posCheckoutStage='cart';resetTransactionFields();renderPOS()};
-$('saveSale').onclick=saveSale;
-$('mobileCartBar').onclick=openMobileCart;
-$('continueToPayment').onclick=goToPaymentStage;
-$('backToCart').onclick=goBackToCartStage;
-$('mobileCloseCart').onclick=closeMobileCart;
+bindReliableTap('saveSale',saveSale);
+bindReliableTap('mobileCartBar',openMobileCart);
+bindReliableTap('continueToPayment',goToPaymentStage);
+bindReliableTap('backToCart',goBackToCartStage);
+bindReliableTap('mobileCloseCart',closeMobileCart);
 $('mobileCartBackdrop').onclick=closeMobileCart;
 $('cashReceived').oninput=updateWalkinPayment;
-$('exactCash').onclick=()=>{
+bindReliableTap('exactCash',()=>{
   const total=cartTotalAmount();
   $('cashReceived').value=total?total.toFixed(2):'';
   updateWalkinPayment();
-};
-document.querySelectorAll('[data-mobile-txn]').forEach(b=>b.onclick=()=>{
-  $('transactionType').value=b.dataset.mobileTxn;
-  updateTransactionUI();
+});
+document.querySelectorAll('[data-mobile-txn]').forEach(b=>{
+  let touchHandledAt=0;
+  const selectTxn=()=>{
+    $('transactionType').value=b.dataset.mobileTxn;
+    updateTransactionUI();
+  };
+  b.onclick=()=>{if(Date.now()-touchHandledAt<650)return;selectTxn()};
+  b.addEventListener('touchend',e=>{
+    if(b.disabled)return;
+    touchHandledAt=Date.now();
+    e.preventDefault();
+    e.stopPropagation();
+    selectTxn();
+  },{passive:false});
 });
 
 $('staffMoreNav').onclick=openStaffMore;

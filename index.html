@@ -5649,6 +5649,192 @@ input,select,textarea,button{max-width:100%}
   100%{transform:scale(1);opacity:1}
 }
 
+
+/* ============================================================
+   v56 MOBILE POS INTERACTION REBUILD
+   No fixed cart overlay. Products and Cart are separate in-flow states.
+   ============================================================ */
+@media(max-width:720px){
+  /* Product mode is the default. */
+  .staff-role #salesPage .pos-layout{
+    display:block!important;
+    width:100%!important;
+  }
+
+  .staff-role #salesPage .pos-products{
+    display:block!important;
+    position:relative!important;
+    z-index:auto!important;
+    width:100%!important;
+    min-height:0!important;
+    padding-bottom:92px!important;
+    pointer-events:auto!important;
+  }
+
+  .staff-role #salesPage .product-grid{
+    position:relative!important;
+    z-index:auto!important;
+    pointer-events:auto!important;
+  }
+
+  .staff-role #salesPage .product-card{
+    position:relative!important;
+    z-index:auto!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:rgba(47,111,237,.08);
+  }
+
+  /* Cart is completely absent until View Cart is tapped. */
+  .staff-role #salesPage .mobile-cart-sheet,
+  .staff-role #salesPage .mobile-cart-sheet:not(.mobile-open){
+    display:none!important;
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    visibility:visible!important;
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+    pointer-events:auto!important;
+    overflow:visible!important;
+    box-shadow:none!important;
+    background:transparent!important;
+  }
+
+  /* Cart mode replaces Products in the normal page flow. */
+  .staff-role.mobile-pos-cart-mode #salesPage .pos-products{
+    display:none!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .mobile-cart-sheet.mobile-open{
+    display:flex!important;
+    flex-direction:column!important;
+    position:relative!important;
+    z-index:auto!important;
+    min-height:calc(100dvh - var(--top-h) - 18px)!important;
+    background:#fff!important;
+  }
+
+  /* Hide app bottom nav only while reviewing/paying. */
+  .staff-role.mobile-pos-cart-mode .side{
+    display:none!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode .main{
+    height:100dvh!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode .scroll{
+    height:calc(100dvh - var(--top-h))!important;
+    padding:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage{
+    padding:0!important;
+    min-height:100%;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .cart-sheet-head{
+    position:sticky!important;
+    top:0!important;
+    z-index:4!important;
+    padding:11px!important;
+    background:#fff!important;
+    border-bottom:1px solid #e4e9f0!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .checkout-stage-review{
+    display:flex;
+    flex-direction:column;
+    min-height:calc(100dvh - var(--top-h) - 74px)!important;
+    overflow:visible!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .cart-list{
+    flex:1 1 auto!important;
+    min-height:180px!important;
+    max-height:none!important;
+    overflow:visible!important;
+    padding:10px!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .cart-review-summary{
+    position:sticky!important;
+    bottom:0!important;
+    z-index:3!important;
+    padding:10px 10px calc(12px + env(safe-area-inset-bottom))!important;
+    background:#fff!important;
+    box-shadow:0 -9px 24px rgba(25,39,60,.08)!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .checkout-stage-payment{
+    display:block;
+    min-height:calc(100dvh - var(--top-h) - 74px)!important;
+    padding:10px 10px calc(18px + env(safe-area-inset-bottom))!important;
+    overflow:visible!important;
+  }
+
+  .staff-role.mobile-pos-cart-mode #salesPage .checkout-stage-review.hidden,
+  .staff-role.mobile-pos-cart-mode #salesPage .checkout-stage-payment.hidden{
+    display:none!important;
+  }
+
+  /* View Cart sits above app navigation and is definitely tappable. */
+  .staff-role #salesPage .mobile-cart-bar{
+    z-index:3100!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+  }
+
+  .staff-role #salesPage .mobile-cart-bar.cart-empty{
+    display:none!important;
+  }
+
+  /* No backdrop at all in this flow. */
+  #mobileCartBackdrop{
+    display:none!important;
+    pointer-events:none!important;
+  }
+
+  #mobileCloseCart,
+  #continueToPayment,
+  #backToCart,
+  #saveSale,
+  #exactCash,
+  #mobileTxnToggle button{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  /* Explicit Add fallback remains hidden visually but card is tappable. */
+  .staff-role #salesPage .product-card .btn{
+    pointer-events:auto!important;
+  }
+}
+
+
+@media(max-width:720px){
+  .staff-role #salesPage .product-card.mobile-added{
+    animation:mobileProductAdded .22s ease-out;
+  }
+}
+@keyframes mobileProductAdded{
+  0%{transform:scale(.97);background:#edf5ff}
+  100%{transform:scale(1);background:#fff}
+}
+
 </style>
 </head>
 <body>
@@ -6185,7 +6371,7 @@ input,select,textarea,button{max-width:100%}
                 </div>
                 <div class="cart-head-actions">
                   <button id="clearCart" class="btn small">Clear</button>
-                  <button id="mobileCloseCart" class="btn small mobile-cart-close" type="button">Close</button>
+                  <button id="mobileCloseCart" class="btn small mobile-cart-close" type="button">← Products</button>
                 </div>
               </div>
             </div>
@@ -9647,11 +9833,34 @@ function renderPOS(){
       <button class="btn ${stock>inCart?'green':''}" data-add="${attr(p.id)}" ${(stock<=inCart||!access.allowed)?'disabled':''}>${!access.allowed?'POS Closed':stock>inCart?'+ Add to Cart':'Out / Max Qty'}</button>
     </div>`
   }).join('')||'<div class="empty">No products found.</div>';
-  $('productGrid').querySelectorAll('[data-add]').forEach(b=>b.onclick=e=>{e.stopPropagation();changeCart(b.dataset.add,1)});
-  $('productGrid').querySelectorAll('[data-card-add]').forEach(card=>card.onclick=e=>{
-    if(card.dataset.cardEnabled!=='1'||e.target.closest('button,input,select,textarea'))return;
-    changeCart(card.dataset.cardAdd,1);
-  });
+  // One delegated tap handler is more reliable on mobile/in-app browsers.
+  $('productGrid').onclick=e=>{
+    const addBtn=e.target.closest('[data-add]');
+    const card=e.target.closest('[data-card-add]');
+    const target=addBtn||card;
+    if(!target)return;
+
+    e.preventDefault();
+
+    const id=(addBtn?.dataset.add)||(card?.dataset.cardAdd);
+    const product=productById(id);
+    const cardEl=card||addBtn?.closest('[data-card-add]');
+    const enabled=cardEl?.dataset.cardEnabled==='1';
+
+    if(!enabled){
+      const currentAccess=posAccessState($('saleDate').value||today(),user?.uid);
+      if(!currentAccess.allowed){
+        alert(currentAccess.message);
+        return;
+      }
+      if(product&&bal(id)<=num(cart[id])){
+        alert(`${product.name} has no more available stock to add.`);
+      }
+      return;
+    }
+
+    changeCart(id,1);
+  };
   renderCart();
   applyPosAccessState(access);
 }
@@ -9665,6 +9874,13 @@ function changeCart(id,delta){
     bar?.classList.remove('mobile-cart-pulse');
     void bar?.offsetWidth;
     bar?.classList.add('mobile-cart-pulse');
+
+    const card=$('productGrid')?.querySelector(`[data-card-add="${CSS.escape(String(id))}"]`);
+    if(card){
+      card.classList.remove('mobile-added');
+      void card.offsetWidth;
+      card.classList.add('mobile-added');
+    }
   }
 }
 function setCartQty(id,val){
@@ -9722,6 +9938,7 @@ function renderCart(){
     $('posCartSheet')?.classList.remove('mobile-open');
     $('mobileCartBackdrop')?.classList.add('hidden');
     document.body.classList.remove('mobile-cart-open');
+    document.body.classList.remove('mobile-pos-cart-mode');
   }
 
   updateTransactionUI();
@@ -14648,9 +14865,8 @@ function renderCheckoutStage(){
       :`Sales Date: ${formatDate($('saleDate').value||today())}`;
   }
 
-  if(payment&&isMobileStaffViewport()){
-    const sheet=$('posCartSheet');
-    if(sheet)sheet.scrollTop=0;
+  if(isMobileStaffViewport()&&document.body.classList.contains('mobile-pos-cart-mode')){
+    $('scroll')?.scrollTo({top:0,behavior:'auto'});
   }
 }
 function goToPaymentStage(){
@@ -14675,6 +14891,10 @@ function goToPaymentStage(){
   }
 
   posCheckoutStage='payment';
+  if(isMobileStaffViewport()){
+    document.body.classList.add('mobile-pos-cart-mode');
+    $('posCartSheet')?.classList.add('mobile-open');
+  }
   renderCheckoutStage();
   updateTransactionUI();
 
@@ -14693,25 +14913,31 @@ function closeMobileCart(){
   $('posCartSheet')?.classList.remove('mobile-open');
   $('mobileCartBackdrop')?.classList.add('hidden');
   document.body.classList.remove('mobile-cart-open');
+  document.body.classList.remove('mobile-pos-cart-mode');
   renderCheckoutStage();
+
+  if(isMobileStaffViewport()&&$('salesPage')?.classList.contains('active')){
+    setTimeout(()=>$('posSearch')?.focus(),80);
+  }
 }
 function openMobileCart(){
   if(!isMobileStaffViewport())return;
 
   if(cartTotalQty()<=0){
-    // Empty cart should never cover the Product Catalog.
-    posCheckoutStage='cart';
-    $('posCartSheet')?.classList.remove('mobile-open');
-    $('mobileCartBackdrop')?.classList.add('hidden');
-    document.body.classList.remove('mobile-cart-open');
+    alert('Your cart is empty. Tap a product first.');
+    closeMobileCart();
     return;
   }
 
   posCheckoutStage='cart';
-  renderCheckoutStage();
+  document.body.classList.remove('mobile-cart-open');
+  document.body.classList.add('mobile-pos-cart-mode');
+  $('mobileCartBackdrop')?.classList.add('hidden');
   $('posCartSheet')?.classList.add('mobile-open');
-  $('mobileCartBackdrop')?.classList.remove('hidden');
-  document.body.classList.add('mobile-cart-open');
+  renderCheckoutStage();
+
+  // This is an in-page Cart state, not an overlay.
+  $('scroll')?.scrollTo({top:0,behavior:'auto'});
 }
 function closeStaffMore(){
   $('staffMoreBackdrop')?.classList.add('hidden');

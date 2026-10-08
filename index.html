@@ -4806,6 +4806,66 @@ input,select,textarea,button{max-width:100%}
   .intro-feature{padding:8px 9px!important}
 }
 
+
+/* ============================================================
+   v52 ANIMATED PRE-LOGIN + CLEAN LOGIN
+   ============================================================ */
+.prelogin-splash{position:fixed;inset:0;z-index:7000;display:grid;place-items:center;overflow:hidden;padding:22px;background:radial-gradient(circle at 18% 18%,rgba(69,118,244,.20),transparent 32%),radial-gradient(circle at 82% 80%,rgba(107,137,255,.18),transparent 30%),linear-gradient(145deg,#eef4ff,#f8fbff)}
+.prelogin-splash.hidden{display:none!important}
+.prelogin-glow{position:absolute;border-radius:999px;filter:blur(10px);opacity:.6;pointer-events:none}
+.prelogin-glow-one{width:220px;height:220px;left:-70px;top:-55px;background:rgba(64,111,239,.18);animation:preloginFloatOne 4.2s ease-in-out infinite alternate}
+.prelogin-glow-two{width:260px;height:260px;right:-100px;bottom:-90px;background:rgba(110,139,255,.17);animation:preloginFloatTwo 4.7s ease-in-out infinite alternate}
+.prelogin-card{position:relative;z-index:2;width:min(460px,100%);padding:30px 26px 24px;text-align:center;border:1px solid rgba(220,229,244,.95);border-radius:30px;background:rgba(255,255,255,.93);box-shadow:0 30px 80px rgba(31,57,103,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:preloginCardIn .72s cubic-bezier(.2,.8,.2,1) both}
+.prelogin-mark-wrap{position:relative;width:86px;height:86px;margin:0 auto 18px;display:grid;place-items:center}
+.prelogin-ring{position:absolute;inset:0;border:2px solid rgba(47,111,237,.18);border-top-color:#2f6fed;border-radius:999px;animation:preloginSpin 2.2s linear infinite}
+.prelogin-mark{width:64px;height:64px;display:grid;place-items:center;border-radius:21px;background:linear-gradient(145deg,#2f6fed,#7897ff);color:#fff;font-size:30px;font-weight:900;box-shadow:0 14px 30px rgba(47,111,237,.28);animation:preloginPulse 1.8s ease-in-out infinite alternate}
+.prelogin-kicker{color:#2f6fed;font-size:10px;font-weight:900;letter-spacing:.16em}
+.prelogin-title{margin-top:5px;color:#1c2431;font-size:31px;line-height:1.05;font-weight:900;letter-spacing:-.045em}
+.prelogin-copy{margin:10px auto 0;max-width:340px;color:#768397;font-size:10px;line-height:1.6}
+.prelogin-features{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:16px}
+.prelogin-features span{padding:6px 9px;border:1px solid #dfe7f4;border-radius:999px;background:#f7faff;color:#5f6d80;font-size:7.5px;font-weight:800}
+.prelogin-created{margin-top:19px;color:#667386;font-size:9px}.prelogin-created b{color:#1f2937;letter-spacing:.06em}
+.prelogin-progress{width:100%;height:4px;margin-top:18px;overflow:hidden;border-radius:999px;background:#e9eef7}
+.prelogin-progress span{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2f6fed,#7f9dff);transform-origin:left;animation:preloginProgress 2.65s linear both}
+.prelogin-skip{margin-top:12px;border:0;background:transparent;color:#718096;font-size:8px;font-weight:800;cursor:pointer}
+
+.auth{background:radial-gradient(circle at 18% 16%,rgba(62,108,231,.18),transparent 30%),radial-gradient(circle at 84% 82%,rgba(103,136,255,.14),transparent 28%),#eef3fb!important}
+.authbox-clean{border:1px solid #dfe6f1!important;background:rgba(255,255,255,.96)!important;box-shadow:0 28px 68px rgba(31,57,103,.16)!important}
+.auth-brand-row{display:flex;align-items:center;gap:11px;margin-bottom:22px}
+.auth-brand-mark{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#2f6fed,#7897ff);color:#fff;font-size:22px;font-weight:900;box-shadow:0 10px 22px rgba(47,111,237,.23)}
+.auth-kicker{color:#2f6fed;font-size:7.5px;font-weight:900;letter-spacing:.13em}
+.auth-brand-title{margin-top:2px;color:#1d2430;font-size:17px;font-weight:900;letter-spacing:-.03em}
+.auth-welcome{margin-bottom:14px}.auth-welcome h2{margin:0 0 4px;font-size:22px;color:#1e2633;letter-spacing:-.035em}
+.auth-tabs{padding:4px;border:1px solid #e2e8f1;border-radius:12px;background:#f4f7fb}
+.auth-tabs button{border:0!important;border-radius:9px!important;background:transparent!important;color:#758196!important}
+.auth-tabs button.active{background:#fff!important;color:#2f6fed!important;box-shadow:0 3px 10px rgba(30,55,95,.08)}
+.auth-fields{display:grid;gap:10px;margin-top:14px}
+.auth-field label{color:#667386!important;font-size:7px!important;letter-spacing:.04em}
+.auth-field input{min-height:46px;padding:10px 12px!important;border:1px solid #dde5f0!important;border-radius:11px!important;background:#fbfcfe!important;color:#202936;font-size:14px;outline:none;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.auth-field input:focus{border-color:#8fb0ff!important;background:#fff!important;box-shadow:0 0 0 4px rgba(47,111,237,.09)}
+.auth-pass-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+.auth-pass-toggle{min-width:62px;min-height:46px;padding:0 10px;border:1px solid #dde5f0;border-radius:11px;background:#fff;color:#667386;font-size:8px;font-weight:800;cursor:pointer}
+.auth-submit{width:100%;min-height:48px!important;margin-top:14px;border:0!important;border-radius:12px!important;background:linear-gradient(135deg,#2f6fed,#456ff0)!important;color:#fff!important;font-weight:900!important;box-shadow:0 10px 24px rgba(47,111,237,.22)}
+.auth-forgot{width:100%;padding:8px 0 3px;border:0;background:transparent;color:#64748b;font-size:8px;font-weight:800;cursor:pointer}
+.auth-msg{text-align:center}
+.auth-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px;padding-top:11px;border-top:1px solid #edf1f6;color:#8792a2;font-size:7px}.auth-footer b{color:#667386;letter-spacing:.06em}
+
+@keyframes preloginCardIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes preloginSpin{to{transform:rotate(360deg)}}
+@keyframes preloginPulse{from{transform:scale(.97)}to{transform:scale(1.03)}}
+@keyframes preloginProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes preloginFloatOne{from{transform:translate(0,0)}to{transform:translate(22px,18px)}}
+@keyframes preloginFloatTwo{from{transform:translate(0,0)}to{transform:translate(-18px,-20px)}}
+
+@media(max-width:720px){
+  .prelogin-splash{padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
+  .prelogin-card{width:min(100%,440px);padding:25px 18px 20px;border-radius:25px}
+  .prelogin-title{font-size:27px}.prelogin-mark-wrap{width:78px;height:78px}.prelogin-mark{width:58px;height:58px;font-size:27px}
+  .authbox-clean{padding:20px 16px!important}
+}
+@media(max-width:390px){.prelogin-card{padding:22px 15px 18px}.prelogin-title{font-size:24px}.prelogin-copy{font-size:9px}.auth-brand-row{margin-bottom:17px}.auth-welcome h2{font-size:20px}.authbox-clean{padding:17px 13px!important}}
+@media(prefers-reduced-motion:reduce){.prelogin-card,.prelogin-ring,.prelogin-mark,.prelogin-progress span,.prelogin-glow{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -4852,18 +4912,60 @@ input,select,textarea,button{max-width:100%}
 </div>
 
 
-<div id="auth" class="auth">
-  <div class="authbox">
-    <div class="authlogo">CHIKI<span>TOS</span></div>
-    <h2>Shared Inventory & POS</h2>
-    <div class="muted">ADMIN manages stock and reports. STAFF sees the Daily Sales POS only.</div>
-    <div class="tabs"><button id="loginTab" class="active">Sign In</button><button id="registerTab">Create Staff</button></div>
-    <div class="field"><label>Email</label><input id="authEmail" type="email"></div>
-    <div class="field" style="margin-top:7px"><label>Password</label><input id="authPass" type="password"></div>
-    <button id="authSubmit" class="btn red" style="width:100%;margin-top:10px">Sign In</button>
-    <button id="forgot" class="btn" style="width:100%;margin-top:5px">Forgot Password</button>
-    <div id="authMsg" class="msg"></div>
-    <div class="note">New accounts start as <b>STAFF</b>. Your owner account must have <b>role = "admin"</b> in Firestore.</div>
+<div id="preLoginSplash" class="prelogin-splash hidden" aria-hidden="true">
+  <div class="prelogin-glow prelogin-glow-one"></div>
+  <div class="prelogin-glow prelogin-glow-two"></div>
+  <div class="prelogin-card">
+    <div class="prelogin-mark-wrap">
+      <div class="prelogin-ring"></div>
+      <div class="prelogin-mark">C</div>
+    </div>
+    <div class="prelogin-kicker">BUSINESS MANAGEMENT SYSTEM</div>
+    <div class="prelogin-title">POS CHIKITOS</div>
+    <div class="prelogin-copy">Point-of-Sale • Inventory • Credit • Expenses • Reports</div>
+    <div class="prelogin-features">
+      <span>Daily POS</span><span>Live Inventory</span><span>Smart Reports</span>
+    </div>
+    <div class="prelogin-created">Created by <b>TEAM ERB</b></div>
+    <div class="prelogin-progress" aria-hidden="true"><span></span></div>
+    <button id="skipPreLogin" class="prelogin-skip" type="button">Continue to Login</button>
+  </div>
+</div>
+
+<div id="auth" class="auth hidden">
+  <div class="authbox authbox-clean">
+    <div class="auth-brand-row">
+      <div class="auth-brand-mark">C</div>
+      <div>
+        <div class="auth-kicker">BUSINESS MANAGEMENT SYSTEM</div>
+        <div class="auth-brand-title">POS CHIKITOS</div>
+      </div>
+    </div>
+    <div class="auth-welcome">
+      <h2 id="authWelcomeTitle">Welcome back</h2>
+      <div id="authWelcomeText" class="muted">Sign in to continue to your Staff or Admin workspace.</div>
+    </div>
+    <div class="tabs auth-tabs">
+      <button id="loginTab" class="active">Sign In</button>
+      <button id="registerTab">Create Staff</button>
+    </div>
+    <div class="auth-fields">
+      <div class="field auth-field">
+        <label>Email Address</label>
+        <input id="authEmail" type="email" placeholder="name@example.com" autocomplete="email">
+      </div>
+      <div class="field auth-field">
+        <label>Password</label>
+        <div class="auth-pass-row">
+          <input id="authPass" type="password" placeholder="Enter your password" autocomplete="current-password">
+          <button id="toggleAuthPass" class="auth-pass-toggle" type="button">Show</button>
+        </div>
+      </div>
+    </div>
+    <button id="authSubmit" class="btn auth-submit" type="button">Sign In to POS CHIKITOS</button>
+    <button id="forgot" class="auth-forgot" type="button">Forgot password?</button>
+    <div id="authMsg" class="msg auth-msg"></div>
+    <div class="auth-footer"><span>Secure access for Staff & Admin</span><b>TEAM ERB</b></div>
   </div>
 </div>
 
@@ -6933,6 +7035,25 @@ async function verifyProcessorPin(name,pin){
   return {ok:true,profile:p};
 }
 
+let preLoginTimer=null;
+function hidePreLoginSplash(){
+  if(preLoginTimer){clearTimeout(preLoginTimer);preLoginTimer=null}
+  $('preLoginSplash').classList.add('hidden');
+  $('preLoginSplash').setAttribute('aria-hidden','true');
+  $('auth').classList.remove('hidden');
+  setTimeout(()=>$('authEmail')?.focus(),120);
+}
+function showPreLoginSplash(){
+  if(preLoginTimer)clearTimeout(preLoginTimer);
+  $('auth').classList.add('hidden');
+  $('introScreen').classList.add('hidden');
+  $('preLoginSplash').classList.remove('hidden');
+  $('preLoginSplash').setAttribute('aria-hidden','false');
+  const bar=$('preLoginSplash').querySelector('.prelogin-progress span');
+  if(bar){bar.style.animation='none';void bar.offsetWidth;bar.style.animation=''}
+  preLoginTimer=setTimeout(hidePreLoginSplash,2700);
+}
+
 function cloud(msg){$('cloud').textContent=msg;$('cloudSide').textContent=msg}
 function isAdmin(){return role==='admin'} function isStaff(){return role==='staff'}
 function bal(id){return num(inventory[String(id)]?.balance)}
@@ -7310,7 +7431,8 @@ function applyRole(){
   $('shiftHistoryTitle').textContent=isAdmin()?'Staff Duty Sessions':'My Duty History';
   $('topRole').textContent=role.toUpperCase();
   nav('dashPage');
-  $('introScreen').classList.remove('hidden');
+  $('introScreen').classList.add('hidden');
+  $('preLoginSplash').classList.add('hidden');
 }
 async function ensureProducts(){
   const s=await getDoc(prodRef());
@@ -13662,7 +13784,24 @@ $('showResetProcessorPin').onchange=e=>{
 
 
 /* Auth */
-function authModeSet(m){authMode=m;$('loginTab').classList.toggle('active',m==='login');$('registerTab').classList.toggle('active',m==='register');$('authSubmit').textContent=m==='login'?'Sign In':'Create Staff';$('authMsg').textContent=''}
+function authModeSet(m){
+  authMode=m;
+  $('loginTab').classList.toggle('active',m==='login');
+  $('registerTab').classList.toggle('active',m==='register');
+  $('authMsg').textContent='';
+  $('authWelcomeTitle').textContent=m==='login'?'Welcome back':'Create Staff Account';
+  $('authWelcomeText').textContent=m==='login'
+    ?'Sign in to continue to your Staff or Admin workspace.'
+    :'Create a Staff login for daily store operations.';
+  $('authSubmit').textContent=m==='login'?'Sign In to POS CHIKITOS':'Create Staff Account';
+  $('authPass').autocomplete=m==='login'?'current-password':'new-password';
+}
+$('skipPreLogin').onclick=hidePreLoginSplash;
+$('toggleAuthPass').onclick=()=>{
+  const show=$('authPass').type==='password';
+  $('authPass').type=show?'text':'password';
+  $('toggleAuthPass').textContent=show?'Hide':'Show';
+};
 $('loginTab').onclick=()=>authModeSet('login');$('registerTab').onclick=()=>authModeSet('register');
 $('authSubmit').onclick=async()=>{
   const e=$('authEmail').value.trim(),p=$('authPass').value;if(!e||p.length<6){$('authMsg').textContent='Enter valid email/password.';return}
@@ -13692,11 +13831,15 @@ onAuthStateChanged(auth,async u=>{
   if(!u){
     stop();
     $('introScreen').classList.add('hidden');
-    $('auth').classList.remove('hidden');
+    showPreLoginSplash();
     cloud('Not signed in');
     return
   }
-  $('auth').classList.add('hidden');$('userEmail').textContent=u.email||u.uid;cloud('Connecting...');
+  if(preLoginTimer){clearTimeout(preLoginTimer);preLoginTimer=null}
+  $('preLoginSplash').classList.add('hidden');
+  $('auth').classList.add('hidden');
+  $('userEmail').textContent=u.email||u.uid;
+  cloud('Connecting...');
   try{await profile();await ensureProducts();listen();cloud('Connected')}catch(e){alert(e.message)}
 });
 </script>

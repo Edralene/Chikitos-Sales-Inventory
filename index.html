@@ -6348,6 +6348,22 @@ input,select,textarea,button{max-width:100%}
   }
 }
 
+
+
+/* v73 Create Account: Owner / Staff role picker */
+.auth-role-field.hidden{display:none!important}
+.auth-role-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.auth-role-option{min-width:0;min-height:72px;padding:10px 11px;border:1px solid #dde5f0;border-radius:12px;background:#fbfcfe;color:#4f5d70;text-align:left;cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease,transform .12s ease}
+.auth-role-option:hover{border-color:#bfd0f4;background:#fff}
+.auth-role-option:active{transform:translateY(1px)}
+.auth-role-option.active{border-color:#8fb0ff;background:#eef4ff;box-shadow:0 0 0 3px rgba(47,111,237,.08);color:#1f56c7}
+.auth-role-option b{display:block;font-size:11px;line-height:1.2}
+.auth-role-option small{display:block;margin-top:4px;font-size:7.5px;line-height:1.45;color:#76849a;font-weight:600}
+.auth-role-option.active small{color:#5878ae}
+.auth-role-note{margin-top:7px;padding:8px 9px;border-radius:10px;background:#f7f9fd;border:1px solid #e4eaf3;color:#6b788c;font-size:7.5px;line-height:1.45}
+.auth-role-note strong{color:#334155}
+@media(max-width:420px){.auth-role-picker{grid-template-columns:1fr}.auth-role-option{min-height:60px}}
+
 </style>
 
 
@@ -7070,11 +7086,11 @@ body.cashier-access-locked .app{
     </div>
     <div class="auth-welcome">
       <h2 id="authWelcomeTitle">Welcome back</h2>
-      <div id="authWelcomeText" class="muted">Sign in to continue to your Staff or Admin workspace.</div>
+      <div id="authWelcomeText" class="muted">Sign in to continue to your Owner or Staff workspace.</div>
     </div>
     <div class="tabs auth-tabs">
       <button id="loginTab" class="active">Sign In</button>
-      <button id="registerTab">Create Staff</button>
+      <button id="registerTab">Create Account</button>
     </div>
     <div class="auth-fields">
       <div class="field auth-field">
@@ -7088,11 +7104,26 @@ body.cashier-access-locked .app{
           <button id="toggleAuthPass" class="auth-pass-toggle" type="button">Show</button>
         </div>
       </div>
+      <div id="registerRoleField" class="field auth-field auth-role-field hidden">
+        <label>Account Type</label>
+        <input id="authRole" type="hidden" value="staff">
+        <div class="auth-role-picker" aria-label="Select account type">
+          <button id="authRoleOwner" class="auth-role-option" type="button" data-account-role="admin">
+            <b>👑 Owner</b>
+            <small>Full system access: dashboard, reports, approvals, inventory, settings, and staff management.</small>
+          </button>
+          <button id="authRoleStaff" class="auth-role-option active" type="button" data-account-role="staff">
+            <b>🧾 Staff</b>
+            <small>Daily POS access with Cashier PIN, own sales, credits, expenses, and closing.</small>
+          </button>
+        </div>
+        <div id="authRoleNote" class="auth-role-note"><strong>Staff</strong> is selected. Choose Owner only for the business owner or trusted administrator.</div>
+      </div>
     </div>
     <button id="authSubmit" class="btn auth-submit" type="button">Sign In to POS CHIKITOS</button>
     <button id="forgot" class="auth-forgot" type="button">Forgot password?</button>
     <div id="authMsg" class="msg auth-msg"></div>
-    <div class="auth-footer"><span>Secure access for Staff & Admin</span><b>TEAM ERB</b></div>
+    <div class="auth-footer"><span>Secure access for Owner & Staff</span><b>TEAM ERB</b></div>
   </div>
 </div>
 
@@ -9355,7 +9386,7 @@ const monthKey=d=>String(d||'').slice(0,7);
 const yearKey=d=>String(d||'').slice(0,4);
 const formatDate=d=>{if(!d)return '—';const [y,m,day]=d.split('-');return new Date(+y,+m-1,+day).toLocaleDateString('en-PH',{year:'numeric',month:'short',day:'numeric'})};
 
-let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],creditPayments=[],expenses=[],stockAdjustments=[],voidRequests=[],returnRequests=[],deleteRequests=[],closings=[],dataResetLogs=[],deletedSalesArchive=[],shifts=[],dailyCashFloats=[],dailyPettyCash=[],suppliers=[],purchases=[],processors=[],processorProfiles=[],lastSavedTransaction=null,lastPosAccessKey='',authMode='login',eodReviewDraft=null,reopenClosingId='';
+let user=null,role='staff',products=[],inventory={},sales=[],restocks=[],credits=[],creditPayments=[],expenses=[],stockAdjustments=[],voidRequests=[],returnRequests=[],deleteRequests=[],closings=[],dataResetLogs=[],deletedSalesArchive=[],shifts=[],dailyCashFloats=[],dailyPettyCash=[],suppliers=[],purchases=[],processors=[],processorProfiles=[],lastSavedTransaction=null,lastPosAccessKey='',authMode='login',pendingRegistrationRole='',eodReviewDraft=null,reopenClosingId='';
 let staffMobileInitialRouteDone=false;
 let cashierGateProcessorReady=false,cashierGateShiftReady=false,cashierGateSubmitting=false,cashierGateSessionUnlocked=false;
 let activeOpsPanel='inventory',pendingCreditPaymentId=null;
@@ -9870,8 +9901,21 @@ setInterval(tickLiveClock,1000);
 
 async function profile(){
   const r=doc(db,'users',user.uid),s=await getDoc(r);
-  if(!s.exists()){await setDoc(r,{email:user.email||'',role:'staff',createdAt:serverTimestamp()});role='staff'}
-  else role=s.data().role==='admin'?'admin':'staff';
+  if(!s.exists()){
+    const selectedRole=pendingRegistrationRole==='admin'?'admin':'staff';
+    await setDoc(r,{
+      email:user.email||'',
+      role:selectedRole,
+      accountType:selectedRole==='admin'?'owner':'staff',
+      createdAt:serverTimestamp(),
+      updatedAt:serverTimestamp()
+    });
+    role=selectedRole;
+  }else{
+    const data=s.data()||{};
+    role=(data.role==='admin'||data.role==='owner'||data.accountType==='owner')?'admin':'staff';
+  }
+  pendingRegistrationRole='';
   applyRole();
 }
 function applyRole(){
@@ -9879,8 +9923,9 @@ function applyRole(){
   document.body.classList.toggle('admin-role',isAdmin());
   document.querySelectorAll('.adminOnly').forEach(e=>e.style.display=isAdmin()?'block':'none');
   document.querySelectorAll('.staffOnly').forEach(e=>e.style.display=isStaff()?'block':'none');
-  $('roleBadge').textContent=role.toUpperCase();$('roleBadge').className='badge '+(isStaff()?'staff':'');
-  $('topRole').textContent=role.toUpperCase();
+  const roleLabel=isAdmin()?'OWNER':'STAFF';
+  $('roleBadge').textContent=roleLabel;$('roleBadge').className='badge '+(isStaff()?'staff':'');
+  $('topRole').textContent=roleLabel;
   $('dashboardNav').textContent=isAdmin()?'🏠 Dashboard':'🏠 Home';
   $('reportsNav').textContent=isAdmin()?'📊 Sales Reports':'🧾 My Sales Reports';
   $('reportsTitle').textContent=isAdmin()?'Admin Sales Reports':'My Sales Reports';
@@ -9923,7 +9968,7 @@ function applyRole(){
     :'Approved closing locks that sales date in this app.';
   $('shiftNav').textContent='⏱️ Staff Duty Monitor';
   $('shiftHistoryTitle').textContent=isAdmin()?'Staff Duty Sessions':'My Duty History';
-  $('topRole').textContent=role.toUpperCase();
+  $('topRole').textContent=isAdmin()?'OWNER':'STAFF';
   staffMobileInitialRouteDone=false;
   nav('dashPage');
   $('introScreen').classList.add('hidden');
@@ -17529,17 +17574,29 @@ $('cashierGateOpen').onclick=()=>openPosFromCashierGate();
 $('cashierGateSignOut').onclick=()=>handleLogout();
 
 /* Auth */
+function setRegisterAccountRole(selected){
+  const value=selected==='admin'?'admin':'staff';
+  $('authRole').value=value;
+  $('authRoleOwner').classList.toggle('active',value==='admin');
+  $('authRoleStaff').classList.toggle('active',value==='staff');
+  $('authRoleNote').innerHTML=value==='admin'
+    ?'<strong>Owner</strong> has full system access. Use this only for the business owner or a trusted administrator.'
+    :'<strong>Staff</strong> is selected. Staff will use the Cashier PIN flow before opening the POS.';
+}
 function authModeSet(m){
   authMode=m;
   $('loginTab').classList.toggle('active',m==='login');
   $('registerTab').classList.toggle('active',m==='register');
+  $('registerRoleField').classList.toggle('hidden',m!=='register');
+  $('forgot').classList.toggle('hidden',m!=='login');
   $('authMsg').textContent='';
-  $('authWelcomeTitle').textContent=m==='login'?'Welcome back':'Create Staff Account';
+  $('authWelcomeTitle').textContent=m==='login'?'Welcome back':'Create Account';
   $('authWelcomeText').textContent=m==='login'
-    ?'Sign in to continue to your Staff or Admin workspace.'
-    :'Create a Staff login for daily store operations.';
-  $('authSubmit').textContent=m==='login'?'Sign In to POS CHIKITOS':'Create Staff Account';
+    ?'Sign in to continue to your Owner or Staff workspace.'
+    :'Create a Firebase account and choose whether it is an Owner or Staff account.';
+  $('authSubmit').textContent=m==='login'?'Sign In to POS CHIKITOS':'Create Account';
   $('authPass').autocomplete=m==='login'?'current-password':'new-password';
+  if(m==='register')setRegisterAccountRole($('authRole').value||'staff');
 }
 $('skipPreLogin').onclick=hidePreLoginSplash;
 $('toggleAuthPass').onclick=()=>{
@@ -17548,12 +17605,39 @@ $('toggleAuthPass').onclick=()=>{
   $('toggleAuthPass').textContent=show?'Hide':'Show';
 };
 $('loginTab').onclick=()=>authModeSet('login');$('registerTab').onclick=()=>authModeSet('register');
+$('authRoleOwner').onclick=()=>setRegisterAccountRole('admin');
+$('authRoleStaff').onclick=()=>setRegisterAccountRole('staff');
 $('authEmail').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('authPass').focus()}};
 $('authPass').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('authSubmit').click()}};
 $('authSubmit').onclick=async()=>{
-  const e=$('authEmail').value.trim(),p=$('authPass').value;if(!e||p.length<6){$('authMsg').textContent='Enter valid email/password.';return}
-  try{if(authMode==='login')await signInWithEmailAndPassword(auth,e,p);else await createUserWithEmailAndPassword(auth,e,p)}
-  catch(x){$('authMsg').textContent=x.code?.includes('invalid-credential')?'Wrong email/password.':x.message}
+  const e=$('authEmail').value.trim(),p=$('authPass').value;
+  if(!e||p.length<6){$('authMsg').textContent='Enter a valid email and a password with at least 6 characters.';return}
+  $('authSubmit').disabled=true;
+  try{
+    if(authMode==='login'){
+      pendingRegistrationRole='';
+      await signInWithEmailAndPassword(auth,e,p);
+    }else{
+      const selectedRole=$('authRole').value==='admin'?'admin':'staff';
+      pendingRegistrationRole=selectedRole;
+      const credential=await createUserWithEmailAndPassword(auth,e,p);
+      await setDoc(doc(db,'users',credential.user.uid),{
+        email:credential.user.email||e,
+        role:selectedRole,
+        accountType:selectedRole==='admin'?'owner':'staff',
+        createdAt:serverTimestamp(),
+        updatedAt:serverTimestamp()
+      },{merge:true});
+    }
+  }catch(x){
+    pendingRegistrationRole='';
+    $('authMsg').textContent=x.code?.includes('invalid-credential')?'Wrong email/password.':
+      x.code?.includes('email-already-in-use')?'That email already has an account. Sign in instead.':
+      x.code?.includes('weak-password')?'Password must be at least 6 characters.':
+      x.message;
+  }finally{
+    $('authSubmit').disabled=false;
+  }
 };
 $('forgot').onclick=async()=>{const e=$('authEmail').value.trim();if(!e)return;await sendPasswordResetEmail(auth,e);$('authMsg').textContent='Reset email sent.'};
 $('logout').onclick=handleLogout;
